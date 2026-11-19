@@ -834,24 +834,6 @@ body{font-size:1.0625rem}
 .f-bottom .pays span{padding:4px 8px;font-size:.66rem}
 @media (max-width:600px){.f-row{flex-direction:column;align-items:flex-start;gap:12px;padding:18px 0 12px}.f-links{gap:2px 16px}.f-bottom{flex-direction:column;align-items:flex-start}}
 
-/* faixa entrega grátis */
-.shipbar{position:relative;display:flex;align-items:center;gap:16px;min-height:76px;padding:0 24px;border-radius:20px;overflow:hidden}
-.sb-txt{font-size:1.15rem;position:relative;z-index:1}
-.sb-txt b{font-weight:800}
-.sb-link{font-weight:700;font-size:.95rem;position:relative;z-index:1;white-space:nowrap}
-.sb-road{position:relative;flex:1;align-self:stretch;min-height:56px;overflow:hidden;pointer-events:none;border-bottom:2px dashed rgba(255,255,255,.25);margin:10px 0}
-.truck{position:absolute;bottom:4px;left:0;animation:drive 9s linear infinite}
-.truck svg{display:block;animation:bump .5s ease-in-out infinite}
-.wheel{animation:spin .5s linear infinite}
-.speed{animation:speed .35s linear infinite}
-@keyframes drive{0%{left:-110px}100%{left:100%}}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes bump{50%{transform:translateY(-1px)}}
-@keyframes speed{50%{opacity:.25}}
-.shipbar .sb-txt,.shipbar .sb-link{text-shadow:0 1px 6px rgba(46,6,23,.6)}
-.state:not(.vis) .truck,.state:not(.vis) .truck *{animation-play-state:paused}
-@media (max-width:600px){.shipbar{flex-direction:column;align-items:stretch;gap:0;padding:14px 16px 0}.sb-txt{font-size:1.05rem}.sb-link{display:none}.sb-road{flex:none;height:46px;min-height:46px;margin:4px 0 10px}.truck svg{width:76px;height:38px}}
-@media (prefers-reduced-motion:reduce){.truck{left:auto;right:16px}}
 
 /* ===== TESTE: fundo branco + vidro da paleta ===== */
 .dg,.dg.more{color:#fff!important}.dg:hover{color:#881344!important}
@@ -875,6 +857,60 @@ body{color:#111;background:#fff}
 .gpage{color:#111}
 .dep-head span,.gcard .gi{box-shadow:0 0 0 1px #e9e9e9}
 .city-b span,.st .sd span{color:rgba(255,255,255,.86)}
+
+/* ===== vidro realçado ===== */
+.glass{isolation:isolate;background:linear-gradient(140deg,rgba(136,19,68,.58),rgba(91,13,46,.38))!important;backdrop-filter:blur(20px) saturate(180%)!important;-webkit-backdrop-filter:blur(20px) saturate(180%)!important;border:1px solid rgba(255,255,255,.3)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),inset 0 -1px 0 rgba(255,255,255,.08),0 26px 50px -26px rgba(46,6,23,.8)!important}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;background:linear-gradient(135deg,rgba(255,255,255,.24) 0%,rgba(255,255,255,.06) 35%,rgba(255,255,255,0) 60%)}
+.glass:not(.drawer):not(.toast):not(.totop):not(.tabbar){position:relative}
+.dg{isolation:isolate;position:relative;background:linear-gradient(140deg,rgba(136,19,68,.55),rgba(91,13,46,.35));backdrop-filter:blur(16px) saturate(170%);-webkit-backdrop-filter:blur(16px) saturate(170%);border:1px solid rgba(255,255,255,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 16px 30px -20px rgba(46,6,23,.8)}
+.dg::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,0) 55%)}
+.dg.more{background:linear-gradient(140deg,rgba(0,84,156,.75),rgba(0,84,156,.5))}
+.bar{background:linear-gradient(140deg,rgba(136,19,68,.62),rgba(91,13,46,.45))!important;backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%)}
+.tabbar{background:linear-gradient(140deg,rgba(136,19,68,.7),rgba(91,13,46,.6))!important;backdrop-filter:blur(22px) saturate(180%)!important;-webkit-backdrop-filter:blur(22px) saturate(180%)!important;border-top:1px solid rgba(255,255,255,.3)!important}
+/* foto atrás do topo para o vidro aparecer */
+.hero{position:relative}
+.hero::before{content:"";position:absolute;left:0;right:0;top:0;height:min(720px,100%);z-index:-1;background:linear-gradient(180deg,rgba(136,19,68,.35) 0%,rgba(136,19,68,.55) 60%,#881344 100%),url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1800&q=70") center/cover}
+.orb.a{opacity:1!important}.orb.b{opacity:.7!important}
+
+.hero::before{background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.2) 60%,#fff 100%),url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1800&q=70") center/cover}
+.orb.a{background:#881344!important;opacity:.35!important}.orb.b{background:#00549C!important;opacity:.3!important}.orb.c{background:#881344!important;opacity:.22!important}
+.glass{background:linear-gradient(140deg,rgba(136,19,68,.78),rgba(91,13,46,.62))!important}
+.hero-store{background:rgba(255,255,255,.85);backdrop-filter:blur(10px)}
+
+/* faixa entrega grátis */
+.shipbar{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:30px;padding:24px 28px;border-radius:26px;overflow:hidden}
+.sb-badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#fff;color:#881344;padding:5px 10px;border-radius:99px;margin-bottom:10px}
+.shipbar h3{font-size:1.7rem;line-height:1.1;letter-spacing:-.03em;font-weight:600}
+.shipbar h3 b{font-weight:900;font-size:2.1rem}
+.shipbar h3 em{font-style:normal;font-weight:900;background:#00549C;padding:0 8px;border-radius:8px}
+.sb-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.sb-chips button{padding:8px 12px;border-radius:99px;font-size:.85rem;font-weight:600;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);color:#fff;transition:.2s}
+.sb-chips button:hover{background:#fff;color:#881344}
+.sb-road{position:relative;height:96px;border-bottom:3px dashed rgba(255,255,255,.4)}
+.sb-start{position:absolute;left:0;bottom:-7px;width:12px;height:12px;border-radius:50%;background:#fff}
+.sb-home{position:absolute;right:0;bottom:2px}
+.sb-home svg{display:block;filter:drop-shadow(0 8px 14px rgba(46,6,23,.5))}
+.sb-home i{position:absolute;inset:0;border-radius:50%;border:2px solid #fff;opacity:0;animation:arrive 6s infinite}
+.truck{position:absolute;bottom:4px;left:0;animation:drive 6s cubic-bezier(.5,0,.4,1) infinite}
+.truck svg{display:block;width:150px;height:75px;animation:bump .5s ease-in-out infinite}
+.wheel{animation:spin .5s linear infinite}
+.speed{animation:speed .35s linear infinite}
+@keyframes drive{0%{left:-150px;opacity:0}8%{opacity:1}70%{left:calc(100% - 215px);opacity:1}88%{left:calc(100% - 215px);opacity:1}100%{left:calc(100% - 215px);opacity:0}}
+@keyframes arrive{0%,68%{transform:scale(1);opacity:0}72%{opacity:.9}90%{transform:scale(1.6);opacity:0}100%{opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes bump{50%{transform:translateY(-1.5px)}}
+@keyframes speed{50%{opacity:.25}}
+.state:not(.vis) .truck,.state:not(.vis) .truck *,.state:not(.vis) .sb-home i{animation-play-state:paused}
+@media (max-width:900px){.shipbar{grid-template-columns:1fr;gap:16px;padding:20px}.sb-road{height:80px}.truck svg{width:120px;height:60px}@keyframes drive{0%{left:-120px;opacity:0}8%{opacity:1}70%{left:calc(100% - 180px);opacity:1}88%{left:calc(100% - 180px);opacity:1}100%{left:calc(100% - 180px);opacity:0}}}
+@media (max-width:600px){.shipbar h3{font-size:1.35rem}.shipbar h3 b{font-size:1.7rem}.sb-chips button{font-size:.8rem;padding:7px 10px}.sb-home svg{width:44px;height:44px}}
+@media (prefers-reduced-motion:reduce){.truck{left:30%!important;opacity:1!important}}
+
+#againSec{padding-top:96px}
+#againSec .sh{margin-bottom:16px}
+#againSec .sh h2{font-size:clamp(1.6rem,2.6vw,2.2rem)}
+#againSec .rail .prod{flex:0 0 200px}
+#againSec:not([hidden]) + .hero{padding-top:24px}
+@media (max-width:600px){#againSec{padding-top:84px}#againSec .rail .prod{flex:0 0 160px}#againSec .sh-r .btn{height:44px;padding:0 16px;font-size:.9rem}}
 </style>
 </head>
 <body>
@@ -941,6 +977,11 @@ body{color:#111;background:#fff}
 <nav class="wrap idx glass" id="idx" aria-label="Departamentos"></nav>
 <!-- ======================= HOME ======================= -->
 <div class="page" id="p-home">
+  <section class="sec" id="againSec" hidden><div class="wrap">
+    <div class="sh"><h2>Compre de novo</h2><div class="sh-r"><button class="btn btn-w" style="height:48px" onclick="repeatOrder(0)">↻ Repetir último pedido</button><a href="#/conta" class="more">Meus pedidos <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div></div>
+    <div class="rail" id="againRail"></div>
+  </div></section>
+
 
   <section class="hero" id="hero">
     <div class="wrap hero-grid">
@@ -963,16 +1004,17 @@ body{color:#111;background:#fff}
 
 
 
-  <section class="sec" id="againSec" hidden><div class="wrap">
-    <div class="sh"><h2>Compre de novo</h2><div class="sh-r"><button class="btn btn-w" style="height:48px" onclick="repeatOrder(0)">↻ Repetir último pedido</button><a href="#/conta" class="more">Meus pedidos <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div></div>
-    <div class="rail" id="againRail"></div>
-  </div></section>
-
   <section class="sec"><div class="wrap"><div class="sh" data-r><h2>Nossos corredores</h2><a href="#/departamentos" class="more">Ver todos <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div><div class="aisles"><a href="#/departamentos/0" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1632992468737-54880593aada?auto=format&fit=crop&w=900&q=75" alt="Hortifruti"><div><small>Hortifruti</small><h3>Fresco.</h3></div></a><a href="#/departamentos/1" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&w=900&q=75" alt="Açougue"><div><small>Açougue</small><h3>Suculento.</h3></div></a><a href="#/departamentos/2" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=75" alt="Padaria FARID"><div><small>Padaria FARID</small><h3>Quentinho.</h3></div></a><a href="#/departamentos/5" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1610458034932-dc165f29499e?auto=format&fit=crop&w=900&q=75" alt="Adega"><div><small>Adega</small><h3>Brindado.</h3></div></a></div></div></section>
 
-  <section class="state" id="state"><div class="wrap"><a href="#/entrega" class="shipbar glass">
-    <span class="sb-txt"><b>Entrega grátis</b> a partir de R$&nbsp;50</span>
-    <span class="sb-road" aria-hidden="true"><span class="truck"><svg viewBox="0 0 220 110" width="96" height="48">
+  <section class="state" id="state"><div class="wrap"><div class="shipbar glass">
+    <div class="sb-l">
+      <span class="sb-badge">🚚 Frete</span>
+      <h3><b>Entrega grátis</b><br>a partir de <em>R$&nbsp;50</em></h3>
+      <div class="sb-chips"><button onclick="openSlots()">🗓️ Agende o horário</button><button onclick="setMode('loja');openSlots()">🏪 Retire na loja</button><button onclick="openStores()">📍 6 lojas</button></div>
+    </div>
+    <div class="sb-road" aria-hidden="true">
+      <span class="sb-start"></span>
+      <span class="truck"><svg viewBox="0 0 220 110" width="96" height="48">
     <g class="speed" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".7"><path d="M4 46h22M0 62h30M8 78h18"/></g>
     <rect x="36" y="14" width="112" height="70" rx="8" fill="#fff"/>
     <rect x="36" y="70" width="112" height="14" rx="0" fill="#00549C"/>
@@ -984,8 +1026,10 @@ body{color:#111;background:#fff}
     <rect x="200" y="62" width="10" height="6" rx="2" fill="#ffd34d"/>
     <g class="wheel" style="transform-origin:72px 88px"><circle cx="72" cy="88" r="13" fill="#2e0617"/><circle cx="72" cy="88" r="5" fill="#fff"/><path d="M72 77v22M61 88h22" stroke="#fff" stroke-width="2"/></g>
     <g class="wheel" style="transform-origin:180px 88px"><circle cx="180" cy="88" r="13" fill="#2e0617"/><circle cx="180" cy="88" r="5" fill="#fff"/><path d="M180 77v22M169 88h22" stroke="#fff" stroke-width="2"/></g>
-  </svg></span></span><span class="sb-link">Ver regiões →</span>
-  </a></div></section>
+  </svg></span>
+      <span class="sb-home"><svg viewBox="0 0 48 48" width="52" height="52"><circle cx="24" cy="24" r="22" fill="#fff"/><path d="M12 24 24 13l12 11v12H28v-8h-8v8h-8z" fill="#881344"/></svg><i></i></span>
+    </div>
+  </div></div></section>
 
   <section class="sec" id="ofertas-home">
     <div class="wrap">
