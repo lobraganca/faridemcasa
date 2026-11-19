@@ -908,6 +908,15 @@ body{font-size:1.0625rem}
 .tabbar{background:rgba(136,19,68,.86)!important;backdrop-filter:blur(22px)!important;-webkit-backdrop-filter:blur(22px)!important}
 .pk-stat{background:#00549C!important}
 .hero::before{background:linear-gradient(180deg,rgba(136,19,68,.55) 0%,rgba(136,19,68,.7) 60%,#881344 100%),url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1800&q=70") center/cover!important;filter:saturate(.85)}
+
+/* ===== vidro mais transparente ===== */
+.glass{background:linear-gradient(140deg,rgba(162,29,74,.34),rgba(136,19,68,.22))!important;backdrop-filter:blur(24px)!important;-webkit-backdrop-filter:blur(24px)!important;border-color:rgba(255,255,255,.26)!important}
+.dg{background:linear-gradient(140deg,rgba(162,29,74,.34),rgba(136,19,68,.22))!important}
+.bar{background:linear-gradient(140deg,rgba(162,29,74,.5),rgba(136,19,68,.4))!important;backdrop-filter:blur(24px)!important}
+.tabbar{background:rgba(136,19,68,.6)!important;backdrop-filter:blur(24px)!important}
+.drawer,.sm-box,.sl-box,.au-box,.spot-box{background:linear-gradient(140deg,rgba(162,29,74,.55),rgba(91,13,46,.6))!important}
+.glass,.dg,.bar{text-shadow:0 1px 8px rgba(46,6,23,.35)}
+.hc-item{background:rgba(91,13,46,.3)!important;border-color:rgba(255,255,255,.22)!important}
 </style>
 </head>
 <body>
@@ -1247,6 +1256,10 @@ body{font-size:1.0625rem}
 <div class="toast glass" id="toast"></div>
 
 <script>
+/* sempre abre no Início */
+if('scrollRestoration' in history)history.scrollRestoration='manual';
+if(location.hash&&location.hash!=='#/')history.replaceState(null,'',location.pathname+location.search+'#/');
+window.scrollTo(0,0);
 (()=>{const sp=document.getElementById('splash');let seen=false;try{seen=sessionStorage.getItem('farid_splash')}catch(e){}
  if(seen){sp.remove();return}try{sessionStorage.setItem('farid_splash','1')}catch(e){}
  const hide=()=>{sp.classList.add('out');setTimeout(()=>sp.remove(),600)};setTimeout(hide,1500)})();
