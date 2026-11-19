@@ -883,6 +883,16 @@ body{font-size:1.0625rem}
 #againSec .rail .prod{flex:0 0 200px}
 #againSec:not([hidden]) + .hero{padding-top:24px}
 @media (max-width:600px){#againSec{padding-top:84px}#againSec .rail .prod{flex:0 0 160px}#againSec .sh-r .btn{height:44px;padding:0 16px;font-size:.9rem}}
+
+.au-addr{border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:12px;display:grid;gap:8px}
+.au-addr legend{padding:0 6px;font-size:.82rem;font-weight:600;color:rgba(255,255,255,.86)}
+.au-addr .inp{min-width:0;width:100%;padding:12px 14px}
+
+.again-hd{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:-14px 0 18px}
+.again-hd p{color:var(--t2);font-size:1.05rem}
+.again-hd .btn{height:48px}
+.ord-title{font-size:clamp(1.6rem,3vw,2.2rem);margin:44px 0 16px}
+.tabbar a,.tabbar button{font-size:.7rem}
 </style>
 </head>
 <body>
@@ -913,10 +923,9 @@ body{font-size:1.0625rem}
     <nav class="links">
       <a href="#/" data-r-link="/">Início</a>
       <a href="#/ofertas" data-r-link="/ofertas">Ofertas</a>
+      <a href="#/conta" data-r-link="/conta">Comprar de novo</a>
       <a href="#/departamentos" data-r-link="/departamentos">Departamentos</a>
       <a href="#/entrega" data-r-link="/entrega">Entrega</a>
-      <a href="#/cartao" data-r-link="/cartao">Cartão Farid</a>
-      <a href="#/harmonizacao" data-r-link="/harmonizacao">Harmonização</a>
       <a href="#/contato" data-r-link="/contato">Contato</a>
     </nav>
     <button class="store-btn" id="storeBtn" onclick="openStores()" aria-label="Escolher loja"><svg class="ico"><use href="#i-pin"/></svg><span><small>Sua cidade</small><b id="storeName">Escolher cidade</b></span><svg class="ico chev"><use href="#i-down"/></svg></button>
@@ -1101,7 +1110,9 @@ body{font-size:1.0625rem}
 
 <!-- ======================= CONTA ======================= -->
 <div class="page gpage" id="p-conta"><div class="wrap">
-  <div class="ghero"><h1>Meus pedidos</h1></div>
+  <div class="ghero"><h1>Comprar de novo</h1></div>
+  <div id="againBox"></div>
+  <h2 class="ord-title" id="ordTitle" hidden>Meus pedidos</h2>
   <div id="ordersBox"></div>
 </div></div>
 
@@ -1128,7 +1139,7 @@ body{font-size:1.0625rem}
 <footer class="foot">
   <div class="wrap f-row">
     <a href="#/" class="f-logo" aria-label="Farid em Casa"><img src="" data-logo alt="Farid Supermercados" width="113" height="32"></a>
-    <nav class="f-links"><a href="#/ofertas">Ofertas</a><a href="#/departamentos">Departamentos</a><a href="#/entrega">Entrega</a><a href="#/cartao">Cartão Farid</a><a href="#/contato">Contato</a><a href="#">Privacidade</a></nav>
+    <nav class="f-links"><a href="#/ofertas">Ofertas</a><a href="#/departamentos">Departamentos</a><a href="#/entrega">Entrega</a><a href="#/cartao">Cartão Farid</a><a href="#/harmonizacao">Harmonização</a><a href="#/contato">Contato</a><a href="#">Privacidade</a></nav>
     <a class="f-wa" href="https://wa.me/5531999505658?text=Ol%C3%A1!%20Vim%20pelo%20site%20Farid%20em%20Casa." target="_blank" rel="noopener">💬 (31) 99950-5658</a>
   </div>
   <div class="wrap f-bottom"><span>© 2026 Farid Supermercados</span><span class="pays"><span>PIX</span><span>VISA</span><span>MASTER</span><span>ELO</span><span>TRICARD</span></span></div>
@@ -1170,6 +1181,12 @@ body{font-size:1.0625rem}
       <div class="au-2"><label>CPF<input class="inp" name="cpf" inputmode="numeric" placeholder="000.000.000-00" data-mask="cpf" required></label>
       <label>Celular<input class="inp" name="tel" inputmode="tel" placeholder="(31) 90000-0000" data-mask="tel" autocomplete="tel" required></label></div>
       <label>E-mail<input class="inp" name="email" type="email" autocomplete="email" required></label>
+      <fieldset class="au-addr"><legend>Endereço de entrega</legend>
+        <div class="au-2"><input class="inp" name="cep" placeholder="CEP" inputmode="numeric" autocomplete="postal-code" required><input class="inp" name="num" placeholder="Número" required></div>
+        <input class="inp" name="rua" placeholder="Rua / Avenida" autocomplete="address-line1" required>
+        <div class="au-2"><input class="inp" name="bairro" placeholder="Bairro" required><input class="inp" name="cidade" placeholder="Cidade" autocomplete="address-level2" required></div>
+        <input class="inp" name="comp" placeholder="Complemento (opcional)" autocomplete="address-line2">
+      </fieldset>
       <label>Senha<span class="pw"><input class="inp" name="pw" type="password" autocomplete="new-password" minlength="8" required oninput="pwMeter(this)"><button type="button" onclick="togglePw(this)" aria-label="Mostrar senha"><svg class="ico"><use href="#i-eye"/></svg></button></span><i class="meter"><b></b></i><small class="hint">Mínimo de 8 caracteres</small></label>
       <label class="chk"><input type="checkbox" name="ok" required> Li e aceito os termos de uso e a política de privacidade</label>
       <p class="au-err" data-err></p>
@@ -1208,7 +1225,7 @@ body{font-size:1.0625rem}
   <a href="#/" data-tb="/"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11 12 3l9 8v10h-6v-6H9v6H3z"/></svg>Início</a>
   <a href="#/departamentos" data-tb="/departamentos"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Departamentos</a>
   <button onclick="openSpot()"><svg class="ico"><use href="#i-search"/></svg>Buscar</button>
-  <a href="#/ofertas" data-tb="/ofertas"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor"/></svg>Ofertas</a>
+  <a href="#/conta" data-tb="/conta"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg>Comprar de novo</a>
   <button onclick="openCart()"><span class="cart-ic"><svg class="ico"><use href="#i-cart"/></svg><b id="count2">0</b></span>Carrinho</button>
 </nav>
 <button class="totop glass" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Voltar ao topo"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
@@ -1449,6 +1466,7 @@ function pwMeter(i){const v=i.value;let sc=0;if(v.length>=8)sc++;if(/[A-Z]/.test
  const b=i.closest('label').querySelector('.meter b');b.style.width=(sc*25)+'%';b.style.background=['#ff8a8a','#ff8a8a','#ffc86b','#fff','#5fd38d'][sc]}
 const digits=v=>v.replace(/\D/g,'');
 function validCPF(c){c=digits(c);if(c.length!==11||/^(\d)\1+$/.test(c))return false;let s=0,r;for(let i=0;i<9;i++)s+=c[i]*(10-i);r=(s*10)%11%10;if(r!=c[9])return false;s=0;for(let i=0;i<10;i++)s+=c[i]*(11-i);r=(s*10)%11%10;return r==c[10]}
+$('#fSignup').cep.addEventListener('input',e=>{let d=e.target.value.replace(/\D/g,'').slice(0,8);e.target.value=d.replace(/(\d{5})(\d)/,'$1-$2')});
 $$('[data-mask]').forEach(i=>i.addEventListener('input',()=>{let d=digits(i.value);
  if(i.dataset.mask==='cpf'){d=d.slice(0,11);i.value=d.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2')}
  else{d=d.slice(0,11);i.value=d.replace(/^(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d{1,4})$/,'$1-$2')}}));
@@ -1466,12 +1484,18 @@ function doSignup(f){const v=k=>f[k].value.trim();
  if(!validCPF(v('cpf')))return fail(f,'CPF inválido.',f.cpf);
  if(digits(v('tel')).length<10)return fail(f,'Celular inválido.',f.tel);
  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('email')))return fail(f,'E-mail inválido.',f.email);
+ if(digits(v('cep')).length!==8)return fail(f,'CEP inválido.',f.cep);
+ if(!v('num'))return fail(f,'Informe o número.',f.num);
+ if(!v('rua'))return fail(f,'Informe a rua.',f.rua);
+ if(!v('bairro'))return fail(f,'Informe o bairro.',f.bairro);
+ if(!v('cidade'))return fail(f,'Informe a cidade.',f.cidade);
  if(f.pw.value.length<8)return fail(f,'A senha precisa ter pelo menos 8 caracteres.',f.pw);
  if(!f.ok.checked)return fail(f,'Aceite os termos para continuar.');
+ addr={};['cep','num','rua','bairro','cidade','comp'].forEach(k=>addr[k]=v(k));LS.set('farid_addr',JSON.stringify(addr));
  const prof={name:v('fullname'),email:v('email')}; /* CPF/celular vão só para a API (não ficam salvos no navegador) */try{localStorage.setItem('farid_profile',JSON.stringify(prof))}catch(e){}
  signedIn({name:prof.name,email:prof.email},`Conta criada! Bem-vindo(a), <b>${esc(first(prof.name))}</b>.`);f.reset()}
 function forgot(){const id=$('#fLogin').login.value.trim();toast(id?`Enviamos as instruções para <b>${esc(id)}</b>`:'Digite seu e-mail ou CPF para recuperar a senha')}
-function logout(){user=null;try{localStorage.removeItem('farid_user')}catch(e){}renderUser();closeAcct();toast('Você saiu da sua conta')}
+function logout(){user=null;addr=null;slot=null;try{['farid_user','farid_addr','farid_slot'].forEach(k=>localStorage.removeItem(k))}catch(e){}renderCart();renderUser();closeAcct();toast('Você saiu da sua conta')}
 function checkout(){if(!user){closeCart();afterAuth=()=>openCart();openAuth('Entre ou cadastre-se para finalizar seu pedido.');return}
  const c=curStore();if(!c){closeCart();openStores();return}
  const tot=Object.keys(cart).reduce((a,i)=>a+cart[i]*P[i].p,0);
@@ -1497,10 +1521,11 @@ function renderSlots(){
  $$('.sl-mode button').forEach(b=>b.classList.toggle('on',b.dataset.m===mode));
  const c=curStore();
  $('#slAddr').innerHTML=mode==='casa'
-  ?(addr?`<span class="si">🏠</span><div><small>Receber o pedido em</small><b>Meu endereço</b>${esc(addr.rua)}, ${esc(addr.num)}${addr.comp?' – '+esc(addr.comp):''}, ${esc(addr.bairro)}<br>${esc(addr.cep)} · ${esc(addr.cidade)}</div><button onclick="editAddr()">Editar</button>`
+  ?(!user?`<span class="si">🔒</span><div><small>Receber o pedido em</small><b>Entre para adicionar seu endereço</b>Faça login ou crie sua conta</div><button onclick="slotsLogin()">Entrar</button>`:addr?`<span class="si">🏠</span><div><small>Receber o pedido em</small><b>Meu endereço</b>${esc(addr.rua)}, ${esc(addr.num)}${addr.comp?' – '+esc(addr.comp):''}, ${esc(addr.bairro)}<br>${esc(addr.cep)} · ${esc(addr.cidade)}</div><button onclick="editAddr()">Editar</button>`
         :`<span class="si">🏠</span><div><small>Receber o pedido em</small><b>Cadastre seu endereço</b>Para calcular a entrega</div><button onclick="editAddr()">Adicionar</button>`)
   :`<span class="si">🏪</span><div><small>Retirar na loja</small><b>${c?c.n:'Escolha uma loja'}</b>${c?c.addr+'<br>'+c.area:''}</div><button onclick="closeSlots();openStores()">Trocar</button>`;
- if(mode==='casa'&&!addr)$('#addrForm').hidden=false;
+ if(mode==='casa'&&user&&!addr)$('#addrForm').hidden=false;
+ if(mode!=='casa'||!user)$('#addrForm').hidden=true;
  const D=days();
  $('#slDays').innerHTML=D.map((x,k)=>`<button class="${k===dayI?'on':''}" onclick="dayI=${k};renderSlots()"><small>${k===0?'Amanhã':DN[x.getDay()].slice(0,3)}</small><b>${String(x.getDate()).padStart(2,'0')}/${String(x.getMonth()+1).padStart(2,'0')}</b></button>`).join('');
  const d=D[dayI],dk=dKey(d),sun=d.getDay()===0;
@@ -1508,10 +1533,12 @@ function renderSlots(){
  $('#slSlots').innerHTML=`<div style="font-weight:700;font-size:1.05rem;margin:2px 2px 2px">${dLbl(d,dayI)}</div>`+list.map(([a,b])=>{const on=slot&&slot.d===dk&&slot.a===a&&slot.m===mode;
   return `<button class="slot ${on?'on':''}" onclick="pickSlot('${dk}','${a}','${b}')"><span class="rd"></span><span class="tm"><small>${mode==='casa'?'Horário estimado para entrega':'Horário para retirada'}</small><b>${a} às ${b}</b></span><span class="tg"><em>Grátis</em>🔒 Mínimo ${brl(MIN)}</span></button>`}).join('');
 }
+function slotsLogin(){closeSlots();afterAuth=()=>openSlots('Agora escolha o melhor horário.');openAuth('Entre ou crie sua conta para cadastrar o endereço de entrega.')}
 function setMode(m){mode=m;LS.set('farid_mode',m);$('#addrForm').hidden=true;renderSlots()}
-function editAddr(){const f=$('#addrForm');f.hidden=!f.hidden;if(addr)Object.entries(addr).forEach(([k,v])=>f[k]&&(f[k].value=v));if(!f.hidden)f.cep.focus()}
+function editAddr(){if(!user){slotsLogin();return}const f=$('#addrForm');f.hidden=!f.hidden;if(addr)Object.entries(addr).forEach(([k,v])=>f[k]&&(f[k].value=v));if(!f.hidden)f.cep.focus()}
 function saveAddr(f){addr={};['cep','num','rua','bairro','cidade','comp'].forEach(k=>addr[k]=f[k].value.trim());LS.set('farid_addr',JSON.stringify(addr));f.hidden=true;renderSlots();toast('Endereço salvo')}
-function pickSlot(d,a,b){if(mode==='casa'&&!addr){$('#addrForm').hidden=false;toast('Cadastre o endereço de entrega');return}
+function pickSlot(d,a,b){if(mode==='casa'&&!user){slotsLogin();return}
+ if(mode==='casa'&&!addr){$('#addrForm').hidden=false;toast('Cadastre o endereço de entrega');return}
  slot={d,a,b,m:mode};LS.set('farid_slot',JSON.stringify(slot));renderSlots();renderCart();setTimeout(closeSlots,250);toast(`${mode==='casa'?'Entrega':'Retirada'}: <b>${slotText()}</b>`)}
 function openSlots(msg){if(!curStore()){openStores();return}$('#slSub').textContent=msg||'Escolha o melhor horário para receber.';
  if(slot){const k=days().findIndex(y=>dKey(y)===slot.d);dayI=k>=0?k:0}else dayI=0;
@@ -1559,8 +1586,13 @@ function renderAgain(){const sec=$('#againSec');const cnt={};orders.forEach(o=>o
  const ids=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]).map(Number);
  sec.hidden=!(user&&ids.length);if(!sec.hidden){$('#againRail').innerHTML=ids.map(i=>card(P[i])).join('');bindTilt()}}
 function renderOrders(){const box=$('#ordersBox');
- if(!user){box.innerHTML='<div class="glass empty-box"><b>Entre na sua conta</b><p>Para ver suas compras anteriores e repetir pedidos com um toque.</p><button class="btn btn-w" onclick="afterAuth=()=>renderOrders();openAuth(\'Entre para ver seus pedidos.\')">Entrar ou cadastrar</button></div>';return}
- if(!orders.length){box.innerHTML='<div class="glass empty-box"><b>Você ainda não tem pedidos</b><p>Quando você finalizar uma compra, ela aparece aqui para você repetir quando quiser.</p><a class="btn btn-w" href="#/departamentos/todos">Começar a comprar</a></div>';return}
+ if(!user){$('#againBox').innerHTML='';$('#ordTitle').hidden=true;box.innerHTML='<div class="glass empty-box"><b>Entre na sua conta</b><p>Para ver suas compras anteriores e repetir pedidos com um toque.</p><button class="btn btn-w" onclick="afterAuth=()=>renderOrders();openAuth(\'Entre para ver seus pedidos.\')">Entrar ou cadastrar</button></div>';return}
+ $('#againBox').innerHTML='';$('#ordTitle').hidden=true;
+ if(!orders.length){box.innerHTML='<div class="glass empty-box"><b>Você ainda não tem pedidos</b><p>Quando você finalizar uma compra, os produtos aparecem aqui para você comprar de novo com um toque.</p><a class="btn btn-w" href="#/departamentos/todos">Começar a comprar</a></div>';return}
+ const cnt={};orders.forEach(o=>o.items.forEach(([id,q])=>{if(P[id])cnt[id]=(cnt[id]||0)+q}));
+ const ids=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]).map(Number);
+ $('#againBox').innerHTML=`<div class="again-hd"><p>Produtos que você já comprou</p><button class="btn btn-w" onclick="repeatOrder(0)">↻ Repetir último pedido</button></div><div class="grid">${ids.map(i=>card(P[i])).join('')}</div>`;
+ $('#ordTitle').hidden=false;bindTilt();
  box.innerHTML='<div class="orders">'+orders.map((o,k)=>`<div class="glass ord"><div class="ord-hd"><div><b>Pedido de ${fmtDate(o.date)}</b><span>Loja ${esc(o.store)} · ${o.mode==='casa'?'Entrega':'Retirada'} ${esc(o.slot)}</span></div><div class="ord-tot"><span>${o.items.reduce((a,x)=>a+x[1],0)} itens</span><br><b>${brl(o.total)}</b></div></div>
   <div class="ord-items">${o.items.filter(([id])=>P[id]).map(([id,q])=>`<div title="${esc(P[id].n)}"><img src="${P[id].sm}" alt="${esc(P[id].n)}">${q>1?`<i>${q}</i>`:''}</div>`).join('')}</div>
   <div class="ord-act"><button class="btn btn-w" onclick="repeatOrder(${k})">↻ Repetir pedido</button></div></div>`).join('')+'</div>'}
