@@ -1097,6 +1097,27 @@ html,body{background:#fbf8f9!important}
 .speed{stroke:#fff!important}
 .off,.hc-item .im span{color:#fff!important;font-weight:800!important;text-shadow:none!important}
 .toast{background:#1d1d1f!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;color:#fff!important;border:1px solid rgba(255,255,255,.12)!important;box-shadow:0 12px 30px -8px rgba(0,0,0,.45)!important;text-shadow:none!important}.toast *{color:#fff!important}
+
+/* departamentos dinâmicos (estilo "stories") */
+.dg{animation:dgIn .5s var(--ease) both}
+.dg:nth-child(1){animation-delay:.02s}.dg:nth-child(2){animation-delay:.06s}.dg:nth-child(3){animation-delay:.1s}.dg:nth-child(4){animation-delay:.14s}.dg:nth-child(5){animation-delay:.18s}.dg:nth-child(6){animation-delay:.22s}.dg:nth-child(7){animation-delay:.26s}.dg:nth-child(8){animation-delay:.3s}
+@keyframes dgIn{from{opacity:0;transform:translateY(10px) scale(.9)}to{opacity:1;transform:none}}
+.dg span{position:relative;width:70px!important;height:70px!important;border:0!important;background:#fff!important;box-shadow:0 0 0 3px #fff,0 0 0 5.5px var(--ring,#a21d4a),0 8px 18px -8px rgba(136,19,68,.45)!important;transition:transform .35s var(--ease),box-shadow .35s}
+.dg span::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--tint,#f8ecf1);z-index:0}
+.dg img{position:relative;z-index:1;transition:transform .45s var(--ease)}
+.dg:hover span{transform:translateY(-3px);box-shadow:0 0 0 3px #fff,0 0 0 6px var(--ring,#a21d4a),0 14px 24px -10px rgba(136,19,68,.55)!important}
+.dg:hover img{transform:scale(1.15) rotate(-6deg)}
+.dg:active span{transform:scale(.92)}
+.dg:nth-child(3n+2){--ring:#00549C;--tint:#e8f0f8}
+.dg:nth-child(3n+3){--ring:#c43a6c;--tint:#fbeef3}
+.dg.more span{--ring:#00549C;background:#00549C!important}
+.dg.more span::after{display:none}
+.dg.more span{color:#fff!important;font-size:1.5rem!important;font-weight:700}
+.dg b,.dg{font-weight:600!important}
+.dgrid{padding:10px 6px 12px!important;gap:16px!important;scroll-snap-type:x proximity}
+.dg{scroll-snap-align:start}
+@media (prefers-reduced-motion:reduce){.dg{animation:none}}
+@media (min-width:901px){.dgrid{gap:10px!important;justify-content:space-between}.dg{flex:0 0 80px!important}}
 </style>
 </head>
 <body>
