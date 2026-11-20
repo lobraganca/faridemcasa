@@ -3484,6 +3484,80 @@ main{min-height:calc(100svh - 190px)}
            white-space:nowrap}
 .pmf-txt i{font-style:normal;font-size:.82rem;font-weight:600;
            color:var(--t2)!important;font-variant-numeric:tabular-nums}
+/* ==========================================================================
+   A TELA DO PRODUTO CABE NA TELA
+   Abrir um card fazia aparecer barra de rolagem dentro dele. A causa e a
+   foto: `aspect-ratio:16/10` da 244px num celular de 390 de largura, e
+   esses 244 nao encolhem quando a tela e baixa. Num iPhone com as barras
+   do Safari na tela sobra pouco mais de 650px de altura — medi: ate 700px
+   o conteudo cabe, abaixo disso ele passa e a barra aparece.
+
+   A foto passa a ter teto em altura de tela, e abaixo de 720px os espacos
+   apertam. A descricao fica em duas linhas em vez de sumir: quando o
+   catalogo real chegar ela tera texto de verdade, e esconder seria pior.
+   E se ainda assim passar, rola sem desenhar barra nenhuma.
+   ========================================================================== */
+.pm-img{max-height:30svh}
+.pm-box{scrollbar-width:none}
+.pm-box::-webkit-scrollbar{display:none}
+
+@media (max-height:720px){
+  .pm-body{padding-top:14px;gap:5px}
+  .pm-body h3{font-size:1.18rem!important}
+  .pm-price b{font-size:1.5rem}
+  .pm-img{max-height:24svh}
+  .pm-desc{
+    margin-top:7px;padding:9px 11px;font-size:.85rem;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+  .pm-fam{margin:12px 0 2px}
+  .pmf-op{min-height:48px;padding:5px 12px 5px 5px}
+  .pm-add{margin-top:10px}
+  .pm-add .stepper,.pm-add .btn{height:48px}
+}
+/* ==========================================================================
+   O TOTAL NO BOTAO DO CARRINHO, TAMBEM NO CELULAR
+   No desktop o botao sempre mostrou "R$ 0,00"; no celular ele era um
+   circulo de 46px com so o icone e a bolinha da quantidade. Quem compra
+   pelo telefone ficava sem saber quanto ja tinha no carrinho sem abrir.
+   Agora o valor fica a mostra nas duas larguras.
+
+   Em tela estreita isso disputa espaco com o logo, a conta e o menu: o
+   acerto fino abaixo de 380px aperta o espacamento e reduz o logo, em
+   vez de deixar algum deles sair da barra.
+   ========================================================================== */
+@media (max-width:900px){
+  #cartBtn{
+    width:auto!important;min-width:46px;
+    border-radius:999px!important;
+    display:flex!important;align-items:center!important;
+    gap:7px!important;padding:0 14px 0 11px!important;
+  }
+  .cart-btn .ct,.bar .cart-btn .ct{
+    display:inline-block!important;
+    font-size:.88rem;font-weight:800;white-space:nowrap;
+    font-variant-numeric:tabular-nums;letter-spacing:-.01em;
+  }
+}
+@media (max-width:379px){
+  #cartBtn{padding:0 11px 0 9px!important;gap:5px!important}
+  .cart-btn .ct,.bar .cart-btn .ct{font-size:.8rem}
+  .bar .logo img{height:26px}
+  .bar{padding-left:10px!important;padding-right:10px!important}
+}
+/* Em 320px o menu passava 17px da borda. O espaco sai dos VAOS e do
+   logo, nunca do tamanho dos botoes: encolhe-los levaria os alvos de
+   toque de volta para baixo de 44px, que foi o que acabamos de
+   consertar. */
+@media (max-width:359px){
+  .bar{gap:4px!important;padding-left:8px!important;padding-right:8px!important}
+  .bar .logo{margin:0 4px 0 2px!important}
+  .bar .logo img{height:24px}
+  #cartBtn{padding:0 9px 0 7px!important;gap:4px!important}
+  .cart-btn .ct,.bar .cart-btn .ct{font-size:.76rem}
+  .bar .burger{margin-left:2px!important}
+}
 </style>
 </head>
 <body>
