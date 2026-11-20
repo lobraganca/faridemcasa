@@ -1169,6 +1169,47 @@ html,body{background:#fbf8f9!important}
 .faq{margin-top:32px!important}
 #againSec .sh{margin-bottom:10px!important}
 @media (max-width:600px){.sec{padding-top:38px!important}.state{padding-top:20px!important}.sh{margin-bottom:12px!important}.grid{gap:10px!important}.foot{margin-top:28px!important}}
+/* ===== botao de menu: acabamento gloss (ultimo bloco, vence por ordem) ===== */
+.hbtn.burger{
+  width:44px;height:44px;
+  background:
+    linear-gradient(180deg,
+      rgba(255,255,255,.36) 0%,
+      rgba(255,255,255,.15) 46%,
+      rgba(255,255,255,.04) 54%,
+      rgba(255,255,255,.13) 100%);
+  border:1px solid rgba(255,255,255,.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.62),
+    inset 0 -1px 0 rgba(0,0,0,.16),
+    0 2px 8px rgba(46,6,23,.26);
+  backdrop-filter:blur(10px) saturate(150%);
+  -webkit-backdrop-filter:blur(10px) saturate(150%);
+  position:relative;overflow:hidden;
+}
+/* brilho especular na metade de cima */
+.hbtn.burger::before{
+  content:"";position:absolute;inset:1px 1px auto;height:46%;
+  border-radius:12px 12px 40px 40px/12px 12px 14px 14px;
+  background:linear-gradient(180deg,rgba(255,255,255,.38),rgba(255,255,255,0));
+  pointer-events:none;
+}
+.hbtn.burger>svg{position:relative;z-index:1}
+.hbtn.burger:hover{
+  background:
+    linear-gradient(180deg,
+      rgba(255,255,255,.46) 0%,
+      rgba(255,255,255,.22) 46%,
+      rgba(255,255,255,.08) 54%,
+      rgba(255,255,255,.18) 100%);
+  border-color:rgba(255,255,255,.44);
+}
+.hbtn.burger:active{
+  transform:translateY(1px);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.3);
+}
+.hbtn.burger:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.hbtn.burger:active{transform:none}}
 </style>
 </head>
 <body>
@@ -1701,7 +1742,12 @@ document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){
 const FREE=50;
 function chg(id,d){const wasEmpty=!Object.keys(cart).length;cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];refreshCards(id);renderCart();
  if(d>0){const x=P[id];toast(`<b>${x.n.split(' ').slice(0,3).join(' ')}</b> no carrinho`,x.sm);const b=$('#cartBtn');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')}}
-function renderCart(){const ids=Object.keys(cart).map(Number),qty=ids.reduce((a,i)=>a+cart[i],0),tot=ids.reduce((a,i)=>a+cart[i]*P[i].p,0),eco=ids.reduce((a,i)=>a+cart[i]*(P[i].o-P[i].p),0);
+let cartReady=false;
+function saveCart(){if(!cartReady)return;try{localStorage.setItem('farid_cart',JSON.stringify(cart))}catch(e){}}
+function loadCart(){try{const o=JSON.parse(localStorage.getItem('farid_cart')||'{}');
+ for(const k in o){const id=+k,q=+o[k];
+  if(Number.isInteger(id)&&P[id]&&Number.isFinite(q)&&q>0)cart[id]=Math.min(Math.floor(q),99)}}catch(e){}cartReady=true}
+function renderCart(){saveCart();const ids=Object.keys(cart).map(Number),qty=ids.reduce((a,i)=>a+cart[i],0),tot=ids.reduce((a,i)=>a+cart[i]*P[i].p,0),eco=ids.reduce((a,i)=>a+cart[i]*(P[i].o-P[i].p),0);
  $('#count').textContent=qty;$('#count2').textContent=qty;$('#cartTotal').textContent=brl(tot);
  $('#items').innerHTML=ids.length?ids.map(i=>`<div class="item"><img src="${P[i].sm}" alt=""><div class="nm">${P[i].n}<b>${brl(P[i].p*cart[i])}</b></div><div class="qty"><button onclick="chg(${i},-1)">−</button>${cart[i]}<button onclick="chg(${i},1)">+</button></div></div>`).join('')
   :'<div class="empty"><div>🛒</div>Seu carrinho está vazio.<br>Que tal começar pelas ofertas de hoje?</div>';
@@ -1916,6 +1962,7 @@ function route(){const h=location.hash;if(h&&!h.startsWith('#/')){return}
  $$('.page.on [data-r]:not(.in)').forEach(el=>io.observe(el));bindTilt();}
 addEventListener('hashchange',route);
 document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]:not([href^="#/"])');if(a){e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'})}});
+loadCart();Object.keys(cart).forEach(i=>refreshCards(+i));renderCart();
 route();
 </script>
 </body>

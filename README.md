@@ -6,7 +6,7 @@ Página única (`index.html`), sem build, hospedada na Vercel.
 ## O que já funciona (no navegador)
 - Escolha de cidade/loja com sugestão da loja mais próxima (geolocalização)
 - Departamentos, busca (sem acento, sinônimos), ofertas, carrinho
-- Favoritos (coração nos produtos, salvos no aparelho via localStorage)
+- Favoritos e carrinho salvos no aparelho (localStorage), sobrevivem a recarga
 - Agendamento de entrega/retirada (janelas, pedido mínimo R$ 50)
 - Login/cadastro **de demonstração**, WhatsApp, botão voltar ao topo
 
