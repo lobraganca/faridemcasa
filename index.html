@@ -1210,6 +1210,19 @@ html,body{background:#fbf8f9!important}
 }
 .hbtn.burger:focus-visible{outline:2px solid #fff;outline-offset:2px}
 @media (prefers-reduced-motion:reduce){.hbtn.burger:active{transform:none}}
+/* ===== "Nossos corredores": texto fica SOBRE foto com veu escuro =====
+   A camada do tema claro tem `h3,h4{color:var(--ink)!important}`, que pega
+   todo h3 do documento. Aqui isso punha texto quase preto (#1d1d1f) sobre um
+   veu rgba(46,6,23,.85): contraste medido de 1,07:1, ilegivel. O rotulo caia
+   para 3,09:1 pelo `small{color:var(--sub)!important}`. Volta ao branco. */
+.aisle h3{
+  color:#fff!important;
+  text-shadow:0 2px 14px rgba(0,0,0,.5)!important;
+}
+.aisle small{
+  color:rgba(255,255,255,.93)!important;
+  text-shadow:0 1px 8px rgba(0,0,0,.45)!important;
+}
 </style>
 </head>
 <body>
