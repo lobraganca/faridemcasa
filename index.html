@@ -2108,6 +2108,21 @@ body::before{
   box-shadow:0 10px 30px -10px rgba(0,0,0,.42)!important;
 }
 .toast b,.toast span,.toast small{color:#fff!important}
+/* ==========================================================================
+   FOLGA ABAIXO DA BARRA FIXA
+   Quem afastava o conteudo da barra era a margin-top do trilho .idx. O
+   roteador esconde o trilho em home e departamentos: a home tem o padding
+   do proprio hero e escapa, departamentos ficava com o titulo 36px atras
+   da barra. Agora o roteador marca o body e a folga vem daqui, para
+   qualquer pagina que venha a esconder o trilho.
+   ========================================================================== */
+body.sem-trilho .page.gpage{padding-top:104px}
+@media (max-width:900px){
+  body.sem-trilho .page.gpage{padding-top:92px}
+}
+@media (max-width:600px){
+  body.sem-trilho .page.gpage{padding-top:88px}
+}
 </style>
 </head>
 <body>
@@ -2997,7 +3012,7 @@ function route(){const h=location.hash;if(h&&!h.startsWith('#/')){return}
  if(name==='favoritos')renderFavs();
  if(name==='gestao')gxRender();
  if(name==='lojas')renderLojas();
- $$('.idx a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===h));$$('.tabbar a').forEach(a=>a.classList.toggle('on',a.dataset.tb==='/'+name||(name==='home'&&a.dataset.tb==='/')));$('#idx').style.display=(name==='home'||name==='departamentos')?'none':'';
+ $$('.idx a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===h));$$('.tabbar a').forEach(a=>a.classList.toggle('on',a.dataset.tb==='/'+name||(name==='home'&&a.dataset.tb==='/')));$('#idx').style.display=(name==='home'||name==='departamentos')?'none':'';document.body.classList.toggle('sem-trilho',name==='home'||name==='departamentos');
  window.scrollTo({top:0,behavior:'instant'});
  $$('.page.on [data-r]:not(.in)').forEach(el=>io.observe(el));bindTilt();}
 addEventListener('hashchange',route);
