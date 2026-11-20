@@ -2669,6 +2669,63 @@ html,body{background:var(--sup-pagina)!important}
 @media (prefers-reduced-motion:reduce){
   .mob a,.mob .hero-store{transition:none}
 }
+/* ==========================================================================
+   GRADE DE DEPARTAMENTOS
+   Cada item gastava 96px de altura para mostrar um icone e um nome, com o
+   icone empilhado em cima do texto, raio de 26px e o nome em peso 800. O
+   resultado era bojudo e so cabiam 12 dos 17 numa tela.
+
+   Agora o icone fica ao lado do nome, o cartao encolhe para 62px de altura
+   minima e o raio cai para 14px. O nome desce de 16,8px peso 800 para 15px
+   peso 600: e rotulo de lista, nao manchete. As linhas crescem sozinhas
+   quando o nome e longo, entao "Higiene e Cuidados Pessoais" nao aperta.
+   ========================================================================== */
+#deps{
+  grid-template-columns:1fr 1fr!important;
+  gap:9px!important;
+  align-items:stretch;
+}
+#deps .gcard{
+  display:flex!important;
+  flex-direction:row!important;
+  justify-content:flex-start!important;
+  align-items:center!important;gap:11px;
+  min-height:62px;height:100%;
+  padding:10px 12px!important;
+  border-radius:14px!important;
+  text-align:left;
+}
+#deps .gi{
+  width:38px!important;height:38px!important;
+  border-radius:11px!important;
+  flex-shrink:0;display:grid;place-items:center;
+  background:var(--sup-2)!important;
+}
+#deps .gi img{width:23px!important;height:23px!important}
+#deps h3{
+  text-align:left!important;
+  font-size:.94rem!important;
+  font-weight:600!important;
+  line-height:1.22!important;
+  letter-spacing:-.012em!important;
+  margin:0!important;
+  color:#1d1d1f!important;
+}
+#deps .gcard:hover{background:var(--sup-1)!important}
+#deps .gcard:active{transform:scale(.98)}
+
+@media (min-width:901px){
+  #deps{grid-template-columns:repeat(4,1fr)!important;gap:11px!important}
+  #deps .gcard{min-height:66px;padding:11px 14px!important}
+}
+@media (max-width:360px){
+  #deps h3{font-size:.88rem!important}
+  #deps .gi{width:34px!important;height:34px!important}
+  #deps .gi img{width:21px!important;height:21px!important}
+}
+@media (prefers-reduced-motion:reduce){
+  #deps .gcard:active{transform:none}
+}
 </style>
 </head>
 <body>
