@@ -3306,6 +3306,21 @@ main{min-height:calc(100svh - 190px)}
 .sh-sub h2{font-size:.78rem!important;font-weight:700!important;
            letter-spacing:.09em!important;text-transform:uppercase;
            color:var(--t3)!important}
+/* ---- seletor de idioma ---- */
+.mob-idioma{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.mi{
+  min-height:44px;padding:0 15px;border-radius:999px;
+  font-size:.92rem;font-weight:600;
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);
+  color:inherit;transition:.2s;
+}
+.mi.on{
+  background:linear-gradient(165deg,#a21d4a,#881344);
+  border-color:transparent;color:#fff;
+  box-shadow:0 2px 8px -2px rgba(136,19,68,.35),
+             inset 0 1px 0 rgba(255,255,255,.22);
+}
 </style>
 </head>
 <body>
@@ -3350,14 +3365,14 @@ main{min-height:calc(100svh - 190px)}
   <div class="wrap bar glass">
     <a href="#/" class="logo" aria-label="Farid em Casa — início"><img src="" data-logo-w alt="Farid Supermercados" width="127" height="36"></a>
     <nav class="links">
-      <a href="#/" data-r-link="/">Início</a>
-      <a href="#/ofertas" data-r-link="/ofertas">Ofertas</a>
-      <a href="#/conta" data-r-link="/conta">Comprar de novo</a>
-      <a href="#/departamentos" data-r-link="/departamentos">Departamentos</a>
-      <a href="#/entrega" data-r-link="/entrega">Entrega</a>
-      <a href="#/contato" data-r-link="/contato">Contato</a>
+      <a href="#/" data-r-link="/"><span data-i18n="nav.inicio">Início</span></a>
+      <a href="#/ofertas" data-r-link="/ofertas"><span data-i18n="nav.ofertas">Ofertas</span></a>
+      <a href="#/conta" data-r-link="/conta"><span data-i18n="nav.denovo">Comprar de novo</span></a>
+      <a href="#/departamentos" data-r-link="/departamentos"><span data-i18n="nav.deps">Departamentos</span></a>
+      <a href="#/entrega" data-r-link="/entrega"><span data-i18n="nav.entrega">Entrega</span></a>
+      <a href="#/contato" data-r-link="/contato"><span data-i18n="nav.contato">Contato</span></a>
     </nav>
-    <button class="store-btn" id="storeBtn" onclick="openStores()" aria-label="Escolher loja"><svg class="ico"><use href="#i-pin"/></svg><span><small>Sua cidade</small><b id="storeName">Escolher cidade</b></span><svg class="ico chev"><use href="#i-down"/></svg></button>
+    <button class="store-btn" id="storeBtn" onclick="openStores()" aria-label="Escolher loja"><svg class="ico"><use href="#i-pin"/></svg><span><small data-i18n="top.cidade">Sua cidade</small><b id="storeName">Escolher cidade</b></span><svg class="ico chev"><use href="#i-down"/></svg></button>
     <button class="hbtn burger" aria-label="Menu" onclick="toggleMob(true)"><svg class="ico"><use href="#i-menu"/></svg></button>
     <div class="acct">
       <button class="user-btn" id="userBtn" onclick="userClick()" aria-label="Minha conta"><svg class="ico"><use href="#i-user"/></svg><span id="userLbl">Entrar</span></button>
@@ -3382,6 +3397,8 @@ main{min-height:calc(100svh - 190px)}
     <h6>Minha conta</h6>
     <a href="#/conta">Meus pedidos</a><a href="#/favoritos">Favoritos</a><a href="#/gestao">Gestão da loja</a>
     <h6>Departamentos</h6><div class="mdeps" id="mobDeps"></div>
+    <h6 data-i18n="idioma.titulo">Idioma</h6>
+    <div class="mob-idioma" id="mobIdioma"></div>
   </nav>
 </div>
 
@@ -3391,7 +3408,7 @@ main{min-height:calc(100svh - 190px)}
 <div class="page" id="p-home">
   <section class="sec" id="againSec" hidden><div class="wrap">
     <div class="again-band glass" id="againBand"></div>
-    <div class="sh sh-sub" data-r><h2>Ou escolha item por item</h2><a href="#/conta" class="more">Meus pedidos <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div>
+    <div class="sh sh-sub" data-r><h2 data-i18n="home.itemporitem">Ou escolha item por item</h2><a href="#/conta" class="more"><span data-i18n="home.meuspedidos">Meus pedidos</span> <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div>
     <div class="rail" id="againRail"></div>
   </div></section>
 
@@ -3402,13 +3419,13 @@ main{min-height:calc(100svh - 190px)}
                 <h1 class="sr-only">Farid em Casa — supermercado online</h1>
                 <form class="hsearch glass" onsubmit="event.preventDefault();openSpot(this.q.value);this.q.value=''">
           <svg class="ico"><use href="#i-search"/></svg>
-          <input name="q" placeholder="O que você precisa hoje?" aria-label="Buscar produtos">
-          <button class="btn btn-w">Buscar</button>
+          <input name="q" placeholder="O que você precisa hoje?" data-i18n-ph="busca.phhero" aria-label="Buscar produtos">
+          <button class="btn btn-w" data-i18n="busca.botao">Buscar</button>
         </form>
-        <button class="hero-store" onclick="openStores()"><svg class="ico"><use href="#i-store"/></svg><span id="heroStore">Escolha sua cidade</span><u>Trocar</u></button>
+        <button class="hero-store" onclick="openStores()"><svg class="ico"><use href="#i-store"/></svg><span id="heroStore">Escolha sua cidade</span><u data-i18n="top.trocar">Trocar</u></button>
         <div class="dslide" id="dslide" aria-label="Departamentos"><div class="ds-track" id="dgrid" aria-busy="true"><span class="esq esq-chip" style="width:132px"></span><span class="esq esq-chip" style="width:118px"></span><span class="esq esq-chip" style="width:156px"></span><span class="esq esq-chip" style="width:140px"></span><span class="esq esq-chip" style="width:124px"></span><span class="esq esq-chip" style="width:150px"></span></div></div>
 <div class="promo-topo">
-    <div class="promo-hd"><h2>Promoções</h2></div>
+    <div class="promo-hd"><h2 data-i18n="home.promocoes">Promoções</h2></div>
     <div class="cover d" id="coverD" data-r>
       <a class="cv" href="#/cartao" aria-label="Conheça o Cartão Farid"><img src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/7cb92342-9c5c-443e-b4b6-697963baffaf.webp" alt="Conheça o Cartão Farid"></a>
       <a class="cv" href="#/departamentos" aria-label="Ver departamentos"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/d0f748ff-d8ef-402f-80d6-38be86a8772d-1440w.avif" alt="Quarta e quinta do hortifruti"></a>
@@ -3425,7 +3442,7 @@ main{min-height:calc(100svh - 190px)}
   </div>
       </div>
       <div class="hero-card glass">
-        <div class="hc-hd"><div><b>Ofertas de hoje</b></div><a href="#ofertas-home" class="hc-more">Ver todas <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div>
+        <div class="hc-hd"><div><b data-i18n="home.ofertashoje">Ofertas de hoje</b></div><a href="#ofertas-home" class="hc-more">Ver todas <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div>
         <div class="hc-grid" id="heroDeals" aria-busy="true"><div class="esq-card"><span class="esq esq-im"></span><span class="esq esq-l1"></span><span class="esq esq-l2"></span></div><div class="esq-card"><span class="esq esq-im"></span><span class="esq esq-l1"></span><span class="esq esq-l2"></span></div><div class="esq-card"><span class="esq esq-im"></span><span class="esq esq-l1"></span><span class="esq esq-l2"></span></div><div class="esq-card"><span class="esq esq-im"></span><span class="esq esq-l1"></span><span class="esq esq-l2"></span></div></div>
       </div>
     </div>
@@ -3433,7 +3450,7 @@ main{min-height:calc(100svh - 190px)}
 
 
 
-  <section class="sec niv-2" id="secCorredores"><div class="wrap"><div class="sh" data-r><h2>Nossos corredores</h2><a href="#/departamentos" class="more">Ver todos <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div><div class="aisles"><a href="#/departamentos/0" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1632992468737-54880593aada?auto=format&fit=crop&w=900&q=75" alt="Hortifruti"><div><small>Hortifruti</small><h3>Fresco.</h3></div></a><a href="#/departamentos/1" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&w=900&q=75" alt="Açougue"><div><small>Açougue</small><h3>Suculento.</h3></div></a><a href="#/departamentos/2" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=75" alt="Padaria FARID"><div><small>Padaria FARID</small><h3>Quentinho.</h3></div></a><a href="#/departamentos/5" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1610458034932-dc165f29499e?auto=format&fit=crop&w=900&q=75" alt="Adega"><div><small>Adega</small><h3>Brindado.</h3></div></a></div></div></section>
+  <section class="sec niv-2" id="secCorredores"><div class="wrap"><div class="sh" data-r><h2 data-i18n="home.corredores">Nossos corredores</h2><a href="#/departamentos" class="more">Ver todos <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div><div class="aisles"><a href="#/departamentos/0" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1632992468737-54880593aada?auto=format&fit=crop&w=900&q=75" alt="Hortifruti"><div><small>Hortifruti</small><h3>Fresco.</h3></div></a><a href="#/departamentos/1" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&w=900&q=75" alt="Açougue"><div><small>Açougue</small><h3>Suculento.</h3></div></a><a href="#/departamentos/2" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=75" alt="Padaria FARID"><div><small>Padaria FARID</small><h3>Quentinho.</h3></div></a><a href="#/departamentos/5" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1610458034932-dc165f29499e?auto=format&fit=crop&w=900&q=75" alt="Adega"><div><small>Adega</small><h3>Brindado.</h3></div></a></div></div></section>
 
   <section class="state" id="state"><div class="wrap">
   <div class="faixa">
@@ -3457,7 +3474,7 @@ main{min-height:calc(100svh - 190px)}
 
   <section class="sec" id="ofertas-home">
     <div class="wrap">
-      <div class="sh" data-r><h2>Ofertas relâmpago</h2><div class="sh-r"><div class="cd" data-cd></div><div class="arrows"><button class="glass" aria-label="Anterior" onclick="railGo(-1)"><svg class="ico"><use href="#i-l"/></svg></button><button class="glass" aria-label="Próximo" onclick="railGo(1)"><svg class="ico"><use href="#i-r"/></svg></button></div></div></div>
+      <div class="sh" data-r><h2 data-i18n="home.relampago">Ofertas relâmpago</h2><div class="sh-r"><div class="cd" data-cd></div><div class="arrows"><button class="glass" aria-label="Anterior" onclick="railGo(-1)"><svg class="ico"><use href="#i-l"/></svg></button><button class="glass" aria-label="Próximo" onclick="railGo(1)"><svg class="ico"><use href="#i-r"/></svg></button></div></div></div>
       <div class="rail" id="hsTrack"></div>
     </div>
   </section>
@@ -3466,7 +3483,7 @@ main{min-height:calc(100svh - 190px)}
 
   <section class="sec niv-2" id="secVendidos">
     <div class="wrap">
-      <div class="sh" data-r><h2>Mais vendidos</h2><a href="#/ofertas" class="more">Ver todas <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div>
+      <div class="sh" data-r><h2 data-i18n="home.vendidos">Mais vendidos</h2><a href="#/ofertas" class="more">Ver todas <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div>
       <div class="tabs" id="tabsHome" data-r></div>
       <div class="grid" id="gridHome"></div>
     </div>
@@ -3474,7 +3491,7 @@ main{min-height:calc(100svh - 190px)}
 
   <section class="sec niv-3" id="secParaVoce">
     <div class="wrap">
-      <div class="sh" data-r><h2>Para você</h2></div>
+      <div class="sh" data-r><h2 data-i18n="home.paravoce">Para você</h2></div>
       <div class="perks2">
         <a href="#/departamentos/0" class="pk pk-photo" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1615940612411-228402769c8a?auto=format&fit=crop&w=900&q=75" alt=""><div><small>Toda semana</small><h3>Quarta e quinta do hortifruti</h3><span class="pk-go">Ver ofertas →</span></div></a>
         <a href="#/cartao" class="pk pk-card" data-r><div><small>Cartão Farid Tricard</small><h3>Parcele em até 4x</h3><span class="pk-go">Saiba mais →</span></div><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/579cb28d-b70e-4229-8e4f-8978f8f59863.webp" alt="Cartão Farid"></a>
@@ -3677,7 +3694,7 @@ main{min-height:calc(100svh - 190px)}
 
 <div class="spot" id="spot" onclick="if(event.target===this)closeSpot()">
   <div class="spot-box glass">
-    <div class="spot-in"><svg class="ico" style="color:var(--t3)"><use href="#i-search"/></svg><input id="spotQ" placeholder="Arroz, biscoito, vinho..." enterkeyhint="search" autocomplete="off" aria-label="Buscar produtos"><button class="x" onclick="closeSpot()" aria-label="Fechar">✕</button></div>
+    <div class="spot-in"><svg class="ico" style="color:var(--t3)"><use href="#i-search"/></svg><input id="spotQ" placeholder="Arroz, biscoito, vinho..." data-i18n-ph="busca.ph" enterkeyhint="search" autocomplete="off" aria-label="Buscar produtos"><button class="x" onclick="closeSpot()" aria-label="Fechar">✕</button></div>
     <div class="spot-meta" id="spotMeta"></div><div class="spot-res" id="spotRes"></div>
   </div>
 </div>
@@ -3729,7 +3746,7 @@ main{min-height:calc(100svh - 190px)}
       <label>Celular<input class="inp" name="tel" inputmode="tel" placeholder="(31) 90000-0000" data-mask="tel" autocomplete="tel" required></label></div>
       <label>E-mail<input class="inp" name="email" type="email" autocomplete="email" required></label>
       <fieldset class="au-addr"><legend>Endereço de entrega</legend>
-        <div class="au-2"><input class="inp" name="cep" placeholder="CEP" inputmode="numeric" autocomplete="postal-code" required><input class="inp" name="num" placeholder="Número" required></div>
+        <div class="au-2"><input class="inp" name="cep" placeholder="CEP" data-cep-ph inputmode="numeric" autocomplete="postal-code" required><input class="inp" name="num" placeholder="Número" required></div>
         <input class="inp" name="rua" placeholder="Rua / Avenida" autocomplete="address-line1" required>
         <div class="au-2"><input class="inp" name="bairro" placeholder="Bairro" required><input class="inp" name="cidade" placeholder="Cidade" autocomplete="address-level2" required></div>
         <input class="inp" name="comp" placeholder="Complemento (opcional)" autocomplete="address-line2">
@@ -3749,7 +3766,7 @@ main{min-height:calc(100svh - 190px)}
     <div class="sl-body">
       <div class="sl-addr" id="slAddr"></div>
       <form class="sl-form" id="addrForm" hidden onsubmit="event.preventDefault();saveAddr(this)">
-        <div class="au-2"><input class="inp" name="cep" placeholder="CEP" inputmode="numeric" required><input class="inp" name="num" placeholder="Número" required></div>
+        <div class="au-2"><input class="inp" name="cep" placeholder="CEP" data-cep-ph inputmode="numeric" required><input class="inp" name="num" placeholder="Número" required></div>
         <input class="inp" name="rua" placeholder="Rua / Avenida" required>
         <div class="au-2"><input class="inp" name="bairro" placeholder="Bairro" required><input class="inp" name="cidade" placeholder="Cidade" required></div>
         <input class="inp" name="comp" placeholder="Complemento (opcional)" aria-label="Complemento do endereço">
@@ -3769,11 +3786,11 @@ main{min-height:calc(100svh - 190px)}
 </aside>
 <a class="wa" href="https://wa.me/5531999505658?text=Ol%C3%A1!%20Vim%20pelo%20site%20Farid%20em%20Casa." target="_blank" rel="noopener" aria-label="Fale com o Farid no WhatsApp"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6c-2 0-4-.5-5.7-1.6l-.4-.2-3.9 1 1-3.8-.3-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5 1-1.7.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.8 1 3.9.8a3.3 3.3 0 0 0 2.1-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.5z"/></svg><span>Fale com a gente</span></a>
 <nav class="tabbar" aria-label="Navegação principal">
-  <a href="#/" data-tb="/"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11 12 3l9 8v10h-6v-6H9v6H3z"/></svg>Início</a>
-  <a href="#/departamentos" data-tb="/departamentos"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Departamentos</a>
-  <button onclick="openSpot()"><svg class="ico"><use href="#i-search"/></svg>Buscar</button>
-  <a href="#/conta" data-tb="/conta"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg>Comprar de novo</a>
-  <button onclick="openCart()"><span class="cart-ic"><svg class="ico"><use href="#i-cart"/></svg><b id="count2">0</b></span>Carrinho</button>
+  <a href="#/" data-tb="/"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11 12 3l9 8v10h-6v-6H9v6H3z"/></svg><span data-i18n="nav.inicio">Início</span></a>
+  <a href="#/departamentos" data-tb="/departamentos"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span data-i18n="nav.deps">Departamentos</span></a>
+  <button onclick="openSpot()"><svg class="ico"><use href="#i-search"/></svg><span data-i18n="nav.buscar">Buscar</span></button>
+  <a href="#/conta" data-tb="/conta"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg><span data-i18n="nav.denovo">Comprar de novo</span></a>
+  <button onclick="openCart()"><span class="cart-ic"><svg class="ico"><use href="#i-cart"/></svg><b id="count2">0</b></span><span data-i18n="nav.carrinho">Carrinho</span></button>
 </nav>
 <button class="totop glass" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Voltar ao topo"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <div class="toast glass" id="toast"></div>
@@ -3840,6 +3857,24 @@ const P=[
  ['Ração Pedigree Sabor Carne 100g','base/150/f9284d59-2f86-44ed-8cfc-ffe87f24dcf3.webp',3.49,2.89,'R$ 28,90/kg','pet'],
  ['Ração Pedigree Júnior Sabor Frango Sachê 100g','base/150/9a07324a-81bf-48c4-9444-985472d8b5bc.webp',3.49,2.89,'R$ 28,90/kg','pet'],
 ].map(([n,img,o,p,u,cat],id)=>({id,n,img:PI+img.replace('/150/','/500/'),sm:PI+img,o,p,u,cat}));
+/* ---- preco por unidade ----
+   Nos dados ele e texto pronto: 'R$ 53,31/litro'. Isso nao atravessa
+   idioma nenhum — em ingles continuaria com virgula decimal. O numero e
+   a unidade sao extraidos uma vez no carregamento; o que nao casar (um
+   produto cadastrado a mao no painel, por exemplo) continua valendo como
+   texto livre, que e como o painel sempre deixou. */
+(function(){
+ var re=/^\s*R\$\s*([\d.]+),(\d{2})\s*\/\s*(.+?)\s*$/;
+ P.forEach(function(x){
+  var m=re.exec(x.u||'');
+  if(m){x.uv=parseFloat(m[1].replace(/\./g,'')+'.'+m[2]); x.uu=m[3]}
+ });
+})();
+function precoUnidade(x){
+ if(x && x.uv!=null) return moeda(x.uv)+'/'+t('un.'+x.uu, x.uu);
+ return (x&&x.u)||'';
+}
+
 /* departamento de cada produto (pelo nome do departamento) */
 const DEPMAP={'Adega':x=>/vinho/i.test(x.n),'Bebidas':x=>/água|red bull/i.test(x.n),'Bebidas Alcoólicas':x=>/gin|vodka/i.test(x.n),
  'Mercearia':x=>x.cat==='mercearia','Açougue':x=>/linguiça|copalombo/i.test(x.n),'Frios e laticínios':x=>/bacon/i.test(x.n),
@@ -3870,7 +3905,164 @@ const PAIRS=[
 /* ============ HELPERS ============ */
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=v=>String(v??'').replace(/[&<>"'`]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;'}[c]));
-const brl=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+/* ==========================================================================
+   IDIOMA E REGIAO
+   `brl()` fixava 'pt-BR' e 'BRL' dentro da funcao, as datas fixavam
+   'pt-BR' em tres lugares e o <html> fixava lang="pt-BR". Para um app de
+   rede multinacional isso e divida estrutural: trocar moeda e idioma
+   depois de 430KB de HTML pronto custa muito mais do que preparar agora.
+
+   A decisao que organiza tudo: IDIOMA E MOEDA SAO COISAS SEPARADAS.
+   O idioma e de quem usa; a moeda e do MERCADO onde a loja fica. Num
+   app em ingles comprando numa loja brasileira o preco continua em
+   reais — so o formato do numero muda (R$39.98 em vez de R$ 39,98).
+   E assim que funciona de verdade, e evita a alternativa desonesta de
+   inventar uma taxa de cambio.
+   ========================================================================== */
+var MERCADOS={
+ BR:{nome:'Brasil',moeda:'BRL',ddi:'55',
+     cepRotulo:'CEP',cepRegex:/^\d{5}-?\d{3}$/,cepExemplo:'35450-000',
+     telExemplo:'(31) 99999-9999'},
+ US:{nome:'United States',moeda:'USD',ddi:'1',
+     cepRotulo:'ZIP code',cepRegex:/^\d{5}(-\d{4})?$/,cepExemplo:'10001',
+     telExemplo:'(212) 555-0100'},
+ PT:{nome:'Portugal',moeda:'EUR',ddi:'351',
+     cepRotulo:'Código postal',cepRegex:/^\d{4}-?\d{3}$/,cepExemplo:'1000-001',
+     telExemplo:'912 345 678'}
+};
+var IDIOMAS={
+ 'pt-BR':{nome:'Português',bcp:'pt-BR'},
+ 'en-US':{nome:'English',bcp:'en-US'},
+ 'es-ES':{nome:'Español',bcp:'es-ES'}
+};
+/* o mercado desta instalacao. Uma rede multinacional troca esta linha
+   por loja, nao o resto do codigo. */
+var mercadoAtual='BR';
+var idiomaAtual=(function(){
+ /* NAO usar LS aqui: `const LS` so e declarado mais adiante no mesmo
+    script, e ler antes disso derruba o arquivo inteiro na zona morta
+    temporal — foi exatamente o que aconteceu quando escrevi assim. */
+ var g=null; try{g=localStorage.getItem('farid_idioma')}catch(e){}
+ if(g&&IDIOMAS[g])return g;
+ /* respeita o idioma do aparelho quando conhecemos; senao, o da loja */
+ var nav=(navigator.language||'pt-BR');
+ for(var k in IDIOMAS) if(k===nav)return k;
+ for(var k2 in IDIOMAS) if(k2.split('-')[0]===nav.split('-')[0])return k2;
+ return 'pt-BR';
+})();
+function M(){return MERCADOS[mercadoAtual]||MERCADOS.BR}
+function I(){return IDIOMAS[idiomaAtual]||IDIOMAS['pt-BR']}
+
+/* ---- formatacao: numero no idioma de quem le, moeda do mercado ---- */
+function moeda(v){
+ var n=+v||0;
+ /* Sem narrowSymbol, o espanhol escreve "182,40 BRL" em vez de
+    "R$ 182,40": correto pelo padrao, ilegivel na prateleira. Nem todo
+    navegador antigo aceita a opcao, dai os dois degraus de queda. */
+ try{return n.toLocaleString(I().bcp,
+   {style:'currency',currency:M().moeda,currencyDisplay:'narrowSymbol'})}catch(e){}
+ try{return n.toLocaleString(I().bcp,{style:'currency',currency:M().moeda})}catch(e){}
+ return 'R$ '+n.toFixed(2).replace('.',',')}
+var brl=moeda;                       /* o nome antigo continua valendo */
+function numero(v,casas){
+ try{return (+v||0).toLocaleString(I().bcp,
+   {minimumFractionDigits:casas||0,maximumFractionDigits:casas||0})}
+ catch(e){return String(v)}}
+function dataCurta(d){
+ try{return new Date(d).toLocaleDateString(I().bcp,{day:'2-digit',month:'short'})}
+ catch(e){return ''}}
+function dataLonga(d){
+ try{return new Date(d).toLocaleDateString(I().bcp,
+   {day:'2-digit',month:'2-digit',year:'numeric'})}
+ catch(e){return ''}}
+function telLoja(){return '+'+M().ddi+'31999505658'.slice(M().ddi==='55'?0:0)}
+
+/* ---- dicionario ---- */
+var TXT={
+'pt-BR':{},     /* o idioma de origem: a chave E o texto do HTML */
+'en-US':{
+ 'busca.phhero':'What do you need today?',
+ 'un.item':'item','un.itens':'items',
+ 'un.litro':'liter','un.kg':'kg','un.un':'unit',
+ 'nav.inicio':'Home','nav.ofertas':'Deals','nav.denovo':'Buy again',
+ 'nav.deps':'Departments','nav.entrega':'Delivery','nav.contato':'Contact',
+ 'nav.buscar':'Search','nav.carrinho':'Cart',
+ 'top.cidade':'Your city','top.trocar':'Change','top.entrar':'Sign in',
+ 'top.menu':'Menu','top.conta':'My account',
+ 'busca.ph':'Rice, cookies, wine...','busca.botao':'Search',
+ 'busca.recentes':'Recent searches','busca.limpar':'Clear',
+ 'busca.procuradas':'Most searched',
+ 'home.promocoes':'Deals','home.corredores':'Our aisles',
+ 'home.relampago':'Flash deals','home.vendidos':'Best sellers',
+ 'home.paravoce':'For you','home.ofertashoje':"Today's deals",
+ 'home.vertodas':'See all','home.sempre':'Your usual order',
+ 'home.addtudo':'Add everything to cart','home.itemporitem':'Or pick item by item',
+ 'home.meuspedidos':'My orders',
+ 'prod.adicionar':'Add','carrinho.finalizar':'Checkout',
+ 'idioma.titulo':'Language'
+},
+'es-ES':{
+ 'busca.phhero':'¿Qué necesitas hoy?',
+ 'un.item':'artículo','un.itens':'artículos',
+ 'un.litro':'litro','un.kg':'kg','un.un':'unidad',
+ 'nav.inicio':'Inicio','nav.ofertas':'Ofertas','nav.denovo':'Comprar de nuevo',
+ 'nav.deps':'Departamentos','nav.entrega':'Entrega','nav.contato':'Contacto',
+ 'nav.buscar':'Buscar','nav.carrinho':'Carrito',
+ 'top.cidade':'Tu ciudad','top.trocar':'Cambiar','top.entrar':'Entrar',
+ 'top.menu':'Menú','top.conta':'Mi cuenta',
+ 'busca.ph':'Arroz, galletas, vino...','busca.botao':'Buscar',
+ 'busca.recentes':'Búsquedas recientes','busca.limpar':'Borrar',
+ 'busca.procuradas':'Más buscadas',
+ 'home.promocoes':'Promociones','home.corredores':'Nuestros pasillos',
+ 'home.relampago':'Ofertas relámpago','home.vendidos':'Más vendidos',
+ 'home.paravoce':'Para ti','home.ofertashoje':'Ofertas de hoy',
+ 'home.vertodas':'Ver todas','home.sempre':'Tu compra de siempre',
+ 'home.addtudo':'Añadir todo al carrito','home.itemporitem':'O elige artículo por artículo',
+ 'home.meuspedidos':'Mis pedidos',
+ 'prod.adicionar':'Añadir','carrinho.finalizar':'Finalizar pedido',
+ 'idioma.titulo':'Idioma'
+}};
+/* O portugues nao tem dicionario: a chave guarda o texto original no
+   proprio HTML (data-i18n-pt), entao nada se perde se faltar traducao. */
+function t(k,padrao){
+ var d=TXT[idiomaAtual];
+ if(d&&d[k])return d[k];
+ return padrao!==undefined?padrao:k}
+
+function aplicarIdioma(){
+ document.documentElement.lang=I().bcp;
+ /* o nome do codigo postal e do MERCADO, nao do idioma: quem compra
+    em ingles numa loja brasileira continua preenchendo um CEP. */
+ document.querySelectorAll('[data-cep-rotulo]').forEach(function(e){
+  e.textContent=M().cepRotulo});
+ document.querySelectorAll('[data-cep-ph]').forEach(function(e){
+  e.placeholder=M().cepRotulo});
+ document.querySelectorAll('[data-i18n]').forEach(function(e){
+  var k=e.getAttribute('data-i18n');
+  if(!e.hasAttribute('data-i18n-pt'))e.setAttribute('data-i18n-pt',e.textContent);
+  e.textContent=t(k,e.getAttribute('data-i18n-pt'))});
+ document.querySelectorAll('[data-i18n-ph]').forEach(function(e){
+  var k=e.getAttribute('data-i18n-ph');
+  if(!e.hasAttribute('data-i18n-php'))e.setAttribute('data-i18n-php',e.placeholder||'');
+  e.placeholder=t(k,e.getAttribute('data-i18n-php'))});
+ document.querySelectorAll('[data-i18n-al]').forEach(function(e){
+  var k=e.getAttribute('data-i18n-al');
+  if(!e.hasAttribute('data-i18n-alp'))e.setAttribute('data-i18n-alp',e.getAttribute('aria-label')||'');
+  e.setAttribute('aria-label',t(k,e.getAttribute('data-i18n-alp')))});
+}
+function setIdioma(k,semRecarregar){
+ if(!IDIOMAS[k]||k===idiomaAtual)return;
+ idiomaAtual=k; LS.set('farid_idioma',k);
+ aplicarIdioma();
+ if(semRecarregar)return;
+ /* As prateleiras sao desenhadas UMA vez no carregamento, por varias
+    funcoes diferentes, e carregam preco e unidade ja formatados. Sem
+    framework para redesenhar tudo em ordem, recarregar e o unico jeito
+    honesto de garantir que nao sobre nada no idioma velho. O carrinho,
+    a conta e a loja escolhida vivem no armazenamento local e voltam. */
+ try{location.reload()}catch(e){}
+}
+
 const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').trim();
 const cart={},favs=new Set((()=>{try{return JSON.parse(localStorage.getItem('farid_favs')||'[]').filter(n=>Number.isInteger(n))}catch(e){return[]}})());
 const touch=matchMedia('(hover:none)').matches;
@@ -3884,7 +4076,7 @@ function card(x){const pct=Math.round((1-x.p/x.o)*100);
   <div class="pimg">${pct>0?`<span class="off">-${pct}%</span>`:''}<button class="fav ${favs.has(x.id)?'on':''}" onclick="fav(${x.id})" aria-pressed="${favs.has(x.id)}" aria-label="Favoritar"><svg class="ico" style="width:18px"><use href="#i-heart"/></svg></button>
    <img loading="lazy" src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"></div>
   <div class="pname" title="${x.n}">${x.n}</div>
-  <div class="pprice"><b>${brl(x.p)}</b><s>${brl(x.o)}</s><i class="punit">${x.u||''}</i></div>
+  <div class="pprice"><b>${brl(x.p)}</b><s>${brl(x.o)}</s><i class="punit">${precoUnidade(x)}</i></div>
   <div class="addbox">${addbox(x.id)}</div></div>`}
 function refreshCards(id){const q=cart[id]||0;
  $$(`.prod[data-id="${id}"],.hc-item[data-id="${id}"]`).forEach(c=>{
@@ -4102,7 +4294,7 @@ function doSignup(f){const v=k=>f[k].value.trim();
  if(!validCPF(v('cpf')))return fail(f,'CPF inválido.',f.cpf);
  if(digits(v('tel')).length<10)return fail(f,'Celular inválido.',f.tel);
  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('email')))return fail(f,'E-mail inválido.',f.email);
- if(digits(v('cep')).length!==8)return fail(f,'CEP inválido.',f.cep);
+ if(!M().cepRegex.test(v('cep')))return fail(f,M().cepRotulo+' inválido.',f.cep);
  if(!v('num'))return fail(f,'Informe o número.',f.num);
  if(!v('rua'))return fail(f,'Informe a rua.',f.rua);
  if(!v('bairro'))return fail(f,'Informe o bairro.',f.bairro);
@@ -4261,15 +4453,16 @@ function renderSpot(){const q=$('#spotQ').value.trim();
   var rec=buscasRecentes();
   var html='';
   if(rec.length){
-   html+='<div class="bc-hd"><b>Buscas recentes</b>'+
-         '<button class="bc-limpar" onclick="limparBuscas()">Limpar</button></div>'+
+   html+='<div class="bc-hd"><b>'+t('busca.recentes','Buscas recentes')+'</b>'+
+         '<button class="bc-limpar" onclick="limparBuscas()">'+
+         t('busca.limpar','Limpar')+'</button></div>'+
          '<div class="chips bc-rec">'+rec.map(function(x,i){
     return '<button onclick="usarBusca('+i+')">'+esc(x)+
            '<i role="button" tabindex="0" aria-label="Remover '+esc(x)+' das buscas recentes" '+
            'onclick="esquecerBusca('+i+',event)" '+
            'onkeydown="if(event.key===\'Enter\'||event.key===\' \')esquecerBusca('+i+',event)">✕</i></button>'
    }).join('')+'</div>';
-   html+='<div class="bc-hd bc-hd2"><b>Mais procuradas</b></div>';
+   html+='<div class="bc-hd bc-hd2"><b>'+t('busca.procuradas','Mais procuradas')+'</b></div>';
   }
   $('#spotMeta').innerHTML=rec.length?'':'Buscas mais procuradas';
   $('#spotRes').innerHTML=html+chipsPop(8);
@@ -4329,7 +4522,7 @@ function renderSpot(){const q=$('#spotQ').value.trim();
   return '<div class="sr prod" data-id="'+x.id+'" style="background:none;box-shadow:none;'+
    'border:0;flex-direction:row;padding:10px 12px">'+
    '<img src="'+x.img+'" onerror="this.onerror=null;this.src=\''+x.sm+'\'" alt="">'+
-   '<div>'+hl(x.n,usado)+'<small>'+(x.u||'')+'</small>'+
+   '<div>'+hl(x.n,usado)+'<small>'+precoUnidade(x)+'</small>'+
    '<b>'+brl(x.p)+'<s>'+brl(x.o)+'</s></b></div>'+
    '<div class="addbox">'+addbox(x.id)+'</div></div>'}).join('');
  $('#spotRes').innerHTML=html;
@@ -4359,7 +4552,7 @@ new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('vis',e.isI
 /* ============ PEDIDOS ANTERIORES (demonstração: salvos no navegador; em produção vêm da API) ============ */
 let orders=[];try{orders=JSON.parse(LS.get('farid_pedidos')||'[]').filter(o=>Array.isArray(o.items))}catch(e){orders=[]}
 const saveOrders=()=>LS.set('farid_pedidos',JSON.stringify(orders.slice(0,200)));
-const fmtDate=t=>new Date(t).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
+const fmtDate=t=>dataLonga(t);
 function renderAgain(){const sec=$('#againSec');const cnt={};orders.forEach(o=>o.items.forEach(([id,q])=>{if(P[id])cnt[id]=(cnt[id]||0)+q}));
  const ids=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]).map(Number);
  sec.hidden=!(user&&ids.length);
@@ -4370,12 +4563,11 @@ function renderAgain(){const sec=$('#againSec');const cnt={};orders.forEach(o=>o
   var o=orders[0], faixa=$('#againBand');
   if(o&&faixa){
    var n=o.items.reduce(function(a,x){return a+x[1]},0);
-   faixa.innerHTML='<div class="ab-txt"><b>Sua compra de sempre</b>'+
-    '<span>'+n+(n===1?' item':' itens')+' · '+brl(o.total)+
-    ' · '+new Date(o.date).toLocaleDateString('pt-BR',
-       {day:'2-digit',month:'short'})+'</span></div>'+
+   faixa.innerHTML='<div class="ab-txt"><b>'+t('home.sempre','Sua compra de sempre')+'</b>'+
+    '<span>'+n+' '+(n===1?t('un.item','item'):t('un.itens','itens'))+' · '+brl(o.total)+
+    ' · '+dataCurta(o.date)+'</span></div>'+
     '<button class="btn btn-w ab-go" onclick="repeatOrder(0)">'+
-    'Adicionar tudo ao carrinho</button>';
+    t('home.addtudo','Adicionar tudo ao carrinho')+'</button>';
   }
  }}
 function renderOrders(){const box=$('#ordersBox');
@@ -4431,7 +4623,7 @@ function openProd(id){var x=P[id];if(!x)return;prodAberto=id;
  im.onerror=function(){this.onerror=null;this.src=x.sm};
  $('#pmCat').textContent=CATLABEL[x.cat]||'Produto';
  $('#pmName').textContent=x.n;
- $('#pmUnit').textContent=x.u||'';
+ $('#pmUnit').textContent=precoUnidade(x);
  var pct=Math.round((1-x.p/x.o)*100);
  $('#pmPrice').innerHTML='<b>'+brl(x.p)+'</b>'+(pct>0?' <s>'+brl(x.o)+
    '</s> <span class="pm-off">-'+pct+'%</span>':'');
@@ -4934,6 +5126,19 @@ function gxRender(){
   clearTimeout(pend); pend=setTimeout(varre,60);
  }).observe(document.body,{childList:true,subtree:true});
 })();
+
+
+/* ---- seletor de idioma no menu lateral ---- */
+function renderIdiomas(){
+ var box=document.getElementById('mobIdioma'); if(!box)return;
+ box.innerHTML=Object.keys(IDIOMAS).map(function(k){
+  return '<button class="mi'+(k===idiomaAtual?' on':'')+'" lang="'+IDIOMAS[k].bcp+
+   '" onclick="setIdioma(\''+k+'\')"'+(k===idiomaAtual?' aria-current="true"':'')+
+   '>'+IDIOMAS[k].nome+'</button>'}).join('');
+}
+var _setIdiomaBase=setIdioma;
+setIdioma=function(k){_setIdiomaBase(k);renderIdiomas()};
+aplicarIdioma(); renderIdiomas();
 
 setTimeout(checarRecorrentes,1200);
 loadCart();Object.keys(cart).forEach(i=>refreshCards(+i));renderCart();
