@@ -1210,7 +1210,7 @@ html,body{background:#fbf8f9!important}
       <button class="user-btn" id="userBtn" onclick="userClick()" aria-label="Minha conta"><svg class="ico"><use href="#i-user"/></svg><span id="userLbl">Entrar</span></button>
       <div class="acct-menu glass" id="acctMenu">
         <div class="am-hd"><b id="amName"></b><span id="amMail"></span></div>
-        <a href="#/conta" onclick="closeAcct()">📦 Meus pedidos</a><a href="#" onclick="event.preventDefault();closeAcct();openSlots()">📍 Meu endereço</a>
+        <a href="#/conta" onclick="closeAcct()">📦 Meus pedidos</a><a href="#/favoritos" onclick="closeAcct()">♥ Favoritos</a><a href="#" onclick="event.preventDefault();closeAcct();openSlots()">📍 Meu endereço</a>
         <button onclick="logout()">Sair</button>
       </div>
     </div>
@@ -1225,7 +1225,7 @@ html,body{background:#fbf8f9!important}
   <nav onclick="if(event.target.closest('a'))toggleMob(false)">
     <button class="hero-store" style="margin:0 0 4px;padding-left:0" onclick="toggleMob(false);userClick()"><svg class="ico"><use href="#i-user"/></svg><span id="mobUser">Entrar ou cadastrar</span></button>
     <button class="hero-store" style="margin:0 0 14px;padding-left:0" onclick="toggleMob(false);openStores()"><svg class="ico"><use href="#i-store"/></svg><span>Trocar de cidade</span></button>
-    <a href="#/">Início</a><a href="#/ofertas">Ofertas</a><a href="#/departamentos">Departamentos</a><a href="#/entrega">Entrega</a><a href="#/cartao">Cartão Farid</a><a href="#/harmonizacao">Harmonização</a><a href="#/contato">Contato</a>
+    <a href="#/">Início</a><a href="#/ofertas">Ofertas</a><a href="#/departamentos">Departamentos</a><a href="#/entrega">Entrega</a><a href="#/cartao">Cartão Farid</a><a href="#/harmonizacao">Harmonização</a><a href="#/favoritos">Favoritos</a><a href="#/contato">Contato</a>
     <h6>Departamentos</h6><div class="mdeps" id="mobDeps"></div>
   </nav>
 </div>
@@ -1333,6 +1333,13 @@ html,body{background:#fbf8f9!important}
   </section>
 
 </div>
+
+<!-- ======================= FAVORITOS ======================= -->
+<div class="page gpage" id="p-favoritos"><div class="wrap">
+  <div class="ghero"><h1>Favoritos</h1><p>Os produtos marcados com ♥ ficam salvos neste aparelho.</p></div>
+  <div class="glass empty-box" id="favEmpty" hidden><b>Nenhum favorito ainda</b><p>Toque no coração de qualquer produto para guardá-lo aqui.</p></div>
+  <div class="grid" id="favGrid"></div>
+</div></div>
 
 <!-- ======================= OFERTAS ======================= -->
 <div class="page gpage" id="p-ofertas"><div class="wrap">
@@ -1601,20 +1608,23 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=v=>String(v??'').replace(/[&<>"'`]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;'}[c]));
 const brl=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').trim();
-const cart={},favs=new Set();
+const cart={},favs=new Set((()=>{try{return JSON.parse(localStorage.getItem('farid_favs')||'[]').filter(n=>Number.isInteger(n))}catch(e){return[]}})());
 const touch=matchMedia('(hover:none)').matches;
 function toast(m,img){const t=$('#toast');t.innerHTML=(img?`<img src="${img}" alt="">`:'')+`<span>${m}</span>`;t.classList.add('on');clearTimeout(t._);t._=setTimeout(()=>t.classList.remove('on'),2400)}
 function addbox(id){const q=cart[id]||0;return q?`<div class="stepper"><button onclick="chg(${id},-1)" aria-label="Remover um">−</button><span>${q}</span><button onclick="chg(${id},1)" aria-label="Adicionar um">+</button></div>`
  :`<button class="add" onclick="chg(${id},1)"><svg class="ico" style="width:18px"><use href="#i-plus"/></svg>Adicionar</button>`}
 function card(x){const pct=Math.round((1-x.p/x.o)*100);
  return `<div class="prod glass" data-id="${x.id}" data-tilt>
-  <div class="pimg">${pct>0?`<span class="off">-${pct}%</span>`:''}<button class="fav ${favs.has(x.id)?'on':''}" onclick="fav(${x.id})" aria-label="Favoritar"><svg class="ico" style="width:18px"><use href="#i-heart"/></svg></button>
+  <div class="pimg">${pct>0?`<span class="off">-${pct}%</span>`:''}<button class="fav ${favs.has(x.id)?'on':''}" onclick="fav(${x.id})" aria-pressed="${favs.has(x.id)}" aria-label="Favoritar"><svg class="ico" style="width:18px"><use href="#i-heart"/></svg></button>
    <img loading="lazy" src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"></div>
   <div class="pname" title="${x.n}">${x.n}</div><div class="punit">${x.u}</div>
   <div class="pprice"><b>${brl(x.p)}</b><s>${brl(x.o)}</s></div>
   <div class="addbox">${addbox(x.id)}</div></div>`}
 function refreshCards(id){$$(`.prod[data-id="${id}"] .addbox`).forEach(b=>b.innerHTML=addbox(id))}
-function fav(id){favs.has(id)?favs.delete(id):favs.add(id);$$(`.prod[data-id="${id}"] .fav`).forEach(b=>b.classList.toggle('on',favs.has(id)));if(favs.has(id))toast('Salvo nos favoritos ♥')}
+function saveFavs(){try{localStorage.setItem('farid_favs',JSON.stringify([...favs]))}catch(e){}}
+function renderFavs(){const ids=[...favs].filter(i=>P[i]);const g=$('#favGrid'),e=$('#favEmpty');
+ if(e)e.hidden=ids.length>0;if(g){g.innerHTML=ids.map(i=>card(P[i])).join('');if(ids.length)bindTilt()}}
+function fav(id){favs.has(id)?favs.delete(id):favs.add(id);saveFavs();$$(`.prod[data-id="${id}"] .fav`).forEach(b=>{b.classList.toggle('on',favs.has(id));b.setAttribute('aria-pressed',favs.has(id))});toast(favs.has(id)?'Salvo nos favoritos ♥':'Removido dos favoritos');const pf=$('#p-favoritos');if(pf&&pf.classList.contains('on'))renderFavs()}
 function tabs(el,list,onPick){el.innerHTML=list.map((t,i)=>`<button class="tab ${i?'':'on'}" data-v="${t[0]}">${t[1]}</button>`).join('');
  el.onclick=e=>{const b=e.target.closest('.tab');if(!b)return;el.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===b));onPick(b.dataset.v)};onPick(list[0][0])}
 const pick=v=>P.filter(x=>v==='all'||x.cat===v);
@@ -1900,6 +1910,7 @@ function route(){const h=location.hash;if(h&&!h.startsWith('#/')){return}
  $$('.links a').forEach(a=>a.classList.toggle('on',a.dataset.rLink==='/'+name||a.dataset.rLink===r));
  if(name==='departamentos')showDep(parts[1]);
  if(name==='conta')renderOrders();
+ if(name==='favoritos')renderFavs();
  $$('.idx a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===h));$$('.tabbar a').forEach(a=>a.classList.toggle('on',a.dataset.tb==='/'+name||(name==='home'&&a.dataset.tb==='/')));$('#idx').style.display=(name==='home'||name==='departamentos')?'none':'';
  window.scrollTo({top:0,behavior:'instant'});
  $$('.page.on [data-r]:not(.in)').forEach(el=>io.observe(el));bindTilt();}
