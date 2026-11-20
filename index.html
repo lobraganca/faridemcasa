@@ -1870,6 +1870,136 @@ body::before{
     radial-gradient(90vw 55vh at 50% -12vh, rgba(120,120,128,.07), transparent 70%),
     radial-gradient(60vw 40vh at 100% 8vh, rgba(0,84,156,.025), transparent 72%)!important;
 }
+/* ==========================================================================
+   A) SUPERFICIES BRANCAS SOBRE FUNDO CINZA
+   Os cards estavam em rgba(255,255,255,.62): sobre a pagina cinza eles
+   liam como cinza tambem, e o conteudo nao se destacava do fundo. A
+   pagina fica cinza e o que esta "dentro" fica branco. A barra do topo e
+   a de baixo continuam no vinho, que e a marca.
+   ========================================================================== */
+.glass:not(.bar):not(.tabbar),
+.gcard,.hero-card,.prod,.dg,.gx-card,.gx-kpi,.ord,.loja,.faixa{
+  background:rgba(255,255,255,.97)!important;
+}
+.drawer,.mob,.sm-box,.sl-box,.au-box,.acct-menu,.spot-box,.pm-box{
+  background:linear-gradient(165deg,rgba(255,255,255,.97),rgba(255,255,255,.9))!important;
+}
+.faixa{background:linear-gradient(180deg,#ffe4ef 0%,#fff3f8 46%,#fffbfc 100%)!important}
+
+/* ==========================================================================
+   B) PAINEL DE BUSCA: vidro flutuante, como os outros
+   No celular ele era tela cheia, de canto reto, e ainda vinha pintado de
+   vinho — sobra do tema escuro, igual ao que o card de transporte tinha.
+   ========================================================================== */
+.spot{
+  background:rgba(46,6,23,.4)!important;
+  backdrop-filter:blur(12px) saturate(140%)!important;
+  -webkit-backdrop-filter:blur(12px) saturate(140%)!important;
+  align-items:center!important;
+  padding:5vh 16px!important;
+}
+.spot-box{
+  width:min(680px,100%)!important;
+  height:auto!important;max-height:84svh!important;
+  border-radius:26px!important;
+  padding:12px!important;
+  border:1px solid rgba(255,255,255,.92)!important;
+  backdrop-filter:blur(34px) saturate(190%)!important;
+  -webkit-backdrop-filter:blur(34px) saturate(190%)!important;
+  box-shadow:var(--edge),var(--e4)!important;
+  color:#1d1d1f!important;
+}
+.spot-in{color:#1d1d1f!important}
+.spot-in input{color:#1d1d1f!important}
+.spot-hint,.spot-meta{color:#6e6e73!important}
+#spotMeta{color:#6e6e73!important;padding:4px 10px}
+#spotMeta b{color:#1d1d1f!important}
+#spotMeta a{color:#881344!important}
+.s-empty{color:#6e6e73!important}
+.s-empty b{color:#1d1d1f!important;display:block}
+@media (max-width:600px){
+  .spot{padding:12px 12px calc(12px + env(safe-area-inset-bottom))!important;
+        align-items:flex-end!important}
+  .spot-box{max-height:88svh!important;border-radius:24px!important}
+}
+
+/* ==========================================================================
+   C) TELA DE PRODUTO: flutuante tambem no celular
+   Era uma folha colada na base, com canto reto embaixo.
+   ========================================================================== */
+@media (max-width:600px){
+  .prod-m{align-items:center!important;padding:16px!important}
+  .pm-box{
+    width:100%!important;max-height:86svh!important;
+    border-radius:26px!important;
+    padding-bottom:22px!important;
+  }
+  .pm-img{border-radius:26px 26px 0 0!important}
+}
+
+/* ==========================================================================
+   D) ACOMPANHAMENTO DO PEDIDO
+   ========================================================================== */
+.acomp{margin-top:14px;border-radius:16px;padding:13px 15px;
+  background:rgba(var(--sh),.045);border:1px solid rgba(var(--sh),.09)}
+.acomp.aguarda,.acomp.pronto{display:flex;align-items:center;gap:12px}
+.ac-ic{font-size:1.4rem;line-height:1;flex-shrink:0}
+.acomp b{display:block;font-size:.95rem;color:#1d1d1f!important}
+.acomp small{font-size:.82rem;color:#6e6e73!important}
+.acomp.pronto{background:rgba(27,175,122,.08);border-color:rgba(27,175,122,.25)}
+.acomp.saiu{background:rgba(42,120,214,.07);border-color:rgba(42,120,214,.22)}
+.ac-hd{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+
+/* --- o mapa --- */
+.mapa{position:relative;margin:0;border-radius:14px;overflow:hidden;
+  box-shadow:inset 0 0 0 1px rgba(var(--sh),.08)}
+.mapa svg{display:block;width:100%;height:auto}
+.mapa figcaption{font-size:.72rem;color:#8e8e93!important;padding:7px 10px 0}
+/* o entregador vive DENTRO do svg e anda por animateMotion, que usa as
+   coordenadas do viewBox — assim ele acompanha a escala do mapa. CSS
+   offset-path nao serviria: ele mede em pixels do elemento, nao no viewBox */
+.mp-moto circle{filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
+.mp-loja,.mp-casa{animation:mp-pisca 2.4s ease-in-out infinite}
+.mp-casa{animation-delay:1.2s}
+@keyframes mp-pisca{50%{opacity:.55}}
+@media (prefers-reduced-motion:reduce){
+  .mp-loja,.mp-casa{animation:none}
+}
+/* ==========================================================================
+   TEXTO DO PAINEL DE BUSCA
+   O nome do produto no resultado e um no de texto solto dentro de um div
+   sem classe: herdava branco, que servia quando o painel era vinho. Com o
+   painel branco, sumia. Tudo que vive dentro do painel passa a usar tinta.
+   ========================================================================== */
+#spot .spot-box,
+#spot .spot-box div,
+#spot .spot-box p,
+#spot .spot-box span:not(.off),
+#spotRes .sr,
+#spotRes .sr div{color:#1d1d1f!important}
+#spotRes .sr small,#spot .spot-hint,#spotMeta{color:#6e6e73!important}
+#spotRes .sr b{color:#1d1d1f!important}
+#spotRes .sr b s{color:#8e8e93!important}
+#spotRes mark{background:#f8ecf1!important;color:#881344!important;
+  border-radius:5px;padding:0 3px}
+#spot .spot-in input{color:#1d1d1f!important}
+#spot .spot-in input::placeholder{color:#a1a1a6!important}
+#spot .spot-in{background:rgba(var(--sh),.045)!important;border-radius:16px}
+#spot .spot-in svg{color:#6e6e73!important}
+/* botoes de sugestao e de fechar */
+#spot .chips button{
+  background:rgba(var(--sh),.06)!important;color:#1d1d1f!important;
+  border:1px solid rgba(var(--sh),.1)!important;
+  padding:8px 14px;border-radius:99px;font-weight:600;font-size:.86rem;
+  min-height:40px;
+}
+#spot .chips button:hover{background:rgba(var(--sh),.12)!important}
+#spot .spot-in button,#spot .x{color:#6e6e73!important}
+#spot .spot-in button:hover,#spot .x:hover{color:#1d1d1f!important}
+#spot .s-empty a{color:#881344!important;font-weight:600}
+/* o botao Adicionar dentro do resultado mantem o vinho da marca */
+#spotRes .sr .addbox .btn{color:#fff!important}
+#spotRes .sr .stepper{color:#881344!important}
 </style>
 </head>
 <body>
@@ -2743,7 +2873,7 @@ function renderOrders(){const box=$('#ordersBox');
  const ids=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]).map(Number);
  $('#againBox').innerHTML=`<div class="again-hd"><p>Produtos que você já comprou</p><button class="btn btn-w" onclick="repeatOrder(0)">↻ Repetir último pedido</button></div><div class="grid">${ids.map(i=>card(P[i])).join('')}</div>`;
  $('#ordTitle').hidden=false;bindTilt();
- box.innerHTML='<div class="orders">'+orders.map((o,k)=>`<div class="glass ord"><div class="ord-hd"><div><b>Pedido #${String(o.id).slice(-6)}</b><span>${o.mode==='casa'?'Entrega':'Retirada'} · loja ${esc(o.store)}</span></div><div class="ord-tot"><span>${o.items.reduce((a,x)=>a+x[1],0)} itens</span><br><b>${brl(o.total)}</b></div></div>${statusPedido(o)}<div class="ord-datas"><div><small>Pedido em</small><b>${fmtDate(o.date)}</b></div><div><small>${o.mode==='casa'?'Entrega':'Retirada'}</small><b>${esc(o.slot||'a combinar')}</b></div></div>
+ box.innerHTML='<div class="orders">'+orders.map((o,k)=>`<div class="glass ord"><div class="ord-hd"><div><b>Pedido #${String(o.id).slice(-6)}</b><span>${o.mode==='casa'?'Entrega':'Retirada'} · loja ${esc(o.store)}</span></div><div class="ord-tot"><span>${o.items.reduce((a,x)=>a+x[1],0)} itens</span><br><b>${brl(o.total)}</b></div></div>${statusPedido(o)}${acompanhaPedido(o)}<div class="ord-datas"><div><small>Pedido em</small><b>${fmtDate(o.date)}</b></div><div><small>${o.mode==='casa'?'Entrega':'Retirada'}</small><b>${esc(o.slot||'a combinar')}</b></div></div>
   <div class="ord-items">${o.items.filter(([id])=>P[id]).map(([id,q])=>`<div title="${esc(P[id].n)}"><img src="${P[id].sm}" alt="${esc(P[id].n)}">${q>1?`<i>${q}</i>`:''}</div>`).join('')}</div>
   <div class="ord-act"><button class="btn btn-w" onclick="repeatOrder(${k})">↻ Repetir pedido</button></div></div>`).join('')+'</div>'}
 function repeatOrder(k){const o=orders[k];if(!o)return;o.items.forEach(([id,q])=>{if(P[id]){cart[id]=(cart[id]||0)+q;refreshCards(id)}});renderCart();toast('Itens do pedido adicionados ao carrinho');openCart()}
@@ -2795,6 +2925,70 @@ document.addEventListener('click',function(e){
  var id=+c.dataset.id;if(!isNaN(id))openProd(id)});
 document.addEventListener('keydown',function(e){
  if(e.key==='Escape'&&$('#prodM').classList.contains('on'))closeProd()});
+
+/* ---- acompanhamento: o mapa e desenhado aqui, sem recurso externo.
+   O CSP do site nao permite script, tile nem API de terceiros, entao
+   um mapa de verdade exigiria um provedor e uma entrada nova no CSP.
+   Este e esquematico: mostra o trajeto, nao as ruas reais. ---- */
+function acompanhaPedido(o){
+ var st=o.status||'novo';
+ if(st==='entregue')return '';
+ var casa=o.mode==='casa';
+ if(st!=='pronto'){
+  return '<div class="acomp aguarda"><span class="ac-ic">\u23F3</span>'+
+   '<div><b>'+(st==='novo'?'Pedido recebido':'Separando seus itens')+'</b>'+
+   '<small>'+(casa?'Avisamos quando sair para entrega.'
+                  :'Avisamos quando estiver pronto para retirada.')+
+   '</small></div></div>'}
+ if(!casa){
+  return '<div class="acomp pronto"><span class="ac-ic">\u{1F3EA}</span>'+
+   '<div><b>Pronto para retirada</b><small>Loja '+esc(o.store)+
+   ' \u00b7 '+esc(o.slot||'no horario combinado')+'</small></div></div>'}
+ return '<div class="acomp saiu">'+
+  '<div class="ac-hd"><span class="ac-ic">\u{1F6F5}</span>'+
+  '<div><b>Saiu para entrega</b><small>Chegada prevista \u00b7 '+
+  esc(o.slot||'em breve')+'</small></div></div>'+
+  mapaEntrega(o)+'</div>'}
+function mapaEntrega(o){
+ var reduz=false;
+ try{reduz=matchMedia('(prefers-reduced-motion:reduce)').matches}catch(e){}
+ var d='M18 118 C 60 118, 70 92, 104 92 S 150 64, 186 64 S 246 44, 274 32';
+ return '<figure class="mapa">'+
+  '<svg viewBox="0 0 292 150" role="img" aria-label="Trajeto da loja '+
+   esc(o.store)+' ate o seu endereco">'+
+   '<rect width="292" height="150" rx="14" fill="#eef0f3"/>'+
+   /* quarteiroes, so para dar leitura de cidade */
+   '<g fill="#e2e6eb">'+
+    '<rect x="14" y="14" width="62" height="38" rx="5"/>'+
+    '<rect x="88" y="14" width="84" height="26" rx="5"/>'+
+    '<rect x="186" y="14" width="44" height="38" rx="5"/>'+
+    '<rect x="14" y="64" width="46" height="30" rx="5"/>'+
+    '<rect x="120" y="104" width="76" height="32" rx="5"/>'+
+    '<rect x="214" y="86" width="62" height="50" rx="5"/>'+
+   '</g>'+
+   '<path d="'+d+'" fill="none" stroke="#d4d8df" stroke-width="9"'+
+    ' stroke-linecap="round"/>'+
+   '<path d="'+d+'" fill="none" stroke="#881344" stroke-width="3"'+
+    ' stroke-linecap="round" stroke-dasharray="1 7"'+
+    ' stroke-linejoin="round" opacity=".45"/>'+
+   '<g class="mp-loja"><circle cx="18" cy="118" r="11" fill="#881344"/>'+
+    '<circle cx="18" cy="118" r="4" fill="#fff"/></g>'+
+   '<g class="mp-casa"><circle cx="274" cy="32" r="11" fill="#1baf7a"/>'+
+    '<path d="M269 33l4 4 7-8" fill="none" stroke="#fff"'+
+    ' stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>'+
+   '<g class="mp-moto">'+
+    '<circle r="11" fill="#fff" stroke="#881344" stroke-width="2.5"/>'+
+    '<text y="4.5" text-anchor="middle" font-size="12">\u{1F6F5}</text>'+
+    (reduz
+      ? '<animateTransform attributeName="transform" type="translate"'+
+        ' values="150 68" dur="1s" fill="freeze"/>'
+      : '<animateMotion dur="7s" repeatCount="indefinite" rotate="0"'+
+        ' keyPoints="0;1" keyTimes="0;1" calcMode="spline"'+
+        ' keySplines="0.45 0.05 0.55 0.95" path="'+d+'"/>')+
+   '</g>'+
+  '</svg>'+
+  '<figcaption>Trajeto ilustrativo \u00b7 loja '+esc(o.store)+
+   ' at\u00e9 voc\u00ea</figcaption></figure>'}
 
 /* ---- status do pedido, visto pelo cliente ---- */
 var PED_ORDEM=['novo','separando','pronto','entregue'];
