@@ -1223,6 +1223,94 @@ html,body{background:#fbf8f9!important}
   color:rgba(255,255,255,.93)!important;
   text-shadow:0 1px 8px rgba(0,0,0,.45)!important;
 }
+/* ==========================================================================
+   PROFUNDIDADE — escala de elevacao
+   --------------------------------------------------------------------------
+   Antes: tudo que tinha sombra usava a MESMA (0 1px 2px + 0 10px 30px -12px),
+   entao contêiner de secao e painel flutuante liam no mesmo plano; .aisle,
+   .btn e .foot nao tinham sombra nenhuma; e .bar/.tabbar/.pk-photo ainda
+   carregavam sombra vinho e borda branca herdadas do tema escuro, invisiveis
+   sobre fundo claro.
+
+   Cada nivel tem tres camadas: contato (1-2px, define a aresta), media
+   (ancora o objeto) e ambiente (ampla e difusa, da o ar em volta). A cor e
+   o vinho da marca, nao preto: sobre o fundo #fbf8f9, levemente rosado,
+   sombra neutra suja; sombra tingida aprofunda.
+   ========================================================================== */
+:root{
+  --sh:136,19,68;
+  /* repouso: chips, controles pequenos */
+  --e1:0 1px 2px rgba(var(--sh),.055),
+       0 2px 4px -1px rgba(var(--sh),.045);
+  /* cards sobre o fundo */
+  --e2:0 1px 2px rgba(var(--sh),.05),
+       0 4px 10px -2px rgba(var(--sh),.07),
+       0 14px 28px -10px rgba(var(--sh),.10);
+  /* barras e trilhos que flutuam sobre o conteudo */
+  --e3:0 1px 2px rgba(var(--sh),.05),
+       0 8px 18px -4px rgba(var(--sh),.10),
+       0 26px 50px -18px rgba(var(--sh),.17);
+  /* camadas modais, acima de tudo */
+  --e4:0 2px 6px rgba(var(--sh),.08),
+       0 18px 36px -8px rgba(var(--sh),.17),
+       0 50px 80px -28px rgba(var(--sh),.26);
+  /* estado elevado no ponteiro */
+  --eh:0 2px 4px rgba(var(--sh),.06),
+       0 10px 20px -4px rgba(var(--sh),.10),
+       0 28px 52px -14px rgba(var(--sh),.19);
+  /* aresta superior iluminada: simula luz vindo de cima */
+  --edge:inset 0 1px 0 rgba(255,255,255,.92);
+}
+
+/* --- nivel 2: cards ------------------------------------------------------ */
+.prod,.gcard,.hero-card,.dg,.glass:not(.bar):not(.tabbar):not(.drawer):not(.mob):not(.idx){
+  box-shadow:var(--edge),var(--e2)!important;
+}
+.prod,.gcard,.aisle{transition:transform .32s var(--ease),box-shadow .32s var(--ease)}
+.prod:hover,.gcard:hover{transform:translateY(-4px);box-shadow:var(--edge),var(--eh)!important}
+
+/* os cards de corredor nao tinham sombra: ficavam colados no fundo */
+.aisle{box-shadow:var(--e2)!important}
+.aisle:hover{transform:translateY(-5px);box-shadow:var(--eh)!important}
+
+/* --- nivel 3: barras e trilhos ------------------------------------------- */
+/* tira a sombra vinho e a borda branca herdadas do tema escuro */
+.bar,.tabbar,.idx{
+  box-shadow:var(--edge),var(--e3)!important;
+  border:1px solid rgba(var(--sh),.07)!important;
+}
+.tabbar{box-shadow:0 -1px 0 rgba(255,255,255,.9) inset,
+        0 -8px 24px -8px rgba(var(--sh),.14),
+        0 -24px 48px -20px rgba(var(--sh),.18)!important}
+.pk-photo{box-shadow:var(--e3)!important;border:1px solid rgba(var(--sh),.08)!important}
+
+/* --- nivel 4: sobreposicoes ---------------------------------------------- */
+.drawer,.sm-box,.sl-box,.au-box,.spot-box,.acct-menu,.mob{
+  box-shadow:var(--edge),var(--e4)!important;
+}
+
+/* --- nivel 1: controles -------------------------------------------------- */
+.dc{box-shadow:var(--e1)!important}
+.dc:hover{box-shadow:var(--e2)!important}
+.btn{box-shadow:var(--e1);transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.btn:hover{box-shadow:var(--e2)}
+.btn:active{transform:translateY(1px);box-shadow:var(--e1)}
+
+/* --- o fundo tambem tem profundidade ------------------------------------- */
+/* um halo quente no topo afasta o conteudo de um branco morto e chapado */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(90vw 55vh at 50% -12vh, rgba(var(--sh),.075), transparent 70%),
+    radial-gradient(60vw 40vh at 100% 8vh, rgba(0,84,156,.035), transparent 72%);
+}
+/* o rodape precisa assentar, nao flutuar */
+.foot{box-shadow:inset 0 1px 0 rgba(var(--sh),.08)}
+
+@media (prefers-reduced-motion:reduce){
+  .prod,.gcard,.aisle,.btn{transition:none}
+  .prod:hover,.gcard:hover,.aisle:hover,.btn:active{transform:none}
+}
 </style>
 </head>
 <body>
