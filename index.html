@@ -917,6 +917,7 @@ body{font-size:1.0625rem}
 .drawer,.sm-box,.sl-box,.au-box,.spot-box{background:linear-gradient(140deg,rgba(162,29,74,.55),rgba(91,13,46,.6))!important}
 .glass,.dg,.bar{text-shadow:0 1px 8px rgba(46,6,23,.35)}
 .hc-item{background:rgba(91,13,46,.3)!important;border-color:rgba(255,255,255,.22)!important}
+.off,.hc-item .im span{color:#fff!important;font-weight:800!important;text-shadow:none!important}
 </style>
 </head>
 <body>
@@ -1424,7 +1425,7 @@ document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){
 /* ============ CART ============ */
 const FREE=50;
 function chg(id,d){const wasEmpty=!Object.keys(cart).length;cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];refreshCards(id);renderCart();
- if(d>0){const x=P[id];toast(`<b>${x.n.split(' ').slice(0,3).join(' ')}</b> no carrinho`,x.sm);const b=$('#cartBtn');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump');if(wasEmpty&&!slot)setTimeout(()=>openSlots('Escolha o melhor horário para receber suas compras.'),500)}}
+ if(d>0){const x=P[id];toast(`<b>${x.n.split(' ').slice(0,3).join(' ')}</b> no carrinho`,x.sm);const b=$('#cartBtn');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')}}
 function renderCart(){const ids=Object.keys(cart).map(Number),qty=ids.reduce((a,i)=>a+cart[i],0),tot=ids.reduce((a,i)=>a+cart[i]*P[i].p,0),eco=ids.reduce((a,i)=>a+cart[i]*(P[i].o-P[i].p),0);
  $('#count').textContent=qty;$('#count2').textContent=qty;$('#cartTotal').textContent=brl(tot);
  $('#items').innerHTML=ids.length?ids.map(i=>`<div class="item"><img src="${P[i].sm}" alt=""><div class="nm">${P[i].n}<b>${brl(P[i].p*cart[i])}</b></div><div class="qty"><button onclick="chg(${i},-1)">−</button>${cart[i]}<button onclick="chg(${i},1)">+</button></div></div>`).join('')
@@ -1634,7 +1635,7 @@ function route(){const h=location.hash;if(h&&!h.startsWith('#/')){return}
  $$('.links a').forEach(a=>a.classList.toggle('on',a.dataset.rLink==='/'+name||a.dataset.rLink===r));
  if(name==='departamentos')showDep(parts[1]);
  if(name==='conta')renderOrders();
- $$('.idx a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===h));$$('.tabbar a').forEach(a=>a.classList.toggle('on',a.dataset.tb==='/'+name||(name==='home'&&a.dataset.tb==='/')));$('#idx').style.display=name==='home'?'none':'';
+ $$('.idx a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===h));$$('.tabbar a').forEach(a=>a.classList.toggle('on',a.dataset.tb==='/'+name||(name==='home'&&a.dataset.tb==='/')));$('#idx').style.display=(name==='home'||name==='departamentos')?'none':'';
  window.scrollTo({top:0,behavior:'instant'});
  $$('.page.on [data-r]:not(.in)').forEach(el=>io.observe(el));bindTilt();}
 addEventListener('hashchange',route);
