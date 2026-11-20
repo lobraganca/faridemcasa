@@ -755,7 +755,10 @@ body{font-size:1.0625rem}
   .tabbar .ico{width:24px;height:24px}
   .tabbar a.on{background:#9e164f;color:#fff}
   .tabbar .cart-ic b{top:-6px;right:-10px}
-  body{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+  /* a barra media 70px e flutua 5px acima da borda; 72 de folga
+     deixava 28px do rodape atras dela — as bandeiras de pagamento
+     ficavam escondidas. */
+  body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
   .bar .cart-btn{display:flex!important;order:2;width:46px;height:46px;padding:0;justify-content:center;border-radius:50%;margin-left:6px}
   .bar .cart-btn .ct{display:none}
   .wa{bottom:calc(84px + env(safe-area-inset-bottom))!important;right:14px!important}
@@ -3022,6 +3025,142 @@ html,body{background:var(--sup-pagina)!important}
                border-radius:50%!important;place-items:center!important;
                padding:0!important;margin-left:6px}
 }
+/* ==========================================================================
+   ALVOS DE TOQUE
+   Medi 25 elementos tocaveis abaixo de 40px em dez rotas a 390px. O pior
+   era o X de fechar a lista de lojas: 29px de largura, porque estava num
+   flex que o espremia. Coracao de favoritar 36, olho da senha 38, setas
+   dos trilhos 38, "Ver todas" 22 de altura, "Esqueci minha senha" 19.
+   O minimo que iOS e Android recomendam e 44.
+
+   Duas tecnicas, conforme o caso. Onde o desenho importa (o coracao no
+   card, o olho dentro do campo), a area sensivel cresce por baixo com um
+   ::after invisivel e o desenho fica igual. Onde ha espaco de sobra (os
+   links do rodape, "Ver todas" ao lado de um titulo grande), a altura
+   cresce de verdade.
+
+   Nenhum ::after foi posto onde dois alvos ficariam perto o bastante para
+   as areas se cobrirem — nesses casos o espaco e real, nao sobreposto.
+   ========================================================================== */
+
+/* --- area sensivel invisivel, desenho intacto --- */
+.fav::after,.pm-x::after,.pw button::after,
+.arrows button::after,.cv-nav button::after{
+  content:"";position:absolute;left:50%;top:50%;translate:-50% -50%;
+  width:max(100%,44px);height:max(100%,44px);
+  border-radius:50%;
+}
+/* estes tres ja eram posicionados; os dois das setas precisam ser */
+.arrows button,.cv-nav button{position:relative}
+
+/* --- o X espremido pelo flex --- */
+.x{flex-shrink:0;min-width:44px;min-height:44px}
+
+/* --- links que viram altura de verdade --- */
+.more,.hc-more{min-height:44px}
+.loja-mapa,.f-wa,.au-link,.au-alt a{
+  display:inline-flex;align-items:center;min-height:44px;
+}
+/* no rodape o espaco e real: nao da para sobrepor areas numa lista
+   de links a 4px um do outro, senao um rouba o toque do outro. */
+.f-links a{padding:12px 0!important}
+.f-links{gap:0 18px!important}
+/* o logo e um alvo grande na horizontal, mas tinha 32px de altura */
+.logo,.f-logo{min-height:44px}
+
+/* --- campos de texto --- */
+/* a caixa tinha 56px mas o campo dentro dela tinha 23: tocar dez pixels
+   acima do texto nao focava nada. */
+.hsearch input,#spotQ{min-height:44px}
+
+@media (prefers-reduced-motion:no-preference){}
+/* ==========================================================================
+   ESQUELETOS DE CARREGAMENTO, E O SALTO QUE ELES TAPAM
+   Eu disse antes que o problema era imagem sem largura e altura. Medi, e
+   nao era: o CSS ja reserva o espaco de cada imagem (`.pimg` tem
+   aspect-ratio:1, `.sr img` tem 52x52, `.aisle img` ocupa o inset
+   inteiro). Atrasando toda imagem em 900ms de proposito, o salto medido
+   por imagem foi ZERO nas duas larguras.
+
+   O salto real e outro e e muito maior: 1,0 em /departamentos e /conta,
+   dez vezes o limite de 0,1. A pagina pinta o HTML vazio — o <main> fica
+   com 438px numa tela de 844, ou seja o rodape nasce no meio da tela —
+   e quando o JS preenche os containers o rodape desce uma tela inteira.
+
+   Tres medidas:
+   1. O <main> reserva uma tela de altura, entao o rodape nasce abaixo da
+      dobra e nunca entra em cena empurrando nada.
+   2. Os dois blocos acima da dobra (trilho de departamentos e cartao de
+      ofertas) nascem com esqueleto no HTML, do tamanho exato do conteudo
+      que vem. O `innerHTML=` do JS apaga o esqueleto sozinho.
+   3. `scrollbar-gutter:stable` — abrir um modal poe `overflow:hidden` no
+      body, a barra de rolagem some e a pagina inteira anda 15px de lado.
+      Isso sozinho valia 0,0995 de salto em toda rota.
+   ========================================================================== */
+html{scrollbar-gutter:stable}
+
+/* O trilho de atalhos nasce vazio e o JS o preenche: 0px viram 56px e
+   tudo abaixo desce. Era o ultimo salto que sobrava, 0,0957 em toda rota
+   que nao e a home. Reserva a altura dele desde o primeiro quadro. */
+.idx{min-height:56px}
+
+main{min-height:calc(100svh - 190px)}
+@media (max-width:900px){main{min-height:calc(100svh - 150px)}}
+
+@keyframes esq-brilho{from{background-position:200% 0}to{background-position:-200% 0}}
+.esq{
+  display:block;border-radius:12px;
+  background:linear-gradient(90deg,#ececed 25%,#f6f6f8 38%,#ececed 62%);
+  background-size:200% 100%;
+  animation:esq-brilho 1.5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion:reduce){.esq{animation:none}}
+
+/* chips do trilho: mesma altura e raio dos de verdade */
+.esq-chip{height:48px;border-radius:999px;flex-shrink:0}
+
+/* cartao de ofertas: mesma grade, mesma proporcao de imagem */
+.esq-card{
+  background:#5b0d2e;border:1px solid var(--gb);border-radius:18px;
+  padding:8px;display:flex;flex-direction:column;gap:8px;
+}
+.esq-im{aspect-ratio:1.25;border-radius:12px}
+.esq-l1{height:13px;width:86%;border-radius:7px}
+.esq-l2{height:13px;width:54%;border-radius:7px;margin-bottom:2px}
+
+/* o esqueleto nao e lido em voz alta como conteudo */
+[aria-busy="true"] .esq,[aria-busy="true"] .esq-card{pointer-events:none}
+/* ==========================================================================
+   BRILHO ENQUANTO A IMAGEM NAO CHEGA
+   O esqueleto dos blocos reserva o espaco, mas localmente o JS preenche em
+   menos de 200ms e quase nao da para ver. O que se ve de verdade, hoje, e
+   a IMAGEM: as fotos vem de CDN e o quadro fica branco por segundos — num
+   catalogo de supermercado sao dezenas de retangulos brancos de uma vez.
+
+   O brilho vive num ::before do quadro, nao na imagem: assim some sem
+   deixar fundo atras de PNG transparente. Sai no `load` e tambem no
+   `error`, senao uma imagem que nao existe brilharia para sempre.
+   ========================================================================== */
+.pimg:not(.pronta)::before,
+.hc-item .im:not(.pronta)::before,
+.cv:not(.pronta)::before,
+.aisle:not(.pronta)::before{
+  content:"";position:absolute;inset:0;z-index:0;border-radius:inherit;
+  background:linear-gradient(90deg,#eeeef0 25%,#f7f7f9 38%,#eeeef0 62%);
+  background-size:200% 100%;
+  animation:esq-brilho 1.5s ease-in-out infinite;
+}
+/* a foto fica por cima do brilho... */
+.pimg img,.hc-item .im img,.cv img,.aisle img{position:relative;z-index:1}
+/* ...mas o coracao e o selo de desconto moram DENTRO do quadro e vem
+   antes da foto no HTML. Com z-index igual, a foto passava por cima e
+   o coracao parava de receber o toque. Eles sobem para 2. */
+.pimg .fav,.pimg .off,.hc-item .im .off{z-index:2}
+.aisle>:not(img){position:relative;z-index:2}
+@media (prefers-reduced-motion:reduce){
+  .pimg:not(.pronta)::before,.hc-item .im:not(.pronta)::before,
+  .cv:not(.pronta)::before,.aisle:not(.pronta)::before{animation:none}
+}
 </style>
 </head>
 <body>
@@ -3121,7 +3260,7 @@ html,body{background:var(--sup-pagina)!important}
           <button class="btn btn-w">Buscar</button>
         </form>
         <button class="hero-store" onclick="openStores()"><svg class="ico"><use href="#i-store"/></svg><span id="heroStore">Escolha sua cidade</span><u>Trocar</u></button>
-        <div class="dslide" id="dslide" aria-label="Departamentos"><div class="ds-track" id="dgrid"></div></div>
+        <div class="dslide" id="dslide" aria-label="Departamentos"><div class="ds-track" id="dgrid" aria-busy="true"><span class="esq esq-chip" style="width:132px"></span><span class="esq esq-chip" style="width:118px"></span><span class="esq esq-chip" style="width:156px"></span><span class="esq esq-chip" style="width:140px"></span><span class="esq esq-chip" style="width:124px"></span><span class="esq esq-chip" style="width:150px"></span></div></div>
 <div class="promo-topo">
     <div class="promo-hd"><h2>Promoções</h2></div>
     <div class="cover d" id="coverD" data-r>
@@ -3141,7 +3280,7 @@ html,body{background:var(--sup-pagina)!important}
       </div>
       <div class="hero-card glass">
         <div class="hc-hd"><div><b>Ofertas de hoje</b></div><a href="#ofertas-home" class="hc-more">Ver todas <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div>
-        <div class="hc-grid" id="heroDeals"></div>
+        <div class="hc-grid" id="heroDeals" aria-busy="true"><div class="esq-card"><span class="esq esq-im"></span><span class="esq esq-l1"></span><span class="esq esq-l2"></span></div><div class="esq-card"><span class="esq esq-im"></span><span class="esq esq-l1"></span><span class="esq esq-l2"></span></div><div class="esq-card"><span class="esq esq-im"></span><span class="esq esq-l1"></span><span class="esq esq-l2"></span></div><div class="esq-card"><span class="esq esq-im"></span><span class="esq esq-l1"></span><span class="esq esq-l2"></span></div></div>
       </div>
     </div>
   </section>
@@ -3622,7 +3761,7 @@ const pill=c=>`<a class="pill glass" href="#/departamentos"><span><img loading="
 $('#heroDeals').innerHTML=[0,6,12,3].map(i=>{const x=P[i];const q=cart[x.id]||0;return `<div class="hc-item${q?' incart':''}" data-id="${x.id}"><span class="incart-tag" data-incart ${q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${q}</b><i class="sr-only">no carrinho</i></span><div class="im"><span>-${Math.round((1-x.p/x.o)*100)}%</span><img src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"></div><p>${x.n}</p><div class="hc-row"><b>${brl(x.p)}</b><button onclick="chg(${x.id},1)" aria-label="Adicionar ${x.n}"><svg class="ico" style="width:16px"><use href="#i-plus"/></svg></button></div></div>`}).join('');
 $('#idx').innerHTML=`<a class="all" href="#/departamentos/todos">Todos</a><a href="#/ofertas"><svg class="ico ico-in" style="width:15px;height:15px" aria-hidden="true"><use href="#i-bolt"/></svg> Ofertas</a>`+CATS.map((c,k)=>`<a href="#/departamentos/${k}" data-dep="${k}"><span><img src="${c.img}" alt=""></span>${c.n}</a>`).join('');
 (()=>{const one=CATS.map((c,k)=>`<a class="dc" href="#/departamentos/${k}" title="${c.n}" aria-label="${c.n}"><span><img src="${c.img}" alt=""></span><b>${c.n}</b></a>`).join('')+`<a class="dc more" href="#/departamentos/todos" title="Todos os produtos" aria-label="Todos os produtos"><span>+</span><b>Todos os produtos</b></a>`;
- const tr=$('#dgrid'),box=$('#dslide');tr.innerHTML=one+one;
+ const tr=$('#dgrid'),box=$('#dslide');tr.innerHTML=one+one;tr.removeAttribute('aria-busy');
  let paused=false,last=0,raf;const speed=0.035; // px por ms
  const stop=()=>{paused=true;clearTimeout(box._t)},go=()=>{clearTimeout(box._t);box._t=setTimeout(()=>paused=false,1800)};
  ['pointerdown','touchstart','wheel','mouseenter'].forEach(ev=>box.addEventListener(ev,stop,{passive:true}));
@@ -4455,6 +4594,33 @@ function gxRender(){
  }
  if(!matchMedia('(prefers-reduced-motion:reduce)').matches)
   requestAnimationFrame(passo);
+})();
+
+/* ---- marca o quadro como pronto quando a foto chega (ou falha) ---- */
+(function(){
+ var SEL='.pimg,.hc-item .im,.cv,.aisle';
+ function pronta(img){
+  if(!img||img.tagName!=='IMG')return;
+  var c=img.closest&&img.closest(SEL);
+  if(c)c.classList.add('pronta');
+ }
+ /* captura, porque `load` de imagem nao sobe por bolha */
+ document.addEventListener('load',function(e){pronta(e.target)},true);
+ document.addEventListener('error',function(e){pronta(e.target)},true);
+ function varre(){
+  var l=document.querySelectorAll(SEL+' img');
+  for(var i=0;i<l.length;i++) if(l[i].complete) pronta(l[i]);
+  /* quadro sem imagem nenhuma nao deve brilhar */
+  var q=document.querySelectorAll(SEL);
+  for(var j=0;j<q.length;j++) if(!q[j].querySelector('img')) q[j].classList.add('pronta');
+ }
+ varre();
+ /* os cartoes sao refeitos por innerHTML o tempo todo; cada lote novo
+    precisa de uma varredura para as imagens que ja estavam em cache. */
+ var pend=null;
+ new MutationObserver(function(){
+  clearTimeout(pend); pend=setTimeout(varre,60);
+ }).observe(document.body,{childList:true,subtree:true});
 })();
 
 setTimeout(checarRecorrentes,1200);
