@@ -3145,7 +3145,7 @@ html,body{background:var(--sup-pagina)!important}
 <!-- ======================= FAVORITOS ======================= -->
 <div class="page gpage" id="p-favoritos"><div class="wrap">
   <div class="ghero"><h1>Favoritos</h1><p>Os produtos marcados com ♥ ficam salvos neste aparelho.</p></div>
-  <div class="glass empty-box" id="favEmpty" hidden><b>Nenhum favorito ainda</b><p>Toque no coração de qualquer produto para guardá-lo aqui.</p></div>
+  <div class="glass empty-box" id="favEmpty" hidden><b>Nenhum favorito ainda</b><p>Toque no coração de qualquer produto para guardá-lo aqui e encontrar depois sem procurar.</p><a class="btn btn-w" href="#/departamentos/todos">Ver produtos</a></div>
   <div class="grid" id="favGrid"></div>
 </div></div>
 
@@ -3790,6 +3790,14 @@ function repeatOrder(k){const o=orders[k];if(!o)return;o.items.forEach(([id,q])=
 
 /* ============ ROUTER ============ */
 function route(){const h=location.hash;if(h&&!h.startsWith('#/')){return}
+ /* no celular, voltar e o gesto natural de fechar. Antes a tela de
+    produto continuava aberta e o body ficava travado: a pagina parava
+    de rolar e so um toque no X resolvia. Navegar sempre dispensa o que
+    estiver por cima. */
+ ['closeProd','closeSpot','closeSlots','closeAuth','closeCart']
+  .forEach(function(f){try{window[f]&&window[f]()}catch(e){}});
+ try{toggleMob(false)}catch(e){}
+ if(curStore())document.body.classList.remove('lock');
  const r=h.replace('#','')||'/';const parts=r.slice(1).split('/');const name=r==='/'?'home':parts[0];
  const pg=document.getElementById('p-'+name)||document.getElementById('p-home');
  $$('.page').forEach(p=>p.classList.toggle('on',p===pg));
@@ -3951,6 +3959,15 @@ function salvarCarrinhoComoLista(){
  var ids=Object.keys(cart).map(Number).filter(function(i){return P[i]});
  if(!ids.length){toast('Seu carrinho está vazio');return}
  var a=listas();
+ /* salvar o mesmo carrinho duas vezes criava duas listas iguais, e a
+    pessoa so descobria na pagina de listas. Se ja existe uma identica,
+    avisa em vez de duplicar. */
+ var assin=ids.slice().sort(function(x,y){return x-y})
+   .map(function(i){return i+':'+cart[i]}).join('|');
+ var igual=a.filter(function(l){
+  return l.itens.slice().sort(function(x,y){return x[0]-y[0]})
+    .map(function(x){return x[0]+':'+x[1]}).join('|')===assin})[0];
+ if(igual){toast('Você já tem essa lista: <b>'+esc(igual.nome)+'</b>');return}
  a.unshift({id:Date.now(),nome:'Lista de '+fmtDate(Date.now()),
   itens:ids.map(function(i){return [i,cart[i]]}),criada:Date.now()});
  salvarListas(a);renderListas();
