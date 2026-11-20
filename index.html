@@ -3161,6 +3161,95 @@ main{min-height:calc(100svh - 190px)}
   .pimg:not(.pronta)::before,.hc-item .im:not(.pronta)::before,
   .cv:not(.pronta)::before,.aisle:not(.pronta)::before{animation:none}
 }
+/* ==========================================================================
+   PRECO POR UNIDADE
+   O dado ja existia — "R$ 53,31/litro" — mas vivia ENTRE o nome e o
+   preco, em corpo 12 e no cinza mais claro da paleta. Ficava parecendo
+   legenda do nome, nao informacao de preco.
+
+   Em supermercado, comparar por litro e por quilo e *a* decisao: dois
+   amaciantes de precos diferentes e frascos diferentes so se comparam
+   assim. 17 dos 26 produtos com unidade tem R$/kg ou R$/litro.
+
+   Agora ele e a segunda linha do bloco de preco: quebra sozinho para
+   baixo do valor cheio (flex-basis 100%), com peso 600, o cinza medio
+   em vez do claro, e numeros de largura fixa para as virgulas alinharem
+   entre um card e outro.
+   ========================================================================== */
+.pprice .punit{
+  flex:0 0 100%;
+  margin:3px 0 0;
+  font-style:normal;
+  font-size:.78rem;
+  font-weight:600;
+  letter-spacing:0;
+  color:var(--t2)!important;
+  font-variant-numeric:tabular-nums;
+  min-height:1.05em;          /* produto sem unidade nao encurta o card */
+  line-height:1.05;
+}
+@media (min-width:901px){.pprice .punit{font-size:.82rem}}
+
+/* na tela do produto o valor e grande; a unidade acompanha com mais corpo */
+.pm-unit{
+  font-size:.95rem!important;font-weight:600;
+  color:var(--t2)!important;
+  font-variant-numeric:tabular-nums;
+  margin-top:4px;
+}
+.pm-unit:empty{display:none}
+
+/* na linha de resultado da busca, idem */
+.sr small{font-weight:600;color:var(--t2)!important;font-variant-numeric:tabular-nums}
+/* ==========================================================================
+   BUSCA: MEMORIA, CORRECAO E FILTRO
+   ========================================================================== */
+.bc-hd{display:flex;align-items:center;justify-content:space-between;
+       margin:2px 2px 8px}
+.bc-hd b{font-size:.78rem;font-weight:700;letter-spacing:.07em;
+         text-transform:uppercase;color:var(--t3)}
+.bc-hd2{margin-top:18px}
+.bc-limpar{font-size:.82rem;font-weight:600;color:var(--wine)!important;
+           min-height:44px;padding:0 8px;margin:-11px -8px}
+/* o X de esquecer mora dentro do chip; precisa de alvo proprio sem
+   empurrar o texto nem roubar o toque do chip inteiro */
+.bc-rec button{position:relative;padding-right:34px!important}
+.bc-rec button i{
+  position:absolute;right:2px;top:50%;translate:0 -50%;
+  width:28px;height:28px;border-radius:50%;
+  display:grid;place-items:center;font-style:normal;font-size:.74rem;
+  opacity:.5;transition:.2s;
+}
+.bc-rec button i:hover,.bc-rec button i:focus-visible{opacity:1;background:rgba(var(--shc),.12)}
+
+.bc-corr{font-size:.88rem;color:var(--t2);margin:0 2px 12px;line-height:1.5}
+.bc-corr b{color:var(--ink);font-weight:700}
+.bc-corr button{
+  display:inline;font-size:.88rem;font-weight:600;
+  color:var(--wine)!important;text-decoration:underline;
+  text-underline-offset:3px;
+}
+/* os chips de categoria viravam quatro linhas antes do primeiro
+   resultado: o filtro empurrava para fora da tela justamente o que ele
+   deveria ajudar a ver. Viram um trilho de uma linha que desliza. */
+.bc-filtro{
+  margin:0 0 12px;
+  flex-wrap:nowrap!important;
+  overflow-x:auto;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:2px;
+}
+.bc-filtro::-webkit-scrollbar{display:none}
+.bc-filtro button{flex-shrink:0}
+/* "Ver todos" quebrava em duas linhas e empurrava a contagem */
+.spot-meta a{white-space:nowrap;margin-left:12px;flex-shrink:0}
+.spot-meta span{min-width:0}
+.bc-filtro button span{
+  display:inline-block;margin-left:5px;font-size:.76rem;opacity:.6;
+  font-variant-numeric:tabular-nums;
+}
+.bc-filtro button.on span{opacity:.8}
 </style>
 </head>
 <body>
@@ -3531,7 +3620,7 @@ main{min-height:calc(100svh - 190px)}
 
 <div class="spot" id="spot" onclick="if(event.target===this)closeSpot()">
   <div class="spot-box glass">
-    <div class="spot-in"><svg class="ico" style="color:var(--t3)"><use href="#i-search"/></svg><input id="spotQ" placeholder="Digite o produto. Ex.: arroz, biscoito, vinho" enterkeyhint="search" autocomplete="off" aria-label="Buscar produtos"><button class="x" onclick="closeSpot()" aria-label="Fechar">✕</button></div>
+    <div class="spot-in"><svg class="ico" style="color:var(--t3)"><use href="#i-search"/></svg><input id="spotQ" placeholder="Arroz, biscoito, vinho..." enterkeyhint="search" autocomplete="off" aria-label="Buscar produtos"><button class="x" onclick="closeSpot()" aria-label="Fechar">✕</button></div>
     <div class="spot-meta" id="spotMeta"></div><div class="spot-res" id="spotRes"></div>
   </div>
 </div>
@@ -3543,8 +3632,8 @@ main{min-height:calc(100svh - 190px)}
     <div class="pm-body">
       <small id="pmCat"></small>
       <h3 id="pmName"></h3>
-      <div class="pm-unit" id="pmUnit"></div>
       <div class="pm-price" id="pmPrice"></div>
+      <div class="pm-unit" id="pmUnit"></div>
       <div class="pm-eco" id="pmEco" hidden></div>
       <p class="pm-desc">A descrição completa deste produto vem do catálogo da loja e
       ainda não está ligada neste protótipo.</p>
@@ -3737,8 +3826,8 @@ function card(x){const pct=Math.round((1-x.p/x.o)*100);
   <span class="incart-tag" data-incart ${_q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${_q}</b><i class="sr-only">no carrinho</i></span>
   <div class="pimg">${pct>0?`<span class="off">-${pct}%</span>`:''}<button class="fav ${favs.has(x.id)?'on':''}" onclick="fav(${x.id})" aria-pressed="${favs.has(x.id)}" aria-label="Favoritar"><svg class="ico" style="width:18px"><use href="#i-heart"/></svg></button>
    <img loading="lazy" src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"></div>
-  <div class="pname" title="${x.n}">${x.n}</div><div class="punit">${x.u}</div>
-  <div class="pprice"><b>${brl(x.p)}</b><s>${brl(x.o)}</s></div>
+  <div class="pname" title="${x.n}">${x.n}</div>
+  <div class="pprice"><b>${brl(x.p)}</b><s>${brl(x.o)}</s><i class="punit">${x.u||''}</i></div>
   <div class="addbox">${addbox(x.id)}</div></div>`}
 function refreshCards(id){const q=cart[id]||0;
  $$(`.prod[data-id="${id}"],.hc-item[data-id="${id}"]`).forEach(c=>{
@@ -3821,7 +3910,7 @@ $('#city').addEventListener('keydown',e=>{if(e.key==='Enter')checkCity()});
 /* ============ SEARCH (spotlight) ============ */
 function openSpot(q){if(typeof q==='string')$('#spotQ').value=q;$('#spot').classList.add('on');document.body.classList.add('lock');setTimeout(()=>$('#spotQ').focus(),80);renderSpot()}
 function closeSpot(){$('#spot').classList.remove('on');document.body.classList.remove('lock')}
-$('#spotQ').addEventListener('input',renderSpot);
+$('#spotQ').addEventListener('input',function(){spotCat='';spotForcar=false;renderSpot()});
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSpot()}if(e.key==='Escape'){closeSlots();closeAuth();closeAcct();closeSpot();closeCart();toggleMob(false);if(curStore())closeStores()}});
 
 /* ============ CART ============ */
@@ -4037,13 +4126,160 @@ function searchP(q){const t=norm(q).split(/\s+/).filter(Boolean).map(w=>SYN[w]||
   if(norm(x.n).startsWith(t[0]))sc+=2;return[x,sc]}).filter(Boolean).sort((a,b)=>b[1]-a[1]).map(r=>r[0])}
 function hl(name,q){let out=esc(name);norm(q).split(/\s+/).filter(w=>w.length>1).forEach(w=>{const i=norm(out).indexOf(w);if(i>=0&&!out.includes('<mark>'))out=out.slice(0,i)+'<mark>'+out.slice(i,i+w.length)+'</mark>'+out.slice(i+w.length)});return out}
 const POP=['Arroz','Biscoito','Vinho','Desinfetante','Ração','Papel higiênico','Red Bull','Bacon'];
+/* ==========================================================================
+   BUSCA: MEMORIA, ERRO DE DIGITACAO E FILTRO
+   Tres buracos na busca, que num mercado e o atalho de quem tem pressa:
+   nao lembrava o que a pessoa ja tinha procurado, nao perdoava um erro de
+   digitacao (searchP exige que TODA palavra bata, entao "dezinfetante" dava
+   zero) e nao deixava estreitar um resultado largo.
+   ========================================================================== */
+var spotCat='', spotForcar=false, spotGuarda=null;
+var CATLBL={drinks:'Bebidas',mercearia:'Mercearia',acougue:'Açougue',
+            limpeza:'Limpeza',higiene:'Higiene',pet:'Pet'};
+
+/* ---- memoria ---- */
+function buscasRecentes(){
+ try{var a=JSON.parse(LS.get('farid_buscas')||'[]');
+  return Array.isArray(a)?a.filter(function(x){return typeof x==='string'&&x.trim()}).slice(0,8):[]
+ }catch(e){return[]}}
+function guardarBusca(q){
+ q=(q||'').trim(); if(q.length<2)return;
+ var a=buscasRecentes().filter(function(x){return norm(x)!==norm(q)});
+ a.unshift(q); LS.set('farid_buscas',JSON.stringify(a.slice(0,8)))}
+function usarBusca(i){var a=buscasRecentes(); if(!a[i])return;
+ $('#spotQ').value=a[i]; spotCat=''; spotForcar=false; renderSpot(); $('#spotQ').focus()}
+function esquecerBusca(i,ev){if(ev){ev.stopPropagation();ev.preventDefault()}
+ var a=buscasRecentes(); a.splice(i,1);
+ LS.set('farid_buscas',JSON.stringify(a)); renderSpot()}
+function limparBuscas(){LS.set('farid_buscas','[]'); renderSpot()}
+function usarTermo(t){$('#spotQ').value=t; spotCat=''; spotForcar=false; renderSpot(); $('#spotQ').focus()}
+function buscarExato(){spotForcar=true; renderSpot()}
+function filtrarSpot(c){spotCat=c; renderSpot()}
+
+/* ---- erro de digitacao ----
+   Distancia de edicao contra o vocabulario real do catalogo. Desiste cedo
+   quando os tamanhos sao muito diferentes, para nao varrer a lista a toa. */
+function distEdicao(a,b){
+ if(Math.abs(a.length-b.length)>2)return 9;
+ var m=a.length,n=b.length,ant=[],atu=[],i,j;
+ for(j=0;j<=n;j++)ant[j]=j;
+ for(i=1;i<=m;i++){atu[0]=i;
+  for(j=1;j<=n;j++)
+   atu[j]=Math.min(ant[j]+1,atu[j-1]+1,ant[j-1]+(a.charAt(i-1)===b.charAt(j-1)?0:1));
+  ant=atu.slice()}
+ return ant[n]}
+
+var VOCAB=(function(){
+ var set={},add=function(t){norm(t).split(/[^a-z0-9]+/).forEach(function(w){
+  if(w.length>2)set[w]=1})};
+ P.forEach(function(x){add(x.n)});
+ Object.keys(CATN).forEach(function(k){add(CATN[k])});
+ POP.forEach(add); Object.keys(SYN).forEach(function(k){add(SYN[k])});
+ return Object.keys(set)})();
+
+function sugerirTermo(q){
+ var t=norm(q).split(/\s+/).filter(Boolean), mudou=false;
+ if(!t.length)return null;
+ var corr=t.map(function(w){
+  if(w.length<4||VOCAB.indexOf(w)>=0||SYN[w])return w;
+  var melhor=null, md=3, limite=w.length>5?2:1;
+  for(var i=0;i<VOCAB.length;i++){
+   var d=distEdicao(w,VOCAB[i]);
+   if(d<md){md=d;melhor=VOCAB[i]; if(d===1)break}}
+  if(melhor&&md<=limite){mudou=true;return melhor}
+  return w});
+ return mudou?corr.join(' '):null}
+
+function chipsPop(n){
+ return '<div class="chips bc-pop">'+POP.slice(0,n).map(function(x){
+  return '<button onclick="usarTermo(\''+x.replace(/'/g,"\\'")+'\')">'+esc(x)+'</button>'
+ }).join('')+'</div>'}
+
 function renderSpot(){const q=$('#spotQ').value.trim();
- if(!q){$('#spotMeta').innerHTML='Buscas mais procuradas';$('#spotRes').innerHTML='<div class="chips">'+POP.map(p=>`<button onclick="$('#spotQ').value='${p}';renderSpot()">${p}</button>`).join('')+'</div>';return}
- const r=searchP(q);
- if(!r.length){$('#spotMeta').innerHTML='';$('#spotRes').innerHTML=`<div class="s-empty"><b>Não encontramos “${esc(q)}”</b>Confira a escrita ou tente outra palavra.</div><div class="chips" style="justify-content:center">${POP.slice(0,5).map(p=>`<button onclick="$('#spotQ').value='${p}';renderSpot()">${p}</button>`).join('')}</div><div class="s-empty" style="padding-top:0">Não achou o que precisa?<br><a href="https://wa.me/5531999505658?text=${encodeURIComponent('Olá! Procuro o produto: '+q)}" target="_blank" rel="noopener">💬 Pedir pelo WhatsApp</a></div>`;return}
- $('#spotMeta').innerHTML=`<span><b>${r.length}</b> ${r.length===1?'produto encontrado':'produtos encontrados'} para “${esc(q)}”</span>${r.length>6?`<a href="#" onclick="event.preventDefault();showResults()">Ver todos</a>`:''}`;
- $('#spotRes').innerHTML=r.slice(0,6).map(x=>`<div class="sr prod" data-id="${x.id}" style="background:none;box-shadow:none;border:0;flex-direction:row;padding:10px 12px"><img src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt=""><div>${hl(x.n,q)}<small>${x.u||''}</small><b>${brl(x.p)}<s>${brl(x.o)}</s></b></div><div class="addbox">${addbox(x.id)}</div></div>`).join('')}
-function showResults(){const q=$('#spotQ').value.trim();closeSpot();location.hash='#/ofertas';
+ if(!q){
+  var rec=buscasRecentes();
+  var html='';
+  if(rec.length){
+   html+='<div class="bc-hd"><b>Buscas recentes</b>'+
+         '<button class="bc-limpar" onclick="limparBuscas()">Limpar</button></div>'+
+         '<div class="chips bc-rec">'+rec.map(function(x,i){
+    return '<button onclick="usarBusca('+i+')">'+esc(x)+
+           '<i role="button" tabindex="0" aria-label="Remover '+esc(x)+' das buscas recentes" '+
+           'onclick="esquecerBusca('+i+',event)" '+
+           'onkeydown="if(event.key===\'Enter\'||event.key===\' \')esquecerBusca('+i+',event)">✕</i></button>'
+   }).join('')+'</div>';
+   html+='<div class="bc-hd bc-hd2"><b>Mais procuradas</b></div>';
+  }
+  $('#spotMeta').innerHTML=rec.length?'':'Buscas mais procuradas';
+  $('#spotRes').innerHTML=html+chipsPop(8);
+  return}
+
+ var r=searchP(q), usado=q, corrigido=null, dica=null;
+ if(!spotForcar){
+  var sug=sugerirTermo(q);
+  if(sug){
+   var rs=searchP(sug);
+   /* sem nenhum resultado, troca e avisa (como faz um buscador). Com
+      resultado, nao mexe no que a pessoa pediu: so oferece a correcao
+      se ela traria MAIS produtos — senao seria barulho. */
+   if(!r.length){if(rs.length){r=rs;usado=sug;corrigido=sug}}
+   else if(rs.length>r.length)dica=sug;
+  }
+ }
+ if(!r.length){
+  $('#spotMeta').innerHTML='';
+  $('#spotRes').innerHTML='<div class="s-empty"><b>Não encontramos “'+esc(q)+'”</b>'+
+   'Confira a escrita ou tente outra palavra.</div>'+chipsPop(5)+
+   '<div class="s-empty" style="padding-top:0">Não achou o que precisa?<br>'+
+   '<a href="https://wa.me/5531999505658?text='+
+   encodeURIComponent('Olá! Procuro o produto: '+q)+
+   '" target="_blank" rel="noopener">Pedir pelo WhatsApp</a></div>';
+  return}
+
+ /* filtro por categoria: so aparece quando ha o que estreitar */
+ var porCat={},ordem=[];
+ r.forEach(function(x){if(!porCat[x.cat]){porCat[x.cat]=0;ordem.push(x.cat)}porCat[x.cat]++});
+ if(spotCat&&!porCat[spotCat])spotCat='';
+ var mostra=spotCat?r.filter(function(x){return x.cat===spotCat}):r;
+
+ var meta='<span><b>'+mostra.length+'</b> '+
+  (mostra.length===1?'produto encontrado':'produtos encontrados')+
+  ' para “'+esc(usado)+'”</span>'+
+  (mostra.length>6?'<a href="#" onclick="event.preventDefault();showResults()">Ver todos</a>':'');
+ $('#spotMeta').innerHTML=meta;
+
+ var html='';
+ if(corrigido){
+  html+='<p class="bc-corr">Mostrando resultados para <b>'+esc(corrigido)+'</b>. '+
+        '<button onclick="buscarExato()">Buscar por “'+esc(q)+'” mesmo assim</button></p>';
+ }else if(dica){
+  html+='<p class="bc-corr">Você quis dizer '+
+        '<button onclick="usarTermo(\''+dica.replace(/'/g,"\\'")+'\')">'+esc(dica)+
+        '</button>?</p>';
+ }
+ if(ordem.length>1&&r.length>4){
+  html+='<div class="chips bc-filtro"><button class="'+(spotCat?'':'on')+
+   '" onclick="filtrarSpot(\'\')">Todas <span>'+r.length+'</span></button>'+
+   ordem.map(function(c){
+    return '<button class="'+(spotCat===c?'on':'')+'" onclick="filtrarSpot(\''+c+'\')">'+
+      esc(CATLBL[c]||c)+' <span>'+porCat[c]+'</span></button>'}).join('')+'</div>';
+ }
+ html+=mostra.slice(0,6).map(function(x){
+  return '<div class="sr prod" data-id="'+x.id+'" style="background:none;box-shadow:none;'+
+   'border:0;flex-direction:row;padding:10px 12px">'+
+   '<img src="'+x.img+'" onerror="this.onerror=null;this.src=\''+x.sm+'\'" alt="">'+
+   '<div>'+hl(x.n,usado)+'<small>'+(x.u||'')+'</small>'+
+   '<b>'+brl(x.p)+'<s>'+brl(x.o)+'</s></b></div>'+
+   '<div class="addbox">'+addbox(x.id)+'</div></div>'}).join('');
+ $('#spotRes').innerHTML=html;
+ guardaDepois(usado)}
+
+/* guarda a busca so depois que a pessoa para de digitar e so se deu
+   resultado: gravar a cada tecla encheria a lista de prefixos. */
+function guardaDepois(q){
+ clearTimeout(spotGuarda);
+ spotGuarda=setTimeout(function(){guardarBusca(q)},1100)}
+function showResults(){const q=$('#spotQ').value.trim();guardarBusca(q);clearTimeout(spotGuarda);closeSpot();location.hash='#/ofertas';
  setTimeout(()=>{const r=searchP(q);$$('#tabsOff .tab').forEach(t=>t.classList.remove('on'));
   $('#gridOff').innerHTML=`<p class="res-hd" style="grid-column:1/-1">${r.length} resultado${r.length===1?'':'s'} para <b>“${esc(q)}”</b><button onclick="$('#tabsOff .tab').click()">Limpar busca</button></p>`+(r.map(card).join('')||'');bindTilt()},60)}
 $('#spotQ').addEventListener('keydown',e=>{if(e.key==='Enter'&&$('#spotQ').value.trim())showResults()});
