@@ -1033,7 +1033,7 @@ a{color:inherit}
 :focus-visible{outline-color:var(--wine)!important}
 
 /* fundo claro com toque de cor para o vidro aparecer */
-html,body{background:#fbf8f9!important}
+html,body{background:#f4f4f6!important}
 .amb{display:block!important;background:radial-gradient(60vw 50vw at 0% 0%,#f6e3eb 0%,rgba(246,227,235,0) 70%),radial-gradient(55vw 45vw at 100% 30%,#e7eef8 0%,rgba(231,238,248,0) 70%),radial-gradient(60vw 50vw at 40% 100%,#f4e6ec 0%,rgba(244,230,236,0) 70%),#fbf8f9!important}
 .glass,.bar,.tabbar,.hero-card{background:rgba(255,255,255,.62)!important}
 .bar{background:rgba(255,255,255,.7)!important}
@@ -1460,8 +1460,6 @@ body::before{
    so para leitor de tela. */
 .incart-tag{padding:4px 9px 4px 7px;gap:4px;font-size:.72rem}
 .hc-item .incart-tag{padding:3px 8px 3px 6px;font-size:.68rem}
-.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
-  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
 }
 /* ==========================================================================
@@ -1770,6 +1768,107 @@ body::before{
   .ord-passos small{font-size:.63rem;max-width:9ch}
   .ord-datas{gap:18px}
   .lojas{grid-template-columns:1fr}
+}
+/* ==========================================================================
+   AJUSTES PEDIDOS
+   ========================================================================== */
+
+/* --- 1) chips de departamento: so o icone, em relevo -------------------- */
+/* o nome sai da tela mas continua no link, no title e no aria-label, entao
+   leitor de tela e tooltip seguem dizendo de que departamento se trata */
+.dc{
+  width:64px;height:64px;padding:0!important;border-radius:21px;
+  justify-content:center;gap:0;
+  transition:transform .42s cubic-bezier(.34,1.3,.5,1),
+             box-shadow .42s var(--ease),
+             border-color .42s var(--ease)!important;
+}
+.dc b{position:absolute!important;width:1px;height:1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap}
+.dc span{width:44px;height:44px;border-radius:14px}
+.dc img{width:27px;height:27px}
+.dc.more span{font-size:1.45rem}
+/* relevo: luz em cima, sombra de contato embaixo, aresta interna viva */
+.dc{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -1px 0 rgba(var(--sh),.08),
+    0 1px 2px rgba(var(--sh),.07),
+    0 4px 10px -3px rgba(var(--sh),.14)!important;
+}
+.dc:hover{
+  transform:translateY(-3px) scale(1.04);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -1px 0 rgba(var(--sh),.1),
+    0 2px 4px rgba(var(--sh),.08),
+    0 12px 22px -8px rgba(var(--sh),.22)!important;
+}
+.dc.hit{
+  transform:translateY(-3px) scale(1.07);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 3px 6px rgba(var(--sh),.1),
+    0 14px 26px -8px rgba(var(--sh),.26),
+    0 0 0 2px rgba(var(--sh),.5)!important;
+}
+.dc:active{transform:scale(.94)}
+@media (max-width:600px){
+  .dc{width:58px;height:58px;border-radius:19px}
+  .dc span{width:40px;height:40px}
+  .dc img{width:24px;height:24px}
+}
+
+/* --- 2) barra fixa arredondada, como a do topo -------------------------- */
+.tabbar{
+  left:12px!important;right:12px!important;
+  bottom:calc(10px + env(safe-area-inset-bottom))!important;
+  border-radius:20px!important;
+  border:1px solid rgba(255,255,255,.24)!important;
+  padding:6px!important;
+  overflow:hidden;
+}
+.wa{bottom:calc(96px + env(safe-area-inset-bottom))!important}
+
+/* --- 3) setas das ofertas: estavam escondidas, agora aparecem ----------- */
+.arrows{display:flex!important;gap:8px}
+.arrows button{
+  width:42px;height:42px;border-radius:50%;
+  background:linear-gradient(165deg,rgba(255,255,255,.95),rgba(255,255,255,.76))!important;
+  border:1px solid rgba(255,255,255,.95)!important;
+  color:#881344!important;
+  box-shadow:var(--edge),var(--e1),0 0 0 1px rgba(var(--sh),.08)!important;
+  transition:box-shadow .22s var(--ease),transform .22s var(--ease);
+}
+.arrows button:hover{
+  background:#fff!important;
+  box-shadow:var(--edge),var(--e2),0 0 0 2px rgba(var(--sh),.32)!important;
+}
+.arrows button:active{transform:scale(.93)}
+@media (max-width:600px){.arrows button{width:38px;height:38px}}
+
+/* --- 5) carrinho: voo da miniatura, sem texto --------------------------- */
+.voo{
+  position:fixed;z-index:400;pointer-events:none;
+  background-size:cover;background-position:center;background-color:#fff;
+  box-shadow:0 8px 24px -8px rgba(var(--sh),.45);
+}
+@keyframes pulsa{
+  30%{transform:scale(1.14)}
+  55%{transform:scale(.97)}
+}
+#cartBtn.pulsa{animation:pulsa .5s cubic-bezier(.34,1.4,.5,1)}
+@media (prefers-reduced-motion:reduce){
+  #cartBtn.pulsa{animation:none}
+  .dc:hover,.dc.hit,.dc:active{transform:none}
+  .arrows button:active{transform:none}
+}
+
+/* --- 7) o halo do fundo deixa de puxar para o rosa ---------------------- */
+body::before{
+  background:
+    radial-gradient(90vw 55vh at 50% -12vh, rgba(120,120,128,.07), transparent 70%),
+    radial-gradient(60vw 40vh at 100% 8vh, rgba(0,84,156,.025), transparent 72%)!important;
 }
 </style>
 </head>
@@ -2215,6 +2314,7 @@ body::before{
 </nav>
 <button class="totop glass" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Voltar ao topo"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <div class="toast glass" id="toast"></div>
+<p id="avisos" class="sr-only" role="status" aria-live="polite"></p>
 
 <script>
 /* sempre abre no Início */
@@ -2317,7 +2417,7 @@ function addbox(id){const q=cart[id]||0;return q?`<div class="stepper"><button o
 function card(x){const pct=Math.round((1-x.p/x.o)*100);
  const _q=cart[x.id]||0;
  return `<div class="prod glass${_q?' incart':''}" data-id="${x.id}" data-tilt>
-  <span class="incart-tag" data-incart ${_q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${_q}</b><i class="sr">no carrinho</i></span>
+  <span class="incart-tag" data-incart ${_q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${_q}</b><i class="sr-only">no carrinho</i></span>
   <div class="pimg">${pct>0?`<span class="off">-${pct}%</span>`:''}<button class="fav ${favs.has(x.id)?'on':''}" onclick="fav(${x.id})" aria-pressed="${favs.has(x.id)}" aria-label="Favoritar"><svg class="ico" style="width:18px"><use href="#i-heart"/></svg></button>
    <img loading="lazy" src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"></div>
   <div class="pname" title="${x.n}">${x.n}</div><div class="punit">${x.u}</div>
@@ -2341,9 +2441,9 @@ const pick=v=>P.filter(x=>v==='all'||x.cat===v);
 
 /* ============ RENDER ============ */
 const pill=c=>`<a class="pill glass" href="#/departamentos"><span><img loading="lazy" src="${c.img}" alt=""></span>${c.n}</a>`;
-$('#heroDeals').innerHTML=[0,6,12,3].map(i=>{const x=P[i];const q=cart[x.id]||0;return `<div class="hc-item${q?' incart':''}" data-id="${x.id}"><span class="incart-tag" data-incart ${q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${q}</b><i class="sr">no carrinho</i></span><div class="im"><span>-${Math.round((1-x.p/x.o)*100)}%</span><img src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"></div><p>${x.n}</p><div class="hc-row"><b>${brl(x.p)}</b><button onclick="chg(${x.id},1)" aria-label="Adicionar ${x.n}"><svg class="ico" style="width:16px"><use href="#i-plus"/></svg></button></div></div>`}).join('');
+$('#heroDeals').innerHTML=[0,6,12,3].map(i=>{const x=P[i];const q=cart[x.id]||0;return `<div class="hc-item${q?' incart':''}" data-id="${x.id}"><span class="incart-tag" data-incart ${q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${q}</b><i class="sr-only">no carrinho</i></span><div class="im"><span>-${Math.round((1-x.p/x.o)*100)}%</span><img src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"></div><p>${x.n}</p><div class="hc-row"><b>${brl(x.p)}</b><button onclick="chg(${x.id},1)" aria-label="Adicionar ${x.n}"><svg class="ico" style="width:16px"><use href="#i-plus"/></svg></button></div></div>`}).join('');
 $('#idx').innerHTML=`<a class="all" href="#/departamentos/todos">Todos</a><a href="#/ofertas">⚡ Ofertas</a>`+CATS.map((c,k)=>`<a href="#/departamentos/${k}" data-dep="${k}"><span><img src="${c.img}" alt=""></span>${c.n}</a>`).join('');
-(()=>{const one=CATS.map((c,k)=>`<a class="dc" href="#/departamentos/${k}"><span><img src="${c.img}" alt=""></span><b>${c.n}</b></a>`).join('')+`<a class="dc more" href="#/departamentos/todos"><span>+</span><b>Todos os produtos</b></a>`;
+(()=>{const one=CATS.map((c,k)=>`<a class="dc" href="#/departamentos/${k}" title="${c.n}" aria-label="${c.n}"><span><img src="${c.img}" alt=""></span><b>${c.n}</b></a>`).join('')+`<a class="dc more" href="#/departamentos/todos" title="Todos os produtos" aria-label="Todos os produtos"><span>+</span><b>Todos os produtos</b></a>`;
  const tr=$('#dgrid'),box=$('#dslide');tr.innerHTML=one+one;
  let paused=false,last=0,raf;const speed=0.035; // px por ms
  const stop=()=>{paused=true;clearTimeout(box._t)},go=()=>{clearTimeout(box._t);box._t=setTimeout(()=>paused=false,1800)};
@@ -2410,7 +2510,38 @@ document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){
 /* ============ CART ============ */
 const FREE=50;
 function chg(id,d){const wasEmpty=!Object.keys(cart).length;cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];refreshCards(id);renderCart();
- if(d>0){const x=P[id];toast(`<b>${x.n.split(' ').slice(0,3).join(' ')}</b> no carrinho`,x.sm);const b=$('#cartBtn');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')}}
+ if(d>0){voaAoCarrinho(id);anuncia((P[id]||{}).n+' adicionado ao carrinho');const b=$('#cartBtn');b.classList.remove('pulsa');void b.offsetWidth;b.classList.add('pulsa')}}
+/* o aviso some da tela, mas continua existindo para leitor de tela */
+function anuncia(t){var r=$('#avisos');if(r)r.textContent=t}
+/* a miniatura do produto voa ate o carrinho: confirma sem escrever nada */
+function voaAoCarrinho(id){
+ try{
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var alvo=$('#cartBtn');if(!alvo)return;
+  var orig=[].slice.call(document.querySelectorAll(
+    '.prod[data-id="'+id+'"] img,.hc-item[data-id="'+id+'"] img,#pmImg')).filter(function(i){
+    var r=i.getBoundingClientRect();
+    return r.width>8&&r.bottom>0&&r.top<innerHeight})[0];
+  if(!orig)return;
+  var a=orig.getBoundingClientRect(),b=alvo.getBoundingClientRect();
+  var el=document.createElement('span');el.className='voo';
+  el.style.cssText='left:'+a.left+'px;top:'+a.top+'px;width:'+a.width+
+    'px;height:'+a.height+'px;background-image:url("'+
+    (orig.currentSrc||orig.src)+'")';
+  document.body.appendChild(el);
+  var dx=(b.left+b.width/2)-(a.left+a.width/2);
+  var dy=(b.top+b.height/2)-(a.top+a.height/2);
+  var an=el.animate([
+   {transform:'translate3d(0,0,0) scale(1)',opacity:1,borderRadius:'16px'},
+   {transform:'translate3d('+(dx*.58)+'px,'+(dy*.3-54)+'px,0) scale(.52)',
+    opacity:.95,borderRadius:'50%',offset:.58},
+   {transform:'translate3d('+dx+'px,'+dy+'px,0) scale(.12)',opacity:0,
+    borderRadius:'50%'}],
+   {duration:620,easing:'cubic-bezier(.38,0,.2,1)'});
+  an.onfinish=function(){el.remove()};
+  an.oncancel=function(){el.remove()};
+ }catch(e){}
+}
 let cartReady=false;
 function saveCart(){if(!cartReady)return;try{localStorage.setItem('farid_cart',JSON.stringify(cart))}catch(e){}}
 function loadCart(){try{const o=JSON.parse(localStorage.getItem('farid_cart')||'{}');
