@@ -849,33 +849,6 @@ body{font-size:1.0625rem}
 .hero::before{content:"";position:absolute;left:0;right:0;top:0;height:min(720px,100%);z-index:-1;background:linear-gradient(180deg,rgba(136,19,68,.35) 0%,rgba(136,19,68,.55) 60%,#881344 100%),url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1800&q=70") center/cover}
 .orb.a{opacity:1!important}.orb.b{opacity:.7!important}
 
-/* faixa entrega grátis */
-.shipbar{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:30px;padding:24px 28px;border-radius:26px;overflow:hidden}
-.sb-badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#fff;color:#881344;padding:5px 10px;border-radius:99px;margin-bottom:10px}
-.shipbar h3{font-size:1.7rem;line-height:1.1;letter-spacing:-.03em;font-weight:600}
-.shipbar h3 b{font-weight:900;font-size:2.1rem}
-.shipbar h3 em{font-style:normal;font-weight:900;background:#00549C;padding:0 8px;border-radius:8px}
-.sb-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.sb-chips button{padding:8px 12px;border-radius:99px;font-size:.85rem;font-weight:600;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);color:#fff;transition:.2s}
-.sb-chips button:hover{background:#fff;color:#881344}
-.sb-road{position:relative;height:96px;border-bottom:3px dashed rgba(255,255,255,.4)}
-.sb-start{position:absolute;left:0;bottom:-7px;width:12px;height:12px;border-radius:50%;background:#fff}
-.sb-home{position:absolute;right:0;bottom:2px}
-.sb-home svg{display:block;filter:drop-shadow(0 8px 14px rgba(46,6,23,.5))}
-.sb-home i{position:absolute;inset:0;border-radius:50%;border:2px solid #fff;opacity:0;animation:arrive 6s infinite}
-.truck{position:absolute;bottom:4px;left:0;animation:drive 6s cubic-bezier(.5,0,.4,1) infinite}
-.truck svg{display:block;width:150px;height:75px;animation:bump .5s ease-in-out infinite}
-.wheel{animation:spin .5s linear infinite}
-.speed{animation:speed .35s linear infinite}
-@keyframes drive{0%{left:-150px;opacity:0}8%{opacity:1}70%{left:calc(100% - 215px);opacity:1}88%{left:calc(100% - 215px);opacity:1}100%{left:calc(100% - 215px);opacity:0}}
-@keyframes arrive{0%,68%{transform:scale(1);opacity:0}72%{opacity:.9}90%{transform:scale(1.6);opacity:0}100%{opacity:0}}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes bump{50%{transform:translateY(-1.5px)}}
-@keyframes speed{50%{opacity:.25}}
-.state:not(.vis) .truck,.state:not(.vis) .truck *,.state:not(.vis) .sb-home i{animation-play-state:paused}
-@media (max-width:900px){.shipbar{grid-template-columns:1fr;gap:16px;padding:20px}.sb-road{height:80px}.truck svg{width:120px;height:60px}@keyframes drive{0%{left:-120px;opacity:0}8%{opacity:1}70%{left:calc(100% - 180px);opacity:1}88%{left:calc(100% - 180px);opacity:1}100%{left:calc(100% - 180px);opacity:0}}}
-@media (max-width:600px){.shipbar h3{font-size:1.35rem}.shipbar h3 b{font-size:1.7rem}.sb-chips button{font-size:.8rem;padding:7px 10px}.sb-home svg{width:44px;height:44px}}
-@media (prefers-reduced-motion:reduce){.truck{left:30%!important;opacity:1!important}}
 
 #againSec{padding-top:96px}
 #againSec .sh{margin-bottom:16px}
@@ -1118,6 +1091,36 @@ html,body{background:#fbf8f9!important}
 .dg{scroll-snap-align:start}
 @media (prefers-reduced-motion:reduce){.dg{animation:none}}
 @media (min-width:901px){.dgrid{gap:10px!important;justify-content:space-between}.dg{flex:0 0 80px!important}}
+
+/* ===== faixa entrega v3: compacta e animada ===== */
+.shipbar{display:grid!important;grid-template-columns:230px 1fr auto;align-items:center;gap:22px;padding:12px 18px 12px 12px!important;border-radius:22px!important;min-height:0!important}
+.scene{position:relative;height:88px;border-radius:16px;overflow:hidden;background:linear-gradient(180deg,#ffd6e6 0%,#fff2f7 55%,#fff 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
+.sky{position:absolute;inset:0}
+.cl{position:absolute;height:10px;border-radius:99px;background:#fff;opacity:.95;animation:cloud 14s linear infinite}
+.cl::before{content:"";position:absolute;width:12px;height:12px;border-radius:50%;background:#fff;top:-6px;left:8px}
+.c1{width:34px;top:12px;left:110%}.c2{width:24px;top:26px;left:110%;animation-duration:20s;animation-delay:-9s;opacity:.8}
+@keyframes cloud{to{left:-30%}}
+.skyline{position:absolute;left:0;bottom:22px;display:flex;width:200%;height:30px;color:rgba(136,19,68,.22);animation:pan 10s linear infinite}
+.skyline .city{width:50%;height:100%}
+@keyframes pan{to{transform:translateX(-50%)}}
+.road{position:absolute;left:0;right:0;bottom:0;height:22px;background:#5b0d2e}
+.road i{position:absolute;left:0;top:10px;width:200%;height:2px;background:repeating-linear-gradient(90deg,#fff 0 16px,transparent 16px 32px);animation:pan .8s linear infinite}
+.scene .truck{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);animation:none!important}
+.scene .truck svg{display:block;animation:bump .45s ease-in-out infinite}
+.scene .wheel{animation:spin .45s linear infinite}
+@keyframes bump{50%{transform:translateY(-2px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sb-l h3{font-size:1.35rem!important;line-height:1.2!important;font-weight:600!important;letter-spacing:-.02em;margin:0}
+.sb-l h3 b{font-weight:900!important;font-size:1.35rem!important}
+.sb-l h3 em{font-style:normal;font-weight:800;background:#00549C;color:#fff!important;padding:1px 8px;border-radius:8px}
+.sb-l p{font-size:.92rem;opacity:.85;margin-top:4px}
+.sb-chips{display:flex;gap:8px;margin:0!important;flex-wrap:nowrap}
+.sb-chips button{padding:9px 14px;border-radius:99px;font-size:.86rem;font-weight:600;white-space:nowrap}
+.state:not(.vis) .scene *{animation-play-state:paused!important}
+@media (max-width:900px){.shipbar{grid-template-columns:150px 1fr;gap:14px}.sb-chips{grid-column:1/-1;overflow-x:auto;scrollbar-width:none}.sb-chips::-webkit-scrollbar{display:none}}
+@media (max-width:600px){.shipbar{grid-template-columns:120px 1fr;padding:10px 12px 12px 10px!important;gap:12px}.scene{height:72px}.scene .truck svg{width:88px;height:44px}.sb-l h3,.sb-l h3 b{font-size:1.08rem!important}.sb-l p{display:none}.sb-chips button{font-size:.8rem;padding:8px 12px}}
+@media (prefers-reduced-motion:reduce){.scene *{animation:none!important}}
+.shipbar .sb-l p{color:rgba(255,255,255,.9)!important}.shipbar .sb-l h3,.shipbar .sb-l h3 b{color:#fff!important}.skyline{color:rgba(136,19,68,.3)!important}
 </style>
 </head>
 <body>
@@ -1213,15 +1216,12 @@ html,body{background:#fbf8f9!important}
   <section class="sec"><div class="wrap"><div class="sh" data-r><h2>Nossos corredores</h2><a href="#/departamentos" class="more">Ver todos <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div><div class="aisles"><a href="#/departamentos/0" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1632992468737-54880593aada?auto=format&fit=crop&w=900&q=75" alt="Hortifruti"><div><small>Hortifruti</small><h3>Fresco.</h3></div></a><a href="#/departamentos/1" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&w=900&q=75" alt="Açougue"><div><small>Açougue</small><h3>Suculento.</h3></div></a><a href="#/departamentos/2" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=75" alt="Padaria FARID"><div><small>Padaria FARID</small><h3>Quentinho.</h3></div></a><a href="#/departamentos/5" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1610458034932-dc165f29499e?auto=format&fit=crop&w=900&q=75" alt="Adega"><div><small>Adega</small><h3>Brindado.</h3></div></a></div></div></section>
 
   <section class="state" id="state"><div class="wrap"><div class="shipbar glass">
-    <div class="sb-l">
-      <span class="sb-badge">🚚 Frete</span>
-      <h3><b>Entrega grátis</b><br>a partir de <em>R$&nbsp;50</em></h3>
-      <div class="sb-chips"><button onclick="openSlots()">🗓️ Agende o horário</button><button onclick="setMode('loja');openSlots()">🏪 Retire na loja</button><button onclick="openStores()">📍 6 lojas</button></div>
-    </div>
-    <div class="sb-road" aria-hidden="true">
-      <span class="sb-start"></span>
-      <span class="truck"><svg viewBox="0 0 220 110" width="96" height="48">
-    <g class="speed" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".7"><path d="M4 46h22M0 62h30M8 78h18"/></g>
+    <div class="scene" aria-hidden="true">
+      <span class="sky"><i class="cl c1"></i><i class="cl c2"></i></span>
+      <span class="skyline"><svg class="city" viewBox="0 0 400 60" preserveAspectRatio="none"><path fill="currentColor" d="M0 60V38h14V24h10v14h8V30h16v30h6V18h12v42h8V34h10V22h8v38h10V28h14v32h6V12h10v48h12V36h8V26h12v34h8V20h10v40h10V32h16v28h6V24h10v36h12V38h8V16h12v44h10V30h12v30h8V22h10v38h14V34h10v26h8V26h12v34h10V18h10v42h8V36h12v24z"/></svg><svg class="city" viewBox="0 0 400 60" preserveAspectRatio="none"><path fill="currentColor" d="M0 60V38h14V24h10v14h8V30h16v30h6V18h12v42h8V34h10V22h8v38h10V28h14v32h6V12h10v48h12V36h8V26h12v34h8V20h10v40h10V32h16v28h6V24h10v36h12V38h8V16h12v44h10V30h12v30h8V22h10v38h14V34h10v26h8V26h12v34h10V18h10v42h8V36h12v24z"/></svg></span>
+      <span class="road"><i></i></span>
+      <span class="truck"><svg viewBox="0 0 220 110" width="112" height="56">
+    
     <rect x="36" y="14" width="112" height="70" rx="8" fill="#fff"/>
     <rect x="36" y="70" width="112" height="14" rx="0" fill="#00549C"/>
     <text x="92" y="44" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-style="italic" font-size="22" fill="#881344">FARID</text>
@@ -1233,8 +1233,12 @@ html,body{background:#fbf8f9!important}
     <g class="wheel" style="transform-origin:72px 88px"><circle cx="72" cy="88" r="13" fill="#2e0617"/><circle cx="72" cy="88" r="5" fill="#fff"/><path d="M72 77v22M61 88h22" stroke="#fff" stroke-width="2"/></g>
     <g class="wheel" style="transform-origin:180px 88px"><circle cx="180" cy="88" r="13" fill="#2e0617"/><circle cx="180" cy="88" r="5" fill="#fff"/><path d="M180 77v22M169 88h22" stroke="#fff" stroke-width="2"/></g>
   </svg></span>
-      <span class="sb-home"><svg viewBox="0 0 48 48" width="52" height="52"><circle cx="24" cy="24" r="22" fill="#fff"/><path d="M12 24 24 13l12 11v12H28v-8h-8v8h-8z" fill="#881344"/></svg><i></i></span>
     </div>
+    <div class="sb-l">
+      <h3><b>Entrega grátis</b> a partir de <em>R$&nbsp;50</em></h3>
+      <p>Agende o melhor horário ou retire na loja.</p>
+    </div>
+    <div class="sb-chips"><button onclick="openSlots()">🗓️ Agendar</button><button onclick="setMode('loja');openSlots()">🏪 Retirar</button><button onclick="openStores()">📍 6 lojas</button></div>
   </div></div></section>
 
   <section class="sec" id="ofertas-home">
