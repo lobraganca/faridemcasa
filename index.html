@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<script>/* antes de qualquer pintura, senao a tela pisca branca */
-try{var _t=localStorage.getItem('farid_tema');
- if(_t==='claro'||_t==='escuro')document.documentElement.setAttribute('data-tema',_t)}catch(e){}</script>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>/* Roda antes de qualquer pintura, senao a tela pisca no tema errado.
+   Estava solto entre <html> e <head>, que e invalido — o navegador
+   remendava, mas agora esta no lugar certo.
+
+   O app SEMPRE comeca no claro. Antes o padrao era seguir o sistema, e
+   quem tem o celular no escuro abria o app escuro sem nunca ter pedido.
+   Seguir o sistema continua existindo, mas so para quem escolher
+   "Automatico" no menu. */
+try{var _t=localStorage.getItem('farid_tema');
+ if(_t!=='auto')document.documentElement.setAttribute(
+   'data-tema', _t==='escuro' ? 'escuro' : 'claro');
+}catch(e){document.documentElement.setAttribute('data-tema','claro')}</script>
 <meta name="theme-color" content="#ffffff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Farid em Casa — Seu mercado. Agora em casa.</title>
@@ -5322,7 +5331,9 @@ var TEMAS=[['auto','tema.auto','Automático'],
            ['claro','tema.claro','Claro'],
            ['escuro','tema.escuro','Escuro']];
 function temaAtual(){var v=LS.get('farid_tema');
- return (v==='claro'||v==='escuro')?v:'auto'}
+ /* sem escolha guardada o app esta no claro, entao e "Claro" que o
+    menu deve mostrar marcado — nao "Automatico". */
+ return (v==='escuro'||v==='auto')?v:'claro'}
 function setTema(v){
  if(v==='auto'){LS.set('farid_tema','auto');
   document.documentElement.removeAttribute('data-tema')}
