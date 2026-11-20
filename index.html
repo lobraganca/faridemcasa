@@ -2522,6 +2522,68 @@ html,body{background:var(--sup-pagina)!important}
   box-shadow:inset 0 0 0 1px rgba(var(--shc),.04)!important;
   border:0!important;
 }
+/* ==========================================================================
+   OS TRES BOTOES DA BARRA
+   Mediram assim: avatar 46px circulo com branco a 14% e sem sombra;
+   carrinho 46px circulo branco solido e sem sombra; menu 44px QUADRADO de
+   13px com gradiente e gloss. Tres tamanhos de acabamento, duas formas e
+   tres preenchimentos, lado a lado.
+
+   A regra agora: os dois secundarios sao identicos, e o carrinho se separa
+   por UMA coisa so — estar cheio, porque e a acao principal. Forma, tamanho
+   e acabamento sao os mesmos nos tres.
+   ========================================================================== */
+#userBtn,#cartBtn,.hbtn.burger{
+  width:46px!important;height:46px!important;
+  border-radius:50%!important;
+  display:grid!important;place-items:center!important;
+  flex-shrink:0;padding:0!important;overflow:visible!important;
+  transition:transform .2s var(--sobre-curva),
+             box-shadow .2s var(--sobre-curva),
+             background .2s var(--sobre-curva)!important;
+}
+/* o gloss que eu tinha posto so no menu sai: ele era o unico a ter */
+.hbtn.burger::before{display:none!important}
+
+/* --- secundarios: o mesmo vidro sobre o vinho --- */
+#userBtn,.hbtn.burger{
+  background:rgba(255,255,255,.15)!important;
+  border:1px solid rgba(255,255,255,.26)!important;
+  color:#fff!important;
+  backdrop-filter:blur(10px) saturate(140%)!important;
+  -webkit-backdrop-filter:blur(10px) saturate(140%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),
+             0 1px 3px rgba(46,6,23,.18)!important;
+}
+#userBtn:hover,.hbtn.burger:hover{
+  background:rgba(255,255,255,.26)!important;
+  border-color:rgba(255,255,255,.4)!important;
+}
+#userBtn:active,.hbtn.burger:active{transform:scale(.93)!important}
+
+/* --- principal: o unico cheio --- */
+#cartBtn{
+  background:#fff!important;
+  color:#881344!important;
+  border:1px solid rgba(255,255,255,.9)!important;
+  box-shadow:inset 0 -1px 0 rgba(46,6,23,.06),
+             0 2px 5px rgba(46,6,23,.2),
+             0 8px 18px -6px rgba(46,6,23,.28)!important;
+}
+#cartBtn:hover{
+  box-shadow:inset 0 -1px 0 rgba(46,6,23,.06),
+             0 3px 8px rgba(46,6,23,.24),
+             0 12px 24px -6px rgba(46,6,23,.34)!important;
+}
+#cartBtn:active{transform:scale(.93)!important}
+
+/* icones no mesmo tamanho nos tres */
+#userBtn svg,#cartBtn svg,.hbtn.burger svg{width:22px!important;height:22px!important}
+
+@media (prefers-reduced-motion:reduce){
+  #userBtn,#cartBtn,.hbtn.burger{transition:none!important}
+  #userBtn:active,#cartBtn:active,.hbtn.burger:active{transform:none!important}
+}
 </style>
 </head>
 <body>
