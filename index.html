@@ -2123,6 +2123,45 @@ body.sem-trilho .page.gpage{padding-top:104px}
 @media (max-width:600px){
   body.sem-trilho .page.gpage{padding-top:88px}
 }
+/* ==========================================================================
+   ESCALA DE TITULOS
+   Estava grande demais para um app de uso: o titulo da pagina ocupava
+   46px no celular e 70px no desktop, e o da secao, 34 e 51. Num aparelho
+   de 390px o titulo sozinho comia um terco da primeira tela.
+
+   A reducao e proporcional, entao a hierarquia entre titulo e secao fica
+   igual (razao 1,32 antes e depois):
+
+     titulo da pagina   46,4 / 70,4  ->  28,8 / 46,4
+     titulo de secao    33,6 / 51,2  ->  21,6 / 32,0
+
+   A entrelinha sobe de 0,98 para 1,08: num corpo menor, titulo apertado
+   cola as linhas quando quebra.
+   ========================================================================== */
+.gpage h1,.ghero h1,.dep-head h1{
+  font-size:clamp(1.8rem,3vw,2.9rem)!important;
+  line-height:1.08!important;
+  letter-spacing:-.032em!important;
+}
+.sh h2,.faq h2{
+  font-size:clamp(1.35rem,2.2vw,2rem)!important;
+  line-height:1.14!important;
+  letter-spacing:-.025em!important;
+}
+.ghero p,.dep-head p{
+  font-size:1rem!important;
+  margin-top:10px!important;
+  line-height:1.45;
+}
+@media (max-width:900px){
+  .gpage h1,.ghero h1,.dep-head h1{font-size:1.95rem!important}
+  .sh h2,.faq h2{font-size:1.45rem!important}
+}
+@media (max-width:600px){
+  .gpage h1,.ghero h1,.dep-head h1{font-size:1.8rem!important}
+  .sh h2,.faq h2{font-size:1.35rem!important}
+  .ghero p,.dep-head p{font-size:.94rem!important;margin-top:8px!important}
+}
 </style>
 </head>
 <body>
