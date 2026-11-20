@@ -2533,17 +2533,39 @@ html,body{background:var(--sup-pagina)!important}
    por UMA coisa so — estar cheio, porque e a acao principal. Forma, tamanho
    e acabamento sao os mesmos nos tres.
    ========================================================================== */
+/* o que vale em qualquer largura: a mesma altura, o mesmo tempo de
+   resposta ao toque, e nada de recorte na sombra. */
 #userBtn,#cartBtn,.hbtn.burger{
-  width:46px!important;height:46px!important;
-  border-radius:50%!important;
-  display:grid!important;place-items:center!important;
-  flex-shrink:0;padding:0!important;overflow:visible!important;
+  height:46px!important;
+  flex-shrink:0;overflow:visible!important;
   transition:transform .2s var(--sobre-curva),
              box-shadow .2s var(--sobre-curva),
              background .2s var(--sobre-curva)!important;
 }
 /* o gloss que eu tinha posto so no menu sai: ele era o unico a ter */
 .hbtn.burger::before{display:none!important}
+
+/* A FORMA e por contexto. No celular os tres sao icone puro e precisam
+   ser indistinguiveis entre si: circulo de 46px, sem rotulo. No desktop
+   cabe texto, e os dois primeiros voltam a ser pilula — "Entrar" e o
+   total do carrinho sao informacao, nao enfeite, e em 46px vazavam. */
+@media (max-width:900px){
+  #userBtn,#cartBtn,.hbtn.burger{
+    width:46px!important;border-radius:50%!important;
+    display:grid!important;place-items:center!important;
+    padding:0!important;
+  }
+}
+@media (min-width:901px){
+  #userBtn,#cartBtn{
+    display:flex!important;align-items:center!important;
+    width:auto!important;border-radius:14px!important;
+  }
+  #userBtn{gap:8px!important;padding:0 14px!important;max-width:180px}
+  #cartBtn{gap:10px!important;padding:0 16px 0 12px!important}
+  .hbtn.burger{display:none!important}
+}
+
 
 /* --- secundarios: o mesmo vidro sobre o vinho --- */
 #userBtn,.hbtn.burger{
@@ -2923,6 +2945,83 @@ html,body{background:var(--sup-pagina)!important}
 .tabs button.on *,.chips button.on *,.au-tabs button.on *,
 .sl-mode button.on *,.st.sel *,.city-b.sel *,.sl-day.on *{color:#fff!important}
 .city-b.sel span,.st.sel span{color:rgba(255,255,255,.85)!important}
+/* ==========================================================================
+   BANNER DE PROMOCOES NO TOPO
+   Ele vivia em sexto lugar na home, a 2099px do topo: duas telas e meia de
+   rolagem para chegar na peca que a loja mais quer mostrar. Sobe para a
+   coluna esquerda do hero, logo abaixo da busca e dos chips.
+
+   Isso resolve uma segunda coisa de quebra. No desktop o hero e uma grade
+   de duas colunas em que a esquerda (busca + chips) tem 200px e a direita
+   ("Ofertas de hoje") tem 684px — eram 484px de vazio que medi no inicio
+   desta sessao. O banner ocupa esse espaco em vez de ar.
+   ========================================================================== */
+.promo-topo{margin-top:16px}
+.promo-hd{display:flex;align-items:baseline;margin-bottom:9px}
+.promo-hd h2{
+  font-size:.78rem!important;font-weight:700!important;
+  letter-spacing:.09em!important;text-transform:uppercase;
+  color:#8e8e93!important;margin:0;line-height:1;
+}
+/* O carrossel era uma faixa de pagina inteira: `.cv` media
+   min(1000px,78vw), 1123px numa janela de 1440. Dentro da coluna de 682px
+   do hero ele vazava pela esquerda da tela. Agora o palco mede pela coluna
+   e a altura vem da proporcao do slide, para nao sobrar ar embaixo:
+   altura = largura x proporcao-do-slide x fracao-ocupada. */
+.promo-topo .cover{
+  width:100%!important;max-width:none!important;
+  margin:0!important;padding:0!important;
+  height:auto!important;perspective:1200px;
+  overflow:hidden;border-radius:18px;
+}
+.promo-topo .cover.d{aspect-ratio:1920/351}   /* 1920/450 ocupando 78% */
+.promo-topo .cover.m{aspect-ratio:200/86}     /* 2/1 ocupando 86% */
+.promo-topo .cover.d .cv{width:78%!important}
+.promo-topo .cover.m .cv{width:86%!important}
+.promo-topo .cv{
+  border-radius:16px;
+  /* a sombra preta de 80px era para uma peca solta no meio da pagina;
+     dentro do bloco ela so sujava. Fica a profundidade neutra do resto. */
+  box-shadow:0 10px 26px -12px rgba(var(--shc),.3),
+             0 2px 6px -2px rgba(var(--shc),.16)!important;
+}
+.promo-topo .cv img{border-radius:16px}
+
+@media (min-width:901px){
+  .promo-topo{margin-top:22px}
+}
+@media (max-width:900px){
+  .promo-topo{margin-top:14px}
+  .promo-hd h2{font-size:.72rem!important}
+}
+/* ==========================================================================
+   A BARRA DO TOPO QUE NAO CABIA
+   Entre 901px e 1180px o botao do carrinho terminava depois da borda
+   direita da barra — media 1142 numa barra que acabava em 865. Em tablet
+   deitado e em janela de navegador reduzida, o carrinho sumia.
+
+   Duas coisas estavam erradas. A primeira: havia um encolhimento de
+   navegacao em `@media (max-width:1100px)` com `.links a` em .84rem, mas
+   o bloco de escala tipografica adiante redefine `.links a` em .95rem com
+   a mesma especificidade — o ultimo ganha, e o encolhimento nunca valeu.
+   Aqui ele volta com `.bar .links a`, que pesa mais.
+
+   A segunda: seis itens de navegacao nao cabem abaixo de ~1100px nem
+   encolhidos. Nessa faixa a navegacao da lugar ao menu sanduiche, que
+   leva aos mesmos destinos e ja existe.
+   ========================================================================== */
+@media (max-width:1279px){
+  .bar .links a{padding:9px 9px!important;font-size:.84rem!important}
+}
+@media (min-width:901px) and (max-width:1100px){
+  .bar .links{display:none!important}
+  /* a navegacao era o espacador (`flex:1`). Sem ela, o grupo da direita
+     desabava para junto do logo. O primeiro deles empurra de volta. */
+  .bar .store-btn{margin-left:auto}
+  .hbtn.burger{display:grid!important;width:46px!important;
+               border-radius:50%!important;place-items:center!important;
+               padding:0!important;margin-left:6px}
+}
 </style>
 </head>
 <body>
@@ -3023,6 +3122,22 @@ html,body{background:var(--sup-pagina)!important}
         </form>
         <button class="hero-store" onclick="openStores()"><svg class="ico"><use href="#i-store"/></svg><span id="heroStore">Escolha sua cidade</span><u>Trocar</u></button>
         <div class="dslide" id="dslide" aria-label="Departamentos"><div class="ds-track" id="dgrid"></div></div>
+<div class="promo-topo">
+    <div class="promo-hd"><h2>Promoções</h2></div>
+    <div class="cover d" id="coverD" data-r>
+      <a class="cv" href="#/cartao" aria-label="Conheça o Cartão Farid"><img src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/7cb92342-9c5c-443e-b4b6-697963baffaf.webp" alt="Conheça o Cartão Farid"></a>
+      <a class="cv" href="#/departamentos" aria-label="Ver departamentos"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/d0f748ff-d8ef-402f-80d6-38be86a8772d-1440w.avif" alt="Quarta e quinta do hortifruti"></a>
+      <a class="cv" href="#/ofertas" aria-label="Ver ofertas"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/eeefe365-ea02-4367-8371-93654d3fe538-1440w.avif" alt="Niver Premiado Farid"></a>
+      <a class="cv" href="#/ofertas" aria-label="Ver ofertas"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/3753280c-0346-4d44-b39c-f6e08da1741b-1440w.avif" alt="Doce de leite Ita"></a>
+      <a class="cv" href="#/ofertas" aria-label="Ver ofertas"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/af2a03af-bab3-4ccb-a81e-7675e7089e5d-1440w.avif" alt="Cashback marca Farid"></a>
+    </div>
+    <div class="cover m" id="coverM">
+      <a class="cv" href="#/cartao" aria-label="Conheça o Cartão Farid"><img src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/579cb28d-b70e-4229-8e4f-8978f8f59863.webp" alt="Cartão Farid"></a>
+      <a class="cv" href="#/departamentos" aria-label="Ver departamentos"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/2d499027-5506-4d12-94b5-ab026a719a3c-640w.avif" alt="Quarta e quinta do hortifruti"></a>
+      <a class="cv" href="#/ofertas" aria-label="Ver ofertas"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/bfe233e5-cf1b-49a7-9e31-087dbd2ecc8a-640w.avif" alt="Doce de leite Ita"></a>
+    </div>
+    <div class="cv-nav"><button class="glass" aria-label="Anterior" onclick="cvGo(-1)"><svg class="ico"><use href="#i-l"/></svg></button><button class="glass" aria-label="Próximo" onclick="cvGo(1)"><svg class="ico"><use href="#i-r"/></svg></button></div>
+  </div>
       </div>
       <div class="hero-card glass">
         <div class="hc-hd"><div><b>Ofertas de hoje</b></div><a href="#ofertas-home" class="hc-more">Ver todas <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div>
@@ -3062,22 +3177,7 @@ html,body{background:var(--sup-pagina)!important}
     </div>
   </section>
 
-  <section class="sec">
-    <div class="wrap"><div class="sh" data-r><h2>Promoções</h2></div></div>
-    <div class="cover d" id="coverD" data-r>
-      <a class="cv" href="#/cartao" aria-label="Conheça o Cartão Farid"><img src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/7cb92342-9c5c-443e-b4b6-697963baffaf.webp" alt="Conheça o Cartão Farid"></a>
-      <a class="cv" href="#/departamentos" aria-label="Ver departamentos"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/d0f748ff-d8ef-402f-80d6-38be86a8772d-1440w.avif" alt="Quarta e quinta do hortifruti"></a>
-      <a class="cv" href="#/ofertas" aria-label="Ver ofertas"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/eeefe365-ea02-4367-8371-93654d3fe538-1440w.avif" alt="Niver Premiado Farid"></a>
-      <a class="cv" href="#/ofertas" aria-label="Ver ofertas"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/3753280c-0346-4d44-b39c-f6e08da1741b-1440w.avif" alt="Doce de leite Ita"></a>
-      <a class="cv" href="#/ofertas" aria-label="Ver ofertas"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/af2a03af-bab3-4ccb-a81e-7675e7089e5d-1440w.avif" alt="Cashback marca Farid"></a>
-    </div>
-    <div class="cover m" id="coverM">
-      <a class="cv" href="#/cartao" aria-label="Conheça o Cartão Farid"><img src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/579cb28d-b70e-4229-8e4f-8978f8f59863.webp" alt="Cartão Farid"></a>
-      <a class="cv" href="#/departamentos" aria-label="Ver departamentos"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/2d499027-5506-4d12-94b5-ab026a719a3c-640w.avif" alt="Quarta e quinta do hortifruti"></a>
-      <a class="cv" href="#/ofertas" aria-label="Ver ofertas"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/bfe233e5-cf1b-49a7-9e31-087dbd2ecc8a-640w.avif" alt="Doce de leite Ita"></a>
-    </div>
-    <div class="cv-nav"><button class="glass" aria-label="Anterior" onclick="cvGo(-1)"><svg class="ico"><use href="#i-l"/></svg></button><button class="glass" aria-label="Próximo" onclick="cvGo(1)"><svg class="ico"><use href="#i-r"/></svg></button></div>
-  </section>
+  
 
   <section class="sec">
     <div class="wrap">
