@@ -3,18 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script>/* Roda antes de qualquer pintura, senao a tela pisca no tema errado.
-   Estava solto entre <html> e <head>, que e invalido — o navegador
-   remendava, mas agora esta no lugar certo.
-
-   O app SEMPRE comeca no claro. Antes o padrao era seguir o sistema, e
-   quem tem o celular no escuro abria o app escuro sem nunca ter pedido.
-   Seguir o sistema continua existindo, mas so para quem escolher
-   "Automatico" no menu. */
-try{var _t=localStorage.getItem('farid_tema');
- if(_t!=='auto')document.documentElement.setAttribute(
-   'data-tema', _t==='escuro' ? 'escuro' : 'claro');
-}catch(e){document.documentElement.setAttribute('data-tema','claro')}</script>
 <meta name="theme-color" content="#ffffff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Farid em Casa — Seu mercado. Agora em casa.</title>
@@ -3378,78 +3366,9 @@ main{min-height:calc(100svh - 190px)}
    ========================================================================== */
 :root{color-scheme:light}
 
-@media (prefers-color-scheme:dark){
-  :root:not([data-tema="claro"]){color-scheme:dark}
-}
-:root[data-tema="escuro"]{color-scheme:dark}
 
-@media (prefers-color-scheme:dark){
-  :root:not([data-tema="claro"]){
-    --sup-pagina:#101014;
-    --sup-2:#17171c;
-    --sup-1:#1d1d23;
-    --sup-vidro:rgba(29,29,35,.9);
-    --ink:#f4f4f6;
-    --sub:#a6a6ae;  --t2:#a6a6ae;  --t3:#8b8b94;
-    --line:#2e2e37; --soft:#26262e;
-    --gb:rgba(255,255,255,.09);
-    --shc:0,0,0;
-    --wine:#b5195a;
-    --wine-txt:#ff93b8;
-    --esq-1:#23232a; --esq-2:#2c2c35;
-    --tinta-vinho:rgba(181,25,90,.22);
-    --t-forte:#b9b9c1;
-    --ok-txt:#35d39a;
-    --rotulo:#9a9aa4;
-  }
-}
-:root[data-tema="escuro"]{
-  --sup-pagina:#101014;
-  --sup-2:#17171c;
-  --sup-1:#1d1d23;
-  --sup-vidro:rgba(29,29,35,.9);
-  --ink:#f4f4f6;
-  --sub:#a6a6ae;  --t2:#a6a6ae;  --t3:#8b8b94;
-  --line:#2e2e37; --soft:#26262e;
-  --gb:rgba(255,255,255,.09);
-  --shc:0,0,0;
-  --wine:#b5195a;
-  --wine-txt:#ff93b8;
-  --esq-1:#23232a; --esq-2:#2c2c35;
-  --tinta-vinho:rgba(181,25,90,.22);
-  --t-forte:#b9b9c1;
-  --ok-txt:#35d39a;
-  --rotulo:#9a9aa4;
-}
 
-/* o quadro da foto do produto fica branco nos dois temas */
-@media (prefers-color-scheme:dark){
-  :root:not([data-tema="claro"]) .pimg,
-  :root:not([data-tema="claro"]) .hc-item .im,
-  :root:not([data-tema="claro"]) .sr img,
-  :root:not([data-tema="claro"]) .item img,
-  :root:not([data-tema="claro"]) .toast img,
-  :root:not([data-tema="claro"]) .mdeps img,
-  :root:not([data-tema="claro"]) .dc:not(.more) span,
-  :root:not([data-tema="claro"]) .idx a span{background:#fff!important}
-  /* o quadro e branco, entao o que cai dentro dele — o texto alternativo
-     de uma foto que nao carregou — precisa ser escuro, senao some. */
-  :root:not([data-tema="claro"]) .pimg,
-  :root:not([data-tema="claro"]) .hc-item .im{color:#1d1d1f!important}
-}
-:root[data-tema="escuro"] .pimg,
-:root[data-tema="escuro"] .hc-item .im,
-:root[data-tema="escuro"] .sr img,
-:root[data-tema="escuro"] .item img,
-:root[data-tema="escuro"] .toast img,
-:root[data-tema="escuro"] .mdeps img,
-:root[data-tema="escuro"] .dc:not(.more) span,
-:root[data-tema="escuro"] .idx a span{background:#fff!important}
-:root[data-tema="escuro"] .pimg,
-:root[data-tema="escuro"] .hc-item .im{color:#1d1d1f!important}
 
-/* ---- seletor de tema ---- */
-.mob-tema{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
 /* ==========================================================================
    AS DUAS BARRAS DE PONTA A PONTA NO CELULAR
    Como no app antigo: o topo e a barra de baixo tomam a largura inteira e
@@ -3515,6 +3434,56 @@ main{min-height:calc(100svh - 190px)}
 @media (max-width:355px){
   .fx-chips{flex-wrap:wrap!important;overflow-x:visible!important}
 }
+/* ==========================================================================
+   OUTRAS OPCOES DA FAMILIA
+   Os sabores de um mesmo produto ficavam espalhados pela grade: para ver
+   o Club Social de queijo depois de abrir o de pizza, era fechar, rolar e
+   procurar. Agora eles moram juntos dentro da tela do produto, logo acima
+   do botao de adicionar — escolher o sabor faz parte da decisao de
+   comprar, entao fica no caminho dela, nao antes.
+   ========================================================================== */
+.pm-fam{margin:18px 0 4px}
+.pm-fam[hidden]{display:none}
+.pmf-hd{display:flex;align-items:baseline;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.pmf-hd b{font-size:.78rem;font-weight:700;letter-spacing:.09em;
+          text-transform:uppercase;color:var(--rotulo)!important}
+.pmf-hd span{font-size:.82rem;color:var(--t3)!important;
+             overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.pmf-lista{display:flex;gap:9px;overflow-x:auto;scrollbar-width:none;
+           padding:2px 2px 4px;margin:0 -2px;
+           /* posicionada para que o offsetLeft das opcoes seja medido
+              CONTRA ELA — sem isso a conta de centralizar usava a caixa
+              do dialogo como referencia e errava o alvo. */
+           position:relative}
+.pmf-lista::-webkit-scrollbar{display:none}
+.pmf-op{
+  flex:0 0 auto;display:flex;align-items:center;gap:9px;
+  padding:7px 14px 7px 7px;border-radius:16px;min-height:56px;
+  background:var(--sup-1)!important;
+  border:1px solid var(--line)!important;
+  box-shadow:var(--e1);
+  transition:box-shadow .2s var(--sobre-curva),
+             border-color .2s var(--sobre-curva),
+             transform .2s var(--sobre-curva);
+  text-align:left;cursor:pointer;
+}
+.pmf-op:hover{box-shadow:var(--e2);border-color:var(--wine)!important}
+.pmf-op:active{transform:scale(.97)}
+.pmf-op.on{
+  border-color:transparent!important;cursor:default;
+  background:linear-gradient(165deg,#a21d4a,#881344)!important;
+  box-shadow:0 2px 8px -2px rgba(136,19,68,.35),
+             inset 0 1px 0 rgba(255,255,255,.22)!important;
+}
+.pmf-op.on b,.pmf-op.on i{color:#fff!important}
+.pmf-im{width:42px;height:42px;border-radius:11px;background:#fff;
+        display:grid;place-items:center;overflow:hidden;flex-shrink:0}
+.pmf-im img{width:100%;height:100%;object-fit:contain;padding:3px}
+.pmf-txt{display:flex;flex-direction:column;gap:1px;min-width:0}
+.pmf-txt b{font-size:.92rem;font-weight:700;color:var(--ink)!important;
+           white-space:nowrap}
+.pmf-txt i{font-style:normal;font-size:.82rem;font-weight:600;
+           color:var(--t2)!important;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -3591,8 +3560,6 @@ main{min-height:calc(100svh - 190px)}
     <h6>Minha conta</h6>
     <a href="#/conta">Meus pedidos</a><a href="#/favoritos">Favoritos</a><a href="#/gestao">Gestão da loja</a>
     <h6>Departamentos</h6><div class="mdeps" id="mobDeps"></div>
-    <h6 data-i18n="tema.titulo">Aparência</h6>
-    <div class="mob-tema" id="mobTema"></div>
     <h6 data-i18n="idioma.titulo">Idioma</h6>
     <div class="mob-idioma" id="mobIdioma"></div>
   </nav>
@@ -3907,6 +3874,7 @@ main{min-height:calc(100svh - 190px)}
       <div class="pm-eco" id="pmEco" hidden></div>
       <p class="pm-desc">A descrição completa deste produto vem do catálogo da loja e
       ainda não está ligada neste protótipo.</p>
+      <div class="pm-fam" id="pmFam" hidden></div>
       <div class="pm-add" id="pmAdd"></div>
     </div>
   </div>
@@ -4066,6 +4034,77 @@ const P=[
   if(m){x.uv=parseFloat(m[1].replace(/\./g,'')+'.'+m[2]); x.uu=m[3]}
  });
 })();
+
+/* ==========================================================================
+   FAMILIAS DE PRODUTO
+   O catalogo nao tem campo de familia: os sabores sao so palavras soltas
+   dentro do nome. Entao a familia e deduzida — dois produtos sao da mesma
+   quando estao no mesmo departamento E os nomes comecam com as mesmas
+   DUAS palavras ou mais.
+
+   "Biscoito Club Social Original" e "Biscoito Club Social Queijo"
+   compartilham tres palavras: mesma familia. "Biscoito Club Social" e
+   "Biscoito Bauducco Cookies" compartilham uma so: nao viram familia.
+   Duas palavras foi o limite que separou os cinco grupos reais do
+   catalogo sem juntar nada errado.
+
+   A comparacao ignora acento, caixa e pontuacao dentro da palavra, senao
+   "Multi-Uso Super Globo" e "Multiuso Super Globo" ficariam de fora — sao
+   o mesmo produto escrito de dois jeitos pelo fornecedor.
+
+   Deduzir tem limite, e vale dizer qual: no dia em que o catalogo tiver
+   campo de familia de verdade, isto aqui deve dar lugar a ele. Enquanto
+   nao tem, e melhor do que deixar os sabores espalhados pela grade.
+   ========================================================================== */
+function _palFam(n){
+ return String(n||'').trim().split(/\s+/).map(function(w){
+  return norm(w).replace(/[^a-z0-9]/g,'')})}
+
+/* o rotulo da variante e o que sobra depois do nome da familia, sem o
+   tamanho no fim: "Biscoito Club Social Original 141g" -> "Original" */
+function _rotuloVar(nome,k){
+ var w=String(nome||'').trim().split(/\s+/).slice(k);
+ while(w.length&&/^[\d.,]+(g|kg|ml|l|un|cm|mm)$/i.test(w[w.length-1]))w.pop();
+ while(w.length&&/^[—–-]$/.test(w[0]))w.shift();
+ return w.join(' ').trim()}
+
+function montarFamilias(){
+ var pai={};
+ function raiz(x){while(pai[x]!==x)x=pai[x]=pai[pai[x]];return x}
+ P.forEach(function(x){pai[x.id]=x.id;x.fam=null;x.famIds=null;x.variante=''});
+ var pal=P.map(function(x){return _palFam(x.n)});
+ for(var i=0;i<P.length;i++)for(var j=i+1;j<P.length;j++){
+  if(P[i].cat!==P[j].cat)continue;
+  var a=pal[i],b=pal[j],k=0;
+  while(k<a.length&&k<b.length&&a[k]&&a[k]===b[k])k++;
+  if(k<2)continue;
+  var ri=raiz(P[i].id),rj=raiz(P[j].id);
+  if(ri!==rj)pai[rj]=ri;
+ }
+ var g={};
+ P.forEach(function(x){var r=raiz(x.id);(g[r]=g[r]||[]).push(x.id)});
+ Object.keys(g).forEach(function(r){
+  var ids=g[r]; if(ids.length<2)return;
+  /* o nome da familia e o prefixo comum a TODOS os membros, nao so ao par */
+  var listas=ids.map(function(i){return _palFam(P[i].n)}),k=0;
+  for(;;){
+   var w=listas[0][k];
+   if(!w)break;
+   var igual=true;
+   for(var t=1;t<listas.length;t++) if(listas[t][k]!==w){igual=false;break}
+   if(!igual)break;
+   k++;
+  }
+  if(k<2)return;
+  var nomeFam=P[ids[0]].n.trim().split(/\s+/).slice(0,k).join(' ');
+  ids.sort(function(a,b){return P[a].p-P[b].p});
+  ids.forEach(function(i){
+   P[i].fam=nomeFam; P[i].famIds=ids;
+   P[i].variante=_rotuloVar(P[i].n,k)||P[i].n;
+  });
+ });
+}
+
 function precoUnidade(x){
  if(x && x.uv!=null) return moeda(x.uv)+'/'+t('un.'+x.uu, x.uu);
  return (x&&x.u)||'';
@@ -4177,9 +4216,8 @@ function telLoja(){return '+'+M().ddi+'31999505658'.slice(M().ddi==='55'?0:0)}
 var TXT={
 'pt-BR':{},     /* o idioma de origem: a chave E o texto do HTML */
 'en-US':{
- 'tema.titulo':'Appearance','tema.auto':'Automatic','tema.claro':'Light','tema.escuro':'Dark',
- 'busca.phhero':'What do you need today?',
- 'un.item':'item','un.itens':'items',
+  'busca.phhero':'What do you need today?',
+ 'un.item':'item','un.itens':'items','fam.titulo':'Other options',
  'un.litro':'liter','un.kg':'kg','un.un':'unit',
  'nav.inicio':'Home','nav.ofertas':'Deals','nav.denovo':'Buy again',
  'nav.deps':'Departments','nav.entrega':'Delivery','nav.contato':'Contact',
@@ -4199,9 +4237,8 @@ var TXT={
  'idioma.titulo':'Language'
 },
 'es-ES':{
- 'tema.titulo':'Apariencia','tema.auto':'Automático','tema.claro':'Claro','tema.escuro':'Oscuro',
- 'busca.phhero':'¿Qué necesitas hoy?',
- 'un.item':'artículo','un.itens':'artículos',
+  'busca.phhero':'¿Qué necesitas hoy?',
+ 'un.item':'artículo','un.itens':'artículos','fam.titulo':'Otras opciones',
  'un.litro':'litro','un.kg':'kg','un.un':'unidad',
  'nav.inicio':'Inicio','nav.ofertas':'Ofertas','nav.denovo':'Comprar de nuevo',
  'nav.deps':'Departamentos','nav.entrega':'Entrega','nav.contato':'Contacto',
@@ -4827,9 +4864,40 @@ function openProd(id){var x=P[id];if(!x)return;prodAberto=id;
    '</s> <span class="pm-off">-'+pct+'%</span>':'');
  $('#pmEco').textContent=pct>0?('Você economiza '+brl(x.o-x.p)):'';
  $('#pmEco').hidden=!(pct>0);
+ renderFamilia(x);
  renderProdAdd();
  $('#prodM').classList.add('on');document.body.classList.add('lock');
  setTimeout(function(){var b=$('#pmX');if(b)b.focus()},60)}
+
+/* ---- as outras opcoes da familia, dentro da tela do produto ---- */
+function renderFamilia(x){
+ var box=$('#pmFam'); if(!box)return;
+ if(!x||!x.famIds||x.famIds.length<2){box.hidden=true;box.innerHTML='';return}
+ box.hidden=false;
+ box.innerHTML='<div class="pmf-hd"><b>'+t('fam.titulo','Outras opções')+
+  '</b><span>'+esc(x.fam)+'</span></div><div class="pmf-lista">'+
+  x.famIds.map(function(i){
+   var y=P[i], atual=(i===x.id);
+   return '<button class="pmf-op'+(atual?' on':'')+'" type="button"'+
+    (atual?' aria-current="true" disabled':' onclick="openProd('+i+')"')+
+    '><span class="pmf-im"><img loading="lazy" src="'+y.sm+'" alt=""'+
+    ' onerror="var q=this.closest(\'.pmf-im\');if(q)q.remove()"></span>'+
+    '<span class="pmf-txt"><b>'+esc(y.variante)+'</b><i>'+brl(y.p)+'</i></span>'+
+    '</button>'}).join('')+'</div>';
+ /* a lista rola de lado e a opcao aberta pode nascer fora da tela: numa
+    familia de tres, abrir a terceira mostrava so as duas primeiras e a
+    pessoa nao via qual estava escolhida. Centraliza a marcada. */
+ var lista=box.querySelector('.pmf-lista'), atual=box.querySelector('.pmf-op.on');
+ if(lista&&atual){
+  /* num rotulo longo numa tela estreita a opcao e MAIS LARGA que a
+     lista: centralizar deixaria as duas pontas de fora. Aí alinha pelo
+     comeco, que e por onde se le. */
+  var alvo = atual.offsetWidth>=lista.clientWidth
+    ? atual.offsetLeft-8
+    : atual.offsetLeft-(lista.clientWidth-atual.offsetWidth)/2;
+  lista.scrollLeft=Math.max(0,alvo);
+ }
+}
 function closeProd(){$('#prodM').classList.remove('on');prodAberto=null;
  if(!$('#spot').classList.contains('on')&&!$('#mob').classList.contains('on')
    &&!$('#storesM').classList.contains('on'))
@@ -5264,6 +5332,8 @@ function gxRender(){
 /* produtos cadastrados entram no catalogo ao abrir o site */
 (function(){gxProdutosExtra().forEach(function(x){
  P.push({id:P.length,n:x.n,img:'',sm:'',o:x.o,p:x.p,u:x.u,cat:x.cat})})})();
+/* depois dos cadastrados a mao, para que eles tambem agrupem */
+montarFamilias();
 
 /* ---- o trilho de departamentos do topo desliza sozinho ----
    Vai ate o fim devagar, espera, volta ao inicio e recomeca. Qualquer toque,
@@ -5324,32 +5394,6 @@ function gxRender(){
   clearTimeout(pend); pend=setTimeout(varre,60);
  }).observe(document.body,{childList:true,subtree:true});
 })();
-
-
-/* ---- tema claro / escuro / automatico ---- */
-var TEMAS=[['auto','tema.auto','Automático'],
-           ['claro','tema.claro','Claro'],
-           ['escuro','tema.escuro','Escuro']];
-function temaAtual(){var v=LS.get('farid_tema');
- /* sem escolha guardada o app esta no claro, entao e "Claro" que o
-    menu deve mostrar marcado — nao "Automatico". */
- return (v==='escuro'||v==='auto')?v:'claro'}
-function setTema(v){
- if(v==='auto'){LS.set('farid_tema','auto');
-  document.documentElement.removeAttribute('data-tema')}
- else{LS.set('farid_tema',v);document.documentElement.setAttribute('data-tema',v)}
- renderTemas();
-}
-function renderTemas(){
- var box=document.getElementById('mobTema'); if(!box)return;
- var at=temaAtual();
- box.innerHTML=TEMAS.map(function(x){
-  return '<button class="mi'+(x[0]===at?' on':'')+'" onclick="setTema(\''+x[0]+'\')"'+
-   (x[0]===at?' aria-current="true"':'')+' data-i18n="'+x[1]+'">'+x[2]+'</button>'
- }).join('');
- try{aplicarIdioma()}catch(e){}
-}
-renderTemas();
 
 /* ---- seletor de idioma no menu lateral ---- */
 function renderIdiomas(){
