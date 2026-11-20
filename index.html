@@ -2584,6 +2584,91 @@ html,body{background:var(--sup-pagina)!important}
   #userBtn,#cartBtn,.hbtn.burger{transition:none!important}
   #userBtn:active,#cartBtn:active,.hbtn.burger:active{transform:none!important}
 }
+/* ==========================================================================
+   MENU LATERAL
+   Os links estavam em 32px com peso 800 e 62px de altura: corpo de titulo
+   numa lista de navegacao. Cada item gritava do mesmo jeito, nada tinha
+   hierarquia e cabiam seis numa tela inteira. O painel ja era vidro e ja
+   flutuava — o que destruia a tela era a tipografia.
+
+   Vira uma lista de navegacao de verdade: corpo de leitura, peso medio,
+   linha de 48px (acima do minimo de toque), separador discreto e realce
+   no item ativo. Os titulos de secao recuam para rotulo.
+   ========================================================================== */
+.mob{padding:16px 14px calc(16px + env(safe-area-inset-bottom))!important}
+
+.mob nav,.mob .mob-nav{display:flex;flex-direction:column;gap:1px}
+
+.mob a{
+  display:flex!important;align-items:center;gap:12px;
+  font-size:1.02rem!important;
+  font-weight:500!important;
+  letter-spacing:-.01em!important;
+  line-height:1.3!important;
+  color:#1d1d1f!important;
+  min-height:48px;
+  padding:11px 14px!important;
+  border-radius:13px;
+  transition:background .18s var(--sobre-curva),color .18s var(--sobre-curva);
+}
+.mob a:hover{background:var(--sup-2)!important}
+.mob a:active{background:rgba(136,19,68,.07)!important}
+.mob a.on{
+  background:rgba(136,19,68,.08)!important;
+  color:#881344!important;font-weight:650!important;
+}
+
+/* rotulos de secao: recuam para rotulo mesmo */
+.mob h6{
+  font-size:.68rem!important;
+  font-weight:700!important;
+  letter-spacing:.1em!important;
+  text-transform:uppercase;
+  color:#8e8e93!important;
+  margin:18px 14px 6px!important;
+  padding-top:14px;
+  border-top:1px solid rgba(var(--shc),.08);
+}
+.mob h6:first-of-type{margin-top:12px!important}
+
+/* os dois botoes do topo do menu ficam com cara de botao, nao de link */
+.mob .hero-store{
+  display:flex!important;align-items:center;gap:10px;
+  width:100%;min-height:48px;
+  margin:0 0 8px!important;padding:12px 14px!important;
+  border-radius:13px!important;
+  background:var(--sup-2)!important;
+  color:#1d1d1f!important;font-size:.96rem;font-weight:600;
+  transition:background .18s var(--sobre-curva);
+}
+.mob .hero-store:hover{background:rgba(136,19,68,.07)!important}
+.mob .hero-store svg{color:#881344!important;flex-shrink:0}
+
+/* o botao de fechar acompanha os demais da barra */
+.mob .x{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--sup-2)!important;color:#1d1d1f!important;
+  display:grid;place-items:center;margin-left:auto;
+}
+.mob .x:hover{background:rgba(var(--shc),.1)!important}
+
+/* a grade de departamentos dentro do menu */
+.mob .mdeps{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:4px 0 0}
+.mob .mdeps a{
+  font-size:.88rem!important;font-weight:500!important;
+  min-height:46px;padding:9px 11px!important;
+  background:var(--sup-2)!important;border-radius:12px;
+}
+.mob .mdeps a:hover{background:rgba(136,19,68,.07)!important}
+.mob .mdeps img{width:22px;height:22px;flex-shrink:0}
+.mob .mdeps span{
+  width:30px;height:30px;border-radius:9px;background:var(--sup-1)!important;
+  display:grid;place-items:center;flex-shrink:0;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .mob a,.mob .hero-store{transition:none}
+}
 </style>
 </head>
 <body>
@@ -3484,6 +3569,10 @@ function route(){const h=location.hash;if(h&&!h.startsWith('#/')){return}
  const pg=document.getElementById('p-'+name)||document.getElementById('p-home');
  $$('.page').forEach(p=>p.classList.toggle('on',p===pg));
  $$('.links a').forEach(a=>a.classList.toggle('on',a.dataset.rLink==='/'+name||a.dataset.rLink===r));
+ /* o menu lateral tambem marca onde voce esta */
+ $$('.mob a[href^="#/"]').forEach(function(a){
+  var h=a.getAttribute('href');
+  a.classList.toggle('on',h===('#/'+name)||(name==='home'&&h==='#/'))});
  if(name==='departamentos')showDep(parts[1]);
  if(name==='conta')renderOrders();
  if(name==='favoritos')renderFavs();
