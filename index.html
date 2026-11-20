@@ -1462,73 +1462,7 @@ body::before{
 .hc-item .incart-tag{padding:3px 8px 3px 6px;font-size:.68rem}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
   overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-/* ==========================================================================
-   CARD DE TRANSPORTE
-   Existem dois conjuntos de regras .sb-*: um para fundo claro e outro para
-   fundo vinho. O do vinho vem depois no arquivo e vencia, entao o card ficou
-   com texto branco e chips translucidos sobre uma pagina clara — o unico
-   bloco que ainda parecia o tema antigo. Volta para o sistema de superficies.
-   ========================================================================== */
-.shipbar{
-  background:linear-gradient(165deg,rgba(255,255,255,.90),rgba(255,255,255,.72))!important;
-  backdrop-filter:blur(26px) saturate(180%)!important;
-  -webkit-backdrop-filter:blur(26px) saturate(180%)!important;
-  border:1px solid rgba(255,255,255,.9)!important;
-  box-shadow:var(--edge),var(--e2)!important;
-  padding:18px 22px!important;
-  gap:22px!important;
-}
-.shipbar::before{display:none!important}
 
-/* texto volta para a tinta do tema claro */
-.shipbar .sb-l h3,.shipbar .sb-l h3 b{color:#1d1d1f!important}
-.shipbar .sb-l p{color:#6e6e73!important;opacity:1!important}
-
-/* o valor minimo usa o vinho da marca, como os demais selos do site;
-   o azul brigava com tudo em volta */
-.shipbar .sb-l h3 em{
-  background:linear-gradient(165deg,#a21d4a,#881344)!important;
-  color:#fff!important;padding:2px 10px;border-radius:10px;
-  box-shadow:0 2px 8px rgba(136,19,68,.3);
-}
-
-/* chips na mesma linguagem dos chips de departamento */
-.shipbar .sb-chips button{
-  background:linear-gradient(165deg,rgba(255,255,255,.88),rgba(255,255,255,.62))!important;
-  border:1px solid rgba(255,255,255,.9)!important;
-  color:#1d1d1f!important;
-  backdrop-filter:blur(18px) saturate(170%)!important;
-  box-shadow:var(--edge),var(--e1),0 0 0 1px rgba(var(--sh),.07)!important;
-  padding:11px 17px!important;min-height:44px;
-  transition:box-shadow .22s var(--ease),transform .22s var(--ease);
-}
-.shipbar .sb-chips button:hover{
-  background:linear-gradient(165deg,#fff,rgba(255,255,255,.76))!important;
-  color:#1d1d1f!important;
-  box-shadow:var(--edge),var(--e2),0 0 0 2px rgba(var(--sh),.34)!important;
-}
-.shipbar .sb-chips button:active{transform:translateY(1px)}
-
-/* a ilustracao ganha um painel proprio, em vez de flutuar solta */
-.shipbar .sb-ill,.shipbar .sb-art{
-  border-radius:18px!important;
-  background:linear-gradient(165deg,#fff,#fdf4f7)!important;
-  box-shadow:inset 0 0 0 1px rgba(var(--sh),.07);
-  overflow:hidden;
-}
-.shipbar .sb-road{border-bottom-color:rgba(136,19,68,.22)!important}
-.shipbar .sb-start{background:#881344!important}
-.shipbar .sb-home svg circle{fill:#881344}
-.shipbar .sb-home svg path{fill:#fff}
-.shipbar .sb-home i{border-color:#881344!important}
-.shipbar .sb-badge{background:#881344!important;color:#fff!important}
-
-@media (max-width:900px){
-  .shipbar{padding:14px 16px!important;gap:14px!important}
-}
-@media (prefers-reduced-motion:reduce){
-  .shipbar .sb-chips button{transition:none}
-  .shipbar .sb-chips button:active{transform:none}
 }
 /* ==========================================================================
    AREA DE GESTAO
@@ -1655,6 +1589,122 @@ body::before{
   .gx-card{padding:14px}
 }
 @media (prefers-reduced-motion:reduce){.gx-bar{transition:none}}
+/* ==========================================================================
+   FAIXA DE ENTREGA
+   Antes era um card estreito com uma cena de 88px encaixotada a esquerda, e
+   o caminhao tinha `animation:none!important` — ficava parado enquanto so o
+   asfalto corria por baixo. Agora a cena ocupa a faixa inteira e o caminhao
+   atravessa de verdade, com o chao parado: camera fixa, veiculo em
+   movimento. Tudo anima `transform`, nunca `left`, para nao repintar.
+   Parallax em tres velocidades: nuvens muito lentas, skyline lento,
+   caminhao rapido.
+   ========================================================================== */
+.faixa{
+  position:relative;overflow:hidden;isolation:isolate;
+  border-radius:22px;min-height:134px;display:flex;
+  background:linear-gradient(180deg,#ffe4ef 0%,#fff3f8 46%,#fffbfc 100%);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:var(--edge),var(--e2);
+}
+.fx-cena{position:absolute;inset:0;z-index:0;pointer-events:none}
+
+/* --- nuvens: uma tira de 200% que desliza, para o laco fechar sem salto --- */
+.fx-nuvens{position:absolute;left:0;top:0;width:200%;height:70px;
+  animation:fx-pan 72s linear infinite;will-change:transform}
+.fx-nuvens i{position:absolute;height:11px;border-radius:99px;background:#fff}
+.fx-nuvens i::before{content:"";position:absolute;width:15px;height:15px;
+  border-radius:50%;background:#fff;top:-7px;left:10px}
+.fx-nuvens i::after{content:"";position:absolute;width:10px;height:10px;
+  border-radius:50%;background:#fff;top:-4px;left:28px}
+/* cada nuvem aparece duas vezes, a 50% de distancia: e isso que fecha o laco */
+.fx-nuvens .n1{width:54px;top:15px;left:6%;opacity:.95}
+.fx-nuvens .n2{width:36px;top:36px;left:27%;opacity:.7}
+.fx-nuvens .n3{width:46px;top:8px;left:41%;opacity:.85}
+.fx-nuvens .n1b{width:54px;top:15px;left:56%;opacity:.95}
+.fx-nuvens .n2b{width:36px;top:36px;left:77%;opacity:.7}
+.fx-nuvens .n3b{width:46px;top:8px;left:91%;opacity:.85}
+.fx-nuvens .n1::after{left:30px}
+
+/* --- skyline: mesma tecnica, bem mais rapido que as nuvens --- */
+.fx-skyline{position:absolute;left:0;bottom:30px;display:flex;width:200%;
+  height:34px;color:rgba(136,19,68,.18);
+  animation:fx-pan 34s linear infinite;will-change:transform}
+.fx-skyline svg{width:50%;height:100%;flex:0 0 50%}
+
+/* --- asfalto: parado, porque quem se move e o caminhao --- */
+.fx-asfalto{position:absolute;left:0;right:0;bottom:0;height:30px;
+  background:linear-gradient(180deg,#6d1038,#4a0b2a)}
+.fx-faixas{position:absolute;left:0;right:0;top:13px;height:3px;border-radius:2px;
+  background:repeating-linear-gradient(90deg,
+    rgba(255,255,255,.85) 0 20px,transparent 20px 44px)}
+
+/* --- caminhao: a pista tem a largura da faixa, entao translateX(100%)
+       leva o veiculo de ponta a ponta sem depender de medida fixa --- */
+.fx-caminhao{position:absolute;left:0;right:0;bottom:11px;height:62px;
+  pointer-events:none}
+.fx-susp{display:block;width:100%;
+  animation:fx-dirige 13s linear infinite;will-change:transform}
+.fx-susp svg{display:block;
+  animation:fx-bob 1.05s ease-in-out infinite;will-change:transform}
+.fx-roda{animation:spin .5s linear infinite}
+@keyframes fx-pan{to{transform:translate3d(-50%,0,0)}}
+@keyframes fx-dirige{
+  from{transform:translate3d(-134px,0,0)}
+  to{transform:translate3d(100%,0,0)}
+}
+@keyframes fx-bob{50%{transform:translate3d(0,-2.5px,0)}}
+
+/* --- conteudo por cima, com folga embaixo para nao encostar no asfalto --- */
+.fx-conteudo{position:relative;z-index:2;flex:1;display:flex;align-items:center;
+  justify-content:space-between;gap:20px;padding:18px 22px 46px}
+.fx-txt h3{font-size:1.3rem;line-height:1.2;font-weight:600;letter-spacing:-.02em;
+  margin:0;color:#1d1d1f!important}
+.fx-txt h3 b{font-weight:900;color:#1d1d1f!important}
+.fx-txt h3 em{font-style:normal;font-weight:800;
+  background:linear-gradient(165deg,#a21d4a,#881344);color:#fff!important;
+  padding:2px 10px;border-radius:10px;
+  box-shadow:0 2px 8px rgba(136,19,68,.3)}
+.fx-txt p{font-size:.92rem;color:#6e6e73!important;margin-top:5px}
+.fx-chips{display:flex;gap:9px;flex-wrap:nowrap}
+.fx-chips button{
+  padding:11px 17px;border-radius:99px;font-size:.86rem;font-weight:600;
+  white-space:nowrap;min-height:44px;color:#1d1d1f!important;
+  background:linear-gradient(165deg,rgba(255,255,255,.92),rgba(255,255,255,.7))!important;
+  border:1px solid rgba(255,255,255,.95)!important;
+  backdrop-filter:blur(18px) saturate(170%);
+  -webkit-backdrop-filter:blur(18px) saturate(170%);
+  box-shadow:var(--edge),var(--e1),0 0 0 1px rgba(var(--sh),.07);
+  transition:box-shadow .22s var(--ease),transform .22s var(--ease);
+}
+.fx-chips button:hover{
+  background:linear-gradient(165deg,#fff,rgba(255,255,255,.84))!important;
+  box-shadow:var(--edge),var(--e2),0 0 0 2px rgba(var(--sh),.34);
+}
+.fx-chips button:active{transform:translateY(1px)}
+
+@media (max-width:900px){
+  .faixa{min-height:168px}
+  .fx-conteudo{flex-direction:column;align-items:flex-start;gap:12px;
+    padding:16px 16px 44px}
+  .fx-chips{width:100%;overflow-x:auto;scrollbar-width:none}
+  .fx-chips::-webkit-scrollbar{display:none}
+  .fx-txt h3{font-size:1.08rem}
+  .fx-susp svg{width:104px;height:52px}
+  .fx-caminhao{height:52px;bottom:9px}
+  @keyframes fx-dirige{from{transform:translate3d(-112px,0,0)}
+                       to{transform:translate3d(100%,0,0)}}
+}
+@media (max-width:600px){
+  .fx-txt p{display:none}
+  .faixa{min-height:150px}
+}
+
+/* respeita quem pediu menos movimento: tudo para, caminhao estacionado */
+@media (prefers-reduced-motion:reduce){
+  .fx-nuvens,.fx-skyline,.fx-susp,.fx-susp svg,.fx-roda{animation:none!important}
+  .fx-susp{transform:translate3d(6%,0,0)}
+  .fx-chips button{transition:none}
+}
 </style>
 </head>
 <body>
@@ -1749,31 +1799,23 @@ body::before{
 
   <section class="sec"><div class="wrap"><div class="sh" data-r><h2>Nossos corredores</h2><a href="#/departamentos" class="more">Ver todos <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div><div class="aisles"><a href="#/departamentos/0" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1632992468737-54880593aada?auto=format&fit=crop&w=900&q=75" alt="Hortifruti"><div><small>Hortifruti</small><h3>Fresco.</h3></div></a><a href="#/departamentos/1" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&w=900&q=75" alt="Açougue"><div><small>Açougue</small><h3>Suculento.</h3></div></a><a href="#/departamentos/2" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=75" alt="Padaria FARID"><div><small>Padaria FARID</small><h3>Quentinho.</h3></div></a><a href="#/departamentos/5" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1610458034932-dc165f29499e?auto=format&fit=crop&w=900&q=75" alt="Adega"><div><small>Adega</small><h3>Brindado.</h3></div></a></div></div></section>
 
-  <section class="state" id="state"><div class="wrap"><div class="shipbar glass">
-    <div class="scene" aria-hidden="true">
-      <span class="sky"><i class="cl c1"></i><i class="cl c2"></i></span>
-      <span class="skyline"><svg class="city" viewBox="0 0 400 60" preserveAspectRatio="none"><path fill="currentColor" d="M0 60V38h14V24h10v14h8V30h16v30h6V18h12v42h8V34h10V22h8v38h10V28h14v32h6V12h10v48h12V36h8V26h12v34h8V20h10v40h10V32h16v28h6V24h10v36h12V38h8V16h12v44h10V30h12v30h8V22h10v38h14V34h10v26h8V26h12v34h10V18h10v42h8V36h12v24z"/></svg><svg class="city" viewBox="0 0 400 60" preserveAspectRatio="none"><path fill="currentColor" d="M0 60V38h14V24h10v14h8V30h16v30h6V18h12v42h8V34h10V22h8v38h10V28h14v32h6V12h10v48h12V36h8V26h12v34h8V20h10v40h10V32h16v28h6V24h10v36h12V38h8V16h12v44h10V30h12v30h8V22h10v38h14V34h10v26h8V26h12v34h10V18h10v42h8V36h12v24z"/></svg></span>
-      <span class="road"><i></i></span>
-      <span class="truck"><svg viewBox="0 0 220 110" width="112" height="56">
-    
-    <rect x="36" y="14" width="112" height="70" rx="8" fill="#fff"/>
-    <rect x="36" y="70" width="112" height="14" rx="0" fill="#00549C"/>
-    <text x="92" y="44" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-style="italic" font-size="22" fill="#881344">FARID</text>
-    <text x="92" y="62" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-style="italic" font-size="13" fill="#881344">em casa</text>
-    <path d="M152 34h32l22 24v26h-54z" fill="#fff"/>
-    <path d="M160 40h22l15 17h-37z" fill="#00549C" opacity=".85"/>
-    <rect x="152" y="70" width="54" height="14" fill="#00549C"/>
-    <rect x="200" y="62" width="10" height="6" rx="2" fill="#ffd34d"/>
-    <g class="wheel" style="transform-origin:72px 88px"><circle cx="72" cy="88" r="13" fill="#2e0617"/><circle cx="72" cy="88" r="5" fill="#fff"/><path d="M72 77v22M61 88h22" stroke="#fff" stroke-width="2"/></g>
-    <g class="wheel" style="transform-origin:180px 88px"><circle cx="180" cy="88" r="13" fill="#2e0617"/><circle cx="180" cy="88" r="5" fill="#fff"/><path d="M180 77v22M169 88h22" stroke="#fff" stroke-width="2"/></g>
-  </svg></span>
+  <section class="state" id="state"><div class="wrap">
+  <div class="faixa">
+    <div class="fx-cena" aria-hidden="true">
+      <span class="fx-nuvens"><i class="n1"></i><i class="n2"></i><i class="n3"></i><i class="n1b"></i><i class="n2b"></i><i class="n3b"></i></span>
+      <span class="fx-skyline"><svg viewBox="0 0 400 60" preserveAspectRatio="none"><path fill="currentColor" d="M0 60V38h14V24h10v14h8V30h16v30h6V18h12v42h8V34h10V22h8v38h10V28h14v32h6V12h10v48h12V36h8V26h12v34h8V20h10v40h10V32h16v28h6V24h10v36h12V38h8V16h12v44h10V30h12v30h8V22h10v38h14V34h10v26h8V26h12v34h10V18h10v42h8V36h12v24z"/></svg><svg viewBox="0 0 400 60" preserveAspectRatio="none"><path fill="currentColor" d="M0 60V38h14V24h10v14h8V30h16v30h6V18h12v42h8V34h10V22h8v38h10V28h14v32h6V12h10v48h12V36h8V26h12v34h8V20h10v40h10V32h16v28h6V24h10v36h12V38h8V16h12v44h10V30h12v30h8V22h10v38h14V34h10v26h8V26h12v34h10V18h10v42h8V36h12v24z"/></svg></span>
+      <span class="fx-asfalto"><i class="fx-faixas"></i></span>
+      <span class="fx-caminhao"><span class="fx-susp"><svg viewBox="0 0 220 110" width="124" height="62" aria-hidden="true"><rect x="36" y="14" width="112" height="70" rx="8" fill="#fff"/><rect x="36" y="70" width="112" height="14" fill="#00549C"/><text x="92" y="44" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-style="italic" font-size="22" fill="#881344">FARID</text><text x="92" y="62" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-style="italic" font-size="13" fill="#881344">em casa</text><path d="M152 34h32l22 24v26h-54z" fill="#fff"/><path d="M160 40h22l15 17h-37z" fill="#00549C" opacity=".85"/><rect x="152" y="70" width="54" height="14" fill="#00549C"/><rect x="200" y="62" width="10" height="6" rx="2" fill="#ffd34d"/><g class="fx-roda" style="transform-origin:72px 88px"><circle cx="72" cy="88" r="13" fill="#2e0617"/><circle cx="72" cy="88" r="5" fill="#fff"/><path d="M72 77v22M61 88h22" stroke="#fff" stroke-width="2"/></g><g class="fx-roda" style="transform-origin:180px 88px"><circle cx="180" cy="88" r="13" fill="#2e0617"/><circle cx="180" cy="88" r="5" fill="#fff"/><path d="M180 77v22M169 88h22" stroke="#fff" stroke-width="2"/></g></svg></span></span>
     </div>
-    <div class="sb-l">
-      <h3><b>Entrega grátis</b> a partir de <em>R$&nbsp;50</em></h3>
-      <p>Agende o melhor horário ou retire na loja.</p>
+    <div class="fx-conteudo">
+      <div class="fx-txt">
+        <h3><b>Entrega grátis</b> a partir de <em>R$&nbsp;50</em></h3>
+        <p>Agende o melhor horário ou retire na loja.</p>
+      </div>
+      <div class="fx-chips"><button onclick="openSlots()">🗓️ Agendar</button><button onclick="setMode('loja');openSlots()">🏪 Retirar</button><button onclick="openStores()">📍 6 lojas</button></div>
     </div>
-    <div class="sb-chips"><button onclick="openSlots()">🗓️ Agendar</button><button onclick="setMode('loja');openSlots()">🏪 Retirar</button><button onclick="openStores()">📍 6 lojas</button></div>
-  </div></div></section>
+  </div>
+</div></section>
 
   <section class="sec" id="ofertas-home">
     <div class="wrap">
