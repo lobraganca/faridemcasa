@@ -3250,6 +3250,62 @@ main{min-height:calc(100svh - 190px)}
   font-variant-numeric:tabular-nums;
 }
 .bc-filtro button.on span{opacity:.8}
+/* ==========================================================================
+   HIERARQUIA DA HOME
+   Medi a home no celular: 5109px, e os quatro titulos de secao — Nossos
+   corredores, Ofertas relampago, Mais vendidos, Para voce — todos em
+   21,6px com peso 800. Nenhum pesa mais que o outro, entao o olho nao tem
+   caminho: e um catalogo, nao uma vitrine. E "Mais vendidos" sozinho tinha
+   2104px, 41% da pagina, por ser uma grade de 10 cards no meio do trajeto.
+
+   A hierarquia e feita POR SUBTRACAO, nao aumentando nada: voces ja me
+   disseram que os titulos estavam grandes demais. O primeiro nivel fica
+   como esta; o segundo e o terceiro encolhem.
+
+   nivel 1 (como esta): Compre de novo, Ofertas relampago — acao e urgencia
+   nivel 2 (menor):     Nossos corredores, Mais vendidos  — navegacao
+   nivel 3 (rotulo):    Para voce                          — rodape editorial
+   ========================================================================== */
+.niv-2 .sh h2{font-size:1.12rem!important;font-weight:700!important;
+              letter-spacing:-.01em!important}
+.niv-3 .sh h2{font-size:.78rem!important;font-weight:700!important;
+              letter-spacing:.09em!important;text-transform:uppercase;
+              color:var(--t3)!important}
+.niv-2{padding-top:34px!important}
+.niv-3{padding-top:30px!important}
+@media (min-width:901px){
+  .niv-2 .sh h2{font-size:1.32rem!important}
+  .niv-3 .sh h2{font-size:.82rem!important}
+}
+
+/* A secao e a PRIMEIRA da pagina e a barra do topo e fixa: com 38px de
+   folga o titulo "Sua compra de sempre" ficava atras dela. A barra
+   termina em 66px no celular e 74 no desktop. */
+#againSec{padding-top:88px!important}
+@media (min-width:901px){#againSec{padding-top:102px!important}}
+
+/* --- a faixa de recompra: uma decisao, nao um trilho --- */
+.again-band{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:16px 18px;border-radius:20px;margin-bottom:16px;
+}
+.again-band:empty{display:none}
+.ab-txt{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+.ab-txt b{font-size:1.18rem;font-weight:800;letter-spacing:-.02em;
+          color:var(--ink)!important}
+.ab-txt span{font-size:.88rem;color:var(--t2)!important;
+             font-variant-numeric:tabular-nums}
+.ab-go{height:50px!important;padding:0 20px!important;flex-shrink:0;
+       font-size:.95rem!important}
+@media (max-width:600px){
+  .again-band{padding:15px 16px;gap:12px}
+  .ab-txt b{font-size:1.06rem}
+  .ab-go{width:100%}
+}
+/* o trilho vira a alternativa, nao o prato principal */
+.sh-sub h2{font-size:.78rem!important;font-weight:700!important;
+           letter-spacing:.09em!important;text-transform:uppercase;
+           color:var(--t3)!important}
 </style>
 </head>
 <body>
@@ -3334,7 +3390,8 @@ main{min-height:calc(100svh - 190px)}
 <!-- ======================= HOME ======================= -->
 <div class="page" id="p-home">
   <section class="sec" id="againSec" hidden><div class="wrap">
-    <div class="sh"><h2>Compre de novo</h2><div class="sh-r"><button class="btn btn-w" style="height:48px" onclick="repeatOrder(0)">↻ Repetir último pedido</button><a href="#/conta" class="more">Meus pedidos <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div></div>
+    <div class="again-band glass" id="againBand"></div>
+    <div class="sh sh-sub" data-r><h2>Ou escolha item por item</h2><a href="#/conta" class="more">Meus pedidos <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div>
     <div class="rail" id="againRail"></div>
   </div></section>
 
@@ -3376,7 +3433,7 @@ main{min-height:calc(100svh - 190px)}
 
 
 
-  <section class="sec"><div class="wrap"><div class="sh" data-r><h2>Nossos corredores</h2><a href="#/departamentos" class="more">Ver todos <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div><div class="aisles"><a href="#/departamentos/0" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1632992468737-54880593aada?auto=format&fit=crop&w=900&q=75" alt="Hortifruti"><div><small>Hortifruti</small><h3>Fresco.</h3></div></a><a href="#/departamentos/1" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&w=900&q=75" alt="Açougue"><div><small>Açougue</small><h3>Suculento.</h3></div></a><a href="#/departamentos/2" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=75" alt="Padaria FARID"><div><small>Padaria FARID</small><h3>Quentinho.</h3></div></a><a href="#/departamentos/5" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1610458034932-dc165f29499e?auto=format&fit=crop&w=900&q=75" alt="Adega"><div><small>Adega</small><h3>Brindado.</h3></div></a></div></div></section>
+  <section class="sec niv-2" id="secCorredores"><div class="wrap"><div class="sh" data-r><h2>Nossos corredores</h2><a href="#/departamentos" class="more">Ver todos <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div><div class="aisles"><a href="#/departamentos/0" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1632992468737-54880593aada?auto=format&fit=crop&w=900&q=75" alt="Hortifruti"><div><small>Hortifruti</small><h3>Fresco.</h3></div></a><a href="#/departamentos/1" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&w=900&q=75" alt="Açougue"><div><small>Açougue</small><h3>Suculento.</h3></div></a><a href="#/departamentos/2" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=75" alt="Padaria FARID"><div><small>Padaria FARID</small><h3>Quentinho.</h3></div></a><a href="#/departamentos/5" class="aisle" data-r><img loading="lazy" src="https://images.unsplash.com/photo-1610458034932-dc165f29499e?auto=format&fit=crop&w=900&q=75" alt="Adega"><div><small>Adega</small><h3>Brindado.</h3></div></a></div></div></section>
 
   <section class="state" id="state"><div class="wrap">
   <div class="faixa">
@@ -3407,7 +3464,7 @@ main{min-height:calc(100svh - 190px)}
 
   
 
-  <section class="sec">
+  <section class="sec niv-2" id="secVendidos">
     <div class="wrap">
       <div class="sh" data-r><h2>Mais vendidos</h2><a href="#/ofertas" class="more">Ver todas <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div>
       <div class="tabs" id="tabsHome" data-r></div>
@@ -3415,7 +3472,7 @@ main{min-height:calc(100svh - 190px)}
     </div>
   </section>
 
-  <section class="sec">
+  <section class="sec niv-3" id="secParaVoce">
     <div class="wrap">
       <div class="sh" data-r><h2>Para você</h2></div>
       <div class="perks2">
@@ -3867,7 +3924,11 @@ $('#mobDeps').innerHTML=CATS.map((c,k)=>`<a href="#/departamentos/${k}"><img loa
 $('#deps').innerHTML=CATS.map((c,k)=>`<a id="dep-${k}" class="glass gcard" href="#/departamentos/${k}"><div class="gi"><img loading="lazy" src="${c.img}" alt=""></div><h3>${c.n}</h3></a>`).join('');
 $('#hsTrack').innerHTML=[...P].sort((a,b)=>(b.o-b.p)/b.o-(a.o-a.p)/a.o).slice(0,12).map(card).join('');
 const F=[['all','Todos'],['drinks','Bebidas'],['mercearia','Mercearia'],['acougue','Açougue'],['limpeza','Limpeza'],['higiene','Higiene'],['pet','Pet Shop']];
-tabs($('#tabsHome'),F,v=>{$('#gridHome').innerHTML=pick(v).slice(0,10).map(card).join('');bindTilt()});
+/* 10 cards numa grade de duas colunas davam 2104px: 41% da home
+   inteira num bloco so, no meio do caminho. No celular passam a ser
+   6, com o 'Ver todas' que ja existia no cabecalho fazendo o resto. */
+var qtdVend=function(){return matchMedia('(max-width:900px)').matches?6:10};
+tabs($('#tabsHome'),F,v=>{$('#gridHome').innerHTML=pick(v).slice(0,qtdVend()).map(card).join('');bindTilt()});
 tabs($('#tabsOff'),F,v=>{$('#gridOff').innerHTML=pick(v).map(card).join('');bindTilt()});
 tabs($('#tabsPair'),[['all','Todos'],['carnes','Carnes'],['massas','Massas'],['peixes','Peixes'],['petiscos','Petiscos'],['doces','Doces']],
  v=>$('#pairs').innerHTML=PAIRS.filter(x=>v==='all'||x[0]===v).map(([,a,b,h,p,g])=>`<div class="glass pair"><div class="d2">${a}<i>+</i>${b}</div><h3>${h}</h3><p>${p}</p><div class="tg">${g.map(t=>`<span class="badge">${t}</span>`).join('')}</div></div>`).join(''));
@@ -4301,7 +4362,22 @@ const saveOrders=()=>LS.set('farid_pedidos',JSON.stringify(orders.slice(0,200)))
 const fmtDate=t=>new Date(t).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
 function renderAgain(){const sec=$('#againSec');const cnt={};orders.forEach(o=>o.items.forEach(([id,q])=>{if(P[id])cnt[id]=(cnt[id]||0)+q}));
  const ids=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]).map(Number);
- sec.hidden=!(user&&ids.length);if(!sec.hidden){$('#againRail').innerHTML=ids.map(i=>card(P[i])).join('');bindTilt()}}
+ sec.hidden=!(user&&ids.length);
+ if(!sec.hidden){
+  $('#againRail').innerHTML=ids.map(i=>card(P[i])).join('');bindTilt();
+  /* a faixa diz o que a pessoa ganha em numeros, nao so 'compre de
+     novo': quantos itens, quanto deu e quando foi. */
+  var o=orders[0], faixa=$('#againBand');
+  if(o&&faixa){
+   var n=o.items.reduce(function(a,x){return a+x[1]},0);
+   faixa.innerHTML='<div class="ab-txt"><b>Sua compra de sempre</b>'+
+    '<span>'+n+(n===1?' item':' itens')+' · '+brl(o.total)+
+    ' · '+new Date(o.date).toLocaleDateString('pt-BR',
+       {day:'2-digit',month:'short'})+'</span></div>'+
+    '<button class="btn btn-w ab-go" onclick="repeatOrder(0)">'+
+    'Adicionar tudo ao carrinho</button>';
+  }
+ }}
 function renderOrders(){const box=$('#ordersBox');
  if(!user){$('#againBox').innerHTML='';$('#ordTitle').hidden=true;box.innerHTML='<div class="glass empty-box"><b>Entre na sua conta</b><p>Para ver suas compras anteriores e repetir pedidos com um toque.</p><button class="btn btn-w" onclick="afterAuth=()=>renderOrders();openAuth(\'Entre para ver seus pedidos.\')">Entrar ou cadastrar</button></div>';return}
  $('#againBox').innerHTML='';$('#ordTitle').hidden=true;
