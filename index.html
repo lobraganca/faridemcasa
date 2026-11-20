@@ -3166,7 +3166,11 @@ main{min-height:calc(100svh - 190px)}
   animation:esq-brilho 1.5s ease-in-out infinite;
 }
 /* a foto fica por cima do brilho... */
-.pimg img,.hc-item .im img,.cv img,.aisle img{position:relative;z-index:1}
+.pimg img,.hc-item .im img,.cv img{position:relative;z-index:1}
+/* a foto do corredor JA e absolute preenchendo o cartao: aqui so a
+   camada, nunca o position — trocar isso a punha no fluxo do flex e
+   o nome do departamento virava uma letra cortada na borda. */
+.aisle img{z-index:1}
 /* ...mas o coracao e o selo de desconto moram DENTRO do quadro e vem
    antes da foto no HTML. Com z-index igual, a foto passava por cima e
    o coracao parava de receber o toque. Eles sobem para 2. */
@@ -3437,6 +3441,71 @@ main{min-height:calc(100svh - 190px)}
 
 /* ---- seletor de tema ---- */
 .mob-tema{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+/* ==========================================================================
+   AS DUAS BARRAS DE PONTA A PONTA NO CELULAR
+   Como no app antigo: o topo e a barra de baixo tomam a largura inteira e
+   encostam nas bordas, em cima e embaixo.
+
+   Nao e so estetica. Flutuando a 8px do topo, sobrava uma fresta por onde
+   a pagina aparecia ROLANDO POR CIMA do cabecalho — dava para ver o preco
+   de um produto acima da barra, e a hora do aparelho em cima do cartao.
+   Embaixo era igual: outra fileira de conteudo espiava por baixo da barra
+   flutuante. Coladas na borda, as duas cobrem a area de seguranca do
+   aparelho (a faixa da camera em cima, a barra de gestos embaixo) e nada
+   mais passa por tras.
+
+   A altura delas vira variavel, porque a area de seguranca muda de
+   aparelho para aparelho: tudo que precisa ficar abaixo do topo ou acima
+   do rodape mede a partir de --topo-h e --baixo-h, em vez dos numeros
+   fixos que eu vinha somando a mao.
+   ========================================================================== */
+@media (max-width:900px){
+  :root{
+    --topo-h:calc(58px + env(safe-area-inset-top));
+    --baixo-h:calc(70px + env(safe-area-inset-bottom));
+  }
+
+  .top{top:0!important}
+  .bar{
+    width:100%!important;max-width:none!important;
+    margin:0!important;
+    border-radius:0!important;
+    border-left:0!important;border-right:0!important;border-top:0!important;
+    height:var(--topo-h)!important;
+    padding:env(safe-area-inset-top) 14px 0 14px!important;
+    box-sizing:border-box;
+  }
+  .tabbar{
+    left:0!important;right:0!important;bottom:0!important;
+    border-radius:0!important;
+    border-left:0!important;border-right:0!important;border-bottom:0!important;
+    padding:6px 8px calc(6px + env(safe-area-inset-bottom))!important;
+  }
+
+  /* --- tudo que precisava limpar o cabecalho passa a medir pela barra --- */
+  .hero{padding-top:calc(var(--topo-h) + 26px)!important}
+  #againSec{padding-top:calc(var(--topo-h) + 28px)!important}
+  #againSec:not([hidden]) + .hero{padding-top:24px!important}
+  .idx{margin-top:calc(var(--topo-h) + 24px)!important}
+  body.sem-trilho .page.gpage{padding-top:calc(var(--topo-h) + 28px)!important}
+
+  /* --- e tudo que precisa ficar acima da barra de baixo --- */
+  body{padding-bottom:calc(var(--baixo-h) + 28px)!important}
+  .wa{bottom:calc(var(--baixo-h) + 16px)!important}
+  .totop{bottom:calc(var(--baixo-h) + 78px)!important}
+}
+/* Os tres atalhos da faixa de entrega — Agendar, Retirar, 6 lojas —
+   estouravam por 9px numa tela de 390: a linha rola, mas o terceiro
+   ficava com a borda cortada e lia como defeito, nao como "arraste".
+   Abaixo de 430 eles apertam o bastante para caber inteiros. */
+@media (max-width:429px){
+  .fx-chips{gap:5px!important}
+  .fx-chips button{padding-left:11px!important;padding-right:11px!important;
+                   font-size:.84rem!important}
+}
+@media (max-width:355px){
+  .fx-chips{flex-wrap:wrap!important;overflow-x:visible!important}
+}
 </style>
 </head>
 <body>
