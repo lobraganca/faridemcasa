@@ -1705,6 +1705,72 @@ body::before{
   .fx-susp{transform:translate3d(6%,0,0)}
   .fx-chips button{transition:none}
 }
+/* ==========================================================================
+   STATUS DO PEDIDO (lado do cliente)
+   O card so trazia data, loja, itens e total: nao dava para saber em que pe
+   estava o pedido. Agora traz numero, as duas datas e a etapa, com os mesmos
+   quatro estados do kanban da gestao — mover o card la muda o que o cliente
+   ve aqui. As cores sao as validadas pelo script (#2a78d6 / #eb6834 /
+   #1baf7a); o rotulo escrito acompanha sempre, nunca so a cor.
+   ========================================================================== */
+.ord-status{margin:14px 0 2px}
+.ord-pill{display:inline-flex;align-items:center;gap:6px;color:#fff;
+  font-size:.78rem;font-weight:700;padding:5px 12px;border-radius:99px;
+  box-shadow:0 2px 8px rgba(var(--sh),.2)}
+.ord-passos{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;margin:14px 0 0;padding:0;position:relative}
+/* trilho de fundo e trecho percorrido */
+.ord-passos::before,.ord-passos::after{content:"";position:absolute;
+  top:9px;height:3px;border-radius:2px}
+.ord-passos::before{left:12.5%;right:12.5%;background:rgba(var(--sh),.13)}
+.ord-passos::after{left:12.5%;width:calc((100% - 25%) * var(--ate,0) / 100);
+  background:rgba(var(--sh),.5)}
+.ord-passos li{display:flex;flex-direction:column;align-items:center;gap:6px;
+  position:relative;z-index:1;text-align:center}
+.ps-dot{width:21px;height:21px;border-radius:50%;display:grid;place-items:center;
+  background:#e9e3e6;color:#fff;font-size:.68rem;font-weight:900;
+  box-shadow:0 0 0 3px #fff}
+.ord-passos small{font-size:.7rem;line-height:1.25;color:#8e8e93!important;
+  max-width:11ch}
+.ps-feito small{color:#6e6e73!important}
+.ps-agora small{color:#1d1d1f!important;font-weight:700}
+.ord-datas{display:flex;gap:26px;margin-top:14px;padding-top:12px;
+  border-top:1px solid rgba(var(--sh),.09)}
+.ord-datas div{display:flex;flex-direction:column;gap:1px}
+.ord-datas small{font-size:.7rem;color:#8e8e93!important;text-transform:uppercase;
+  letter-spacing:.05em;font-weight:600}
+.ord-datas b{font-size:.88rem;color:#1d1d1f!important}
+
+/* ==========================================================================
+   PAGINA DE LOJAS
+   ========================================================================== */
+.lojas{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+  gap:14px}
+.loja{border-radius:20px;padding:18px 20px;display:flex;flex-direction:column;
+  gap:3px;color:#1d1d1f!important}
+.loja.atual{box-shadow:var(--edge),var(--e2),0 0 0 2px rgba(var(--sh),.5)!important}
+.loja-hd{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.loja-hd b{font-size:1.12rem;letter-spacing:-.02em;color:#1d1d1f!important}
+.loja-hd i{font-style:normal;font-size:.68rem;font-weight:800;letter-spacing:.06em;
+  text-transform:uppercase;color:#881344!important;background:rgba(var(--sh),.09);
+  padding:2px 8px;border-radius:99px}
+.loja-sel{font-size:.68rem;font-weight:800;color:#fff!important;
+  background:linear-gradient(165deg,#a21d4a,#881344);padding:2px 9px;
+  border-radius:99px}
+.loja p{font-size:.92rem;color:#1d1d1f!important;margin:0}
+.loja>small{font-size:.82rem;color:#6e6e73!important}
+.loja-act{display:flex;align-items:center;gap:14px;margin-top:14px;flex-wrap:wrap}
+.loja-act .btn{height:44px;padding:0 18px}
+.loja-ok{font-size:.86rem;font-weight:700;color:#1baf7a!important}
+.loja-mapa{font-size:.86rem;font-weight:600;color:#881344!important;
+  border-bottom:1px solid rgba(136,19,68,.35);padding-bottom:1px}
+.loja-mapa:hover{border-bottom-color:#881344}
+
+@media (max-width:600px){
+  .ord-passos small{font-size:.63rem;max-width:9ch}
+  .ord-datas{gap:18px}
+  .lojas{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -1746,7 +1812,7 @@ body::before{
       <button class="user-btn" id="userBtn" onclick="userClick()" aria-label="Minha conta"><svg class="ico"><use href="#i-user"/></svg><span id="userLbl">Entrar</span></button>
       <div class="acct-menu glass" id="acctMenu">
         <div class="am-hd"><b id="amName"></b><span id="amMail"></span></div>
-        <a href="#/conta" onclick="closeAcct()">📦 Meus pedidos</a><a href="#/favoritos" onclick="closeAcct()">♥ Favoritos</a><a href="#/gestao" onclick="closeAcct()">⚙ Gestão da loja</a><a href="#" onclick="event.preventDefault();closeAcct();openSlots()">📍 Meu endereço</a>
+        <a href="#/conta" onclick="closeAcct()">📦 Meus pedidos</a><a href="#/favoritos" onclick="closeAcct()">♥ Favoritos</a><a href="#/lojas" onclick="closeAcct()">🏪 Lojas</a><a href="#/gestao" onclick="closeAcct()">⚙ Gestão da loja</a><a href="#" onclick="event.preventDefault();closeAcct();openSlots()">📍 Meu endereço</a>
         <button onclick="logout()">Sair</button>
       </div>
     </div>
@@ -1761,7 +1827,9 @@ body::before{
   <nav onclick="if(event.target.closest('a'))toggleMob(false)">
     <button class="hero-store" style="margin:0 0 4px;padding-left:0" onclick="toggleMob(false);userClick()"><svg class="ico"><use href="#i-user"/></svg><span id="mobUser">Entrar ou cadastrar</span></button>
     <button class="hero-store" style="margin:0 0 14px;padding-left:0" onclick="toggleMob(false);openStores()"><svg class="ico"><use href="#i-store"/></svg><span>Trocar de cidade</span></button>
-    <a href="#/">Início</a><a href="#/ofertas">Ofertas</a><a href="#/departamentos">Departamentos</a><a href="#/entrega">Entrega</a><a href="#/cartao">Cartão Farid</a><a href="#/harmonizacao">Harmonização</a><a href="#/favoritos">Favoritos</a><a href="#/contato">Contato</a>
+    <a href="#/">Início</a><a href="#/ofertas">Ofertas</a><a href="#/departamentos">Departamentos</a><a href="#/entrega">Entrega</a><a href="#/cartao">Cartão Farid</a><a href="#/harmonizacao">Harmonização</a><a href="#/lojas">Lojas</a><a href="#/contato">Contato</a>
+    <h6>Minha conta</h6>
+    <a href="#/conta">Meus pedidos</a><a href="#/favoritos">Favoritos</a><a href="#/gestao">Gestão da loja</a>
     <h6>Departamentos</h6><div class="mdeps" id="mobDeps"></div>
   </nav>
 </div>
@@ -1861,6 +1929,13 @@ body::before{
   </section>
 
 </div>
+
+<!-- ======================= LOJAS ======================= -->
+<div class="page gpage" id="p-lojas"><div class="wrap">
+  <div class="ghero"><h1>Nossas lojas</h1>
+    <p>Seis unidades. Escolha de qual delas você quer comprar.</p></div>
+  <div class="lojas" id="lojasBox"></div>
+</div></div>
 
 <!-- ======================= GESTAO ======================= -->
 <div class="page gpage" id="p-gestao"><div class="wrap">
@@ -2002,10 +2077,11 @@ body::before{
 
 <!-- ======================= CONTA ======================= -->
 <div class="page gpage" id="p-conta"><div class="wrap">
-  <div class="ghero"><h1>Comprar de novo</h1></div>
-  <div id="againBox"></div>
-  <h2 class="ord-title" id="ordTitle" hidden>Meus pedidos</h2>
+  <div class="ghero"><h1>Meus pedidos</h1>
+    <p>Acompanhe cada pedido e repita o que você já comprou.</p></div>
   <div id="ordersBox"></div>
+  <h2 class="ord-title" id="ordTitle" hidden>Comprar de novo</h2>
+  <div id="againBox"></div>
 </div></div>
 
 <!-- ======================= CONTATO ======================= -->
@@ -2536,7 +2612,7 @@ function renderOrders(){const box=$('#ordersBox');
  const ids=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]).map(Number);
  $('#againBox').innerHTML=`<div class="again-hd"><p>Produtos que você já comprou</p><button class="btn btn-w" onclick="repeatOrder(0)">↻ Repetir último pedido</button></div><div class="grid">${ids.map(i=>card(P[i])).join('')}</div>`;
  $('#ordTitle').hidden=false;bindTilt();
- box.innerHTML='<div class="orders">'+orders.map((o,k)=>`<div class="glass ord"><div class="ord-hd"><div><b>Pedido de ${fmtDate(o.date)}</b><span>Loja ${esc(o.store)} · ${o.mode==='casa'?'Entrega':'Retirada'} ${esc(o.slot)}</span></div><div class="ord-tot"><span>${o.items.reduce((a,x)=>a+x[1],0)} itens</span><br><b>${brl(o.total)}</b></div></div>
+ box.innerHTML='<div class="orders">'+orders.map((o,k)=>`<div class="glass ord"><div class="ord-hd"><div><b>Pedido #${String(o.id).slice(-6)}</b><span>${o.mode==='casa'?'Entrega':'Retirada'} · loja ${esc(o.store)}</span></div><div class="ord-tot"><span>${o.items.reduce((a,x)=>a+x[1],0)} itens</span><br><b>${brl(o.total)}</b></div></div>${statusPedido(o)}<div class="ord-datas"><div><small>Pedido em</small><b>${fmtDate(o.date)}</b></div><div><small>${o.mode==='casa'?'Entrega':'Retirada'}</small><b>${esc(o.slot||'a combinar')}</b></div></div>
   <div class="ord-items">${o.items.filter(([id])=>P[id]).map(([id,q])=>`<div title="${esc(P[id].n)}"><img src="${P[id].sm}" alt="${esc(P[id].n)}">${q>1?`<i>${q}</i>`:''}</div>`).join('')}</div>
   <div class="ord-act"><button class="btn btn-w" onclick="repeatOrder(${k})">↻ Repetir pedido</button></div></div>`).join('')+'</div>'}
 function repeatOrder(k){const o=orders[k];if(!o)return;o.items.forEach(([id,q])=>{if(P[id]){cart[id]=(cart[id]||0)+q;refreshCards(id)}});renderCart();toast('Itens do pedido adicionados ao carrinho');openCart()}
@@ -2551,6 +2627,7 @@ function route(){const h=location.hash;if(h&&!h.startsWith('#/')){return}
  if(name==='conta')renderOrders();
  if(name==='favoritos')renderFavs();
  if(name==='gestao')gxRender();
+ if(name==='lojas')renderLojas();
  $$('.idx a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===h));$$('.tabbar a').forEach(a=>a.classList.toggle('on',a.dataset.tb==='/'+name||(name==='home'&&a.dataset.tb==='/')));$('#idx').style.display=(name==='home'||name==='departamentos')?'none':'';
  window.scrollTo({top:0,behavior:'instant'});
  $$('.page.on [data-r]:not(.in)').forEach(el=>io.observe(el));bindTilt();}
@@ -2587,6 +2664,42 @@ document.addEventListener('click',function(e){
  var id=+c.dataset.id;if(!isNaN(id))openProd(id)});
 document.addEventListener('keydown',function(e){
  if(e.key==='Escape'&&$('#prodM').classList.contains('on'))closeProd()});
+
+/* ---- status do pedido, visto pelo cliente ---- */
+var PED_ORDEM=['novo','separando','pronto','entregue'];
+function pedRotulos(mode){return mode==='loja'
+ ? ['Pedido recebido','Em separação','Pronto para retirada','Retirado']
+ : ['Pedido recebido','Em separação','Saiu para entrega','Entregue']}
+var PED_COR=['#2a78d6','#eb6834','#1baf7a','#6e6e73'];
+function statusPedido(o){
+ var i=PED_ORDEM.indexOf(o.status||'novo'); if(i<0)i=0;
+ var rot=pedRotulos(o.mode);
+ var passos=rot.map(function(r,k){
+  var st=k<i?'feito':(k===i?'agora':'futuro');
+  return '<li class="ps-'+st+'"'+(k===i?' aria-current="step"':'')+'>'+
+   '<span class="ps-dot"'+(k<=i?' style="background:'+PED_COR[i]+'"':'')+'>'+
+   (k<i?'✓':'')+'</span><small>'+esc(r)+'</small></li>'}).join('');
+ return '<div class="ord-status">'+
+  '<span class="ord-pill" style="background:'+PED_COR[i]+'">'+esc(rot[i])+'</span>'+
+  '<ol class="ord-passos" style="--ate:'+(i/(rot.length-1)*100)+'%">'+passos+'</ol>'+
+  '</div>'}
+
+/* ---- pagina de Lojas ---- */
+function renderLojas(){
+ var box=$('#lojasBox'); if(!box)return;
+ box.innerHTML=STORES.map(function(x){
+  var atual=x.id===storeId;
+  return '<article class="loja glass'+(atual?' atual':'')+'">'+
+   '<div class="loja-hd"><b>'+esc(x.n)+'</b>'+
+   (x.tag?'<i>'+esc(x.tag)+'</i>':'')+
+   (atual?'<span class="loja-sel">Sua loja</span>':'')+'</div>'+
+   '<p>'+esc(x.addr)+'</p><small>'+esc(x.area)+'</small>'+
+   '<div class="loja-act">'+
+    (atual?'<span class="loja-ok">✓ Comprando aqui</span>'
+          :'<button class="btn btn-w" onclick="pickStore(\''+x.id+'\');renderLojas()">Comprar nesta loja</button>')+
+    '<a class="loja-mapa" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+
+     x.lat+','+x.lng+'">Ver no mapa</a>'+
+   '</div></article>'}).join('')}
 
 /* ============================ GESTAO ============================ */
 var GX_ST=[['novo','Novo','#2a78d6','●'],
