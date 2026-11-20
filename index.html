@@ -2162,6 +2162,85 @@ body.sem-trilho .page.gpage{padding-top:104px}
   .sh h2,.faq h2{font-size:1.35rem!important}
   .ghero p,.dep-head p{font-size:.94rem!important;margin-top:8px!important}
 }
+/* ==========================================================================
+   SOBREPOSICOES: UM PADRAO SO
+   Medido antes: busca, produto e carrinho flutuavam; lojas, horarios e
+   entrar eram folhas coladas na borda de baixo, e o menu nao tinha
+   arredondamento nenhum. Agora todas flutuam, com o mesmo vidro, o mesmo
+   raio e a mesma curva de entrada.
+   ========================================================================== */
+:root{
+  --sobre-raio:26px;
+  --sobre-gap:14px;
+  --sobre-curva:cubic-bezier(.22,1,.36,1);
+  --sobre-tempo:.38s;
+}
+.stores-m,.slotM,#slotM,.auth-m,#auth,.prod-m,.spot{
+  align-items:center!important;
+  padding:var(--sobre-gap)!important;
+}
+.sm-box,.sl-box,.au-box,.pm-box,.spot-box,.drawer,.mob{
+  border-radius:var(--sobre-raio)!important;
+  max-height:calc(100svh - var(--sobre-gap)*2)!important;
+  height:auto!important;
+  border:1px solid rgba(255,255,255,.9)!important;
+  box-shadow:var(--edge),var(--e4)!important;
+  background:linear-gradient(165deg,rgba(255,255,255,.97),rgba(255,255,255,.9))!important;
+  backdrop-filter:blur(34px) saturate(185%)!important;
+  -webkit-backdrop-filter:blur(34px) saturate(185%)!important;
+  color:#1d1d1f!important;
+  transition:transform var(--sobre-tempo) var(--sobre-curva),
+             opacity var(--sobre-tempo) var(--sobre-curva)!important;
+}
+/* o carrinho e o menu sao gavetas: flutuam coladas a um lado, nao ao centro */
+.drawer{
+  inset:var(--sobre-gap) var(--sobre-gap) var(--sobre-gap) auto!important;
+  width:min(420px,calc(100vw - var(--sobre-gap)*2))!important;
+}
+.mob{
+  inset:var(--sobre-gap) auto var(--sobre-gap) var(--sobre-gap)!important;
+  width:min(330px,calc(100vw - var(--sobre-gap)*2))!important;
+  max-height:calc(100svh - var(--sobre-gap)*2)!important;
+  overflow:auto;
+}
+/* texto de dentro das gavetas acompanha a superficie clara */
+.mob a,.mob h6,.mob span,.mob b{color:#1d1d1f!important}
+.mob h6{color:#8e8e93!important}
+@media (max-width:600px){
+  :root{--sobre-gap:11px;--sobre-raio:24px}
+  .drawer,.mob{width:calc(100vw - var(--sobre-gap)*2)!important}
+}
+
+/* ==========================================================================
+   FUNDO DA FOTO DO PRODUTO: BRANCO
+   A moldura da imagem estava transparente no card e cinza no card de oferta,
+   entao o produto aparecia sobre o tom do card, nao sobre branco.
+   ========================================================================== */
+.pimg,.hc-item .im,.pm-img,.sr>img,.sr img{
+  background:#fff!important;
+}
+.pm-img{background:#fff!important}
+.ord-items div{background:#fff!important}
+
+/* ==========================================================================
+   BARRA FIXA MAIS RENTE
+   ========================================================================== */
+.tabbar{
+  bottom:calc(5px + env(safe-area-inset-bottom))!important;
+  left:8px!important;right:8px!important;
+}
+.wa{bottom:calc(88px + env(safe-area-inset-bottom))!important}
+
+/* ==========================================================================
+   TRANSICOES: UMA CURVA SO
+   ========================================================================== */
+.btn,.dc,.prod,.gcard,.aisle,.hc-item,.arrows button,.fx-chips button,
+.loja,.gx-kpi,.ord,.hbtn{
+  transition-timing-function:var(--sobre-curva)!important;
+}
+@media (prefers-reduced-motion:reduce){
+  .sm-box,.sl-box,.au-box,.pm-box,.spot-box,.drawer,.mob{transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -2286,16 +2365,16 @@ body.sem-trilho .page.gpage{padding-top:104px}
   <section class="sec">
     <div class="wrap"><div class="sh" data-r><h2>Promoções</h2></div></div>
     <div class="cover d" id="coverD" data-r>
-      <a class="cv" href="#/cartao"><img src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/7cb92342-9c5c-443e-b4b6-697963baffaf.webp" alt="Conheça o Cartão Farid"></a>
-      <a class="cv" href="#/departamentos"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/d0f748ff-d8ef-402f-80d6-38be86a8772d-1440w.avif" alt="Quarta e quinta do hortifruti"></a>
-      <a class="cv" href="#/ofertas"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/eeefe365-ea02-4367-8371-93654d3fe538-1440w.avif" alt="Niver Premiado Farid"></a>
-      <a class="cv" href="#/ofertas"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/3753280c-0346-4d44-b39c-f6e08da1741b-1440w.avif" alt="Doce de leite Ita"></a>
-      <a class="cv" href="#/ofertas"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/af2a03af-bab3-4ccb-a81e-7675e7089e5d-1440w.avif" alt="Cashback marca Farid"></a>
+      <a class="cv" href="#/cartao" aria-label="Conheça o Cartão Farid"><img src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/7cb92342-9c5c-443e-b4b6-697963baffaf.webp" alt="Conheça o Cartão Farid"></a>
+      <a class="cv" href="#/departamentos" aria-label="Ver departamentos"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/d0f748ff-d8ef-402f-80d6-38be86a8772d-1440w.avif" alt="Quarta e quinta do hortifruti"></a>
+      <a class="cv" href="#/ofertas" aria-label="Ver ofertas"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/eeefe365-ea02-4367-8371-93654d3fe538-1440w.avif" alt="Niver Premiado Farid"></a>
+      <a class="cv" href="#/ofertas" aria-label="Ver ofertas"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/3753280c-0346-4d44-b39c-f6e08da1741b-1440w.avif" alt="Doce de leite Ita"></a>
+      <a class="cv" href="#/ofertas" aria-label="Ver ofertas"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/af2a03af-bab3-4ccb-a81e-7675e7089e5d-1440w.avif" alt="Cashback marca Farid"></a>
     </div>
     <div class="cover m" id="coverM">
-      <a class="cv" href="#/cartao"><img src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/579cb28d-b70e-4229-8e4f-8978f8f59863.webp" alt="Cartão Farid"></a>
-      <a class="cv" href="#/departamentos"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/2d499027-5506-4d12-94b5-ab026a719a3c-640w.avif" alt="Quarta e quinta do hortifruti"></a>
-      <a class="cv" href="#/ofertas"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/bfe233e5-cf1b-49a7-9e31-087dbd2ecc8a-640w.avif" alt="Doce de leite Ita"></a>
+      <a class="cv" href="#/cartao" aria-label="Conheça o Cartão Farid"><img src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/579cb28d-b70e-4229-8e4f-8978f8f59863.webp" alt="Cartão Farid"></a>
+      <a class="cv" href="#/departamentos" aria-label="Ver departamentos"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/2d499027-5506-4d12-94b5-ab026a719a3c-640w.avif" alt="Quarta e quinta do hortifruti"></a>
+      <a class="cv" href="#/ofertas" aria-label="Ver ofertas"><img loading="lazy" src="https://cdn.regexsolutions.com.br/production/banners/f4cae2b2-e001-4aff-96b3-f72e700954c6/bfe233e5-cf1b-49a7-9e31-087dbd2ecc8a-640w.avif" alt="Doce de leite Ita"></a>
     </div>
     <div class="cv-nav"><button class="glass" aria-label="Anterior" onclick="cvGo(-1)"><svg class="ico"><use href="#i-l"/></svg></button><button class="glass" aria-label="Próximo" onclick="cvGo(1)"><svg class="ico"><use href="#i-r"/></svg></button></div>
   </section>
@@ -2545,8 +2624,8 @@ body.sem-trilho .page.gpage{padding-top:104px}
     <p class="au-msg" id="auMsg">Acesse sua conta Farid em Casa.</p>
     <div class="au-tabs"><button class="on" data-t="login" onclick="authTab('login')">Entrar</button><button data-t="signup" onclick="authTab('signup')">Criar conta</button></div>
     <form id="fLogin" class="au-f" novalidate onsubmit="event.preventDefault();doLogin(this)">
-      <label>E-mail ou CPF<input class="inp" name="login" autocomplete="username" required></label>
-      <label>Senha<span class="pw"><input class="inp" name="pw" type="password" autocomplete="current-password" required><button type="button" onclick="togglePw(this)" aria-label="Mostrar senha"><svg class="ico"><use href="#i-eye"/></svg></button></span></label>
+      <label>E-mail ou CPF<input class="inp" name="login" autocomplete="username" required aria-label="E-mail ou celular" placeholder="E-mail ou celular"></label>
+      <label>Senha<span class="pw"><input class="inp" name="pw" type="password" autocomplete="current-password" required aria-label="Senha" placeholder="Senha"><button type="button" onclick="togglePw(this)" aria-label="Mostrar senha"><svg class="ico"><use href="#i-eye"/></svg></button></span></label>
       <a href="#" class="au-link" onclick="event.preventDefault();forgot()">Esqueci minha senha</a>
       <p class="au-err" data-err></p>
       <button class="btn btn-w au-go">Entrar</button>
@@ -2581,7 +2660,7 @@ body.sem-trilho .page.gpage{padding-top:104px}
         <div class="au-2"><input class="inp" name="cep" placeholder="CEP" inputmode="numeric" required><input class="inp" name="num" placeholder="Número" required></div>
         <input class="inp" name="rua" placeholder="Rua / Avenida" required>
         <div class="au-2"><input class="inp" name="bairro" placeholder="Bairro" required><input class="inp" name="cidade" placeholder="Cidade" required></div>
-        <input class="inp" name="comp" placeholder="Complemento (opcional)">
+        <input class="inp" name="comp" placeholder="Complemento (opcional)" aria-label="Complemento do endereço">
         <button class="btn btn-w" style="justify-content:center">Salvar endereço</button>
       </form>
       <p class="sl-note">O horário é uma estimativa. Sua compra pode chegar um pouco antes ou depois do horário escolhido.</p>
@@ -2895,7 +2974,8 @@ if(!curStore())setTimeout(openStores,1700);
 let user=null;try{user=JSON.parse(localStorage.getItem('farid_user')||'null')}catch(e){}
 let afterAuth=null;
 const first=n=>(n||'').trim().split(/\s+/)[0];
-function renderUser(){setTimeout(()=>{renderAgain();if($('#p-conta').classList.contains('on'))renderOrders()});$('#userBtn').classList.toggle('in',!!user);$('#userBtn').setAttribute('aria-label',user?'Minha conta':'Entrar na conta');$('#userLbl').textContent=user?`Olá, ${first(user.name)}`:'Entrar';$('#mobUser').textContent=user?`Olá, ${first(user.name)} · Minha conta`:'Entrar ou cadastrar';
+function renderUser(){if(user&&slotPendente){var _s=slotPendente;slotPendente=null;setTimeout(function(){pickSlot(_s.d,_s.a,_s.b)},400)}
+ setTimeout(()=>{renderAgain();if($('#p-conta').classList.contains('on'))renderOrders()});$('#userBtn').classList.toggle('in',!!user);$('#userBtn').setAttribute('aria-label',user?'Minha conta':'Entrar na conta');$('#userLbl').textContent=user?`Olá, ${first(user.name)}`:'Entrar';$('#mobUser').textContent=user?`Olá, ${first(user.name)} · Minha conta`:'Entrar ou cadastrar';
  if(user){$('#amName').textContent=user.name;$('#amMail').textContent=user.email}}
 function userClick(){if(user){$('#acctMenu').classList.toggle('on')}else openAuth()}
 function closeAcct(){$('#acctMenu').classList.remove('on')}
@@ -2978,9 +3058,22 @@ function renderSlots(){
 function slotsLogin(){closeSlots();afterAuth=()=>openSlots('Agora escolha o melhor horário.');openAuth('Entre ou crie sua conta para cadastrar o endereço de entrega.')}
 function setMode(m){mode=m;LS.set('farid_mode',m);$('#addrForm').hidden=true;renderSlots()}
 function editAddr(){if(!user){slotsLogin();return}const f=$('#addrForm');f.hidden=!f.hidden;if(addr)Object.entries(addr).forEach(([k,v])=>f[k]&&(f[k].value=v));if(!f.hidden)f.cep.focus()}
-function saveAddr(f){addr={};['cep','num','rua','bairro','cidade','comp'].forEach(k=>addr[k]=f[k].value.trim());LS.set('farid_addr',JSON.stringify(addr));f.hidden=true;renderSlots();toast('Endereço salvo')}
-function pickSlot(d,a,b){if(mode==='casa'&&!user){slotsLogin();return}
- if(mode==='casa'&&!addr){$('#addrForm').hidden=false;toast('Cadastre o endereço de entrega');return}
+function saveAddr(f){addr={};['cep','num','rua','bairro','cidade','comp'].forEach(k=>addr[k]=f[k].value.trim());LS.set('farid_addr',JSON.stringify(addr));f.hidden=true;renderSlots();
+ if(slotPendente){var s=slotPendente;slotPendente=null;
+  toast('Endereço salvo');setTimeout(function(){pickSlot(s.d,s.a,s.b)},260);
+ }else{toast('Endereço salvo')}}
+var slotPendente=null;
+function pickSlot(d,a,b){
+ if(mode==='casa'&&!user){slotPendente={d:d,a:a,b:b};slotsLogin();return}
+ if(mode==='casa'&&!addr){
+  /* o horario que a pessoa escolheu fica guardado: assim que o endereco
+     for salvo ele e aplicado sozinho, sem obrigar a escolher de novo */
+  slotPendente={d:d,a:a,b:b};
+  var f=$('#addrForm');f.hidden=false;
+  try{f.scrollIntoView({block:'nearest',behavior:'smooth'});
+      setTimeout(function(){if(f.cep)f.cep.focus()},320)}catch(e){}
+  toast('Falta o endereço. Preencha e guardamos o horário escolhido.');
+  return}
  slot={d,a,b,m:mode};LS.set('farid_slot',JSON.stringify(slot));renderSlots();renderCart();setTimeout(closeSlots,250);toast(`${mode==='casa'?'Entrega':'Retirada'}: <b>${slotText()}</b>`)}
 function openSlots(msg){if(!curStore()){openStores();return}$('#slSub').textContent=msg||'Escolha o melhor horário para receber.';
  if(slot){const k=days().findIndex(y=>dKey(y)===slot.d);dayI=k>=0?k:0}else dayI=0;
@@ -3333,6 +3426,39 @@ function gxRender(){
 /* produtos cadastrados entram no catalogo ao abrir o site */
 (function(){gxProdutosExtra().forEach(function(x){
  P.push({id:P.length,n:x.n,img:'',sm:'',o:x.o,p:x.p,u:x.u,cat:x.cat})})})();
+
+/* ---- o trilho de departamentos do topo desliza sozinho ----
+   Vai ate o fim devagar, espera, volta ao inicio e recomeca. Qualquer toque,
+   rolagem ou foco pausa; volta a andar alguns segundos depois. Nao duplico os
+   itens porque sao links de navegacao: o leitor de tela leria tudo duas vezes. */
+(function(){
+ var box=document.getElementById('idx'); if(!box)return;
+ var pausado=false, t=null, dir=1, parado=0;
+ function pausa(){pausado=true;clearTimeout(t);
+  box.style.scrollSnapType='';
+  t=setTimeout(function(){pausado=false},2600)}
+ ['pointerdown','touchstart','wheel','mouseenter','focusin']
+  .forEach(function(ev){box.addEventListener(ev,pausa,{passive:true})});
+ var anterior=0;
+ function passo(agora){
+  requestAnimationFrame(passo);
+  if(!anterior){anterior=agora;return}
+  var dt=agora-anterior; anterior=agora;
+  if(pausado||parado>0){parado-=dt;box.style.scrollSnapType='';return}
+  if(getComputedStyle(box).display==='none')return;
+  /* o trilho tem scroll-snap: ele puxa a rolagem de volta ao item mais
+     proximo a cada quadro e anula o avanco. Desligo so enquanto ando
+     sozinho; ao primeiro toque o snap volta, para a rolagem do dedo. */
+  box.style.scrollSnapType='none';
+  var max=box.scrollWidth-box.clientWidth;
+  if(max<8)return;
+  box.scrollLeft+=dir*dt*0.022;
+  if(dir>0&&box.scrollLeft>=max-1){dir=-1;parado=1400}
+  else if(dir<0&&box.scrollLeft<=1){dir=1;parado=1400}
+ }
+ if(!matchMedia('(prefers-reduced-motion:reduce)').matches)
+  requestAnimationFrame(passo);
+})();
 
 loadCart();Object.keys(cart).forEach(i=>refreshCards(+i));renderCart();
 route();
