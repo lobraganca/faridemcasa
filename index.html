@@ -2375,6 +2375,69 @@ body.sem-trilho .page.gpage{padding-top:104px}
 .drawer small,.drawer p,.drawer .punit,.pm-box small,.pm-box p,.pm-unit,
 .sl-box small,.sl-box p,.sm-box p,.au-box p,.spot-box small,.mob small,
 #spotRes .sr small,.pm-desc{color:#55555b!important}
+/* ==========================================================================
+   UM BRANCO SO
+   Medi a pagina e achei dez tons de branco distintos: .97, .9, .86, .78,
+   .76, .7, .6, .14, branco puro e um #fbf8f9 rosado que sobrou do tema
+   antigo. Fui corrigindo em camadas e cada camada trouxe o seu — e o olho
+   percebe isso como "o branco muda o tempo todo".
+
+   Passa a ser um branco so, com duas variacoes que existem por FUNCAO:
+
+     --sup-1      #fff              tudo que e superficie: card, faixa,
+                                    chip, rodape, barra de conteudo
+     --sup-2      #f6f6f8           o que e embutido DENTRO de uma
+                                    superficie: moldura de foto, campo,
+                                    poco, coluna de quadro
+     --sup-vidro  #fff a 86%        so sobreposicao. Nao e outro branco:
+                                    e o mesmo, deixando o fundo passar
+     --sup-pagina #f4f4f6           o cinza da pagina, atras de tudo
+
+   A sobreposicao deixa de ter gradiente. Dois brancos dentro do mesmo
+   painel era parte do problema.
+   ========================================================================== */
+:root{
+  --sup-1:#ffffff;
+  --sup-2:#f6f6f8;
+  --sup-vidro:rgba(255,255,255,.86);
+  --sup-pagina:#f4f4f6;
+}
+
+/* --- superficie: um unico branco, opaco --- */
+.glass:not(.bar):not(.tabbar):not(.toast):not(.drawer):not(.sm-box):not(.sl-box):not(.au-box):not(.pm-box):not(.spot-box):not(.mob),
+.gcard,.hero-card,.prod,.dg,.gx-card,.gx-kpi,.ord,.loja,.faixa,.hc-item,
+.gx-ord,.foot,.idx,.hsearch,.sr,.dc{
+  background:var(--sup-1)!important;
+}
+.dc:hover,.dc.hit{background:var(--sup-1)!important}
+
+/* --- embutido: o que vive dentro de uma superficie --- */
+.pimg,.hc-item .im,.pm-img,.dc span,.gx-col,.gx-prow,.acomp,.pm-desc,
+.inp,.gx-form input,.gx-form select,.spot-in,.ord-items div,.fx-chips button,
+.arrows button,.x,.pm-x,.stepper,.gx-move button,.gx-rpos{
+  background:var(--sup-2)!important;
+}
+/* a moldura da foto fica branca de proposito: o produto precisa de branco */
+.pimg,.hc-item .im,.pm-img,.ord-items div,.sr>img{background:var(--sup-1)!important}
+
+/* --- sobreposicao: o mesmo branco, deixando passar. Sem gradiente --- */
+.sm-box,.sl-box,.au-box,.pm-box,.spot-box,.drawer,.mob{
+  background:var(--sup-vidro)!important;
+}
+
+/* --- pagina --- */
+html,body{background:var(--sup-pagina)!important}
+/* o .amb guardava #fbf8f9, um branco rosado do tema antigo, atras de tudo */
+.amb{background:var(--sup-pagina)!important}
+.foot{border-top:1px solid rgba(var(--shc),.08)}
+/* sobraram em 245,245,247 — praticamente o mesmo tom, mas um valor a mais.
+   Entram no --sup-2 como o resto do que e embutido. */
+.city-b,.au-tabs,.au-tabs button,.sl-days button,.tabs button,.chips button,
+.st,.sl-day,.spot-res a,.mdeps a{background:var(--sup-2)!important}
+.city-b.sel,.au-tabs button.on,.tabs button.on,.st.sel{
+  background:var(--sup-1)!important}
+.sl-mode,.sl-mode button{background:var(--sup-2)!important}
+.sl-mode button.on{background:var(--sup-1)!important}
 </style>
 </head>
 <body>
