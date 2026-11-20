@@ -1877,7 +1877,7 @@ body::before{
    pagina fica cinza e o que esta "dentro" fica branco. A barra do topo e
    a de baixo continuam no vinho, que e a marca.
    ========================================================================== */
-.glass:not(.bar):not(.tabbar),
+.glass:not(.bar):not(.tabbar):not(.toast),
 .gcard,.hero-card,.prod,.dg,.gx-card,.gx-kpi,.ord,.loja,.faixa{
   background:rgba(255,255,255,.97)!important;
 }
@@ -2000,6 +2000,114 @@ body::before{
 /* o botao Adicionar dentro do resultado mantem o vinho da marca */
 #spotRes .sr .addbox .btn{color:#fff!important}
 #spotRes .sr .stepper{color:#881344!important}
+/* ==========================================================================
+   1) PROFUNDIDADE EM CINZA
+   A escala de elevacao usava o vinho da marca como cor de sombra. Sobre o
+   fundo claro isso tingia tudo de rosa. A cor da sombra passa a ser um
+   cinza levemente frio, com alfas um pouco menores: fica mais suave e para
+   de puxar para o rosa. O vinho continua onde ele significa alguma coisa —
+   aneis de selecao, selos, preco — via --sh, que nao muda.
+   ========================================================================== */
+:root{
+  --shc:34,34,40;
+  --e1:0 1px 2px rgba(var(--shc),.045),
+       0 2px 4px -1px rgba(var(--shc),.04);
+  --e2:0 1px 2px rgba(var(--shc),.04),
+       0 4px 10px -2px rgba(var(--shc),.055),
+       0 14px 28px -10px rgba(var(--shc),.075);
+  --e3:0 1px 2px rgba(var(--shc),.04),
+       0 8px 18px -4px rgba(var(--shc),.08),
+       0 26px 50px -18px rgba(var(--shc),.12);
+  --e4:0 2px 6px rgba(var(--shc),.06),
+       0 18px 36px -8px rgba(var(--shc),.13),
+       0 50px 80px -28px rgba(var(--shc),.2);
+  --eh:0 2px 4px rgba(var(--shc),.05),
+       0 10px 20px -4px rgba(var(--shc),.08),
+       0 28px 52px -14px rgba(var(--shc),.14);
+}
+/* sombras soltas que eu tinha escrito com o vinho direto */
+.incart-tag{box-shadow:0 2px 8px rgba(var(--shc),.3),
+  inset 0 1px 0 rgba(255,255,255,.3)!important}
+.gx-ord{box-shadow:var(--e1)!important}
+.tabbar{box-shadow:0 -1px 0 rgba(255,255,255,.9) inset,
+  0 -8px 24px -8px rgba(var(--shc),.1),
+  0 -24px 48px -20px rgba(var(--shc),.13)!important}
+.mapa{box-shadow:inset 0 0 0 1px rgba(var(--shc),.07)!important}
+.voo{box-shadow:0 8px 24px -8px rgba(var(--shc),.35)!important}
+.hbtn.burger{box-shadow:
+  inset 0 1px 0 rgba(255,255,255,.62),
+  inset 0 -1px 0 rgba(0,0,0,.16),
+  0 2px 8px rgba(var(--shc),.22)!important}
+
+/* ==========================================================================
+   2) CHIPS DE DEPARTAMENTO: nome de volta, sem contorno
+   O nome volta a aparecer. Saem a borda e o anel: a selecao passa a ser
+   dita so por elevacao e escala, que ja bastam, e a cor segue sem mudar
+   em estado nenhum. O deslizamento automatico continua.
+   ========================================================================== */
+.dc{
+  width:auto!important;height:52px!important;
+  padding:0 16px 0 7px!important;
+  border-radius:17px!important;
+  gap:10px!important;
+  justify-content:flex-start!important;
+  border:0!important;
+  background:rgba(255,255,255,.97)!important;
+  color:#1d1d1f!important;
+  box-shadow:var(--e1)!important;
+  transition:transform .4s cubic-bezier(.32,1.2,.5,1),
+             box-shadow .4s var(--ease)!important;
+}
+.dc b{
+  position:static!important;width:auto!important;height:auto!important;
+  overflow:visible!important;clip:auto!important;
+  font-size:.86rem;font-weight:600;color:#1d1d1f!important;white-space:nowrap;
+}
+.dc span{
+  width:38px!important;height:38px!important;border-radius:12px!important;
+  background:#f3f3f5!important;box-shadow:none!important;
+}
+.dc img{width:23px!important;height:23px!important}
+.dc.more span{background:#00549C!important;color:#fff!important;font-size:1.2rem}
+/* sem contorno em nenhum estado: so sobe e ganha sombra */
+.dc:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--e2)!important;
+  background:#fff!important;
+}
+.dc.hit{
+  transform:translateY(-3px) scale(1.03);
+  box-shadow:var(--e3)!important;
+  background:#fff!important;
+}
+.dc.hit span{background:#ece9ea!important}
+.dc:active{transform:scale(.97)}
+@media (max-width:600px){
+  .dc{height:48px!important;padding:0 14px 0 6px!important;gap:8px!important}
+  .dc span{width:34px!important;height:34px!important}
+  .dc img{width:21px!important;height:21px!important}
+  .dc b{font-size:.8rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .dc{transition:none!important}
+  .dc:hover,.dc.hit,.dc:active{transform:none}
+}
+/* ==========================================================================
+   TOAST
+   O toast e aviso sobreposto, nao superficie. A regra que deixou tudo que
+   e `.glass` branco pegou ele tambem, e como o texto dele e branco o aviso
+   sumiu: contraste medido de 1,0. Volta a ser escuro, que le bem sobre
+   qualquer fundo por onde ele passe.
+   ========================================================================== */
+.toast{
+  background:rgba(32,32,38,.94)!important;
+  backdrop-filter:blur(18px) saturate(160%)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(160%)!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  color:#fff!important;
+  box-shadow:0 10px 30px -10px rgba(0,0,0,.42)!important;
+}
+.toast b,.toast span,.toast small{color:#fff!important}
 </style>
 </head>
 <body>
