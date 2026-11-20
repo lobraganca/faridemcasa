@@ -2902,6 +2902,27 @@ html,body{background:var(--sup-pagina)!important}
 .empty .ico-in{color:#c9c4c7;margin-bottom:6px}
 .ship-t .ico-in{color:#1baf7a;vertical-align:-.2em;margin-right:3px}
 .si .ico-in{color:#881344}
+/* ==========================================================================
+   ESTADO ATIVO: VINHO CHEIO, NAO BRANCO
+   Quando unifiquei os brancos, mandei `.tabs button.on` e `.city-b.sel`
+   para o branco de superficie — e esqueci que o texto deles e branco,
+   porque antes o fundo era vinho. Resultado medido: contraste 1,0. O
+   filtro "Todos" e a loja escolhida ficaram invisiveis.
+
+   Estado ativo de filtro nao e superficie: e marca. Volta a ser vinho
+   cheio com texto branco, que e o sinal mais legivel de "este aqui esta
+   selecionado" e o unico que nao depende de o olho comparar dois brancos.
+   ========================================================================== */
+.tabs button.on,.chips button.on,.au-tabs button.on,
+.sl-mode button.on,.st.sel,.city-b.sel,.sl-day.on{
+  background:linear-gradient(165deg,#a21d4a,#881344)!important;
+  color:#fff!important;
+  box-shadow:0 2px 8px -2px rgba(136,19,68,.35),
+             inset 0 1px 0 rgba(255,255,255,.22)!important;
+}
+.tabs button.on *,.chips button.on *,.au-tabs button.on *,
+.sl-mode button.on *,.st.sel *,.city-b.sel *,.sl-day.on *{color:#fff!important}
+.city-b.sel span,.st.sel span{color:rgba(255,255,255,.85)!important}
 </style>
 </head>
 <body>
@@ -2933,6 +2954,8 @@ html,body{background:var(--sup-pagina)!important}
 <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/></symbol>
 <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.3L19 10l-5.1 1.7L12 17l-1.9-5.3L5 10l5.1-1.7z"/><path d="M18.5 16.5l.7 1.9 1.9.6-1.9.7-.7 1.8-.7-1.8-1.8-.7 1.8-.6z"/></symbol>
 <symbol id="i-basket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h16l-1.6 10.2a2 2 0 0 1-2 1.8H7.6a2 2 0 0 1-2-1.8z"/><path d="M8.5 9l2.5-6M15.5 9L13 3M9.5 13.5v3M14.5 13.5v3"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5.5 9.5V20a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V9.5"/><path d="M9.5 21v-6h5v6"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13.5 2L4 14h6l-1.5 8L20 10h-6.5z"/></symbol>
 <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3"><path d="M6 6l12 12M18 6L6 18"/></symbol>
 </svg>
 
@@ -3337,7 +3360,7 @@ html,body{background:var(--sup-pagina)!important}
 <div class="slot-m" id="slotM" onclick="if(event.target===this)closeSlots()">
   <div class="sl-box glass" role="dialog" aria-modal="true" aria-labelledby="slTitle">
     <div class="sl-hd"><div><h3 id="slTitle">Horários</h3><p id="slSub">Escolha o melhor horário para receber.</p></div><button class="x" onclick="closeSlots()" aria-label="Fechar">✕</button></div>
-    <div class="sl-mode"><button data-m="casa" class="on" onclick="setMode('casa')">🏠 Receber em casa</button><button data-m="loja" onclick="setMode('loja')"><svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-store"/></svg> Retirar na loja</button></div>
+    <div class="sl-mode"><button data-m="casa" class="on" onclick="setMode('casa')"><svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-home"/></svg> Receber em casa</button><button data-m="loja" onclick="setMode('loja')"><svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-store"/></svg> Retirar na loja</button></div>
     <div class="sl-body">
       <div class="sl-addr" id="slAddr"></div>
       <form class="sl-form" id="addrForm" hidden onsubmit="event.preventDefault();saveAddr(this)">
@@ -3497,7 +3520,7 @@ const pick=v=>P.filter(x=>v==='all'||x.cat===v);
 /* ============ RENDER ============ */
 const pill=c=>`<a class="pill glass" href="#/departamentos"><span><img loading="lazy" src="${c.img}" alt=""></span>${c.n}</a>`;
 $('#heroDeals').innerHTML=[0,6,12,3].map(i=>{const x=P[i];const q=cart[x.id]||0;return `<div class="hc-item${q?' incart':''}" data-id="${x.id}"><span class="incart-tag" data-incart ${q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${q}</b><i class="sr-only">no carrinho</i></span><div class="im"><span>-${Math.round((1-x.p/x.o)*100)}%</span><img src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"></div><p>${x.n}</p><div class="hc-row"><b>${brl(x.p)}</b><button onclick="chg(${x.id},1)" aria-label="Adicionar ${x.n}"><svg class="ico" style="width:16px"><use href="#i-plus"/></svg></button></div></div>`}).join('');
-$('#idx').innerHTML=`<a class="all" href="#/departamentos/todos">Todos</a><a href="#/ofertas">⚡ Ofertas</a>`+CATS.map((c,k)=>`<a href="#/departamentos/${k}" data-dep="${k}"><span><img src="${c.img}" alt=""></span>${c.n}</a>`).join('');
+$('#idx').innerHTML=`<a class="all" href="#/departamentos/todos">Todos</a><a href="#/ofertas"><svg class="ico ico-in" style="width:15px;height:15px" aria-hidden="true"><use href="#i-bolt"/></svg> Ofertas</a>`+CATS.map((c,k)=>`<a href="#/departamentos/${k}" data-dep="${k}"><span><img src="${c.img}" alt=""></span>${c.n}</a>`).join('');
 (()=>{const one=CATS.map((c,k)=>`<a class="dc" href="#/departamentos/${k}" title="${c.n}" aria-label="${c.n}"><span><img src="${c.img}" alt=""></span><b>${c.n}</b></a>`).join('')+`<a class="dc more" href="#/departamentos/todos" title="Todos os produtos" aria-label="Todos os produtos"><span>+</span><b>Todos os produtos</b></a>`;
  const tr=$('#dgrid'),box=$('#dslide');tr.innerHTML=one+one;
  let paused=false,last=0,raf;const speed=0.035; // px por ms
@@ -3727,8 +3750,8 @@ function renderSlots(){
  $$('.sl-mode button').forEach(b=>b.classList.toggle('on',b.dataset.m===mode));
  const c=curStore();
  $('#slAddr').innerHTML=mode==='casa'
-  ?(!user?`<span class="si"><svg class="ico ico-in" style="width:20px;height:20px" aria-hidden="true"><use href="#i-lock"/></svg></span><div><small>Receber o pedido em</small><b>Entre para adicionar seu endereço</b>Faça login ou crie sua conta</div><button onclick="slotsLogin()">Entrar</button>`:addr?`<span class="si">🏠</span><div><small>Receber o pedido em</small><b>Meu endereço</b>${esc(addr.rua)}, ${esc(addr.num)}${addr.comp?' – '+esc(addr.comp):''}, ${esc(addr.bairro)}<br>${esc(addr.cep)} · ${esc(addr.cidade)}</div><button onclick="editAddr()">Editar</button>`
-        :`<span class="si">🏠</span><div><small>Receber o pedido em</small><b>Cadastre seu endereço</b>Para calcular a entrega</div><button onclick="editAddr()">Adicionar</button>`)
+  ?(!user?`<span class="si"><svg class="ico ico-in" style="width:20px;height:20px" aria-hidden="true"><use href="#i-lock"/></svg></span><div><small>Receber o pedido em</small><b>Entre para adicionar seu endereço</b>Faça login ou crie sua conta</div><button onclick="slotsLogin()">Entrar</button>`:addr?`<span class="si"><svg class="ico ico-in" style="width:20px;height:20px" aria-hidden="true"><use href="#i-home"/></svg></span><div><small>Receber o pedido em</small><b>Meu endereço</b>${esc(addr.rua)}, ${esc(addr.num)}${addr.comp?' – '+esc(addr.comp):''}, ${esc(addr.bairro)}<br>${esc(addr.cep)} · ${esc(addr.cidade)}</div><button onclick="editAddr()">Editar</button>`
+        :`<span class="si"><svg class="ico ico-in" style="width:20px;height:20px" aria-hidden="true"><use href="#i-home"/></svg></span><div><small>Receber o pedido em</small><b>Cadastre seu endereço</b>Para calcular a entrega</div><button onclick="editAddr()">Adicionar</button>`)
   :`<span class="si"><svg class="ico ico-in" style="width:20px;height:20px" aria-hidden="true"><use href="#i-store"/></svg></span><div><small>Retirar na loja</small><b>${c?c.n:'Escolha uma loja'}</b>${c?c.addr+'<br>'+c.area:''}</div><button onclick="closeSlots();openStores()">Trocar</button>`;
  if(mode==='casa'&&user&&!addr)$('#addrForm').hidden=false;
  if(mode!=='casa'||!user)$('#addrForm').hidden=true;
