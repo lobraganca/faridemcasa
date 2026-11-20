@@ -1263,7 +1263,7 @@ html,body{background:#fbf8f9!important}
 }
 
 /* --- nivel 2: cards ------------------------------------------------------ */
-.prod,.gcard,.hero-card,.dg,.glass:not(.bar):not(.tabbar):not(.drawer):not(.mob):not(.idx){
+.prod:not(.incart),.gcard,.hero-card,.dg,.glass:not(.bar):not(.tabbar):not(.drawer):not(.mob):not(.idx):not(.incart){
   box-shadow:var(--edge),var(--e2)!important;
 }
 .prod,.gcard,.aisle{transition:transform .32s var(--ease),box-shadow .32s var(--ease)}
@@ -1311,6 +1311,157 @@ body::before{
   .prod,.gcard,.aisle,.btn{transition:none}
   .prod:hover,.gcard:hover,.aisle:hover,.btn:active{transform:none}
 }
+/* ==========================================================================
+   1) ESTADO "NO CARRINHO" NO CARD
+   O card trocava o botao por um stepper e nada mais mudava: nao dava para
+   saber, de relance, que o produto ja estava no carrinho. O stepper continua
+   (o + e o botao de adicionar), e agora o card ganha anel e etiqueta.
+   ========================================================================== */
+.prod.incart{box-shadow:var(--edge),var(--e2),0 0 0 2px rgba(var(--sh),.55)!important}
+.prod.incart:hover{box-shadow:var(--edge),var(--eh),0 0 0 2px rgba(var(--sh),.65)!important}
+.incart-tag{
+  position:absolute;top:10px;right:10px;z-index:3;
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 10px 5px 8px;border-radius:99px;
+  background:linear-gradient(165deg,#a21d4a,#881344);
+  color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.01em;
+  box-shadow:0 2px 8px rgba(var(--sh),.4),inset 0 1px 0 rgba(255,255,255,.3);
+  pointer-events:none;
+}
+.incart-tag[hidden]{display:none}
+.incart-tag b{font-weight:800}
+.stepper{box-shadow:var(--edge),var(--e1)!important}
+
+/* ==========================================================================
+   2 e 3) CHIPS DE DEPARTAMENTO: mais glass, SEM trocar de cor
+   O selecionado virava um bloco vinho solido com texto branco. Agora a
+   selecao e dita por vidro mais denso, anel da marca e elevacao — a cor do
+   chip e do texto nao muda em estado nenhum.
+   ========================================================================== */
+.dc{
+  background:linear-gradient(165deg,rgba(255,255,255,.80),rgba(255,255,255,.52))!important;
+  backdrop-filter:blur(24px) saturate(185%)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(185%)!important;
+  border:1px solid rgba(255,255,255,.88)!important;
+  color:#1d1d1f!important;
+  box-shadow:var(--edge),var(--e1),0 0 0 1px rgba(var(--sh),.06)!important;
+}
+.dc span{
+  background:linear-gradient(165deg,rgba(255,255,255,.95),rgba(245,245,247,.75))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 1px 3px rgba(var(--sh),.10);
+}
+.dc:hover{
+  background:linear-gradient(165deg,rgba(255,255,255,.90),rgba(255,255,255,.64))!important;
+  box-shadow:var(--edge),var(--e2),0 0 0 1px rgba(var(--sh),.10)!important;
+}
+/* selecionado: vidro mais denso + anel, mesma cor de sempre */
+.dc.hit{
+  background:linear-gradient(165deg,rgba(255,255,255,.96),rgba(255,255,255,.74))!important;
+  color:#1d1d1f!important;
+  border-color:rgba(255,255,255,.98)!important;
+  box-shadow:var(--edge),var(--e3),0 0 0 2px rgba(var(--sh),.5)!important;
+}
+.dc.hit b,.dc b{color:#1d1d1f!important}
+.dc.hit span{
+  background:linear-gradient(165deg,#fff,rgba(245,245,247,.9))!important;
+  box-shadow:inset 0 1px 0 #fff,0 2px 6px rgba(var(--sh),.16);
+}
+/* o chip "+ Todos" mantem o azul so no icone */
+.dc.more span{background:#00549C!important;color:#fff!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 2px 6px rgba(0,84,156,.3)}
+
+/* ==========================================================================
+   4) TELA DE PRODUTO EM GLASS
+   ========================================================================== */
+.prod-m{
+  position:fixed;inset:0;z-index:150;
+  background:rgba(46,6,23,.40);
+  backdrop-filter:blur(12px) saturate(140%);
+  -webkit-backdrop-filter:blur(12px) saturate(140%);
+  display:flex;align-items:center;justify-content:center;padding:4vw;
+  opacity:0;pointer-events:none;transition:.32s var(--ease);
+}
+.prod-m.on{opacity:1;pointer-events:auto}
+.pm-box{
+  position:relative;width:min(560px,100%);max-height:88svh;overflow:auto;
+  border-radius:30px;padding:0 0 22px;
+  background:linear-gradient(165deg,rgba(255,255,255,.93),rgba(255,255,255,.80))!important;
+  backdrop-filter:blur(36px) saturate(195%)!important;
+  -webkit-backdrop-filter:blur(36px) saturate(195%)!important;
+  border:1px solid rgba(255,255,255,.92)!important;
+  box-shadow:var(--edge),var(--e4)!important;
+  color:#1d1d1f!important;
+  transform:translateY(18px) scale(.975);transition:.42s var(--ease);
+}
+.prod-m.on .pm-box{transform:none}
+.pm-x{
+  position:absolute;top:14px;right:14px;z-index:4;
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,.86)!important;color:#1d1d1f!important;
+  backdrop-filter:blur(14px);box-shadow:var(--e2);
+  display:grid;place-items:center;font-size:1rem;
+}
+.pm-x:hover{background:#fff!important;box-shadow:var(--e3)}
+.pm-img{
+  aspect-ratio:16/11;border-radius:30px 30px 0 0;overflow:hidden;
+  background:linear-gradient(165deg,#fff,#f5f5f7);
+  display:grid;place-items:center;
+}
+.pm-img img{width:100%;height:100%;object-fit:contain;padding:22px}
+.pm-body{padding:20px 24px 0;display:flex;flex-direction:column;gap:7px}
+.pm-body small{
+  color:var(--wine,#881344)!important;font-size:.74rem;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;
+}
+.pm-body h3{
+  font-size:1.5rem;line-height:1.15;letter-spacing:-.02em;
+  color:#1d1d1f!important;margin:0;
+}
+.pm-unit{color:#6e6e73!important;font-size:.88rem}
+.pm-price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:4px}
+.pm-price b{font-size:1.9rem;letter-spacing:-.03em;color:#1d1d1f!important}
+.pm-price s{color:#8e8e93!important;font-size:1rem}
+.pm-off{
+  background:linear-gradient(165deg,#a21d4a,#881344);color:#fff;
+  padding:3px 9px;border-radius:99px;font-size:.78rem;font-weight:800;
+  box-shadow:0 2px 8px rgba(var(--sh),.34);
+}
+.pm-eco{color:#3e9e12!important;font-weight:700;font-size:.88rem}
+.pm-desc{
+  color:#6e6e73!important;font-size:.9rem;line-height:1.5;margin-top:10px;
+  padding:12px 14px;border-radius:14px;
+  background:rgba(var(--sh),.045);border:1px solid rgba(var(--sh),.08);
+}
+.pm-add{margin-top:14px}
+.pm-add .stepper,.pm-add .btn{width:100%;height:52px}
+
+@media (max-width:600px){
+  .prod-m{align-items:flex-end;padding:0}
+  .pm-box{
+    width:100%;max-height:92svh;border-radius:26px 26px 0 0;
+    padding-bottom:calc(22px + env(safe-area-inset-bottom));
+  }
+  .pm-img{border-radius:26px 26px 0 0;aspect-ratio:16/10}
+  .pm-body h3{font-size:1.32rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .prod-m,.pm-box{transition:none}
+}
+/* o card de oferta ("Ofertas de hoje") usa .hc-item, nao .prod */
+.hc-item{position:relative}
+.hc-item.incart{
+  box-shadow:var(--edge),var(--e2),0 0 0 2px rgba(var(--sh),.55)!important;
+  border-radius:20px;
+}
+.hc-item .incart-tag{top:8px;right:8px;font-size:.64rem;padding:4px 9px 4px 7px}
+.prod,.hc-item{cursor:pointer}
+/* etiqueta compacta: o selo de desconto ocupa o canto oposto e os dois
+   colidiam no card estreito do celular. O texto completo continua, mas
+   so para leitor de tela. */
+.incart-tag{padding:4px 9px 4px 7px;gap:4px;font-size:.72rem}
+.hc-item .incart-tag{padding:3px 8px 3px 6px;font-size:.68rem}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 </style>
 </head>
 <body>
@@ -1578,6 +1729,23 @@ body::before{
   </div>
 </div>
 
+<div class="prod-m" id="prodM" onclick="if(event.target===this)closeProd()">
+  <div class="pm-box glass" role="dialog" aria-modal="true" aria-labelledby="pmName">
+    <button class="x pm-x" id="pmX" onclick="closeProd()" aria-label="Fechar">✕</button>
+    <div class="pm-img"><img id="pmImg" alt=""></div>
+    <div class="pm-body">
+      <small id="pmCat"></small>
+      <h3 id="pmName"></h3>
+      <div class="pm-unit" id="pmUnit"></div>
+      <div class="pm-price" id="pmPrice"></div>
+      <div class="pm-eco" id="pmEco" hidden></div>
+      <p class="pm-desc">A descrição completa deste produto vem do catálogo da loja e
+      ainda não está ligada neste protótipo.</p>
+      <div class="pm-add" id="pmAdd"></div>
+    </div>
+  </div>
+</div>
+
 <div class="stores-m" id="storesM" onclick="if(event.target===this&&curStore())closeStores()">
   <div class="sm-box glass" role="dialog" aria-modal="true" aria-labelledby="smTitle">
     <div class="sm-hd">
@@ -1756,13 +1924,22 @@ function toast(m,img){const t=$('#toast');t.innerHTML=(img?`<img src="${img}" al
 function addbox(id){const q=cart[id]||0;return q?`<div class="stepper"><button onclick="chg(${id},-1)" aria-label="Remover um">−</button><span>${q}</span><button onclick="chg(${id},1)" aria-label="Adicionar um">+</button></div>`
  :`<button class="add" onclick="chg(${id},1)"><svg class="ico" style="width:18px"><use href="#i-plus"/></svg>Adicionar</button>`}
 function card(x){const pct=Math.round((1-x.p/x.o)*100);
- return `<div class="prod glass" data-id="${x.id}" data-tilt>
+ const _q=cart[x.id]||0;
+ return `<div class="prod glass${_q?' incart':''}" data-id="${x.id}" data-tilt>
+  <span class="incart-tag" data-incart ${_q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${_q}</b><i class="sr">no carrinho</i></span>
   <div class="pimg">${pct>0?`<span class="off">-${pct}%</span>`:''}<button class="fav ${favs.has(x.id)?'on':''}" onclick="fav(${x.id})" aria-pressed="${favs.has(x.id)}" aria-label="Favoritar"><svg class="ico" style="width:18px"><use href="#i-heart"/></svg></button>
    <img loading="lazy" src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"></div>
   <div class="pname" title="${x.n}">${x.n}</div><div class="punit">${x.u}</div>
   <div class="pprice"><b>${brl(x.p)}</b><s>${brl(x.o)}</s></div>
   <div class="addbox">${addbox(x.id)}</div></div>`}
-function refreshCards(id){$$(`.prod[data-id="${id}"] .addbox`).forEach(b=>b.innerHTML=addbox(id))}
+function refreshCards(id){const q=cart[id]||0;
+ $$(`.prod[data-id="${id}"],.hc-item[data-id="${id}"]`).forEach(c=>{
+  const b=c.querySelector('.addbox');if(b)b.innerHTML=addbox(id);
+  c.classList.toggle('incart',q>0);
+  const t=c.querySelector('[data-incart]');
+  if(t){t.hidden=!q;const n=t.querySelector('[data-incart-q]');if(n)n.textContent=q;t.setAttribute('aria-label',q+' no carrinho')}
+ });
+ if(typeof prodAberto!=='undefined'&&prodAberto===id)renderProdAdd()}
 function saveFavs(){try{localStorage.setItem('farid_favs',JSON.stringify([...favs]))}catch(e){}}
 function renderFavs(){const ids=[...favs].filter(i=>P[i]);const g=$('#favGrid'),e=$('#favEmpty');
  if(e)e.hidden=ids.length>0;if(g){g.innerHTML=ids.map(i=>card(P[i])).join('');if(ids.length)bindTilt()}}
@@ -1773,7 +1950,7 @@ const pick=v=>P.filter(x=>v==='all'||x.cat===v);
 
 /* ============ RENDER ============ */
 const pill=c=>`<a class="pill glass" href="#/departamentos"><span><img loading="lazy" src="${c.img}" alt=""></span>${c.n}</a>`;
-$('#heroDeals').innerHTML=[0,6,12,3].map(i=>{const x=P[i];return `<div class="hc-item"><div class="im"><span>-${Math.round((1-x.p/x.o)*100)}%</span><img src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"></div><p>${x.n}</p><div class="hc-row"><b>${brl(x.p)}</b><button onclick="chg(${x.id},1)" aria-label="Adicionar ${x.n}"><svg class="ico" style="width:16px"><use href="#i-plus"/></svg></button></div></div>`}).join('');
+$('#heroDeals').innerHTML=[0,6,12,3].map(i=>{const x=P[i];const q=cart[x.id]||0;return `<div class="hc-item${q?' incart':''}" data-id="${x.id}"><span class="incart-tag" data-incart ${q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${q}</b><i class="sr">no carrinho</i></span><div class="im"><span>-${Math.round((1-x.p/x.o)*100)}%</span><img src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"></div><p>${x.n}</p><div class="hc-row"><b>${brl(x.p)}</b><button onclick="chg(${x.id},1)" aria-label="Adicionar ${x.n}"><svg class="ico" style="width:16px"><use href="#i-plus"/></svg></button></div></div>`}).join('');
 $('#idx').innerHTML=`<a class="all" href="#/departamentos/todos">Todos</a><a href="#/ofertas">⚡ Ofertas</a>`+CATS.map((c,k)=>`<a href="#/departamentos/${k}" data-dep="${k}"><span><img src="${c.img}" alt=""></span>${c.n}</a>`).join('');
 (()=>{const one=CATS.map((c,k)=>`<a class="dc" href="#/departamentos/${k}"><span><img src="${c.img}" alt=""></span><b>${c.n}</b></a>`).join('')+`<a class="dc more" href="#/departamentos/todos"><span>+</span><b>Todos os produtos</b></a>`;
  const tr=$('#dgrid'),box=$('#dslide');tr.innerHTML=one+one;
@@ -2063,6 +2240,38 @@ function route(){const h=location.hash;if(h&&!h.startsWith('#/')){return}
  $$('.page.on [data-r]:not(.in)').forEach(el=>io.observe(el));bindTilt();}
 addEventListener('hashchange',route);
 document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]:not([href^="#/"])');if(a){e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'})}});
+/* ---- tela de produto, em glass ---- */
+var prodAberto=null;
+var CATLABEL={drinks:'Bebidas e adega',mercearia:'Mercearia',acougue:'Açougue',
+ limpeza:'Limpeza',higiene:'Higiene e cuidados pessoais',pet:'Pet shop'};
+function renderProdAdd(){if(prodAberto===null)return;
+ var e=$('#pmAdd');if(e)e.innerHTML=addbox(prodAberto)}
+function openProd(id){var x=P[id];if(!x)return;prodAberto=id;
+ var im=$('#pmImg');im.src=x.img;im.alt=x.n;
+ im.onerror=function(){this.onerror=null;this.src=x.sm};
+ $('#pmCat').textContent=CATLABEL[x.cat]||'Produto';
+ $('#pmName').textContent=x.n;
+ $('#pmUnit').textContent=x.u||'';
+ var pct=Math.round((1-x.p/x.o)*100);
+ $('#pmPrice').innerHTML='<b>'+brl(x.p)+'</b>'+(pct>0?' <s>'+brl(x.o)+
+   '</s> <span class="pm-off">-'+pct+'%</span>':'');
+ $('#pmEco').textContent=pct>0?('Você economiza '+brl(x.o-x.p)):'';
+ $('#pmEco').hidden=!(pct>0);
+ renderProdAdd();
+ $('#prodM').classList.add('on');document.body.classList.add('lock');
+ setTimeout(function(){var b=$('#pmX');if(b)b.focus()},60)}
+function closeProd(){$('#prodM').classList.remove('on');prodAberto=null;
+ if(!$('#spot').classList.contains('on')&&!$('#mob').classList.contains('on')
+   &&!$('#storesM').classList.contains('on'))
+  document.body.classList.remove('lock')}
+/* clicar no card abre; cliques em botao, link ou coracao nao abrem */
+document.addEventListener('click',function(e){
+ if(e.target.closest('button,a,.addbox,.stepper,.fav'))return;
+ var c=e.target.closest('.prod,.hc-item');if(!c)return;
+ var id=+c.dataset.id;if(!isNaN(id))openProd(id)});
+document.addEventListener('keydown',function(e){
+ if(e.key==='Escape'&&$('#prodM').classList.contains('on'))closeProd()});
+
 loadCart();Object.keys(cart).forEach(i=>refreshCards(+i));renderCart();
 route();
 </script>
