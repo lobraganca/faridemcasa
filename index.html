@@ -1874,7 +1874,7 @@ body::before{
    pagina fica cinza e o que esta "dentro" fica branco. A barra do topo e
    a de baixo continuam no vinho, que e a marca.
    ========================================================================== */
-.glass:not(.bar):not(.tabbar):not(.toast),
+.glass:not(.bar):not(.tabbar):not(.toast):not(.drawer):not(.sm-box):not(.sl-box):not(.au-box):not(.pm-box):not(.spot-box):not(.mob),
 .gcard,.hero-card,.prod,.dg,.gx-card,.gx-kpi,.ord,.loja,.faixa{
   background:rgba(255,255,255,.97)!important;
 }
@@ -2324,6 +2324,57 @@ body.sem-trilho .page.gpage{padding-top:104px}
 .fx-icone{position:relative;overflow:hidden}
 .fx-icone svg{position:relative;z-index:2;margin-bottom:5px}
 .fx-txt p{display:block!important}
+/* ==========================================================================
+   VIDRO DE VERDADE NAS SOBREPOSICOES
+   Medido antes: todo painel a rgba(255,255,255,.97). Com 97% de opacidade
+   nada do fundo atravessa, entao nao havia vidro nenhum — era um cartao
+   branco com blur ligado a toa. Os veus tambem variavam: .28 com blur de
+   4px em uns, .40 com 12px em outros, e o do menu estava com opacity:0,
+   ou seja, nao aparecia.
+
+   Agora o painel deixa passar, o veu e o mesmo em todos, e o par foi
+   escolhido junto: veu escuro o bastante para dar o que borrar, painel
+   claro o bastante para o texto escuro continuar legivel em cima.
+   ========================================================================== */
+.sm-box,.sl-box,.au-box,.pm-box,.spot-box,.drawer,.mob{
+  background:linear-gradient(168deg,rgba(255,255,255,.86),rgba(255,255,255,.78))!important;
+  backdrop-filter:blur(40px) saturate(200%)!important;
+  -webkit-backdrop-filter:blur(40px) saturate(200%)!important;
+  border:1px solid rgba(255,255,255,.75)!important;
+}
+/* o veu: um so para todas */
+.scrim,.stores-m,#slotM,.slotM,.auth-m,#auth,.prod-m,.spot{
+  background:rgba(22,22,26,.44)!important;
+  backdrop-filter:blur(10px) saturate(130%)!important;
+  -webkit-backdrop-filter:blur(10px) saturate(130%)!important;
+}
+/* o menu usa o .scrim compartilhado, que estava invisivel quando ele abria */
+.scrim.on,body.lock .scrim{opacity:1!important}
+
+/* ==========================================================================
+   O CARRINHO DEIXA DE OCUPAR A TELA INTEIRA
+   Ele era fixado em top e bottom ao mesmo tempo, entao ficava com 97% da
+   altura mesmo vazio: uma folha enorme com uma frase no meio. Agora cresce
+   com o conteudo, ancorado embaixo, e so chega ao teto quando o carrinho
+   esta cheio de verdade.
+   ========================================================================== */
+.drawer{
+  top:auto!important;
+  bottom:var(--sobre-gap)!important;
+  right:var(--sobre-gap)!important;
+  left:auto!important;
+  height:auto!important;
+  max-height:calc(100svh - var(--sobre-gap)*2)!important;
+}
+.drawer .items,.drawer #items{
+  max-height:min(52svh,420px);overflow:auto;
+}
+/* o vidro escureceu levemente o fundo dos paineis e o texto secundario caiu
+   para 3,99:1, abaixo do minimo de 4,5 para corpo pequeno. Escurece so
+   dentro das sobreposicoes, onde a perda aconteceu. */
+.drawer small,.drawer p,.drawer .punit,.pm-box small,.pm-box p,.pm-unit,
+.sl-box small,.sl-box p,.sm-box p,.au-box p,.spot-box small,.mob small,
+#spotRes .sr small,.pm-desc{color:#55555b!important}
 </style>
 </head>
 <body>
