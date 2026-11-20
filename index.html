@@ -2438,6 +2438,90 @@ html,body{background:var(--sup-pagina)!important}
   background:var(--sup-1)!important}
 .sl-mode,.sl-mode button{background:var(--sup-2)!important}
 .sl-mode button.on{background:var(--sup-1)!important}
+/* ==========================================================================
+   CONTORNO VIRA PROFUNDIDADE
+   O card no carrinho ganhava um anel de 2px em vinho a 55%: uma linha
+   chapada, do mesmo peso em toda a volta, sem nenhuma gradacao. Linha dura
+   nao cria profundidade — ela recorta. Some o anel e entra um halo em
+   camadas: aresta quase invisivel, sombra de contato logo abaixo e sombra
+   difusa larga. O estado continua obvio, mas lido como "esse esta levantado",
+   nao como "esse esta cercado".
+
+   As bordas 1px solid dos cards saem pelo mesmo motivo. A separacao entre o
+   card branco e a pagina cinza ja vem da elevacao; a borda so acrescentava
+   um traco duro por cima.
+   ========================================================================== */
+
+/* --- cards: sem borda, so elevacao --- */
+.prod,.hc-item,.gcard,.hero-card,.loja,.gx-card,.gx-kpi,.ord,.dc,.faixa,.sr{
+  border:0!important;
+}
+.prod:not(.incart),.hc-item:not(.incart){
+  box-shadow:
+    inset 0 0 0 1px rgba(var(--shc),.045),
+    var(--edge),
+    0 1px 2px rgba(var(--shc),.04),
+    0 4px 10px -2px rgba(var(--shc),.055),
+    0 14px 28px -10px rgba(var(--shc),.075)!important;
+}
+
+/* --- no carrinho: halo em camadas, sem anel --- */
+.prod.incart,.hc-item.incart{
+  box-shadow:
+    inset 0 0 0 1px rgba(136,19,68,.13),
+    inset 0 1px 0 rgba(255,255,255,.9),
+    0 1px 3px rgba(136,19,68,.09),
+    0 6px 16px -4px rgba(136,19,68,.15),
+    0 20px 38px -14px rgba(136,19,68,.20)!important;
+}
+.prod.incart:hover,.hc-item.incart:hover{
+  box-shadow:
+    inset 0 0 0 1px rgba(136,19,68,.17),
+    inset 0 1px 0 rgba(255,255,255,.95),
+    0 2px 5px rgba(136,19,68,.10),
+    0 10px 22px -5px rgba(136,19,68,.18),
+    0 28px 50px -16px rgba(136,19,68,.24)!important;
+}
+
+/* --- loja escolhida: mesmo tratamento --- */
+.loja.atual{
+  box-shadow:
+    inset 0 0 0 1px rgba(136,19,68,.13),
+    var(--edge),
+    0 2px 5px rgba(136,19,68,.08),
+    0 10px 24px -6px rgba(136,19,68,.16),
+    0 24px 44px -16px rgba(136,19,68,.2)!important;
+}
+
+/* --- chip selecionado e setas: halo no lugar do anel --- */
+.dc.hit{
+  box-shadow:
+    inset 0 0 0 1px rgba(136,19,68,.12),
+    var(--edge),
+    0 2px 5px rgba(var(--shc),.07),
+    0 10px 22px -6px rgba(var(--shc),.13),
+    0 20px 38px -14px rgba(136,19,68,.14)!important;
+}
+.arrows button:hover,.fx-chips button:hover{
+  box-shadow:
+    inset 0 0 0 1px rgba(136,19,68,.12),
+    var(--edge),
+    0 2px 6px rgba(var(--shc),.08),
+    0 10px 20px -6px rgba(var(--shc),.14)!important;
+}
+
+/* --- a etiqueta do carrinho perde o degrade duro --- */
+.incart-tag{
+  background:rgba(136,19,68,.92)!important;
+  box-shadow:0 1px 3px rgba(136,19,68,.25),
+             inset 0 1px 0 rgba(255,255,255,.22)!important;
+}
+
+/* --- a moldura da foto tambem perde o traco --- */
+.pimg,.hc-item .im{
+  box-shadow:inset 0 0 0 1px rgba(var(--shc),.04)!important;
+  border:0!important;
+}
 </style>
 </head>
 <body>
