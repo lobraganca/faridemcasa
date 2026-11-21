@@ -3927,6 +3927,182 @@ main{min-height:calc(100svh - 190px)}
   box-shadow:0 2px 8px rgba(0,84,156,.38),
              inset 0 1px 0 rgba(255,255,255,.28)!important;
 }
+/* ==========================================================================
+   A GESTAO DEIXA DE SER UMA PAGINA DA LOJA
+   Antes a area de gestao vivia dentro da loja: barra de compra em cima
+   com carrinho e "Entrar", trilho de departamentos, barra de abas
+   embaixo, botao de WhatsApp e rodape de cliente. Quem administra nao
+   esta comprando — tudo isso era ruido e atrapalhava.
+
+   Agora ela tem casca propria: menu lateral com as quatro secoes, uma
+   secao por vez, e nada da loja em volta. A unica ponte e o link "Ver a
+   loja".
+   ========================================================================== */
+body.na-gestao .top,
+body.na-gestao .tabbar,
+body.na-gestao .wa,
+body.na-gestao .totop,
+body.na-gestao .foot,
+body.na-gestao .idx{display:none!important}
+body.na-gestao{padding-bottom:0!important}
+body.na-gestao main{min-height:100svh}
+/* a pagina de gestao herdava 104px de folga do topo, que existiam para
+   a barra fixa da loja — e a barra nao esta mais aqui */
+body.na-gestao #p-gestao{padding:0!important}
+body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
+
+/* ---- porta ---- */
+.adm-porta{
+  min-height:100svh;display:flex;align-items:center;justify-content:center;
+  padding:5vw;
+}
+.adm-porta[hidden]{display:none}
+.adm-porta-box{
+  width:min(420px,100%);border-radius:var(--sobre-raio);
+  padding:32px 28px 26px;display:flex;flex-direction:column;gap:13px;
+}
+.adm-ic{
+  width:54px;height:54px;border-radius:50%;margin:0 auto 4px;
+  display:grid;place-items:center;color:#fff;
+  background:linear-gradient(165deg,#a21d4a,#881344);
+  box-shadow:0 8px 20px -8px rgba(136,19,68,.5);
+}
+.adm-ic .ico{width:24px;height:24px}
+.adm-porta-box h1{
+  font-size:1.4rem;text-align:center;margin:0;letter-spacing:-.02em;
+  color:var(--ink)!important;
+}
+.adm-sub{
+  text-align:center;font-size:.92rem;line-height:1.5;margin:0 0 6px;
+  color:var(--sub)!important;
+}
+.adm-porta-box label{
+  display:flex;flex-direction:column;gap:6px;font-size:.84rem;font-weight:600;
+  color:var(--t2)!important;
+}
+.adm-porta-box .inp{width:100%}
+.adm-porta-box .btn{width:100%;height:52px;margin-top:4px}
+.adm-erro{
+  margin:0;padding:10px 13px;border-radius:12px;font-size:.88rem;
+  background:rgba(var(--sh),.08)!important;color:var(--wine-txt)!important;
+}
+.adm-volta{
+  text-align:center;font-size:.88rem;font-weight:600;
+  color:var(--wine-txt)!important;min-height:44px;
+  display:flex;align-items:center;justify-content:center;
+}
+.adm-nota{
+  margin:0;font-size:.78rem;line-height:1.5;text-align:center;
+  color:var(--rotulo)!important;
+}
+
+/* ---- casca ---- */
+.adm{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100svh}
+.adm[hidden]{display:none}
+.adm-lado{
+  display:flex;flex-direction:column;gap:6px;padding:20px 14px;
+  background:var(--sup-1)!important;border-right:1px solid var(--line);
+  position:sticky;top:0;height:100svh;
+}
+.adm-marca{display:flex;align-items:center;gap:9px;padding:4px 10px 18px}
+.adm-marca b{font-size:.98rem;letter-spacing:-.01em;color:var(--ink)!important}
+.adm-menu{display:flex;flex-direction:column;gap:3px;flex:1}
+.adm-menu button{
+  display:flex;align-items:center;gap:10px;
+  padding:0 13px;min-height:46px;border-radius:13px;
+  font-size:.94rem;font-weight:600;text-align:left;
+  color:var(--t2)!important;transition:.18s var(--sobre-curva);
+}
+.adm-menu button .ico{width:19px;height:19px;flex-shrink:0;opacity:.75}
+.adm-menu button:hover{background:var(--soft)!important;color:var(--ink)!important}
+.adm-menu button.on{
+  background:linear-gradient(165deg,#a21d4a,#881344)!important;color:#fff!important;
+  box-shadow:0 2px 8px -2px rgba(136,19,68,.35);
+}
+.adm-menu button.on .ico{opacity:1}
+.adm-pe{display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--line);padding-top:10px}
+.adm-pe a,.adm-pe button{
+  display:flex;align-items:center;min-height:44px;padding:0 13px;border-radius:11px;
+  font-size:.88rem;font-weight:600;color:var(--t2)!important;text-align:left;
+}
+.adm-pe a:hover,.adm-pe button:hover{background:var(--soft)!important}
+
+.adm-corpo{padding:26px 28px 60px;min-width:0}
+.adm-topo{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;margin-bottom:22px;
+}
+.adm-tit h1{font-size:1.9rem;letter-spacing:-.03em;margin:0;color:var(--ink)!important}
+.adm-tit p{margin:4px 0 0;font-size:.92rem;color:var(--sub)!important}
+.adm-acoes{display:flex;gap:9px;flex-wrap:wrap}
+.adm-acoes .btn{height:42px;padding:0 15px;font-size:.88rem}
+.adm-sec{display:none}
+.adm-sec.on{display:block;animation:adm-entra .26s var(--sobre-curva)}
+@keyframes adm-entra{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.adm-bloco{margin-bottom:24px}
+.adm-2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+
+/* ---- escolha de produtos ---- */
+.adm-busca{width:100%;margin-bottom:12px}
+.adm-sel,.adm-lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:9px}
+.adm-lista{max-height:420px;overflow-y:auto;padding:2px;scrollbar-width:thin}
+.adm-it{
+  display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:11px;
+  padding:8px 12px 8px 8px;border-radius:14px;text-align:left;
+  background:var(--sup-1)!important;border:1px solid var(--line)!important;
+  box-shadow:var(--e1);transition:.18s var(--sobre-curva);min-height:60px;
+}
+.adm-it:hover{border-color:var(--wine)!important;box-shadow:var(--e2)}
+.adm-it.on{border-color:transparent!important;
+  background:linear-gradient(165deg,rgba(162,29,74,.1),rgba(136,19,68,.06))!important;
+  box-shadow:inset 0 0 0 1.5px var(--wine)}
+.adm-it-im{width:44px;height:44px;border-radius:10px;background:#fff;
+  display:grid;place-items:center;overflow:hidden;flex-shrink:0}
+.adm-it-im.vazio{background:var(--soft)!important}
+.adm-it-im img{width:100%;height:100%;object-fit:contain;padding:3px}
+.adm-it-tx{display:flex;flex-direction:column;gap:1px;min-width:0}
+.adm-it-tx b{font-size:.88rem;font-weight:700;color:var(--ink)!important;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.adm-it-tx i{font-style:normal;font-size:.8rem;font-weight:600;color:var(--t2)!important;
+  font-variant-numeric:tabular-nums}
+.adm-it-tx s{color:var(--t3)!important;font-weight:400}
+.adm-it-ac{font-size:.74rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--wine-txt)!important;flex-shrink:0}
+.adm-vazio{grid-column:1/-1;margin:0;padding:18px 2px;font-size:.9rem;
+  color:var(--t3)!important;text-align:center}
+
+/* ---- prazo ---- */
+.adm-prazo{display:flex;flex-direction:column;gap:14px}
+.adm-prazo label{display:flex;flex-direction:column;gap:6px;font-size:.84rem;
+  font-weight:600;color:var(--t2)!important;max-width:290px}
+.adm-prazo-info{font-size:.92rem;line-height:1.5;color:var(--t2)!important}
+.adm-prazo-info b{display:block;color:var(--ink)!important}
+.adm-prazo-info span{font-variant-numeric:tabular-nums}
+.adm-prazo-bt{display:flex;gap:9px;flex-wrap:wrap}
+.adm-prazo-bt .btn{height:42px;padding:0 15px;font-size:.88rem}
+
+@media (max-width:900px){
+  .adm{grid-template-columns:1fr}
+  .adm-lado{
+    position:sticky;top:0;z-index:40;height:auto;
+    flex-direction:row;align-items:center;gap:10px;
+    padding:10px 12px calc(10px + env(safe-area-inset-top));
+    border-right:0;border-bottom:1px solid var(--line);
+    overflow-x:auto;scrollbar-width:none;
+  }
+  .adm-lado::-webkit-scrollbar{display:none}
+  .adm-marca{padding:0 4px 0 0;flex-shrink:0}
+  .adm-marca b{display:none}
+  .adm-menu{flex-direction:row;gap:6px;flex:0 0 auto}
+  .adm-menu button{white-space:nowrap;min-height:42px;font-size:.88rem;padding:0 12px}
+  .adm-pe{flex-direction:row;border-top:0;padding-top:0;margin-left:auto;flex-shrink:0}
+  .adm-pe a,.adm-pe button{font-size:.84rem;padding:0 10px}
+  .adm-corpo{padding:18px 14px 44px}
+  .adm-tit h1{font-size:1.5rem}
+  .adm-2{grid-template-columns:1fr}
+  .adm-sel,.adm-lista{grid-template-columns:1fr}
+  .adm-lista{max-height:360px}
+}
 </style>
 </head>
 <body>
@@ -4130,85 +4306,159 @@ main{min-height:calc(100svh - 190px)}
 </div></div>
 
 <!-- ======================= GESTAO ======================= -->
-<div class="page gpage" id="p-gestao"><div class="wrap">
-  <div class="ghero">
-    <h1>Gestão da loja</h1>
-    <p>Pedidos, produtos e números do Farid em Casa.</p>
-  </div>
+<div class="page gpage" id="p-gestao">
 
-  <div class="gx-warn glass" role="note">
-    <b>Painel de demonstração.</b> Os números vêm só <b>deste navegador</b>:
-    não há banco de dados nem login, e qualquer pessoa com o endereço abre
-    esta página. Gestão real exige servidor com autenticação.
-  </div>
+<!-- ======== PORTA: so entra com usuario e senha ======== -->
+<div class="adm-porta" id="admPorta">
+  <form class="adm-porta-box glass" id="admForm" onsubmit="return admEntrar(event)" autocomplete="on">
+    <span class="adm-ic" aria-hidden="true"><svg class="ico"><use href="#i-lock"/></svg></span>
+    <h1 id="admTitulo">Área de gestão</h1>
+    <p class="adm-sub" id="admSub">Entre com seu usuário e senha.</p>
+    <label>Usuário
+      <input class="inp" id="admU" autocomplete="username" required maxlength="40" placeholder="admin"></label>
+    <label>Senha
+      <input class="inp" id="admP" type="password" autocomplete="current-password" required minlength="6" placeholder="mínimo de 6 caracteres"></label>
+    <label id="admP2w" hidden>Repita a senha
+      <input class="inp" id="admP2" type="password" autocomplete="new-password" minlength="6"></label>
+    <p class="adm-erro" id="admErro" hidden role="alert"></p>
+    <button class="btn btn-w" type="submit" id="admBt">Entrar</button>
+    <a class="adm-volta" href="#/">Voltar para a loja</a>
+    <p class="adm-nota" id="admNota"></p>
+  </form>
+</div>
 
-  <div class="gx-actions">
-    <button class="btn btn-w" onclick="gxSeed()">Carregar dados de exemplo</button>
-    <button class="btn btn-g" onclick="gxLimparDemo()">Limpar exemplos</button>
-  </div>
-
-  <!-- KPIs: numeros de manchete, nao graficos -->
-  <div class="gx-kpis" id="gxKpis"></div>
-
-  <!-- KANBAN -->
-  <section class="gx-sec">
-    <div class="gx-hd"><h2>Pedidos</h2><span id="gxKbCount"></span></div>
-    <div class="gx-kanban" id="gxKanban"></div>
-  </section>
-
-  <div class="gx-cols">
-    <!-- DIAS DA SEMANA: comparar magnitude -> barra de hue unico -->
-    <section class="gx-sec">
-      <div class="gx-hd"><h2>Quando as pessoas compram</h2></div>
-      <figure class="gx-card glass">
-        <figcaption id="gxDiasCap"></figcaption>
-        <div class="gx-chart" id="gxDias" role="img" aria-labelledby="gxDiasCap"></div>
-        <details class="gx-tab"><summary>Ver como tabela</summary>
-          <div id="gxDiasTab"></div></details>
-      </figure>
-    </section>
-
-    <!-- RANKING: barras horizontais ordenadas, um hue -->
-    <section class="gx-sec">
-      <div class="gx-hd"><h2>Clientes que mais compraram</h2></div>
-      <figure class="gx-card glass">
-        <figcaption id="gxCliCap"></figcaption>
-        <div class="gx-rank" id="gxClientes"></div>
-      </figure>
-    </section>
-  </div>
-
-  <!-- PRODUTOS -->
-  <section class="gx-sec">
-    <div class="gx-hd"><h2>Produtos</h2><span id="gxProdCount"></span></div>
-    <div class="gx-card glass">
-      <form class="gx-form" id="gxForm" onsubmit="return gxAddProduto(event)">
-        <label>Nome do produto
-          <input id="gxpNome" required maxlength="80" placeholder="Arroz Tio Joao 5kg"></label>
-        <label>Categoria
-          <select id="gxpCat">
-            <option value="mercearia">Mercearia</option>
-            <option value="acougue">Açougue</option>
-            <option value="drinks">Bebidas e adega</option>
-            <option value="limpeza">Limpeza</option>
-            <option value="higiene">Higiene</option>
-            <option value="pet">Pet shop</option>
-          </select></label>
-        <label>Preço de venda (R$)
-          <input id="gxpPreco" required type="number" min="0.01" step="0.01" placeholder="29,90"></label>
-        <label>Preço antes (R$)
-          <input id="gxpDe" type="number" min="0" step="0.01" placeholder="opcional"></label>
-        <label class="gx-full"><span>Descrição <small>(opcional)</small></span>
-          <textarea id="gxpDesc" maxlength="400" rows="2"
-            placeholder="Ex.: vinho rosé seco, uvas da Serra Gaúcha."></textarea></label>
-        <label>Unidade
-          <input id="gxpUn" maxlength="30" placeholder="R$ 5,98/kg"></label>
-        <button class="btn btn-w" type="submit">Cadastrar produto</button>
-      </form>
-      <div class="gx-prodlist" id="gxProdList"></div>
+<!-- ======== PAINEL ======== -->
+<div class="adm" id="admApp" hidden>
+  <aside class="adm-lado">
+    <div class="adm-marca"><img src="" data-logo alt="Farid" height="24"><b>Gestão</b></div>
+    <nav class="adm-menu" aria-label="Seções da gestão">
+      <button type="button" class="on" data-adm="painel" onclick="admIr('painel')">
+        <svg class="ico" aria-hidden="true"><use href="#i-bolt"/></svg>Painel</button>
+      <button type="button" data-adm="produtos" onclick="admIr('produtos')">
+        <svg class="ico" aria-hidden="true"><use href="#i-box"/></svg>Produtos</button>
+      <button type="button" data-adm="hoje" onclick="admIr('hoje')">
+        <svg class="ico" aria-hidden="true"><use href="#i-tag"/></svg>Ofertas de hoje</button>
+      <button type="button" data-adm="relampago" onclick="admIr('relampago')">
+        <svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>Ofertas relâmpago</button>
+    </nav>
+    <div class="adm-pe">
+      <a href="#/">Ver a loja</a>
+      <button type="button" onclick="admSair()">Sair</button>
     </div>
-  </section>
-</div></div>
+  </aside>
+
+  <div class="adm-corpo">
+    <header class="adm-topo">
+      <div class="adm-tit"><h1 id="admH">Painel</h1><p id="admHp"></p></div>
+      <div class="adm-acoes" id="admAcoes"></div>
+    </header>
+
+    <!-- ---- PAINEL ---- -->
+    <section class="adm-sec on" id="adm-painel">
+      <div class="gx-kpis" id="gxKpis"></div>
+      <div class="adm-bloco">
+        <div class="gx-hd"><h2>Pedidos</h2><span id="gxKbCount"></span></div>
+        <div class="gx-kanban" id="gxKanban"></div>
+      </div>
+      <div class="gx-cols">
+        <div class="adm-bloco">
+          <div class="gx-hd"><h2>Quando as pessoas compram</h2></div>
+          <figure class="gx-card glass">
+            <figcaption id="gxDiasCap"></figcaption>
+            <div class="gx-chart" id="gxDias" role="img" aria-labelledby="gxDiasCap"></div>
+            <details class="gx-tab"><summary>Ver como tabela</summary>
+              <div id="gxDiasTab"></div></details>
+          </figure>
+        </div>
+        <div class="adm-bloco">
+          <div class="gx-hd"><h2>Clientes que mais compraram</h2></div>
+          <figure class="gx-card glass">
+            <figcaption id="gxCliCap"></figcaption>
+            <div class="gx-rank" id="gxClientes"></div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- PRODUTOS ---- -->
+    <section class="adm-sec" id="adm-produtos">
+      <div class="gx-cols adm-2">
+        <div class="adm-bloco">
+          <div class="gx-hd"><h2>Novo produto</h2></div>
+          <div class="gx-card glass">
+            <form class="gx-form" id="gxForm" onsubmit="return gxAddProduto(event)">
+              <label>Nome do produto
+                <input id="gxpNome" required maxlength="80" placeholder="Arroz Tio Joao 5kg"></label>
+              <label>Categoria
+                <select id="gxpCat">
+                  <option value="mercearia">Mercearia</option>
+                  <option value="acougue">Açougue</option>
+                  <option value="drinks">Bebidas e adega</option>
+                  <option value="limpeza">Limpeza</option>
+                  <option value="higiene">Higiene</option>
+                  <option value="pet">Pet shop</option>
+                </select></label>
+              <label>Preço de venda (R$)
+                <input id="gxpPreco" required type="number" min="0.01" step="0.01" placeholder="29,90"></label>
+              <label>Preço antes (R$)
+                <input id="gxpDe" type="number" min="0" step="0.01" placeholder="opcional"></label>
+              <label>Unidade
+                <input id="gxpUn" maxlength="30" placeholder="R$ 5,98/kg"></label>
+              <label class="gx-full"><span>Descrição <small>(opcional)</small></span>
+                <textarea id="gxpDesc" maxlength="400" rows="2"
+                  placeholder="Ex.: vinho rosé seco, uvas da Serra Gaúcha."></textarea></label>
+              <button class="btn btn-w" type="submit">Cadastrar produto</button>
+            </form>
+          </div>
+        </div>
+        <div class="adm-bloco">
+          <div class="gx-hd"><h2>Cadastrados aqui</h2><span id="gxProdCount"></span></div>
+          <div class="gx-card glass"><div class="gx-prodlist" id="gxProdList"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- OFERTAS DE HOJE ---- -->
+    <section class="adm-sec" id="adm-hoje">
+      <div class="adm-bloco">
+        <div class="gx-hd"><h2>Em destaque na home</h2><span id="admHojeN"></span></div>
+        <div class="adm-sel" id="admHojeSel"></div>
+      </div>
+      <div class="adm-bloco">
+        <div class="gx-hd"><h2>Escolher produtos</h2><span>toque para incluir ou tirar</span></div>
+        <input class="inp adm-busca" id="admHojeQ" placeholder="Filtrar por nome" oninput="admListaHoje()">
+        <div class="adm-lista" id="admHojeLista"></div>
+      </div>
+    </section>
+
+    <!-- ---- OFERTAS RELÂMPAGO ---- -->
+    <section class="adm-sec" id="adm-relampago">
+      <div class="adm-bloco">
+        <div class="gx-hd"><h2>Prazo da promoção</h2></div>
+        <div class="gx-card glass adm-prazo">
+          <label>Termina em
+            <input class="inp" id="admFim" type="datetime-local"></label>
+          <div class="adm-prazo-info" id="admPrazoInfo"></div>
+          <div class="adm-prazo-bt">
+            <button type="button" class="btn btn-g" onclick="admPrazoRapido(6)">+6 horas</button>
+            <button type="button" class="btn btn-g" onclick="admPrazoRapido(24)">+24 horas</button>
+            <button type="button" class="btn btn-g" onclick="admPrazoMeiaNoite()">Até meia-noite</button>
+          </div>
+        </div>
+      </div>
+      <div class="adm-bloco">
+        <div class="gx-hd"><h2>No trilho da home</h2><span id="admRelN"></span></div>
+        <div class="adm-sel" id="admRelSel"></div>
+      </div>
+      <div class="adm-bloco">
+        <div class="gx-hd"><h2>Escolher produtos</h2><span>toque para incluir ou tirar</span></div>
+        <input class="inp adm-busca" id="admRelQ" placeholder="Filtrar por nome" oninput="admListaRel()">
+        <div class="adm-lista" id="admRelLista"></div>
+      </div>
+    </section>
+  </div>
+</div>
+</div>
 
 <!-- ======================= FAVORITOS ======================= -->
 <div class="page gpage" id="p-favoritos"><div class="wrap">
@@ -4826,7 +5076,7 @@ const pick=v=>semAlc(P).filter(x=>v==='all'||x.cat===v);
 
 /* ============ RENDER ============ */
 const pill=c=>`<a class="pill glass" href="#/departamentos"><span><img loading="lazy" src="${c.img}" alt=""></span>${c.n}</a>`;
-$('#heroDeals').innerHTML=ofertasHome().map(x=>{const q=cart[x.id]||0;return `<div class="hc-item${q?' incart':''}" data-id="${x.id}"><div class="im"><span>-${Math.round((1-x.p/x.o)*100)}%</span><img src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"><span class="incart-tag" data-incart ${q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${q}</b><i class="sr-only">no carrinho</i></span></div><p>${x.n}</p><div class="hc-row"><b>${brl(x.p)}</b><button onclick="chg(${x.id},1)" aria-label="Adicionar ${x.n}"><svg class="ico" style="width:16px"><use href="#i-plus"/></svg></button></div></div>`}).join('');
+function cartaoOferta(x){const q=cart[x.id]||0;return `<div class="hc-item${q?' incart':''}" data-id="${x.id}"><div class="im"><span>-${Math.round((1-x.p/x.o)*100)}%</span><img src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"><span class="incart-tag" data-incart ${q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${q}</b><i class="sr-only">no carrinho</i></span></div><p>${x.n}</p><div class="hc-row"><b>${brl(x.p)}</b><button onclick="chg(${x.id},1)" aria-label="Adicionar ${x.n}"><svg class="ico" style="width:16px"><use href="#i-plus"/></svg></button></div></div>`}
 $('#idx').innerHTML=`<a class="all" href="#/departamentos/todos">Todos</a><a href="#/ofertas"><svg class="ico ico-in" style="width:15px;height:15px" aria-hidden="true"><use href="#i-bolt"/></svg> Ofertas</a>`+CATS.map((c,k)=>(menorDeIdade()&&depAlcool(c.n))?'':`<a href="#/departamentos/${k}" data-dep="${k}"><span><img src="${c.img}" alt=""></span>${c.n}</a>`).join('');
 (()=>{const one=CATS.map((c,k)=>(menorDeIdade()&&depAlcool(c.n))?'':`<a class="dc" href="#/departamentos/${k}" title="${c.n}" aria-label="${c.n}"><span><img src="${c.img}" alt=""></span><b>${c.n}</b></a>`).join('')+`<a class="dc more" href="#/departamentos/todos" title="Todos os produtos" aria-label="Todos os produtos"><span>+</span><b>Todos os produtos</b></a>`;
  const tr=$('#dgrid'),box=$('#dslide');tr.innerHTML=one+one;tr.removeAttribute('aria-busy');
@@ -4844,7 +5094,7 @@ $('#idx').innerHTML=`<a class="all" href="#/departamentos/todos">Todos</a><a hre
  raf=requestAnimationFrame(tick)})();
 $('#mobDeps').innerHTML=CATS.map((c,k)=>(menorDeIdade()&&depAlcool(c.n))?'':`<a href="#/departamentos/${k}"><img loading="lazy" src="${c.img}" alt="">${c.n}</a>`).join('');
 $('#deps').innerHTML=CATS.map((c,k)=>(menorDeIdade()&&depAlcool(c.n))?'':`<a id="dep-${k}" class="glass gcard" href="#/departamentos/${k}"><div class="gi"><img loading="lazy" src="${c.img}" alt=""></div><h3>${c.n}</h3></a>`).join('');
-$('#hsTrack').innerHTML=semAlc(P).slice().sort((a,b)=>(b.o-b.p)/b.o-(a.o-a.p)/a.o).slice(0,12).map(card).join('');
+desenharVitrines();
 const F=[['all','Todos'],['drinks','Bebidas'],['mercearia','Mercearia'],['acougue','Açougue'],['limpeza','Limpeza'],['higiene','Higiene'],['pet','Pet Shop']];
 /* 10 cards numa grade de duas colunas davam 2104px: 41% da home
    inteira num bloco so, no meio do caminho. No celular passam a ser
@@ -4880,7 +5130,12 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 $$('[data-r]').forEach(el=>io.observe(el));
 
 /* countdown */
-function cd(){const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const s=Math.floor((m-n)/1000),f=v=>String(v).padStart(2,'0');
+function cd(){const n=new Date();let m;
+ /* o prazo e do painel; sem prazo escolhido, vale ate a meia-noite */
+ const _r=(typeof ofRel==='function')?ofRel():null;
+ if(_r&&_r.fim>Date.now())m=new Date(_r.fim);
+ else{m=new Date(n);m.setHours(24,0,0,0)}
+ const s=Math.max(0,Math.floor((m-n)/1000)),f=v=>String(v).padStart(2,'0');
  const h=[[Math.floor(s/3600),'horas'],[Math.floor(s%3600/60),'min'],[s%60,'seg']].map(([v,l])=>`<div class="glass"><b>${f(v)}</b><span>${l}</span></div>`).join('');
  $$('[data-cd]').forEach(e=>e.innerHTML=h)}
 cd();setInterval(cd,1000);
@@ -5364,7 +5619,8 @@ function route(){const h=location.hash;
  if(name==='departamentos')showDep(parts[1]);
  if(name==='conta')renderOrders();
  if(name==='favoritos')renderFavs();
- if(name==='gestao')gxRender();
+ document.body.classList.toggle('na-gestao',name==='gestao');
+ if(name==='gestao')admPorta();
  if(name==='lojas')renderLojas();
  if(name==='listas')renderListas();
  $$('.idx a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===h));$$('.tabbar a').forEach(a=>a.classList.toggle('on',a.dataset.tb==='/'+name||(name==='home'&&a.dataset.tb==='/')));/* o trilho de atalhos de departamento e para quem compra; no painel
@@ -6103,6 +6359,264 @@ function renderCashback(){
   (ext?'<div class="cb-ext" style="flex-basis:100%">'+ext+'</div>':'');
 }
 
+/* ==========================================================================
+   AS DUAS VITRINES PASSAM A SER ESCOLHIDAS, NAO FIXAS
+   "Ofertas de hoje" eram quatro ids escritos no codigo ([0,6,12,3]) e
+   "Ofertas relampago" era simplesmente os 12 maiores descontos. Para
+   quem toca a loja isso nao e vitrine: e sorte. Agora as duas sao
+   listas guardadas, montadas no painel, e o codigo so entra quando
+   ninguem escolheu nada ainda.
+   ========================================================================== */
+var OF_HOJE_PADRAO=[0,6,12,3];
+function ofHoje(){
+ try{var a=JSON.parse(_guard('farid_of_hoje')||'null');
+  if(Array.isArray(a))return a.filter(function(i){return P[i]})}catch(e){}
+ return null}
+function setOfHoje(ids){_grav('farid_of_hoje',JSON.stringify(ids));desenharVitrines()}
+function ofRel(){
+ try{var o=JSON.parse(_guard('farid_of_rel')||'null');
+  if(o&&Array.isArray(o.ids))return {ids:o.ids.filter(function(i){return P[i]}),fim:+o.fim||0}
+ }catch(e){}
+ return null}
+function setOfRel(ids,fim){
+ _grav('farid_of_rel',JSON.stringify({ids:ids,fim:fim||0}));desenharVitrines()}
+/* o padrao da relampago continua sendo o maior desconto */
+function relPadrao(){
+ return semAlc(P).slice().sort(function(a,b){
+  return (b.o-b.p)/b.o-(a.o-a.p)/a.o}).slice(0,12)}
+
+function desenharVitrines(){
+ var hoje=ofHoje();
+ var lista=hoje? semAlc(hoje.map(function(i){return P[i]}).filter(Boolean)) : ofertasHome();
+ if(!lista.length)lista=ofertasHome();
+ var el=document.getElementById('heroDeals');
+ if(el)el.innerHTML=lista.slice(0,8).map(cartaoOferta).join('');
+ var rel=ofRel();
+ var lr=rel&&rel.ids.length? semAlc(rel.ids.map(function(i){return P[i]}).filter(Boolean)) : relPadrao();
+ var tr=document.getElementById('hsTrack');
+ if(tr)tr.innerHTML=lr.map(card).join('');
+ try{bindTilt()}catch(e){}
+ try{Object.keys(cart).forEach(function(i){refreshCards(+i)})}catch(e){}
+}
+
+/* ==========================================================================
+   ENTRADA DA GESTAO
+   O que este login E: uma porta que impede quem chega por acaso no
+   endereco de mexer na loja. A senha nao e guardada — fica so o
+   SHA-256 dela com um sal aleatorio, entao abrir o armazenamento do
+   navegador nao revela a senha.
+
+   O que ele NAO E, e isso precisa estar escrito: seguranca de verdade.
+   Sem servidor, a verificacao roda no proprio navegador de quem entra.
+   Quem souber mexer nas ferramentas do navegador passa por ela em um
+   minuto. Os dados tambem sao locais: cada aparelho tem os seus, e nao
+   ha nada do lado de ca para proteger de fato. Gestao de verdade exige
+   servidor com autenticacao — ate la, isto e uma porta, nao um cofre.
+   ========================================================================== */
+function admCred(){
+ try{var o=JSON.parse(_guard('farid_adm')||'null');
+  if(o&&o.u&&o.h&&o.s)return o}catch(e){}
+ return null}
+function admLogado(){try{return sessionStorage.getItem('farid_adm_on')==='1'}catch(e){return false}}
+
+async function admHash(u,senha,sal){
+ var txt=sal+'\u0000'+String(u).toLowerCase().trim()+'\u0000'+senha;
+ var buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(txt));
+ return Array.from(new Uint8Array(buf)).map(function(b){
+  return b.toString(16).padStart(2,'0')}).join('')}
+
+function admErro(m){var e=document.getElementById('admErro');
+ if(!e)return; e.textContent=m||''; e.hidden=!m}
+
+function admPorta(){
+ var temCred=!!admCred(), porta=document.getElementById('admPorta');
+ var app=document.getElementById('admApp');
+ if(!porta||!app)return;
+ if(admLogado()){porta.hidden=true;app.hidden=false;admIr(admSecAtual());return}
+ porta.hidden=false; app.hidden=true;
+ document.getElementById('admTitulo').textContent =
+   temCred? 'Área de gestão' : 'Criar acesso à gestão';
+ document.getElementById('admSub').textContent = temCred
+   ? 'Entre com seu usuário e senha.'
+   : 'Ninguém definiu um acesso ainda. Escolha o usuário e a senha que vão abrir esta área.';
+ document.getElementById('admBt').textContent = temCred? 'Entrar' : 'Criar acesso';
+ document.getElementById('admP2w').hidden = temCred;
+ document.getElementById('admP2').required = !temCred;
+ document.getElementById('admP').setAttribute('autocomplete',
+   temCred?'current-password':'new-password');
+ document.getElementById('admNota').textContent = temCred
+   ? 'Esqueceu a senha? Como não há servidor, não dá para recuperá-la: só apagando o acesso no armazenamento deste navegador e criando outro.'
+   : 'A senha não fica guardada — só o resumo criptográfico dela. Mas este login roda no próprio navegador: segura quem chega por acaso, não quem sabe mexer nas ferramentas do navegador.';
+ admErro('');
+}
+
+async function admEntrar(ev){
+ ev.preventDefault();
+ var u=document.getElementById('admU').value.trim();
+ var senha=document.getElementById('admP').value;
+ var cred=admCred();
+ if(!crypto||!crypto.subtle){
+  admErro('Este navegador não oferece o recurso de resumo criptográfico. Abra pelo endereço https.');
+  return false}
+ try{
+  if(!cred){
+   var s2=document.getElementById('admP2').value;
+   if(senha!==s2){admErro('As duas senhas não são iguais.');return false}
+   if(senha.length<6){admErro('A senha precisa de ao menos 6 caracteres.');return false}
+   var sal=Array.from(crypto.getRandomValues(new Uint8Array(16)))
+     .map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+   _grav('farid_adm',JSON.stringify({u:u,s:sal,h:await admHash(u,senha,sal)}));
+   try{sessionStorage.setItem('farid_adm_on','1')}catch(e){}
+   toast('Acesso criado');
+  }else{
+   var h=await admHash(u,senha,cred.s);
+   if(u.toLowerCase()!==String(cred.u).toLowerCase()||h!==cred.h){
+    admErro('Usuário ou senha não conferem.');return false}
+   try{sessionStorage.setItem('farid_adm_on','1')}catch(e){}
+  }
+ }catch(e){admErro('Não foi possível verificar agora. Tente de novo.');return false}
+ document.getElementById('admP').value='';
+ var p2=document.getElementById('admP2'); if(p2)p2.value='';
+ admPorta(); admRender();
+ return false}
+
+function admSair(){
+ try{sessionStorage.removeItem('farid_adm_on')}catch(e){}
+ admPorta(); toast('Você saiu da gestão')}
+
+/* ---- navegacao entre as secoes ---- */
+var ADM_SEC={
+ painel:['Painel','Os números da loja, em um lugar só.'],
+ produtos:['Produtos','Cadastre e organize o que a loja vende.'],
+ hoje:['Ofertas de hoje','O que aparece em destaque na página inicial.'],
+ relampago:['Ofertas relâmpago','O trilho com prazo, e até quando ele vale.']
+};
+function admSecAtual(){
+ try{var v=sessionStorage.getItem('farid_adm_sec');
+  return ADM_SEC[v]?v:'painel'}catch(e){return 'painel'}}
+function admIr(sec){
+ if(!ADM_SEC[sec])sec='painel';
+ try{sessionStorage.setItem('farid_adm_sec',sec)}catch(e){}
+ document.querySelectorAll('.adm-sec').forEach(function(e){
+  e.classList.toggle('on',e.id==='adm-'+sec)});
+ document.querySelectorAll('.adm-menu button').forEach(function(b){
+  var on=b.dataset.adm===sec; b.classList.toggle('on',on);
+  b.setAttribute('aria-current',on?'page':'false')});
+ document.getElementById('admH').textContent=ADM_SEC[sec][0];
+ document.getElementById('admHp').textContent=ADM_SEC[sec][1];
+ var ac=document.getElementById('admAcoes');
+ ac.innerHTML = sec==='painel'
+  ? '<button type="button" class="btn btn-g" onclick="gxSeed()">Carregar exemplos</button>'+
+    '<button type="button" class="btn btn-g" onclick="gxLimparDemo()">Limpar exemplos</button>'
+  : (sec==='hoje'
+    ? '<button type="button" class="btn btn-g" onclick="admRestaurarHoje()">Restaurar padrão</button>'
+    : (sec==='relampago'
+      ? '<button type="button" class="btn btn-g" onclick="admRestaurarRel()">Restaurar padrão</button>'
+      : ''));
+ admRender();
+ var c=document.querySelector('.adm-corpo'); if(c)c.scrollTop=0;
+}
+function admRender(){
+ if(!admLogado())return;
+ var sec=admSecAtual();
+ if(sec==='painel'||sec==='produtos'){try{gxRender()}catch(e){}}
+ if(sec==='hoje'){admSelHoje();admListaHoje()}
+ if(sec==='relampago'){admPrazoRender();admSelRel();admListaRel()}
+}
+
+/* ---- montagem das duas vitrines, no painel ---- */
+var ADM_HOJE_MAX=8;
+
+function admItem(x,dentro,acao){
+ return '<button type="button" class="adm-it'+(dentro?' on':'')+'" onclick="'+acao+'('+x.id+')">'+
+  '<span class="adm-it-im"><img loading="lazy" src="'+x.sm+'" alt=""'+
+  ' onerror="var q=this.closest(\'.adm-it-im\');if(q)q.classList.add(\'vazio\')"></span>'+
+  '<span class="adm-it-tx"><b>'+esc(x.n)+'</b><i>'+brl(x.p)+
+  (x.o>x.p?' <s>'+brl(x.o)+'</s>':'')+'</i></span>'+
+  '<span class="adm-it-ac">'+(dentro?'tirar':'incluir')+'</span></button>'}
+
+function admSelHoje(){
+ var ids=ofHoje()||OF_HOJE_PADRAO.slice();
+ var box=document.getElementById('admHojeSel'); if(!box)return;
+ document.getElementById('admHojeN').textContent=
+  ids.length+' de '+ADM_HOJE_MAX+(ofHoje()?'':' · padrão do sistema');
+ box.innerHTML = ids.length
+  ? ids.map(function(i){return P[i]?admItem(P[i],true,'admTiraHoje'):''}).join('')
+  : '<p class="adm-vazio">Nenhum produto em destaque. Escolha abaixo.</p>';
+}
+function admListaHoje(){
+ var q=norm((document.getElementById('admHojeQ')||{}).value||'');
+ var ids=ofHoje()||OF_HOJE_PADRAO;
+ var box=document.getElementById('admHojeLista'); if(!box)return;
+ var l=P.filter(function(x){return ids.indexOf(x.id)<0 && (!q||norm(x.n).indexOf(q)>=0)});
+ box.innerHTML = l.length
+  ? l.slice(0,60).map(function(x){return admItem(x,false,'admPoeHoje')}).join('')
+  : '<p class="adm-vazio">Nenhum produto com esse nome.</p>';
+}
+function admPoeHoje(id){
+ var ids=(ofHoje()||OF_HOJE_PADRAO).slice();
+ if(ids.indexOf(id)>=0)return;
+ if(ids.length>=ADM_HOJE_MAX){toast('O destaque cabe '+ADM_HOJE_MAX+' produtos. Tire um antes.');return}
+ ids.push(id); setOfHoje(ids); admSelHoje(); admListaHoje()}
+function admTiraHoje(id){
+ var ids=(ofHoje()||OF_HOJE_PADRAO).filter(function(i){return i!==id});
+ setOfHoje(ids); admSelHoje(); admListaHoje()}
+function admRestaurarHoje(){
+ try{localStorage.removeItem('farid_of_hoje')}catch(e){}
+ desenharVitrines(); admSelHoje(); admListaHoje(); toast('Destaque voltou ao padrão')}
+
+function admRelIds(){var r=ofRel(); return r? r.ids.slice() : relPadrao().map(function(x){return x.id})}
+function admSelRel(){
+ var ids=admRelIds(), box=document.getElementById('admRelSel'); if(!box)return;
+ document.getElementById('admRelN').textContent=
+  ids.length+' produto'+(ids.length===1?'':'s')+(ofRel()?'':' · padrão do sistema');
+ box.innerHTML = ids.length
+  ? ids.map(function(i){return P[i]?admItem(P[i],true,'admTiraRel'):''}).join('')
+  : '<p class="adm-vazio">Nenhum produto no trilho. Escolha abaixo.</p>';
+}
+function admListaRel(){
+ var q=norm((document.getElementById('admRelQ')||{}).value||'');
+ var ids=admRelIds(), box=document.getElementById('admRelLista'); if(!box)return;
+ var l=P.filter(function(x){return ids.indexOf(x.id)<0 && (!q||norm(x.n).indexOf(q)>=0)});
+ box.innerHTML = l.length
+  ? l.slice(0,60).map(function(x){return admItem(x,false,'admPoeRel')}).join('')
+  : '<p class="adm-vazio">Nenhum produto com esse nome.</p>';
+}
+function admPoeRel(id){
+ var ids=admRelIds(); if(ids.indexOf(id)>=0)return;
+ ids.push(id); setOfRel(ids,admFimAtual()); admSelRel(); admListaRel()}
+function admTiraRel(id){
+ var ids=admRelIds().filter(function(i){return i!==id});
+ setOfRel(ids,admFimAtual()); admSelRel(); admListaRel()}
+function admRestaurarRel(){
+ try{localStorage.removeItem('farid_of_rel')}catch(e){}
+ desenharVitrines(); admPrazoRender(); admSelRel(); admListaRel();
+ toast('Relâmpago voltou ao padrão')}
+
+/* ---- prazo ---- */
+function admFimAtual(){var r=ofRel(); return r? r.fim : 0}
+function paraCampo(ms){
+ var d=new Date(ms), z=function(n){return String(n).padStart(2,'0')};
+ return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())+'T'+z(d.getHours())+':'+z(d.getMinutes())}
+function admPrazoRender(){
+ var c=document.getElementById('admFim'); if(!c)return;
+ var fim=admFimAtual();
+ c.value = fim? paraCampo(fim) : '';
+ var info=document.getElementById('admPrazoInfo');
+ if(!info)return;
+ if(!fim){info.innerHTML='<b>Sem prazo escolhido.</b> O cronômetro da loja conta até a meia-noite de hoje.';return}
+ var falta=fim-Date.now();
+ info.innerHTML = falta>0
+  ? '<b>Termina em '+dataLonga(fim)+' às '+new Date(fim).toLocaleTimeString(I().bcp,{hour:'2-digit',minute:'2-digit'})+'</b>'+
+    '<span>Faltam '+Math.floor(falta/3600000)+'h '+Math.floor(falta%3600000/60000)+'min</span>'
+  : '<b>O prazo já passou.</b><span>Na loja o cronômetro volta a contar até a meia-noite.</span>';
+}
+function admPrazoRapido(h){
+ setOfRel(admRelIds(), Date.now()+h*3600000); admPrazoRender(); toast('Prazo de '+h+'h')}
+function admPrazoMeiaNoite(){
+ var m=new Date(); m.setHours(24,0,0,0);
+ setOfRel(admRelIds(), m.getTime()); admPrazoRender(); toast('Prazo até meia-noite')}
+
 /* ---- seletor de idioma no menu lateral ---- */
 function renderIdiomas(){
  var box=document.getElementById('mobIdioma'); if(!box)return;
@@ -6114,6 +6628,11 @@ function renderIdiomas(){
 var _setIdiomaBase=setIdioma;
 setIdioma=function(k){_setIdiomaBase(k);renderIdiomas()};
 aplicarIdioma(); renderIdiomas(); renderIdade();
+(function(){var c=document.getElementById('admFim');if(!c)return;
+ c.addEventListener('change',function(){
+  var t=c.value?new Date(c.value).getTime():0;
+  setOfRel(admRelIds(),t||0); admPrazoRender();
+  toast(t?'Prazo atualizado':'Prazo removido')})})();
 
 setTimeout(checarRecorrentes,1200);
 loadCart();Object.keys(cart).forEach(i=>refreshCards(+i));renderCart();
