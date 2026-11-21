@@ -107,7 +107,7 @@ h1,h2,h3{letter-spacing:-.045em;line-height:.98;font-weight:800}
 .hc-item:hover{background:#5b0d2e}
 .hc-item .im{aspect-ratio:1.25;border-radius:12px;background:var(--sup-1);display:grid;place-items:center;position:relative}
 .hc-item .im img{height:84%;width:84%;object-fit:contain}
-.hc-item .im span{position:absolute;top:6px;left:6px;background:var(--brand);font-size:.68rem;font-weight:800;padding:3px 7px;border-radius:7px}
+.hc-item .im span:not(.incart-tag){position:absolute;top:6px;left:6px;background:var(--brand);font-size:.68rem;font-weight:800;padding:3px 7px;border-radius:7px}
 .hc-item p{font-size:.76rem;color:var(--t2);line-height:1.25;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;padding:0 2px}
 .hc-row{display:flex;justify-content:space-between;align-items:center;padding:0 2px 2px}
 .hc-row b{font-size:1.05rem;letter-spacing:-.02em}
@@ -1071,7 +1071,7 @@ html,body{background:var(--sup-pagina)!important}
 .sb-home svg circle{fill:#fff}.sb-home svg path{fill:#881344}.sb-home i{border-color:#fff!important}
 .truck svg rect[fill="#fff"],.truck svg path[fill="#fff"]{stroke:none}
 .speed{stroke:#fff!important}
-.off,.hc-item .im span{color:#fff!important;font-weight:800!important;text-shadow:none!important}
+.off,.hc-item .im span:not(.incart-tag){color:#fff!important;font-weight:800!important;text-shadow:none!important}
 .toast{background:#1d1d1f!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;color:#fff!important;border:1px solid rgba(255,255,255,.12)!important;box-shadow:0 12px 30px -8px rgba(0,0,0,.45)!important;text-shadow:none!important}.toast *{color:#fff!important}
 
 /* departamentos dinâmicos (estilo "stories") */
@@ -3175,7 +3175,7 @@ main{min-height:calc(100svh - 190px)}
    O selo do cartao "Ofertas de hoje" e um <span> sem classe, e por isso
    escapou da primeira correcao: ficava METADE ESCONDIDO atras da foto —
    "-33%" aparecia como "-3" em todas as ofertas da home. */
-.pimg .fav,.pimg .off,.hc-item .im .off,.hc-item .im>span{z-index:2}
+.pimg .fav,.pimg .off,.hc-item .im .off,.hc-item .im>span:not(.incart-tag){z-index:2}
 .aisle>:not(img){position:relative;z-index:2}
 @media (prefers-reduced-motion:reduce){
   .pimg:not(.pronta)::before,.hc-item .im:not(.pronta)::before,
@@ -3831,7 +3831,7 @@ main{min-height:calc(100svh - 190px)}
     aspect-ratio:1.1!important;width:auto;height:auto;border-radius:14px!important;
   }
   #ofertas-hoje .hc-item .im img{width:84%;height:84%}
-  #ofertas-hoje .hc-item .im>span{
+  #ofertas-hoje .hc-item .im>span:not(.incart-tag){
     top:7px!important;left:7px!important;
     font-size:.7rem!important;padding:3px 8px!important;border-radius:8px!important;
   }
@@ -3869,6 +3869,34 @@ main{min-height:calc(100svh - 190px)}
   .hero{padding-bottom:4px!important}
   #ofertas-hoje{padding-top:82px}
 }
+/* ==========================================================================
+   O SELO "JA NO CARRINHO" SAI DE CIMA DO CORACAO
+   Os dois moravam no mesmo canto: `.fav` em top:8 right:8 e
+   `.incart-tag` em top:10 right:10. Com o produto no carrinho, o selo
+   cobria o botao de favoritar — 695px² de sobreposicao medidos no
+   celular, 544 no desktop. Valia para TODO card com item no carrinho,
+   nas duas larguras, desde que criei o selo.
+
+   O selo desce para o pe da foto. Ali nao disputa com nada: o desconto
+   fica no alto a esquerda, o coracao no alto a direita, e o aviso de
+   "ja esta no seu carrinho" fica onde o olho ja vai depois da imagem.
+   ========================================================================== */
+/* Duas tentativas erradas antes desta, e as duas pela mesma razao: o
+   selo era irmao da moldura, nao filho dela. Mandar para `bottom` punha
+   ele no pe do CARD, em cima do "−" do seletor; mandar para o lado do
+   coracao esbarrava no selo de desconto em card estreito, porque as
+   duas medidas partiam de caixas diferentes.
+
+   Agora o selo mora DENTRO da moldura da foto. Ali os tres cantos se
+   dividem sem conta nenhuma: desconto em cima a esquerda, coracao em
+   cima a direita, "ja no carrinho" embaixo a esquerda. */
+.pimg .incart-tag,.hc-item .im .incart-tag{
+  position:absolute!important;
+  top:auto!important;right:auto!important;
+  bottom:8px!important;left:8px!important;
+  height:auto!important;
+}
+.hc-item .im .incart-tag{bottom:6px!important;left:6px!important}
 </style>
 </head>
 <body>
@@ -4744,9 +4772,9 @@ function addbox(id){const q=cart[id]||0;return q?`<div class="stepper"><button o
 function card(x){const pct=Math.round((1-x.p/x.o)*100);
  const _q=cart[x.id]||0;
  return `<div class="prod glass${_q?' incart':''}" data-id="${x.id}" data-tilt>
-  <span class="incart-tag" data-incart ${_q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${_q}</b><i class="sr-only">no carrinho</i></span>
+  
   <div class="pimg">${pct>0?`<span class="off">-${pct}%</span>`:''}<button class="fav ${favs.has(x.id)?'on':''}" onclick="fav(${x.id})" aria-pressed="${favs.has(x.id)}" aria-label="Favoritar"><svg class="ico" style="width:18px"><use href="#i-heart"/></svg></button>
-   <img loading="lazy" src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"></div>
+   <img loading="lazy" src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"><span class="incart-tag" data-incart ${_q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${_q}</b><i class="sr-only">no carrinho</i></span></div>
   <div class="pname" title="${x.n}">${x.n}</div>
   <div class="pprice"><b>${brl(x.p)}</b><s>${brl(x.o)}</s><i class="punit">${precoUnidade(x)}</i></div>
   <div class="addbox">${addbox(x.id)}</div></div>`}
@@ -4768,7 +4796,7 @@ const pick=v=>semAlc(P).filter(x=>v==='all'||x.cat===v);
 
 /* ============ RENDER ============ */
 const pill=c=>`<a class="pill glass" href="#/departamentos"><span><img loading="lazy" src="${c.img}" alt=""></span>${c.n}</a>`;
-$('#heroDeals').innerHTML=ofertasHome().map(x=>{const q=cart[x.id]||0;return `<div class="hc-item${q?' incart':''}" data-id="${x.id}"><span class="incart-tag" data-incart ${q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${q}</b><i class="sr-only">no carrinho</i></span><div class="im"><span>-${Math.round((1-x.p/x.o)*100)}%</span><img src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"></div><p>${x.n}</p><div class="hc-row"><b>${brl(x.p)}</b><button onclick="chg(${x.id},1)" aria-label="Adicionar ${x.n}"><svg class="ico" style="width:16px"><use href="#i-plus"/></svg></button></div></div>`}).join('');
+$('#heroDeals').innerHTML=ofertasHome().map(x=>{const q=cart[x.id]||0;return `<div class="hc-item${q?' incart':''}" data-id="${x.id}"><div class="im"><span>-${Math.round((1-x.p/x.o)*100)}%</span><img src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"><span class="incart-tag" data-incart ${q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${q}</b><i class="sr-only">no carrinho</i></span></div><p>${x.n}</p><div class="hc-row"><b>${brl(x.p)}</b><button onclick="chg(${x.id},1)" aria-label="Adicionar ${x.n}"><svg class="ico" style="width:16px"><use href="#i-plus"/></svg></button></div></div>`}).join('');
 $('#idx').innerHTML=`<a class="all" href="#/departamentos/todos">Todos</a><a href="#/ofertas"><svg class="ico ico-in" style="width:15px;height:15px" aria-hidden="true"><use href="#i-bolt"/></svg> Ofertas</a>`+CATS.map((c,k)=>(menorDeIdade()&&depAlcool(c.n))?'':`<a href="#/departamentos/${k}" data-dep="${k}"><span><img src="${c.img}" alt=""></span>${c.n}</a>`).join('');
 (()=>{const one=CATS.map((c,k)=>(menorDeIdade()&&depAlcool(c.n))?'':`<a class="dc" href="#/departamentos/${k}" title="${c.n}" aria-label="${c.n}"><span><img src="${c.img}" alt=""></span><b>${c.n}</b></a>`).join('')+`<a class="dc more" href="#/departamentos/todos" title="Todos os produtos" aria-label="Todos os produtos"><span>+</span><b>Todos os produtos</b></a>`;
  const tr=$('#dgrid'),box=$('#dslide');tr.innerHTML=one+one;tr.removeAttribute('aria-busy');
