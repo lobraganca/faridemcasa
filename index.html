@@ -3845,6 +3845,16 @@ main{min-height:calc(100svh - 190px)}
   }
   .incart-tag{top:6px!important;right:6px!important}
 }
+/* o campo de descricao ocupa a linha inteira do formulario */
+.gx-form .gx-full{grid-column:1/-1}
+.gx-form textarea{
+  width:100%;font:inherit;font-size:.94rem;resize:vertical;min-height:62px;
+  padding:12px 14px;border-radius:13px;
+  background:var(--soft)!important;color:var(--ink)!important;
+  border:1px solid var(--line)!important;
+}
+.gx-form textarea:focus{outline:2px solid var(--wine);outline-offset:1px}
+.gx-form label small{font-weight:400;color:var(--t3)!important}
 </style>
 </head>
 <body>
@@ -4111,6 +4121,9 @@ main{min-height:calc(100svh - 190px)}
           <input id="gxpPreco" required type="number" min="0.01" step="0.01" placeholder="29,90"></label>
         <label>Preço antes (R$)
           <input id="gxpDe" type="number" min="0" step="0.01" placeholder="opcional"></label>
+        <label class="gx-full"><span>Descrição <small>(opcional)</small></span>
+          <textarea id="gxpDesc" maxlength="400" rows="2"
+            placeholder="Ex.: vinho rosé seco, uvas da Serra Gaúcha."></textarea></label>
         <label>Unidade
           <input id="gxpUn" maxlength="30" placeholder="R$ 5,98/kg"></label>
         <button class="btn btn-w" type="submit">Cadastrar produto</button>
@@ -4234,8 +4247,7 @@ main{min-height:calc(100svh - 190px)}
       <div class="pm-price" id="pmPrice"></div>
       <div class="pm-unit" id="pmUnit"></div>
       <div class="pm-eco" id="pmEco" hidden></div>
-      <p class="pm-desc">A descrição completa deste produto vem do catálogo da loja e
-      ainda não está ligada neste protótipo.</p>
+      <p class="pm-desc" id="pmDesc" hidden></p>
       <div class="pm-fam" id="pmFam" hidden></div>
       <div class="pm-add" id="pmAdd"></div>
     </div>
@@ -5302,6 +5314,13 @@ function openProd(id){var x=P[id];if(!x)return;prodAberto=id;
    '</s> <span class="pm-off">-'+pct+'%</span>':'');
  $('#pmEco').textContent=pct>0?('Você economiza '+brl(x.o-x.p)):'';
  $('#pmEco').hidden=!(pct>0);
+ /* Sem descricao, nada: o quadro dizia que a descricao 'ainda nao
+    esta ligada neste prototipo', e isso e recado de obra, nao
+    informacao de produto — aparecia em TODOS os 25 itens. Quando o
+    catalogo tiver texto de verdade, ele entra aqui. */
+ var _d=(x.desc||'').trim();
+ $('#pmDesc').textContent=_d;
+ $('#pmDesc').hidden=!_d;
  renderFamilia(x);
  renderProdAdd();
  $('#prodM').classList.add('on');document.body.classList.add('lock');
@@ -5643,10 +5662,11 @@ function gxAddProduto(ev){ev.preventDefault();
  var de=parseFloat($('#gxpDe').value); if(!(de>preco))de=preco;
  var novo={n:nome,cat:$('#gxpCat').value,p:Math.round(preco*100)/100,
    o:Math.round(de*100)/100,u:$('#gxpUn').value.trim()||'unidade',
+   desc:($('#gxpDesc')?$('#gxpDesc').value.trim():''),
    criado:Date.now()};
  var a=gxProdutosExtra(); a.unshift(novo); gxSalvarExtra(a);
  /* entra no catalogo desta sessao com um id proprio */
- P.push({id:P.length,n:novo.n,img:'',sm:'',o:novo.o,p:novo.p,u:novo.u,cat:novo.cat});
+ P.push({id:P.length,n:novo.n,img:'',sm:'',o:novo.o,p:novo.p,u:novo.u,cat:novo.cat,desc:novo.desc});
  ev.target.reset(); toast('Produto cadastrado'); gxRender(); return false}
 
 function gxRemoverProduto(i){var a=gxProdutosExtra();a.splice(i,1);
@@ -5775,7 +5795,7 @@ function gxRender(){
 
 /* produtos cadastrados entram no catalogo ao abrir o site */
 (function(){gxProdutosExtra().forEach(function(x){
- P.push({id:P.length,n:x.n,img:'',sm:'',o:x.o,p:x.p,u:x.u,cat:x.cat})})})();
+ P.push({id:P.length,n:x.n,img:'',sm:'',o:x.o,p:x.p,u:x.u,cat:x.cat,desc:x.desc||''})})})();
 /* depois dos cadastrados a mao, para que eles tambem agrupem */
 montarFamilias(); marcarAlcool();
 
