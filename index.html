@@ -3109,7 +3109,18 @@ html,body{background:var(--sup-pagina)!important}
       body, a barra de rolagem some e a pagina inteira anda 15px de lado.
       Isso sozinho valia 0,0995 de salto em toda rota.
    ========================================================================== */
-html{scrollbar-gutter:stable}
+/* Era `scrollbar-gutter:stable`, posto aqui para a pagina nao saltar
+   15px de lado quando um modal trava a rolagem. Resolvia aquilo e criava
+   outro: a faixa reservada fica FORA da caixa das telas fixas, entao
+   toda tela sobreposta se centrava em 1425 numa janela de 1440 — 15px
+   a esquerda do centro de verdade, em toda largura. E a gaveta do
+   carrinho, com `right:12px`, acabava a 27px da borda.
+
+   `overflow-y:scroll` resolve os dois de uma vez: a barra existe sempre,
+   entao nada salta ao travar, e a caixa das telas fixas passa a ser
+   exatamente a area visivel. Em aparelho com barra sobreposta (celular,
+   Mac) nao reserva nada, que e o certo la. */
+html{overflow-y:scroll}
 
 /* O trilho de atalhos nasce vazio e o JS o preenche: 0px viram 56px e
    tudo abaixo desce. Era o ultimo salto que sobrava, 0,0957 em toda rota
