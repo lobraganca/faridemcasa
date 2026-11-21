@@ -3785,6 +3785,66 @@ main{min-height:calc(100svh - 190px)}
    de duas linhas ainda empurrava o numero 4px para baixo. */
 .gx-kpi small{display:block;min-height:2.5em;line-height:1.25}
 @media (min-width:901px){.gx-kpi small{min-height:1.1em}}
+/* ==========================================================================
+   "OFERTAS DE HOJE" NO DESKTOP: LISTA, NAO VITRINE
+   Medi o hero em 1440: a coluna da esquerda (busca, chips, promocoes)
+   tem 432px e a da direita 706 — 274px de desequilibrio, com o cartao
+   de ofertas descendo sozinho abaixo da dobra.
+
+   A causa e a forma: cada oferta era um card de 297px de altura, com um
+   quadro de foto de 187, empilhados dois a dois num painel de 527 de
+   largura. Card de vitrine serve para uma grade larga; num painel
+   lateral estreito ele so estica a coluna.
+
+   Vale do tablet para cima, nao so no desktop: entre 601 e 900 o hero
+   empilha e o cartao fica com a largura toda — ali a grade de dois dava
+   itens de 432px de altura, pior ainda.
+
+   As quatro ofertas viram LINHAS — miniatura, nome, preco e
+   o botao de adicionar na mesma altura. Cabe a mesma informacao em menos
+   da metade do espaco, e a leitura de cima para baixo e a natural para
+   uma lista lateral. No celular continua a grade de dois por dois, que
+   la ocupa a largura toda e ja esta alinhada.
+   ========================================================================== */
+@media (min-width:601px){
+  .hc-grid{grid-template-columns:1fr!important;gap:8px!important}
+  .hc-item{
+    display:grid!important;
+    grid-template-columns:68px minmax(0,1fr) auto!important;
+    align-items:center!important;
+    gap:13px!important;padding:9px 12px 9px 9px!important;
+    border-radius:16px!important;
+  }
+  .hc-item .im{
+    aspect-ratio:1!important;width:68px;height:68px;
+    border-radius:12px!important;
+  }
+  .hc-item .im img{width:88%;height:88%}
+  /* o selo de desconto encolhe junto, senao cobre a miniatura inteira */
+  .hc-item .im>span{
+    top:3px!important;left:3px!important;
+    font-size:.6rem!important;padding:2px 5px!important;border-radius:6px!important;
+  }
+  .hc-item p{
+    min-height:0!important;margin:0!important;
+    -webkit-line-clamp:2;font-size:.88rem!important;line-height:1.3;
+  }
+  /* preco e botao lado a lado: em coluna o preco subia para a altura do
+     nome e os dois liam como coisas separadas */
+  .hc-row{
+    margin-top:0!important;flex-direction:row;align-items:center;
+    gap:11px;padding:0!important;
+  }
+  .hc-row b{font-size:1.05rem!important;white-space:nowrap}
+  /* 38px desenhados, mas a area sensivel continua em 44 — em tablet de
+     1024 isto ainda e dedo, nao mouse. */
+  .hc-row button{width:38px!important;height:38px!important;position:relative}
+  .hc-row button::after{
+    content:"";position:absolute;left:50%;top:50%;translate:-50% -50%;
+    width:44px;height:44px;border-radius:50%;
+  }
+  .incart-tag{top:6px!important;right:6px!important}
+}
 </style>
 </head>
 <body>
