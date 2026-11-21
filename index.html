@@ -3685,6 +3685,106 @@ main{min-height:calc(100svh - 190px)}
 .cb-ext-l b{font-variant-numeric:tabular-nums;font-weight:700}
 .cb-ext-l.ganho b{color:var(--ok-txt)!important}
 .cb-ext-l.uso b{color:var(--wine-txt)!important}
+/* ==========================================================================
+   PAINEL DE GESTAO: A MESMA LINGUAGEM DO RESTO
+   A estrutura ja estava certa — secoes, cartoes de vidro, grade de
+   indicadores. O que destoava era o acabamento, e isso se via de longe:
+   um aviso amarelo de 5 linhas abrindo a pagina, titulos de secao todos
+   no mesmo corpo, cartoes chapados sem profundidade e o trilho de
+   departamentos no topo de uma tela que nao e de compra.
+
+   O ajuste segue as mesmas decisoes do resto do app:
+   - a hierarquia e por subtracao, como na home: o titulo da pagina manda,
+     os titulos de secao viram rotulo em caixa alta
+   - profundidade neutra em vez de contorno duro
+   - numeros com largura fixa, para as colunas de indicador alinharem
+   - no celular, menos altura: o painel tinha 2873px
+   ========================================================================== */
+
+/* --- o aviso vira nota, nao bloco de alerta --- */
+.gx-warn{
+  padding:13px 16px!important;border-radius:14px!important;margin-bottom:16px!important;
+  background:var(--soft)!important;
+  border:1px solid var(--line)!important;
+  color:var(--t2)!important;font-size:.84rem!important;line-height:1.5!important;
+  box-shadow:none!important;
+}
+.gx-warn b{color:var(--ink)!important;font-weight:700}
+
+/* --- hierarquia: a pagina manda, as secoes sao rotulo --- */
+.gx-hd{margin-bottom:10px!important}
+.gx-hd h2{
+  font-size:.78rem!important;font-weight:700!important;
+  letter-spacing:.09em!important;text-transform:uppercase;
+  color:var(--rotulo)!important;
+}
+.gx-hd span{font-size:.8rem!important;color:var(--t3)!important}
+.gx-sec{margin-top:26px!important}
+.gx-cols{margin-top:26px!important;gap:16px!important}
+
+/* --- indicadores --- */
+.gx-kpis{grid-template-columns:repeat(3,1fr)!important;gap:11px!important}
+.gx-kpi{
+  padding:15px 17px!important;border-radius:18px!important;
+  box-shadow:var(--edge),var(--e1)!important;
+  border:1px solid var(--line)!important;
+}
+.gx-kpi small{
+  font-size:.7rem!important;letter-spacing:.08em!important;
+  color:var(--rotulo)!important;
+}
+.gx-kpi b{
+  font-size:1.55rem!important;font-variant-numeric:tabular-nums;
+  margin-top:3px;
+}
+.gx-kpi span{font-size:.75rem!important}
+
+/* --- kanban: coluna vazia nao precisa de 120px --- */
+.gx-col{
+  background:var(--sup-2)!important;
+  border:1px solid var(--line)!important;
+  min-height:0!important;padding:12px 12px 6px!important;
+}
+.gx-col .gx-vazio{
+  display:block;text-align:center;padding:10px 0 12px;
+  font-size:.78rem;color:var(--t3)!important;
+}
+.gx-ord{box-shadow:var(--e1)!important;border-color:var(--line)!important}
+
+/* --- formulario de produto --- */
+.gx-form .inp,.gx-form input,.gx-form select{
+  border-radius:13px!important;
+}
+.gx-card{box-shadow:var(--edge),var(--e2)!important}
+
+@media (max-width:900px){
+  .gx-kpis{grid-template-columns:repeat(2,1fr)!important;gap:9px!important}
+  .gx-kpi b{font-size:1.35rem!important}
+  .gx-sec{margin-top:22px!important}
+  .gx-cols{margin-top:22px!important;gap:14px!important}
+  /* as quatro colunas do kanban viram um trilho que desliza: empilhadas
+     davam quase mil pixels de coluna vazia */
+  .gx-kanban{
+    display:flex!important;gap:10px!important;
+    overflow-x:auto;scrollbar-width:none;
+    padding:2px 2px 6px;margin:0 -2px;
+  }
+  .gx-kanban::-webkit-scrollbar{display:none}
+  .gx-col{flex:0 0 72%;min-width:0}
+}
+/* --- ultimos acertos do painel --- */
+/* os dois botoes de exemplo empilhavam e comiam 180px de altura */
+@media (max-width:900px){
+  .gx-actions{gap:8px!important}
+  .gx-actions .btn{flex:1 1 0;min-width:0;padding-left:12px!important;
+                   padding-right:12px!important;font-size:.9rem!important}
+}
+/* o rotulo de duas linhas empurrava o numero para baixo e as colunas
+   de indicador deixavam de alinhar — mesmo acerto do cartao de ofertas */
+/* duas linhas de 1.25 de entrelinha = 2.5em, nao 2.1: com 2.1 o rotulo
+   de duas linhas ainda empurrava o numero 4px para baixo. */
+.gx-kpi small{display:block;min-height:2.5em;line-height:1.25}
+@media (min-width:901px){.gx-kpi small{min-height:1.1em}}
 </style>
 </head>
 <body>
@@ -3890,11 +3990,9 @@ main{min-height:calc(100svh - 190px)}
   </div>
 
   <div class="gx-warn glass" role="note">
-    <b>Painel de demonstração.</b> Este site é estático: não há banco de
-    dados nem login de verdade. O painel le somente o que esta guardado
-    <b>neste navegador</b>, não enxerga pedidos de outros aparelhos, e
-    qualquer pessoa com o endereço consegue abri-lo. Gestão real exige
-    servidor com autenticação.
+    <b>Painel de demonstração.</b> Os números vêm só <b>deste navegador</b>:
+    não há banco de dados nem login, e qualquer pessoa com o endereço abre
+    esta página. Gestão real exige servidor com autenticação.
   </div>
 
   <div class="gx-actions">
@@ -5104,7 +5202,9 @@ function route(){const h=location.hash;if(h&&!h.startsWith('#/')){return}
  if(name==='gestao')gxRender();
  if(name==='lojas')renderLojas();
  if(name==='listas')renderListas();
- $$('.idx a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===h));$$('.tabbar a').forEach(a=>a.classList.toggle('on',a.dataset.tb==='/'+name||(name==='home'&&a.dataset.tb==='/')));$('#idx').style.display=(name==='home'||name==='departamentos')?'none':'';document.body.classList.toggle('sem-trilho',name==='home'||name==='departamentos');
+ $$('.idx a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===h));$$('.tabbar a').forEach(a=>a.classList.toggle('on',a.dataset.tb==='/'+name||(name==='home'&&a.dataset.tb==='/')));/* o trilho de atalhos de departamento e para quem compra; no painel
+    de gestao ele so ocupava a primeira tela. */
+ $('#idx').style.display=(name==='home'||name==='departamentos'||name==='gestao')?'none':'';document.body.classList.toggle('sem-trilho',name==='home'||name==='departamentos'||name==='gestao');
  window.scrollTo({top:0,behavior:'instant'});
  $$('.page.on [data-r]:not(.in)').forEach(el=>io.observe(el));bindTilt();}
 addEventListener('hashchange',route);
@@ -5495,7 +5595,9 @@ function gxSeed(){
   if(!itens.length)continue;
   add.push({id:base-k*7777,date:base-dias*864e5-Math.floor(Math.random()*864e5),
    store:'Itabirito',mode:Math.random()<.6?'casa':'loja',slot:'Janela de exemplo',
-   items:itens,total:Math.round(tot*100)/100,
+   items:itens,bruto:Math.round(tot*100)/100,
+   cbUsado:0,cbGanho:Math.round(tot*CB_TAXA*100)/100,
+   total:Math.round(tot*100)/100,
    status:GX_ST[Math.floor(Math.random()*GX_ST.length)][0],
    cliente:nomes[Math.floor(Math.random()*nomes.length)],demo:true})}
  orders=add.concat(orders); saveOrders(); gxRender();
@@ -5517,7 +5619,11 @@ function gxRender(){
   ['Faturamento',brl(fat),os.length+' pedidos no histórico'],
   ['Ticket médio',brl(ticket),'por pedido'],
   ['Itens por pedido',(porPedido||0).toFixed(1).replace('.',','),'média'],
-  ['Produtos no catálogo',String(P.length),gxProdutosExtra().length+' cadastrados aqui']
+  ['Produtos no catálogo',String(P.length),gxProdutosExtra().length+' cadastrados aqui'],
+  ['Cashback concedido',brl(os.reduce(function(a,o){return a+(+o.cbGanho||0)},0)),
+   'devolvido aos clientes'],
+  ['Cashback usado',brl(os.reduce(function(a,o){return a+(+o.cbUsado||0)},0)),
+   'abatido em pedidos']
  ].map(function(k){return '<div class="gx-kpi glass"><small>'+esc(k[0])+
    '</small><b>'+esc(k[1])+'</b><span>'+esc(k[2])+'</span></div>'}).join('');
 
