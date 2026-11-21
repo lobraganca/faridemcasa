@@ -3634,6 +3634,57 @@ main{min-height:calc(100svh - 190px)}
 @media (prefers-reduced-motion:reduce){
   .idade-m,.idade-box{transition:none}
 }
+/* ---- cashback ---- */
+.cb-usar{
+  display:flex;align-items:center;gap:11px;cursor:pointer;
+  margin:12px 0 4px;padding:12px 14px;border-radius:16px;
+  background:var(--tinta-vinho)!important;
+}
+.cb-usar input{width:20px;height:20px;accent-color:var(--wine);flex-shrink:0}
+.cb-usar span{display:flex;flex-direction:column;gap:2px;min-width:0}
+.cb-usar b{font-size:.94rem;font-weight:700;color:var(--wine-txt)!important}
+.cb-usar i{font-style:normal;font-size:.8rem;color:var(--t2)!important}
+.cb-nota{
+  margin:12px 0 4px;padding:11px 14px;border-radius:14px;
+  background:var(--tinta-vinho)!important;
+  font-size:.86rem;line-height:1.45;color:var(--t2)!important;
+}
+.cb-nota b{color:var(--wine-txt)!important}
+.cb-linha span:last-child{color:var(--wine-txt)!important;font-weight:700}
+/* texto corrido, nao flex: em flex cada pedaco virava uma coluna e a
+   frase quebrava em tres linhas desalinhadas */
+.cb-volta{
+  display:block;margin:10px 0 2px;line-height:1.5;
+  font-size:.84rem;color:var(--t2)!important;
+}
+.cb-volta .ico-in{margin-right:5px}
+.cb-volta b{color:var(--ok-txt)!important;font-weight:800}
+.cb-volta .ico-in{color:var(--ok-txt)!important}
+
+/* ---- saldo na conta ---- */
+.cb-card{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:20px 22px;border-radius:var(--sobre-raio);margin-bottom:20px;
+}
+.cb-val{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.cb-val small{
+  font-size:.74rem;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rotulo)!important;
+}
+.cb-val b{
+  font-size:2rem;font-weight:800;letter-spacing:-.03em;
+  color:var(--ink)!important;font-variant-numeric:tabular-nums;line-height:1.05;
+}
+.cb-val i{font-style:normal;font-size:.84rem;color:var(--t2)!important}
+.cb-ext{display:flex;flex-direction:column;gap:2px;margin-top:4px}
+.cb-ext-l{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:11px 2px;border-top:1px solid var(--line);font-size:.88rem;
+}
+.cb-ext-l span{color:var(--t2)!important}
+.cb-ext-l b{font-variant-numeric:tabular-nums;font-weight:700}
+.cb-ext-l.ganho b{color:var(--ok-txt)!important}
+.cb-ext-l.uso b{color:var(--wine-txt)!important}
 </style>
 </head>
 <body>
@@ -3973,6 +4024,7 @@ main{min-height:calc(100svh - 190px)}
 <div class="page gpage" id="p-conta"><div class="wrap">
   <div class="ghero"><h1>Meus pedidos</h1>
     <p>Acompanhe cada pedido e repita o que você já comprou.</p></div>
+  <div class="cb-card glass" id="cbCard" hidden></div>
   <div id="ordersBox"></div>
   <h2 class="ord-title" id="ordTitle" hidden>Comprar de novo</h2>
   <div id="againBox"></div>
@@ -4637,7 +4689,9 @@ function renderCart(){saveCart();const ids=Object.keys(cart).map(Number),qty=ids
  const pct=Math.min(100,tot/FREE*100);const slotBox=ids.length?(slot?`<div class="cart-slot"><span>${slot.m==='casa'?'<svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-truck"/></svg> Entrega':'<svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-store"/></svg> Retirada'}<b>${slotText()}</b></span><button onclick="openSlots()">Alterar</button></div>`:`<div class="cart-slot need"><span><svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-clock"/></svg> Horário<b>Escolha quando receber</b></span><button onclick="openSlots()">Escolher</button></div>`):'';
  $('#sum').innerHTML=slotBox+`<div class="ship"><i style="width:${pct}%"></i></div><div class="ship-t">${tot>=FREE?'<svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-spark"/></svg> Entrega grátis liberada!':`Faltam <b>${brl(FREE-tot)}</b> para o pedido mínimo de ${brl(FREE)}`}</div>
   ${eco>0?`<div class="line" style="color:#fff"><span>Você economiza</span><span>${brl(eco)}</span></div>`:''}
-  <div class="line"><span>Subtotal (${qty} ${qty===1?'item':'itens'})</span><span>${brl(tot)}</span></div><div class="line t"><span>Total</span><span>${brl(tot)}</span></div>
+  <div class="line"><span>Subtotal (${qty} ${qty===1?'item':'itens'})</span><span>${brl(tot)}</span></div>${ids.length?cbLinhasCarrinho(tot):''}
+  <div class="line t"><span>Total</span><span>${brl(tot-cbAplicado(tot))}</span></div>
+  ${ids.length?`<div class="cb-volta"><svg class="ico ico-in" style="width:16px;height:16px" aria-hidden="true"><use href="#i-spark"/></svg> Você ganha <b>${brl(cbGanho(tot-cbAplicado(tot)))}</b> de cashback nesta compra</div>`:''}
   ${ids.length?sugestoesHTML():''}${ids.length?substHTML():''}${ids.length?`<label class="wa-opt"><input type="checkbox" ${waAviso()?'checked':''} onchange="setWaAviso(this.checked)"><span>Quero acompanhar este pedido pelo WhatsApp</span></label>`:''}<button class="checkout" onclick="checkout()">Finalizar pedido</button>${ids.length?`<button class="salvar-lista" onclick="salvarCarrinhoComoLista()">☆ Salvar como lista</button>`:''}`}
 function openCart(){document.body.classList.add('cart-open')}
 function closeCart(){document.body.classList.remove('cart-open')}
@@ -4746,7 +4800,15 @@ function checkout(){if(!user){closeCart();afterAuth=()=>openCart();openAuth('Ent
  const tot=Object.keys(cart).reduce((a,i)=>a+cart[i]*P[i].p,0);
  if(tot<MIN){toast(`O pedido mínimo é de <b>${brl(MIN)}</b>`);return}
  if(!slot){openSlots('Escolha o horário antes de finalizar.');return}
- orders.unshift({id:Date.now(),date:Date.now(),store:c.n,mode:slot.m,slot:slotText(),status:'novo',subst:substAtual(),wa:waAviso(),cliente:(user&&(user.nome||user.name||user.email))||'Cliente',items:Object.entries(cart).map(([i,q])=>[+i,q]),total:Math.round(tot*100)/100});saveOrders();
+ const cbUso=cbAplicado(tot);
+ const pago=Math.round((tot-cbUso)*100)/100;
+ const cbNovo=cbGanho(pago);
+ const idPedido=Date.now();
+ orders.unshift({id:idPedido,date:idPedido,store:c.n,mode:slot.m,slot:slotText(),status:'novo',subst:substAtual(),wa:waAviso(),cliente:(user&&(user.nome||user.name||user.email))||'Cliente',items:Object.entries(cart).map(([i,q])=>[+i,q]),bruto:Math.round(tot*100)/100,cbUsado:cbUso,cbGanho:cbNovo,total:pago});saveOrders();
+ /* debita o que foi usado e credita sobre o que foi PAGO */
+ if(cbUso>0)cbLancar('uso',cbUso,idPedido);
+ cbLancar('ganho',cbNovo,idPedido);
+ setCbUsar(false);
  Object.keys(cart).forEach(i=>{delete cart[i];refreshCards(+i)});renderCart();closeCart();renderAgain();
  toast(`Pedido confirmado na loja <b>${esc(c.n)}</b> · ${slotText()} (demonstração)`);location.hash='#/conta'}
 renderUser();
@@ -5005,7 +5067,7 @@ function renderAgain(){const sec=$('#againSec');const cnt={};orders.forEach(o=>o
     t('home.addtudo','Adicionar tudo ao carrinho')+'</button>';
   }
  }}
-function renderOrders(){const box=$('#ordersBox');
+function renderOrders(){const box=$('#ordersBox');try{renderCashback()}catch(e){}
  if(!user){$('#againBox').innerHTML='';$('#ordTitle').hidden=true;box.innerHTML='<div class="glass empty-box"><b>Entre na sua conta</b><p>Para ver suas compras anteriores e repetir pedidos com um toque.</p><button class="btn btn-w" onclick="afterAuth=()=>renderOrders();openAuth(\'Entre para ver seus pedidos.\')">Entrar ou cadastrar</button></div>';return}
  $('#againBox').innerHTML='';$('#ordTitle').hidden=true;
  if(!orders.length){box.innerHTML='<div class="glass empty-box"><b>Você ainda não tem pedidos</b><p>Quando você finalizar uma compra, os produtos aparecem aqui para você comprar de novo com um toque.</p><a class="btn btn-w" href="#/departamentos/todos">Começar a comprar</a></div>';return}
@@ -5676,6 +5738,90 @@ function renderIdade(){
    (x[0]===at?' aria-current="true"':'')+' data-i18n="'+x[1]+'">'+x[2]+'</button>'
  }).join('');
  try{aplicarIdioma()}catch(e){}
+}
+
+/* ==========================================================================
+   CASHBACK
+   Parte do que a pessoa paga volta como saldo para a proxima compra.
+
+   As regras ficam todas aqui em cima, em vez de espalhadas pelo codigo,
+   porque sao decisao de negocio e vao mudar: a taxa, o minimo para
+   comecar a usar e o teto por pedido. O teto existe para o saldo nao
+   zerar um pedido inteiro — sem ele, uma compra grande seguida de uma
+   pequena sai de graca e o cashback vira desconto, nao fidelidade.
+
+   O credito e sobre o valor REALMENTE PAGO, nao sobre o bruto: senao o
+   saldo usado geraria saldo novo e o programa se pagaria sozinho.
+   ========================================================================== */
+var CB_TAXA=0.02;     /* 2% de volta */
+var CB_MIN_USO=5;     /* so da para usar a partir de R$ 5 acumulados */
+var CB_MAX_PCT=0.5;   /* e no maximo metade de cada pedido */
+
+/* Le e grava direto no armazenamento, sem passar pelo LS: `renderCart()`
+   roda no carregamento ANTES de `const LS` ser inicializada, e tocar nela
+   ali derruba o arquivo inteiro. Ja me pegou tres vezes neste arquivo —
+   a regra passa a ser: o que roda no carregamento nao depende de const
+   declarada mais abaixo. */
+function _guard(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function _grav(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function cbLer(){
+ try{var o=JSON.parse(_guard('farid_cashback')||'{}');
+  return {saldo:Math.max(0,+o.saldo||0),
+          extrato:Array.isArray(o.extrato)?o.extrato:[]}}
+ catch(e){return {saldo:0,extrato:[]}}}
+function cbGravar(o){
+ _grav('farid_cashback',JSON.stringify({
+  saldo:Math.round(o.saldo*100)/100, extrato:o.extrato.slice(0,40)}))}
+function cbSaldo(){return cbLer().saldo}
+function cbUsarAtivo(){return _guard('farid_cb_usar')==='1'}
+function setCbUsar(v){_grav('farid_cb_usar',v?'1':'0');renderCart()}
+/* quanto do saldo cabe neste pedido */
+function cbDisponivel(tot){
+ var s=cbSaldo();
+ if(s<CB_MIN_USO||tot<=0)return 0;
+ return Math.min(s, Math.floor(tot*CB_MAX_PCT*100)/100)}
+function cbAplicado(tot){return cbUsarAtivo()?cbDisponivel(tot):0}
+function cbGanho(pago){return Math.round(pago*CB_TAXA*100)/100}
+function cbLancar(tipo,valor,pedido){
+ if(!(valor>0))return;
+ var o=cbLer();
+ o.saldo = tipo==='ganho' ? o.saldo+valor : Math.max(0,o.saldo-valor);
+ o.extrato.unshift({t:tipo,v:valor,d:Date.now(),p:pedido||null});
+ cbGravar(o)}
+
+function cbLinhasCarrinho(tot){
+ var disp=cbDisponivel(tot), usa=cbAplicado(tot), saldo=cbSaldo();
+ var out='';
+ if(saldo>0){
+  if(disp>0){
+   out+='<label class="cb-usar"><input type="checkbox" '+(cbUsarAtivo()?'checked':'')+
+    ' onchange="setCbUsar(this.checked)"><span><b>Usar '+brl(disp)+' de cashback</b>'+
+    '<i>Você tem '+brl(saldo)+' acumulados</i></span></label>';
+  }else{
+   out+='<div class="cb-nota">Você tem <b>'+brl(saldo)+'</b> de cashback. '+
+    'A partir de '+brl(CB_MIN_USO)+' dá para usar na compra.</div>';
+  }
+ }
+ if(usa>0) out+='<div class="line cb-linha"><span>Cashback usado</span><span>−'+brl(usa)+'</span></div>';
+ return out}
+
+/* ---- saldo e extrato na pagina da conta ---- */
+function renderCashback(){
+ var box=document.getElementById('cbCard'); if(!box)return;
+ var o=cbLer();
+ if(!user){box.hidden=true;return}
+ box.hidden=false;
+ var ext=o.extrato.slice(0,6).map(function(x){
+  var sinal = x.t==='ganho' ? '+' : '−';
+  return '<div class="cb-ext-l '+x.t+'"><span>'+
+   (x.t==='ganho'?'Ganho na compra':'Usado na compra')+' · '+dataCurta(x.d)+
+   '</span><b>'+sinal+brl(x.v)+'</b></div>'}).join('');
+ box.innerHTML=
+  '<div class="cb-val"><small>Seu cashback</small><b>'+brl(o.saldo)+'</b>'+
+  '<i>'+(o.saldo>=CB_MIN_USO
+     ? 'Dá para usar já na próxima compra, até metade do pedido.'
+     : 'A partir de '+brl(CB_MIN_USO)+' você pode usar na compra.')+'</i></div>'+
+  (ext?'<div class="cb-ext" style="flex-basis:100%">'+ext+'</div>':'');
 }
 
 /* ---- seletor de idioma no menu lateral ---- */
