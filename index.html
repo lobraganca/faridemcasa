@@ -4338,9 +4338,16 @@ main{min-height:calc(100svh - 190px)}
 <p id="avisos" class="sr-only" role="status" aria-live="polite"></p>
 
 <script>
-/* sempre abre no Início */
+/* LINKS DIRETOS
+   Antes esta linha apagava o endereço no carregamento e TODA visita caía
+   no Início: `.../#/gestao` abria a home, `.../#/ofertas` também. Isso
+   quer dizer que nenhuma página interna tinha link — não dava para
+   mandar o painel de gestão para alguém, nem compartilhar um
+   departamento, nem voltar para onde se estava depois de recarregar.
+
+   Agora o endereço é respeitado. O que não for rota conhecida cai no
+   Início, que é o comportamento antigo para endereço inválido. */
 if('scrollRestoration' in history)history.scrollRestoration='manual';
-if(location.hash&&location.hash!=='#/')history.replaceState(null,'',location.pathname+location.search+'#/');
 window.scrollTo(0,0);
 (()=>{const sp=document.getElementById('splash');let seen=false;try{seen=sessionStorage.getItem('farid_splash')}catch(e){}
  if(seen){sp.remove();return}try{sessionStorage.setItem('farid_splash','1')}catch(e){}
@@ -5239,7 +5246,16 @@ function renderOrders(){const box=$('#ordersBox');try{renderCashback()}catch(e){
 function repeatOrder(k){const o=orders[k];if(!o)return;o.items.forEach(([id,q])=>{if(P[id]){cart[id]=(cart[id]||0)+q;refreshCards(id)}});renderCart();toast('Itens do pedido adicionados ao carrinho');openCart()}
 
 /* ============ ROUTER ============ */
-function route(){const h=location.hash;if(h&&!h.startsWith('#/')){return}
+function route(){const h=location.hash;
+ if(h&&!h.startsWith('#/')){
+  /* ancora dentro da pagina, como #ofertas-home: nao troca de pagina.
+     Mas numa PRIMEIRA carga com ancora nenhuma pagina estaria aberta e
+     a tela ficava em branco — antes isso passava despercebido porque o
+     endereco era apagado no carregamento. */
+  if(!document.querySelector('.page.on')){
+   var _hm=document.getElementById('p-home'); if(_hm)_hm.classList.add('on');
+  }
+  return}
  /* no celular, voltar e o gesto natural de fechar. Antes a tela de
     produto continuava aberta e o body ficava travado: a pagina parava
     de rolar e so um toque no X resolvia. Navegar sempre dispensa o que
