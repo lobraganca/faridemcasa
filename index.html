@@ -3628,7 +3628,8 @@ main{min-height:calc(100svh - 190px)}
 .idade-nao:hover{background:var(--sup-2)!important}
 .idade-box small{
   display:block;margin-top:16px;font-size:.8rem;line-height:1.45;
-  color:var(--t3)!important;
+  /* --t3 sobre branco dava 3,26 de contraste; --rotulo passa */
+  color:var(--rotulo)!important;
 }
 .mob-idade{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
 @media (prefers-reduced-motion:reduce){
@@ -3897,6 +3898,24 @@ main{min-height:calc(100svh - 190px)}
   height:auto!important;
 }
 .hc-item .im .incart-tag{bottom:6px!important;left:6px!important}
+/* ==========================================================================
+   O SELO DE QUANTIDADE FICA AZUL
+   Ele era vinho, igual ao selo de desconto — dois balões da mesma cor na
+   mesma foto, dizendo coisas diferentes. Azul separa na hora: vinho é
+   preço, azul é "já está no seu carrinho".
+
+   O azul nao e novo: e o mesmo #00549C do contador do carrinho na barra
+   do topo. Assim o balao no card e o numero no carrinho sao visivelmente
+   a mesma informacao, em dois lugares.
+
+   Branco sobre esse azul da 7,7:1 de contraste — passa folgado.
+   ========================================================================== */
+.incart-tag{
+  background:#00549C!important;
+  background-image:linear-gradient(165deg,#0a67b8,#00549C)!important;
+  box-shadow:0 2px 8px rgba(0,84,156,.38),
+             inset 0 1px 0 rgba(255,255,255,.28)!important;
+}
 </style>
 </head>
 <body>
