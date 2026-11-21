@@ -3170,8 +3170,12 @@ main{min-height:calc(100svh - 190px)}
 .aisle img{z-index:1}
 /* ...mas o coracao e o selo de desconto moram DENTRO do quadro e vem
    antes da foto no HTML. Com z-index igual, a foto passava por cima e
-   o coracao parava de receber o toque. Eles sobem para 2. */
-.pimg .fav,.pimg .off,.hc-item .im .off{z-index:2}
+   o coracao parava de receber o toque. Eles sobem para 2.
+
+   O selo do cartao "Ofertas de hoje" e um <span> sem classe, e por isso
+   escapou da primeira correcao: ficava METADE ESCONDIDO atras da foto —
+   "-33%" aparecia como "-3" em todas as ofertas da home. */
+.pimg .fav,.pimg .off,.hc-item .im .off,.hc-item .im>span{z-index:2}
 .aisle>:not(img){position:relative;z-index:2}
 @media (prefers-reduced-motion:reduce){
   .pimg:not(.pronta)::before,.hc-item .im:not(.pronta)::before,
@@ -3557,6 +3561,32 @@ main{min-height:calc(100svh - 190px)}
   #cartBtn{padding:0 9px 0 7px!important;gap:4px!important}
   .cart-btn .ct,.bar .cart-btn .ct{font-size:.76rem}
   .bar .burger{margin-left:2px!important}
+}
+/* ==========================================================================
+   O CARTAO "OFERTAS DE HOJE" NO CELULAR
+   Duas coisas o deixavam estranho.
+
+   A primeira era defeito meu: o selo de desconto e um <span> sem classe
+   e ficava METADE ATRAS da foto — "-33%" aparecia como "-3" em todas as
+   ofertas da home. Corrigido junto com os outros selos.
+
+   A segunda e de alinhamento. O nome do produto ocupa uma ou duas linhas
+   conforme o tamanho, e como nada reservava espaco para a segunda, o
+   preco e o botao de cada cartao paravam em alturas diferentes — numa
+   grade de dois por dois isso le como desalinho, nao como variacao. O
+   nome passa a ocupar sempre duas linhas, entao todos os precos e todos
+   os botoes ficam na mesma altura.
+   ========================================================================== */
+.hc-item p{
+  -webkit-line-clamp:2;
+  min-height:2.5em;          /* duas linhas, tenha o nome uma ou duas */
+  margin:0;
+}
+.hc-item{gap:6px}
+.hc-row{margin-top:auto}     /* preco e botao colam no pe do cartao */
+@media (max-width:900px){
+  .hc-item .im{aspect-ratio:1.15}
+  .hc-item p{font-size:.84rem}
 }
 </style>
 </head>
