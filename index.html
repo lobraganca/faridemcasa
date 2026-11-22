@@ -3943,7 +3943,21 @@ body.na-gestao .tabbar,
 body.na-gestao .wa,
 body.na-gestao .totop,
 body.na-gestao .foot,
-body.na-gestao .idx{display:none!important}
+body.na-gestao .idx,
+/* as telas de quem compra tambem nao pertencem a gestao: carrinho, busca,
+   menu, escolha de loja, horario, conta, ficha de produto e a pergunta da
+   idade. Ficavam fora da tela, mas existiam — e uma delas aparecer aqui
+   seria estranho. (.adm-modal, que e a ficha do produto NA gestao, fica.) */
+body.na-gestao .drawer,
+body.na-gestao .scrim,
+body.na-gestao .mob,
+body.na-gestao .spot,
+body.na-gestao .prod-m,
+body.na-gestao .stores-m,
+body.na-gestao .auth-m,
+body.na-gestao .slot-m,
+body.na-gestao .idade-m,
+body.na-gestao .acct-menu{display:none!important}
 body.na-gestao{padding-bottom:0!important}
 body.na-gestao main{min-height:100svh}
 /* a pagina de gestao herdava 104px de folga do topo, que existiam para
@@ -4081,6 +4095,134 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
 .adm-prazo-bt{display:flex;gap:9px;flex-wrap:wrap}
 .adm-prazo-bt .btn{height:42px;padding:0 15px;font-size:.88rem}
 
+
+/* ---- grupos e contadores no menu lateral ---- */
+.adm-gr{font-size:.68rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--t3)!important;padding:14px 12px 5px}
+.adm-gr:first-child{padding-top:0}
+.adm-menu button{position:relative}
+.adm-bad{font-style:normal;font-size:.7rem;font-weight:800;line-height:1;
+  min-width:19px;height:19px;padding:0 5px;border-radius:99px;margin-left:auto;
+  display:grid;place-items:center;background:var(--wine);color:#fff!important}
+.adm-bad[hidden]{display:none}
+
+/* ---- visao geral: o que precisa de atencao, e o atalho ---- */
+.adm-alertas{display:flex;flex-direction:column;gap:9px}
+.adm-al{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:13px;
+  background:rgba(var(--shc),.035);border:1px solid var(--line)}
+.adm-al span{flex:1;min-width:0;font-size:.86rem;color:var(--t2)!important}
+.adm-al b{color:var(--ink)!important;font-weight:650}
+.adm-al button{flex-shrink:0;height:34px;padding:0 13px;border-radius:10px;
+  font-size:.82rem;font-weight:700;color:var(--wine-txt)!important;
+  background:var(--soft)!important;border:1px solid var(--line)}
+.adm-al button:hover{background:var(--wine)!important;color:#fff!important;border-color:transparent}
+.adm-al.quente{background:rgba(162,29,74,.07);border-color:rgba(162,29,74,.22)}
+.adm-atalhos{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.adm-at{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:13px;
+  text-align:left;background:rgba(var(--shc),.035)!important;border:1px solid var(--line)!important;
+  transition:.18s var(--sobre-curva)}
+.adm-at:hover{border-color:var(--wine)!important;box-shadow:var(--e1)}
+.adm-at .ico{width:20px;height:20px;flex-shrink:0;color:var(--wine-txt)!important}
+.adm-at span{display:flex;flex-direction:column;min-width:0}
+.adm-at b{font-size:.86rem;color:var(--ink)!important}
+.adm-at i{font-style:normal;font-size:.74rem;color:var(--t3)!important}
+
+/* ---- tabelas ---- */
+.adm-tabw{overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.adm-tab{margin-top:0;font-size:.84rem;min-width:560px}
+.adm-tab th,.adm-tab td{padding:9px 10px;vertical-align:middle}
+.adm-tab .num,.adm-tab th.num{text-align:right;font-variant-numeric:tabular-nums}
+.adm-tab tbody tr:hover{background:rgba(var(--shc),.03)}
+.adm-tab-p{min-width:720px}
+.adm-td-p{display:flex;align-items:center;gap:10px;min-width:0}
+.adm-td-p>span:last-child{display:flex;flex-direction:column;min-width:0}
+.adm-td-p b{font-size:.86rem;color:var(--ink)!important;font-weight:650}
+.adm-td-p small{font-size:.74rem;color:var(--t3)!important}
+.adm-td-p em{font-style:normal;color:var(--wine-txt)!important;font-weight:700}
+.adm-mini{width:34px;height:34px;border-radius:9px;background:#fff;flex-shrink:0;
+  display:grid;place-items:center;overflow:hidden;border:1px solid var(--line)}
+.adm-mini img{width:100%;height:100%;object-fit:contain;padding:2px}
+.adm-tr-off{opacity:.55}
+.adm-so-m{display:none}
+.adm-etq{display:inline-block;font-size:.72rem;font-weight:700;line-height:1;
+  padding:5px 9px;border-radius:99px;white-space:nowrap;
+  background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c)!important;
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 32%,transparent)}
+.btn-s{height:34px!important;padding:0 13px!important;font-size:.82rem!important}
+
+/* ---- periodo do dashboard ---- */
+.adm-periodo{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:18px}
+.adm-per{height:38px;padding:0 15px;border-radius:99px;font-size:.86rem;font-weight:650;
+  color:var(--t2)!important;background:var(--sup-1)!important;border:1px solid var(--line)!important}
+.adm-per:hover{border-color:var(--wine)!important;color:var(--ink)!important}
+.adm-per.on{background:var(--wine)!important;color:#fff!important;border-color:transparent!important}
+.adm-per-n{margin-left:auto;font-size:.8rem;color:var(--t3)!important}
+.gx-chart-l{height:188px;gap:3px;padding-bottom:26px}
+.gx-chart-l .gx-bval{font-size:.64rem;font-weight:700;transform:rotate(-90deg);
+  transform-origin:center;height:34px;display:grid;place-items:center;white-space:nowrap}
+.gx-chart-l .gx-blab{font-size:.62rem;transform:rotate(-45deg);transform-origin:top center;
+  white-space:nowrap;height:26px}
+
+/* ---- filtros do catalogo ---- */
+.adm-filtros{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);
+  gap:9px;margin-bottom:14px}
+.adm-filtros-2{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+.adm-filtros .adm-busca{margin-bottom:0}
+.adm-filtros .inp{height:52px}
+.adm-form-pe{display:flex;gap:9px;flex-wrap:wrap}
+.adm-form-pe .btn{flex:0 0 auto;height:50px;padding:0 20px}
+
+/* ---- ficha do produto, sobreposta ---- */
+.adm-modal{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:20px}
+.adm-modal[hidden]{display:none}
+.adm-modal-fundo{position:absolute;inset:0;background:rgba(10,8,12,.5);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.adm-modal-box{position:relative;width:min(620px,100%);max-height:86svh;overflow-y:auto;
+  border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:16px;
+  animation:adm-entra .24s var(--sobre-curva)}
+.adm-modal-hd{display:flex;align-items:flex-start;gap:12px}
+.adm-modal-hd div{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.adm-modal-hd b{font-size:1.1rem;letter-spacing:-.02em;color:var(--ink)!important;line-height:1.25}
+.adm-modal-hd small{font-size:.76rem;color:var(--t3)!important}
+.adm-x{width:36px;height:36px;border-radius:10px;flex-shrink:0;font-size:.95rem;
+  color:var(--t3)!important;background:var(--soft)!important}
+.adm-x:hover{background:rgba(var(--shc),.16)!important;color:var(--ink)!important}
+.adm-modal-pe{display:flex;gap:9px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px}
+.adm-modal-pe .btn{height:46px;padding:0 18px;font-size:.9rem}
+.adm-perigo{color:#a3131f!important}
+.adm-perigo:hover{background:rgba(163,19,31,.1)!important}
+
+/* ---- configuracoes ---- */
+.adm-cfg{display:block}
+.adm-cfg-pe{display:flex;gap:9px;flex-wrap:wrap;margin:-6px 0 24px}
+.adm-cfg-pe .btn{height:50px;padding:0 22px}
+.adm-chk{flex-direction:row!important;align-items:flex-start;gap:10px!important;cursor:pointer}
+.adm-chk input{width:20px;height:20px;flex-shrink:0;margin-top:2px;accent-color:#881344}
+.adm-chk span{display:flex;flex-direction:column;gap:2px;min-width:0}
+.adm-chk b{font-size:.9rem;color:var(--ink)!important;font-weight:650}
+.adm-chk i{font-style:normal;font-size:.78rem;font-weight:400;color:var(--t3)!important;line-height:1.45}
+.adm-dica{margin:0;font-size:.79rem;line-height:1.5;color:var(--t3)!important}
+.adm-sub-h{display:flex;align-items:center;gap:12px;margin:4px 0 10px}
+.adm-sub-h b{flex:1;font-size:.86rem;color:var(--ink)!important}
+.adm-slots{display:flex;flex-direction:column;gap:8px;margin-bottom:9px}
+.adm-slot{display:flex;align-items:center;gap:9px}
+.adm-slot .inp{width:auto;flex:1;min-width:0;max-width:160px}
+.adm-slot span{font-size:.84rem;color:var(--t3)!important}
+.adm-lojas{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.adm-loja{display:flex;flex-direction:column;gap:12px}
+.adm-loja.off{opacity:.6}
+.adm-loja-hd{display:flex;align-items:center;gap:12px}
+.adm-loja-hd b{flex:1;font-size:.95rem;color:var(--ink)!important}
+.adm-sw{display:flex;align-items:center;gap:7px;font-size:.78rem;
+  color:var(--t2)!important;cursor:pointer;flex-shrink:0}
+.adm-sw input{width:18px;height:18px;accent-color:#1baf7a}
+.adm-dados-bt{display:flex;gap:9px;flex-wrap:wrap;margin:14px 0 4px}
+.adm-dados-bt .btn{height:44px;padding:0 16px;font-size:.86rem}
+.adm-file{display:inline-grid;place-items:center;cursor:pointer;position:relative;overflow:hidden}
+.adm-file input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.adm-json{width:100%;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.72rem;line-height:1.45;margin-top:8px;resize:vertical}
+
 @media (max-width:900px){
   .adm{grid-template-columns:1fr}
   .adm-lado{
@@ -4102,6 +4244,44 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
   .adm-2{grid-template-columns:1fr}
   .adm-sel,.adm-lista{grid-template-columns:1fr}
   .adm-lista{max-height:360px}
+  .adm-atalhos,.adm-lojas{grid-template-columns:1fr}
+  .adm-filtros,.adm-filtros-2{grid-template-columns:1fr}
+  .adm-periodo .adm-per-n{margin-left:0;flex-basis:100%}
+  .adm-gr{display:none}
+  .adm-modal{padding:0;place-items:end stretch}
+  .adm-modal-box{width:100%;max-height:92svh;border-radius:22px 22px 0 0;
+    padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
+  .adm-modal-pe .btn{flex:1 1 auto}
+  .adm-slot .inp{max-width:none}
+  .gx-chart-l{height:168px}
+  /* ---- as tabelas viram fichas na tela estreita ----
+     Uma tabela de sete colunas em 390px so rola para o lado, e o preco,
+     que e a coluna que importa, fica fora da tela. Entao cada linha
+     vira um bloco de tres andares: nome, departamento e preco, situacao
+     e o botao. "Antes" e desconto saem das colunas e entram embaixo do
+     preco, para nao se perderem. */
+  .adm-so-m{display:block;font-size:.72rem;color:var(--t3)!important;font-weight:400}
+  .adm-so-m s{color:var(--t3)!important}
+  .adm-tabw{overflow-x:visible}
+  .adm-tab-p{min-width:0;display:block;border-collapse:separate}
+  .adm-tab-p thead{display:none}
+  .adm-tab-p tbody{display:block}
+  .adm-tab-p tr{display:grid;grid-template-columns:minmax(0,1fr) auto;
+    grid-template-areas:"nome nome" "dep preco" "sit acao";
+    gap:6px 10px;align-items:center;padding:11px 12px;margin-bottom:9px;
+    border:1px solid var(--line);border-radius:14px;background:rgba(var(--shc),.02)}
+  .adm-tab-p td{display:block;border:0!important;padding:0}
+  .adm-tab-p td:nth-child(1){grid-area:nome}
+  .adm-tab-p td.adm-td-p{display:flex}
+  .adm-tab-p td:nth-child(2){grid-area:dep;font-size:.76rem;color:var(--t3)!important}
+  .adm-tab-p td:nth-child(3),.adm-tab-p td:nth-child(5){display:none}
+  .adm-tab-p td:nth-child(4){grid-area:preco;text-align:right;font-size:1rem}
+  .adm-tab-p td:nth-child(6){grid-area:sit}
+  .adm-tab-p td:nth-child(7){grid-area:acao;text-align:right}
+  /* ultimos pedidos: sem "quando" e "itens", que cabem na secao Pedidos */
+  .adm-tab{min-width:0}
+  .adm-tab:not(.adm-tab-p) th:nth-child(3),.adm-tab:not(.adm-tab-p) td:nth-child(3),
+  .adm-tab:not(.adm-tab-p) th:nth-child(4),.adm-tab:not(.adm-tab-p) td:nth-child(4){display:none}
 }
 </style>
 </head>
@@ -4135,6 +4315,7 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
 <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.3L19 10l-5.1 1.7L12 17l-1.9-5.3L5 10l5.1-1.7z"/><path d="M18.5 16.5l.7 1.9 1.9.6-1.9.7-.7 1.8-.7-1.8-1.8-.7 1.8-.6z"/></symbol>
 <symbol id="i-basket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h16l-1.6 10.2a2 2 0 0 1-2 1.8H7.6a2 2 0 0 1-2-1.8z"/><path d="M8.5 9l2.5-6M15.5 9L13 3M9.5 13.5v3M14.5 13.5v3"/></symbol>
 <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5.5 9.5V20a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V9.5"/><path d="M9.5 21v-6h5v6"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V11M11 21V5M16 21v-7M21 21v-4"/></symbol>
 <symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13.5 2L4 14h6l-1.5 8L20 10h-6.5z"/></symbol>
 <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3"><path d="M6 6l12 12M18 6L6 18"/></symbol>
 </svg>
@@ -4254,7 +4435,7 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
       <span class="fx-trilha"></span>
     </div>
     <div class="fx-txt">
-      <h3><b>Entrega grátis</b> a partir de <em>R$&nbsp;50</em></h3>
+      <h3><b>Entrega grátis</b> a partir de <em id="freteVal">R$&nbsp;50</em></h3>
       <p>Agende o melhor horário ou retire na loja.</p>
     </div>
     <div class="fx-chips"><button onclick="openSlots()"><svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-cal"/></svg> Agendar</button><button onclick="setMode('loja');openSlots()"><svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-store"/></svg> Retirar</button><button onclick="openStores()"><svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-pin"/></svg> 6 lojas</button></div>
@@ -4332,14 +4513,23 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
   <aside class="adm-lado">
     <div class="adm-marca"><img src="" data-logo alt="Farid" height="24"><b>Gestão</b></div>
     <nav class="adm-menu" aria-label="Seções da gestão">
+      <span class="adm-gr">Acompanhar</span>
       <button type="button" class="on" data-adm="painel" onclick="admIr('painel')">
-        <svg class="ico" aria-hidden="true"><use href="#i-bolt"/></svg>Painel</button>
+        <svg class="ico" aria-hidden="true"><use href="#i-bolt"/></svg>Visão geral</button>
+      <button type="button" data-adm="dashboard" onclick="admIr('dashboard')">
+        <svg class="ico" aria-hidden="true"><use href="#i-chart"/></svg>Dashboard</button>
+      <button type="button" data-adm="pedidos" onclick="admIr('pedidos')">
+        <svg class="ico" aria-hidden="true"><use href="#i-truck"/></svg>Pedidos<i class="adm-bad" id="admBadPed"></i></button>
+      <span class="adm-gr">Vender</span>
       <button type="button" data-adm="produtos" onclick="admIr('produtos')">
-        <svg class="ico" aria-hidden="true"><use href="#i-box"/></svg>Produtos</button>
+        <svg class="ico" aria-hidden="true"><use href="#i-box"/></svg>Produtos<i class="adm-bad" id="admBadProd"></i></button>
       <button type="button" data-adm="hoje" onclick="admIr('hoje')">
         <svg class="ico" aria-hidden="true"><use href="#i-tag"/></svg>Ofertas de hoje</button>
       <button type="button" data-adm="relampago" onclick="admIr('relampago')">
         <svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>Ofertas relâmpago</button>
+      <span class="adm-gr">Loja</span>
+      <button type="button" data-adm="config" onclick="admIr('config')">
+        <svg class="ico" aria-hidden="true"><use href="#i-gear"/></svg>Configurações</button>
     </nav>
     <div class="adm-pe">
       <a href="#/">Ver a loja</a>
@@ -4353,13 +4543,40 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
       <div class="adm-acoes" id="admAcoes"></div>
     </header>
 
-    <!-- ---- PAINEL ---- -->
+    <!-- ---- VISAO GERAL ---- -->
     <section class="adm-sec on" id="adm-painel">
       <div class="gx-kpis" id="gxKpis"></div>
-      <div class="adm-bloco">
-        <div class="gx-hd"><h2>Pedidos</h2><span id="gxKbCount"></span></div>
-        <div class="gx-kanban" id="gxKanban"></div>
+      <div class="gx-cols">
+        <div class="adm-bloco">
+          <div class="gx-hd"><h2>Precisa de atenção</h2></div>
+          <div class="gx-card glass"><div class="adm-alertas" id="admAlertas"></div></div>
+        </div>
+        <div class="adm-bloco">
+          <div class="gx-hd"><h2>Ir direto para</h2></div>
+          <div class="gx-card glass"><div class="adm-atalhos" id="admAtalhos"></div></div>
+        </div>
       </div>
+      <div class="adm-bloco">
+        <div class="gx-hd"><h2>Últimos pedidos</h2><span id="admUltN"></span></div>
+        <div class="gx-card glass"><div class="adm-tabw" id="admUltimos"></div></div>
+      </div>
+    </section>
+
+    <!-- ---- DASHBOARD ---- -->
+    <section class="adm-sec" id="adm-dashboard">
+      <div class="adm-periodo" id="admPeriodo" role="group" aria-label="Período"></div>
+      <div class="gx-kpis" id="dashKpis"></div>
+
+      <div class="adm-bloco">
+        <div class="gx-hd"><h2>Faturamento dia a dia</h2></div>
+        <figure class="gx-card glass">
+          <figcaption id="dashLinhaCap"></figcaption>
+          <div class="gx-chart gx-chart-l" id="dashLinha" role="img" aria-labelledby="dashLinhaCap"></div>
+          <details class="gx-tab"><summary>Ver como tabela</summary>
+            <div id="dashLinhaTab"></div></details>
+        </figure>
+      </div>
+
       <div class="gx-cols">
         <div class="adm-bloco">
           <div class="gx-hd"><h2>Quando as pessoas compram</h2></div>
@@ -4371,6 +4588,23 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
           </figure>
         </div>
         <div class="adm-bloco">
+          <div class="gx-hd"><h2>Em que etapa estão</h2></div>
+          <figure class="gx-card glass">
+            <figcaption id="dashEtapaCap"></figcaption>
+            <div class="gx-rank" id="dashEtapas"></div>
+          </figure>
+        </div>
+      </div>
+
+      <div class="gx-cols">
+        <div class="adm-bloco">
+          <div class="gx-hd"><h2>Produtos mais vendidos</h2></div>
+          <figure class="gx-card glass">
+            <figcaption id="dashProdCap"></figcaption>
+            <div class="gx-rank" id="dashProdutos"></div>
+          </figure>
+        </div>
+        <div class="adm-bloco">
           <div class="gx-hd"><h2>Clientes que mais compraram</h2></div>
           <figure class="gx-card glass">
             <figcaption id="gxCliCap"></figcaption>
@@ -4378,43 +4612,76 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
           </figure>
         </div>
       </div>
+
+      <div class="adm-bloco">
+        <div class="gx-hd"><h2>Faturamento por departamento</h2></div>
+        <figure class="gx-card glass">
+          <figcaption id="dashCatCap"></figcaption>
+          <div class="gx-rank" id="dashCats"></div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ---- PEDIDOS ---- -->
+    <section class="adm-sec" id="adm-pedidos">
+      <div class="adm-bloco">
+        <div class="gx-hd"><h2>Quadro de pedidos</h2><span id="gxKbCount"></span></div>
+        <div class="adm-filtros adm-filtros-2">
+          <input class="inp adm-busca" id="admPedQ"
+            placeholder="Procurar por cliente ou número do pedido" oninput="gxKanban()">
+          <select class="inp" id="admPedQuando" onchange="gxKanban()">
+            <option value="0">Todo o histórico</option>
+            <option value="1">Hoje</option>
+            <option value="7">Últimos 7 dias</option>
+            <option value="30">Últimos 30 dias</option>
+          </select>
+        </div>
+        <div class="gx-kanban" id="gxKanban"></div>
+      </div>
     </section>
 
     <!-- ---- PRODUTOS ---- -->
     <section class="adm-sec" id="adm-produtos">
-      <div class="gx-cols adm-2">
-        <div class="adm-bloco">
-          <div class="gx-hd"><h2>Novo produto</h2></div>
-          <div class="gx-card glass">
-            <form class="gx-form" id="gxForm" onsubmit="return gxAddProduto(event)">
-              <label>Nome do produto
-                <input id="gxpNome" required maxlength="80" placeholder="Arroz Tio Joao 5kg"></label>
-              <label>Categoria
-                <select id="gxpCat">
-                  <option value="mercearia">Mercearia</option>
-                  <option value="acougue">Açougue</option>
-                  <option value="drinks">Bebidas e adega</option>
-                  <option value="limpeza">Limpeza</option>
-                  <option value="higiene">Higiene</option>
-                  <option value="pet">Pet shop</option>
-                </select></label>
-              <label>Preço de venda (R$)
-                <input id="gxpPreco" required type="number" min="0.01" step="0.01" placeholder="29,90"></label>
-              <label>Preço antes (R$)
-                <input id="gxpDe" type="number" min="0" step="0.01" placeholder="opcional"></label>
-              <label>Unidade
-                <input id="gxpUn" maxlength="30" placeholder="R$ 5,98/kg"></label>
-              <label class="gx-full"><span>Descrição <small>(opcional)</small></span>
-                <textarea id="gxpDesc" maxlength="400" rows="2"
-                  placeholder="Ex.: vinho rosé seco, uvas da Serra Gaúcha."></textarea></label>
+      <div class="adm-bloco" id="admNovoBloco" hidden>
+        <div class="gx-hd"><h2>Novo produto</h2></div>
+        <div class="gx-card glass">
+          <form class="gx-form" id="gxForm" onsubmit="return gxAddProduto(event)">
+            <label>Nome do produto
+              <input id="gxpNome" required maxlength="80" placeholder="Arroz Tio João 5kg"></label>
+            <label>Departamento
+              <select id="gxpCat"><option value="mercearia">Mercearia</option><option value="acougue">Açougue</option><option value="drinks">Bebidas e adega</option><option value="limpeza">Limpeza</option><option value="higiene">Higiene</option><option value="pet">Pet shop</option></select></label>
+            <label>Preço de venda (R$)
+              <input id="gxpPreco" required type="number" min="0.01" step="0.01" placeholder="29,90"></label>
+            <label>Preço antes (R$)
+              <input id="gxpDe" type="number" min="0" step="0.01" placeholder="opcional"></label>
+            <label>Unidade
+              <input id="gxpUn" maxlength="30" placeholder="R$ 5,98/kg"></label>
+            <label class="gx-full"><span>Descrição <small>(opcional)</small></span>
+              <textarea id="gxpDesc" maxlength="400" rows="2"
+                placeholder="Ex.: vinho rosé seco, uvas da Serra Gaúcha."></textarea></label>
+            <div class="gx-full adm-form-pe">
               <button class="btn btn-w" type="submit">Cadastrar produto</button>
-            </form>
-          </div>
+              <button class="btn btn-g" type="button" onclick="admNovoToggle(false)">Cancelar</button>
+            </div>
+          </form>
         </div>
-        <div class="adm-bloco">
-          <div class="gx-hd"><h2>Cadastrados aqui</h2><span id="gxProdCount"></span></div>
-          <div class="gx-card glass"><div class="gx-prodlist" id="gxProdList"></div></div>
+      </div>
+
+      <div class="adm-bloco">
+        <div class="gx-hd"><h2>Catálogo</h2><span id="gxProdCount"></span></div>
+        <div class="adm-filtros">
+          <input class="inp adm-busca" id="admProdQ" placeholder="Procurar por nome" oninput="admProdLista()">
+          <select class="inp" id="admProdCat" onchange="admProdLista()">
+            <option value="">Todos os departamentos</option><option value="mercearia">Mercearia</option><option value="acougue">Açougue</option><option value="drinks">Bebidas e adega</option><option value="limpeza">Limpeza</option><option value="higiene">Higiene</option><option value="pet">Pet shop</option></select>
+          <select class="inp" id="admProdSit" onchange="admProdLista()">
+            <option value="">Qualquer situação</option>
+            <option value="on">Só os ativos</option>
+            <option value="off">Só os desativados</option>
+            <option value="ed">Só os que eu alterei</option>
+            <option value="of">Só os em oferta</option>
+          </select>
         </div>
+        <div class="adm-tabw"><div class="adm-prods" id="admProdLista"></div></div>
       </div>
     </section>
 
@@ -4455,6 +4722,146 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
         <input class="inp adm-busca" id="admRelQ" placeholder="Filtrar por nome" oninput="admListaRel()">
         <div class="adm-lista" id="admRelLista"></div>
       </div>
+    </section>
+
+    <!-- ---- CONFIGURAÇÕES ---- -->
+    <section class="adm-sec" id="adm-config">
+      <form class="adm-cfg" id="admCfgForm" onsubmit="return admCfgSalvar(event)">
+
+        <div class="adm-bloco">
+          <div class="gx-hd"><h2>A loja</h2></div>
+          <div class="gx-card glass gx-form">
+            <label>Nome da loja
+              <input class="inp" id="cfNome" maxlength="40" required></label>
+            <label>WhatsApp <small>com DDI e DDD, só números</small>
+              <input class="inp" id="cfWa" inputmode="numeric" maxlength="15" required oninput="admCfgDicasPrevia()"></label>
+            <p class="adm-dica gx-full" id="cfWaDica"></p>
+          </div>
+        </div>
+
+        <div class="adm-bloco">
+          <div class="gx-hd"><h2>Entrega e pedido</h2></div>
+          <div class="gx-card glass gx-form">
+            <label>Pedido mínimo (R$)
+              <input class="inp" id="cfMin" type="number" min="0" step="0.01" required></label>
+            <label>Entrega grátis a partir de (R$)
+              <input class="inp" id="cfFrete" type="number" min="0" step="0.01" required></label>
+            <div class="gx-full">
+              <div class="adm-sub-h"><b>Janelas de entrega</b>
+                <button class="btn btn-g btn-s" type="button" onclick="admSlotAdd()">Nova janela</button></div>
+              <div class="adm-slots" id="cfSlots"></div>
+              <p class="adm-dica">Aos domingos a loja oferece só a primeira janela da lista.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="adm-bloco">
+          <div class="gx-hd"><h2>Cashback</h2></div>
+          <div class="gx-card glass gx-form">
+            <label class="adm-chk gx-full">
+              <input type="checkbox" id="cfCbOn" onchange="admCfgCbEstado()">
+              <span><b>Programa de cashback ligado</b>
+                <i>Desligado, o saldo acumulado fica guardado, mas some da loja.</i></span></label>
+            <label>Volta para o cliente (%)
+              <input class="inp" id="cfCbTaxa" type="number" min="0" max="100" step="0.5" oninput="admCfgDicas()"></label>
+            <label>Só pode usar a partir de (R$)
+              <input class="inp" id="cfCbMin" type="number" min="0" step="0.01"></label>
+            <label>No máximo, por pedido (%)
+              <input class="inp" id="cfCbMax" type="number" min="1" max="100" step="1" oninput="admCfgDicas()"></label>
+            <p class="adm-dica gx-full" id="cfCbEx"></p>
+          </div>
+        </div>
+
+        <div class="adm-bloco">
+          <div class="gx-hd"><h2>Entrada do site</h2></div>
+          <div class="gx-card glass gx-form">
+            <label class="adm-chk gx-full">
+              <input type="checkbox" id="cfIdade">
+              <span><b>Perguntar se a pessoa tem 18 anos ou mais</b>
+                <i>Quem responder que é menor deixa de ver bebida alcoólica em toda a loja.</i></span></label>
+          </div>
+        </div>
+
+        <div class="adm-cfg-pe">
+          <button class="btn btn-w" type="submit">Salvar configurações</button>
+          <button class="btn btn-g" type="button" onclick="admCfgRestaurar()">Voltar ao padrão</button>
+        </div>
+      </form>
+
+      <div class="adm-bloco">
+        <div class="gx-hd"><h2>Unidades</h2><span id="cfLojasN"></span></div>
+        <div class="adm-lojas" id="cfLojas"></div>
+      </div>
+
+      <div class="adm-bloco">
+        <div class="gx-hd"><h2>Acesso</h2></div>
+        <form class="gx-card glass gx-form" id="admSenhaForm" onsubmit="return admTrocarSenha(event)">
+          <label>Usuário
+            <input class="inp" id="cfU" maxlength="40" autocomplete="username" required></label>
+          <label>Senha atual
+            <input class="inp" id="cfS0" type="password" autocomplete="current-password" required></label>
+          <label>Nova senha
+            <input class="inp" id="cfS1" type="password" autocomplete="new-password" minlength="6" required></label>
+          <label>Repita a nova senha
+            <input class="inp" id="cfS2" type="password" autocomplete="new-password" minlength="6" required></label>
+          <p class="adm-erro gx-full" id="cfSenhaErro" hidden role="alert"></p>
+          <div class="gx-full"><button class="btn btn-w" type="submit">Trocar acesso</button></div>
+        </form>
+      </div>
+
+      <div class="adm-bloco">
+        <div class="gx-hd"><h2>Dados</h2></div>
+        <div class="gx-card glass">
+          <p class="adm-dica">Tudo o que a gestão guarda vive no armazenamento deste navegador:
+            configurações, produtos, vitrines e pedidos. Leve uma cópia antes de limpar o navegador
+            ou para repetir a mesma configuração em outro aparelho.</p>
+          <div class="adm-dados-bt">
+            <button class="btn btn-g" type="button" onclick="admExportar()">Baixar uma cópia</button>
+            <label class="btn btn-g adm-file">Restaurar de um arquivo
+              <input type="file" accept="application/json,.json" onchange="admImportar(this)"></label>
+            <button class="btn btn-g adm-perigo" type="button" onclick="admZerar()">Apagar tudo da gestão</button>
+          </div>
+          <details class="gx-tab"><summary>Ver a cópia em texto</summary>
+            <textarea class="inp adm-json" id="admJson" rows="7" readonly></textarea></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- FICHA DO PRODUTO (sobreposta) ---- -->
+    <div class="adm-modal" id="admEd" hidden>
+      <div class="adm-modal-fundo" onclick="admProdFechar()"></div>
+      <form class="adm-modal-box glass" id="admEdForm" onsubmit="return admProdSalvar(event)">
+        <div class="adm-modal-hd">
+          <div><b id="admEdTit">Produto</b><small id="admEdSub"></small></div>
+          <button class="adm-x" type="button" onclick="admProdFechar()" aria-label="Fechar">✕</button>
+        </div>
+        <div class="gx-form">
+          <input type="hidden" id="admEdId">
+          <label class="gx-full">Nome
+            <input class="inp" id="admEdNome" maxlength="90" required></label>
+          <label>Departamento
+            <select class="inp" id="admEdCat"><option value="mercearia">Mercearia</option><option value="acougue">Açougue</option><option value="drinks">Bebidas e adega</option><option value="limpeza">Limpeza</option><option value="higiene">Higiene</option><option value="pet">Pet shop</option></select></label>
+          <label>Unidade
+            <input class="inp" id="admEdUn" maxlength="30" placeholder="R$ 5,98/kg"></label>
+          <label>Preço de venda (R$)
+            <input class="inp" id="admEdP" type="number" min="0.01" step="0.01" required oninput="admEdMargem()"></label>
+          <label>Preço antes (R$)
+            <input class="inp" id="admEdO" type="number" min="0" step="0.01" oninput="admEdMargem()"></label>
+          <label class="gx-full">Descrição
+            <textarea class="inp" id="admEdDesc" maxlength="400" rows="3"></textarea></label>
+          <label class="adm-chk gx-full">
+            <input type="checkbox" id="admEdOff">
+            <span><b>Desativar este produto</b>
+              <i>Ele some das prateleiras, da busca e das ofertas, mas os pedidos antigos continuam certos.</i></span></label>
+          <p class="adm-dica gx-full" id="admEdMargem"></p>
+        </div>
+        <div class="adm-modal-pe">
+          <button class="btn btn-w" type="submit">Salvar</button>
+          <button class="btn btn-g" type="button" id="admEdRev" onclick="admProdReverter()">Desfazer alterações</button>
+          <button class="btn btn-g adm-perigo" type="button" id="admEdDel" onclick="admProdRemover()" hidden>Excluir</button>
+        </div>
+      </form>
+    </div>
     </section>
   </div>
 </div>
@@ -4539,7 +4946,7 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
       <button class="btn btn-w" style="justify-content:center">Enviar mensagem</button>
     </form>
     <div class="glass clist">
-      <a href="https://wa.me/5531999505658?text=Ol%C3%A1!%20Vim%20pelo%20site%20Farid%20em%20Casa." target="_blank" rel="noopener" style="display:flex;gap:14px"><span class="e">💬</span><p><b>WhatsApp</b><span>(31) 99950-5658</span></p></a>
+      <a href="https://wa.me/5531999505658?text=Ol%C3%A1!%20Vim%20pelo%20site%20Farid%20em%20Casa." data-wa target="_blank" rel="noopener" style="display:flex;gap:14px"><span class="e">💬</span><p><b>WhatsApp</b><span data-wa-num>(31) 99950-5658</span></p></a>
       <div><span class="e"><svg class="ico ico-in" style="width:20px;height:20px" aria-hidden="true"><use href="#i-pin"/></svg></span><p><b>Lojas</b><span>Itabirito · Ouro Preto · Mariana · Congonhas · Cachoeira do Campo · Ouro Branco</span></p></div>
       <div><span class="e">🕘</span><p><b>Atendimento</b><span>Seg a sáb, 8h às 20h · Dom, 8h às 13h</span></p></div>
       <div><span class="e">📸</span><p><b>Instagram</b><span>@faridsupermercados</span></p></div>
@@ -4552,7 +4959,7 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
   <div class="wrap f-row">
     <a href="#/" class="f-logo" aria-label="Farid em Casa"><img src="" data-logo alt="Farid Supermercados" width="113" height="32"></a>
     <nav class="f-links"><a href="#/ofertas">Ofertas</a><a href="#/departamentos">Departamentos</a><a href="#/entrega">Entrega</a><a href="#/cartao">Cartão Farid</a><a href="#/harmonizacao">Harmonização</a><a href="#/contato">Contato</a><a href="#">Privacidade</a></nav>
-    <a class="f-wa" href="https://wa.me/5531999505658?text=Ol%C3%A1!%20Vim%20pelo%20site%20Farid%20em%20Casa." target="_blank" rel="noopener">💬 (31) 99950-5658</a>
+    <a class="f-wa" href="https://wa.me/5531999505658?text=Ol%C3%A1!%20Vim%20pelo%20site%20Farid%20em%20Casa." data-wa target="_blank" rel="noopener">💬 <span data-wa-num>(31) 99950-5658</span></a>
   </div>
   <div class="wrap f-bottom"><span>© 2026 Farid Supermercados</span><span class="pays"><span>PIX</span><span>VISA</span><span>MASTER</span><span>ELO</span><span>TRICARD</span></span></div>
 </footer>
@@ -4664,7 +5071,7 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
   <div class="items" id="items"></div>
   <div class="sum" id="sum"></div>
 </aside>
-<a class="wa" href="https://wa.me/5531999505658?text=Ol%C3%A1!%20Vim%20pelo%20site%20Farid%20em%20Casa." target="_blank" rel="noopener" aria-label="Fale com o Farid no WhatsApp"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6c-2 0-4-.5-5.7-1.6l-.4-.2-3.9 1 1-3.8-.3-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5 1-1.7.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.8 1 3.9.8a3.3 3.3 0 0 0 2.1-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.5z"/></svg><span>Fale com a gente</span></a>
+<a class="wa" href="https://wa.me/5531999505658?text=Ol%C3%A1!%20Vim%20pelo%20site%20Farid%20em%20Casa." data-wa target="_blank" rel="noopener" aria-label="Fale com o Farid no WhatsApp"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6c-2 0-4-.5-5.7-1.6l-.4-.2-3.9 1 1-3.8-.3-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5 1-1.7.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.8 1 3.9.8a3.3 3.3 0 0 0 2.1-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.5z"/></svg><span>Fale com a gente</span></a>
 <nav class="tabbar" aria-label="Navegação principal">
   <a href="#/" data-tb="/"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11 12 3l9 8v10h-6v-6H9v6H3z"/></svg><span data-i18n="nav.inicio">Início</span></a>
   <a href="#/departamentos" data-tb="/departamentos"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span data-i18n="nav.deps">Departamentos</span></a>
@@ -4677,6 +5084,52 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
 <p id="avisos" class="sr-only" role="status" aria-live="polite"></p>
 
 <script>
+/* ==========================================================================
+   CONFIGURACAO DA LOJA
+   Ate aqui as regras de negocio estavam escritas no meio do codigo:
+   pedido minimo 50, frete gratis a partir de 50, 2% de cashback, o
+   numero do WhatsApp em cinco lugares diferentes. Quem toca a loja nao
+   abre o arquivo para mudar isso — e exatamente isso que mais muda.
+
+   Agora tudo mora em um lugar so, com padrao de fabrica, e a gestao
+   escreve por cima. Tudo aqui e funcao declarada de proposito: este
+   bloco e lido durante o carregamento, antes de `const LS` existir, e
+   `const` ou `var` declarados mais abaixo chegariam vazios aqui.
+   ========================================================================== */
+function cfgPadrao(){return{
+ nome:'Farid em Casa',
+ wa:'5531999505658',
+ min:50,            /* pedido minimo, em reais */
+ frete:50,          /* frete gratis a partir de */
+ cbOn:1, cbTaxa:2, cbMin:5, cbMax:50,   /* cashback: %, minimo p/ usar, teto % */
+ idadeOn:1,         /* perguntar se tem 18 na entrada */
+ slots:[['10:00','14:00'],['15:00','18:00']]
+}}
+function cfg(){
+ if(cfg._c)return cfg._c;
+ var o={}; try{o=JSON.parse(_guard('farid_config')||'{}')||{}}catch(e){}
+ var d=cfgPadrao(), r={};
+ for(var k in d)r[k]=(o[k]===undefined||o[k]===null||o[k]==='')?d[k]:o[k];
+ cfg._c=r; return r}
+function cfgSalvar(o){
+ var c=cfg(); for(var k in o)c[k]=o[k];
+ cfg._c=c; _grav('farid_config',JSON.stringify(c))}
+function cfgRestaurar(){
+ try{localStorage.removeItem('farid_config')}catch(e){} cfg._c=null}
+
+function nLoja(){return cfg().nome||'Farid em Casa'}
+function waNum(){return String(cfg().wa||'').replace(/\D/g,'')||'5531999505658'}
+function waLink(txt){return 'https://wa.me/'+waNum()+(txt?('?text='+encodeURIComponent(txt)):'')}
+function pedidoMinimo(){var v=+cfg().min; return v>0?v:0}
+function freteGratis(){var v=+cfg().frete; return v>0?v:0}
+function cbLigado(){return !!(+cfg().cbOn)}
+function cbTaxa(){return cbLigado()?(+cfg().cbTaxa||0)/100:0}
+function cbMinUso(){return +cfg().cbMin||0}
+function cbMaxPct(){return (+cfg().cbMax||0)/100}
+function idadeLigada(){return !!(+cfg().idadeOn)}
+function slotsCfg(){var s=cfg().slots;
+ return (s&&s.length)?s:cfgPadrao().slots}
+
 /* LINKS DIRETOS
    Antes esta linha apagava o endereço no carregamento e TODA visita caía
    no Início: `.../#/gestao` abria a home, `.../#/ofertas` também. Isso
@@ -4750,13 +5203,54 @@ const P=[
    a unidade sao extraidos uma vez no carregamento; o que nao casar (um
    produto cadastrado a mao no painel, por exemplo) continua valendo como
    texto livre, que e como o painel sempre deixou. */
-(function(){
+function lerPrecoUnidade(){
  var re=/^\s*R\$\s*([\d.]+),(\d{2})\s*\/\s*(.+?)\s*$/;
  P.forEach(function(x){
   var m=re.exec(x.u||'');
   if(m){x.uv=parseFloat(m[1].replace(/\./g,'')+'.'+m[2]); x.uu=m[3]}
+  else {x.uv=null; x.uu=null}
  });
-})();
+}
+
+/* ==========================================================================
+   O QUE A GESTAO MUDOU NOS PRODUTOS
+   O catalogo base e uma lista escrita no arquivo: mexer nela exige
+   publicar o site de novo. Mas mudar preco e o que uma loja faz todo
+   dia. Entao a gestao nao reescreve o catalogo — ela guarda por cima
+   dele um mapa de alteracoes, por id, e ele e aplicado no carregamento.
+
+   Guardar so a diferenca, e nao uma copia do catalogo, tem um motivo:
+   quando um produto novo entrar no arquivo, ou uma foto mudar, quem ja
+   usou a loja recebe a novidade. Uma copia congelaria o catalogo no dia
+   em que alguem abriu o painel pela primeira vez.
+
+   `off` nao apaga o produto: ele continua no lugar, com o mesmo id, e
+   so deixa de aparecer nas prateleiras. Apagar deslocaria os ids e os
+   pedidos antigos passariam a apontar para o produto errado.
+   ========================================================================== */
+function prodEdit(){try{return JSON.parse(_guard('farid_prod_edit')||'{}')||{}}catch(e){return{}}}
+function prodEditSalvar(m){_grav('farid_prod_edit',JSON.stringify(m))}
+function prodEditSet(id,campos){
+ var m=prodEdit(), k=String(id); m[k]=m[k]||{};
+ for(var c in campos)m[k][c]=campos[c];
+ prodEditSalvar(m); aplicarEdicoes()}
+function prodEditLimpar(id){
+ var m=prodEdit(); delete m[String(id)]; prodEditSalvar(m); aplicarEdicoes()}
+function aplicarEdicoes(){
+ var m=prodEdit();
+ P.forEach(function(x){
+  var e=m[String(x.id)];
+  x.off=!!(e&&e.off);
+  if(!e)return;
+  ['n','u','cat','desc'].forEach(function(c){
+   if(e[c]!==undefined&&e[c]!==null)x[c]=e[c]});
+  if(e.p!=null&&+e.p>0)x.p=Math.round(+e.p*100)/100;
+  if(e.o!=null&&+e.o>0)x.o=Math.round(+e.o*100)/100;
+  if(x.o<x.p)x.o=x.p;
+ });
+ lerPrecoUnidade();
+}
+aplicarEdicoes();
 
 /* ==========================================================================
    FAMILIAS DE PRODUTO
@@ -4860,6 +5354,28 @@ const STORES=[
  {id:'cachoeira',n:'Cachoeira do Campo',addr:'Avenida Pedro Aleixo, 612',area:'Cachoeira do Campo, Ouro Preto - MG',lat:-20.3460,lng:-43.6680},
  {id:'ourobranco',n:'Ouro Branco',addr:'Avenida Raimundo Campos, 80',area:'Centro, Ouro Branco - MG',lat:-20.5210,lng:-43.6920},
 ];
+/* ---- o que a gestao mudou nas lojas ----
+   Mesma ideia dos produtos: o arquivo traz as seis unidades e a gestao
+   guarda por cima so o que mudou — nome, endereco, bairro — e se a
+   unidade esta aberta. As coordenadas continuam no arquivo: elas vem de
+   mapa, nao de formulario. Uma unidade fechada sai das listas, mas
+   continua existindo, porque pedidos antigos apontam para ela. */
+function lojaEdit(){try{return JSON.parse(_guard('farid_lojas_edit')||'{}')||{}}catch(e){return{}}}
+function lojaEditSet(id,campos){
+ var m=lojaEdit(); m[id]=m[id]||{};
+ for(var c in campos)m[id][c]=campos[c];
+ _grav('farid_lojas_edit',JSON.stringify(m)); aplicarLojas()}
+function lojaEditLimpar(){
+ try{localStorage.removeItem('farid_lojas_edit')}catch(e){} aplicarLojas()}
+function aplicarLojas(){
+ var m=lojaEdit();
+ STORES.forEach(function(x){
+  if(!x._o)x._o={n:x.n,addr:x.addr,area:x.area};
+  var e=m[x.id]||{};
+  x.n=e.n||x._o.n; x.addr=e.addr||x._o.addr; x.area=e.area||x._o.area;
+  x.off=!!e.off})}
+aplicarLojas();
+function lojas(){return STORES.filter(function(x){return !x.off})}
 const PAIRS=[
  ['carnes','🥩','🍷','Churrasco & tinto encorpado','Cortes gordos como picanha pedem taninos marcantes — Cabernet ou Malbec.',['Malbec','Cabernet']],
  ['carnes','🍗','🍷','Frango assado & tinto leve','Pinot Noir ou Merlot acompanham sem pesar.',['Pinot Noir','Merlot']],
@@ -5142,7 +5658,7 @@ cd();setInterval(cd,1000);
 
 /* city checker */
 function checkCity(){const v=norm($('#city').value);if(!v){$('#res').textContent='Digite o nome da sua cidade.';return}
- const ok=STORES.find(c=>norm(c.n+' '+c.area).includes(v));$('#res').innerHTML=ok?`✅ Atendemos sua região pela loja <b>${ok.n}</b> — ${ok.addr}.`:'😕 Ainda não chegamos aí — fale com a gente no WhatsApp.'}
+ const ok=lojas().find(c=>norm(c.n+' '+c.area).includes(v));$('#res').innerHTML=ok?`✅ Atendemos sua região pela loja <b>${ok.n}</b> — ${ok.addr}.`:'😕 Ainda não chegamos aí — fale com a gente no WhatsApp.'}
 $('#city').addEventListener('keydown',e=>{if(e.key==='Enter')checkCity()});
 
 /* ============ SEARCH (spotlight) ============ */
@@ -5152,9 +5668,24 @@ $('#spotQ').addEventListener('input',function(){spotCat='';spotForcar=false;rend
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSpot()}if(e.key==='Escape'){closeSlots();closeAuth();closeAcct();closeSpot();closeCart();toggleMob(false);if(curStore())closeStores()}});
 
 /* ============ CART ============ */
-const FREE=50;
+/* o valor do frete gratis e do pedido minimo moram na configuracao da loja */
 function chg(id,d){const wasEmpty=!Object.keys(cart).length;cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];refreshCards(id);renderCart();
  if(d>0){voaAoCarrinho(id);anuncia((P[id]||{}).n+' adicionado ao carrinho');const b=$('#cartBtn');b.classList.remove('pulsa');void b.offsetWidth;b.classList.add('pulsa')}}
+/* Enquanto o pedido minimo e o frete gratis eram os dois 50, uma frase
+   so dava conta: "faltam X para o pedido minimo". Agora a gestao mexe
+   nos dois em separado, e eles querem dizer coisas diferentes — um
+   impede fechar o pedido, o outro so cobra a entrega. O minimo vem
+   primeiro porque e o que trava. */
+function faltaTexto(tot){
+ var MIN=pedidoMinimo(), FREE=freteGratis();
+ var selo='<svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-spark"/></svg> ';
+ if(MIN&&tot<MIN)
+  return 'Faltam <b>'+brl(MIN-tot)+'</b> para o pedido mínimo de '+brl(MIN);
+ if(FREE&&tot<FREE)
+  return 'Faltam <b>'+brl(FREE-tot)+'</b> para a entrega grátis';
+ return selo+(FREE?'Entrega grátis liberada!':'Entrega grátis em qualquer valor');
+}
+
 /* o aviso some da tela, mas continua existindo para leitor de tela */
 function anuncia(t){var r=$('#avisos');if(r)r.textContent=t}
 /* a miniatura do produto voa ate o carrinho: confirma sem escrever nada */
@@ -5195,8 +5726,10 @@ function renderCart(){saveCart();const ids=Object.keys(cart).map(Number),qty=ids
  $('#count').textContent=qty;$('#count2').textContent=qty;$('#cartTotal').textContent=brl(tot);
  $('#items').innerHTML=ids.length?ids.map(i=>`<div class="item"><img src="${P[i].sm}" alt=""><div class="nm">${P[i].n}<b>${brl(P[i].p*cart[i])}</b></div><div class="qty"><button onclick="chg(${i},-1)">−</button>${cart[i]}<button onclick="chg(${i},1)">+</button></div></div>`).join('')
   :'<div class="empty"><div><svg class="ico ico-in" style="width:42px;height:42px" aria-hidden="true"><use href="#i-basket"/></svg></div>Seu carrinho está vazio.<br>Que tal começar pelas ofertas de hoje?</div>';
- const pct=Math.min(100,tot/FREE*100);const slotBox=ids.length?(slot?`<div class="cart-slot"><span>${slot.m==='casa'?'<svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-truck"/></svg> Entrega':'<svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-store"/></svg> Retirada'}<b>${slotText()}</b></span><button onclick="openSlots()">Alterar</button></div>`:`<div class="cart-slot need"><span><svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-clock"/></svg> Horário<b>Escolha quando receber</b></span><button onclick="openSlots()">Escolher</button></div>`):'';
- $('#sum').innerHTML=slotBox+`<div class="ship"><i style="width:${pct}%"></i></div><div class="ship-t">${tot>=FREE?'<svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-spark"/></svg> Entrega grátis liberada!':`Faltam <b>${brl(FREE-tot)}</b> para o pedido mínimo de ${brl(FREE)}`}</div>
+ /* a barra enche em direcao ao alvo que vale agora: o pedido minimo, enquanto ele nao foi atingido, e depois a entrega gratis */
+ const _min=pedidoMinimo(), _alvo=(_min&&tot<_min)?_min:freteGratis();
+ const pct=_alvo?Math.min(100,tot/_alvo*100):100;const slotBox=ids.length?(slot?`<div class="cart-slot"><span>${slot.m==='casa'?'<svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-truck"/></svg> Entrega':'<svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-store"/></svg> Retirada'}<b>${slotText()}</b></span><button onclick="openSlots()">Alterar</button></div>`:`<div class="cart-slot need"><span><svg class="ico ico-in" style="width:18px;height:18px" aria-hidden="true"><use href="#i-clock"/></svg> Horário<b>Escolha quando receber</b></span><button onclick="openSlots()">Escolher</button></div>`):'';
+ $('#sum').innerHTML=slotBox+`<div class="ship"><i style="width:${pct}%"></i></div><div class="ship-t">${faltaTexto(tot)}</div>
   ${eco>0?`<div class="line" style="color:#fff"><span>Você economiza</span><span>${brl(eco)}</span></div>`:''}
   <div class="line"><span>Subtotal (${qty} ${qty===1?'item':'itens'})</span><span>${brl(tot)}</span></div>${ids.length?cbLinhasCarrinho(tot):''}
   <div class="line t"><span>Total</span><span>${brl(tot-cbAplicado(tot))}</span></div>
@@ -5210,14 +5743,14 @@ renderCart();
 
 /* ============ LOJAS ============ */
 const LS={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
-let storeId=LS.get('farid_loja');if(!STORES.some(x=>x.id===storeId))storeId=null;let dist={},geo='idle'; // idle | busy | ok | fail
-const curStore=()=>STORES.find(x=>x.id===storeId);
+let storeId=LS.get('farid_loja');if(!lojas().some(x=>x.id===storeId))storeId=null;let dist={},geo='idle'; // idle | busy | ok | fail
+const curStore=()=>lojas().find(x=>x.id===storeId);
 const fmtKm=d=>d<1?'menos de 1 km':'~'+(d<10?d.toFixed(1).replace('.',','):Math.round(d))+' km';
 function stCard(x,btnTxt){const sel=x.id===storeId;
  return `<div class="st ${sel?'sel':''}"><span class="si"><svg class="ico"><use href="#i-store"/></svg></span>
   <div class="sd"><b>${x.n}${x.tag?`<em>${x.tag}</em>`:''}${dist[x.id]!=null?`<i>${fmtKm(dist[x.id])}</i>`:''}</b><span>${x.addr}<br>${x.area}</span></div>
   <button onclick="pickStore('${x.id}')">${sel?'Selecionada '+'<svg class="ico ico-in" style="width:16px;height:16px" aria-hidden="true"><use href="#i-check"/></svg>':btnTxt}</button></div>`}
-function nearest(){return Object.keys(dist).length?[...STORES].sort((a,b)=>dist[a.id]-dist[b.id])[0]:null}
+function nearest(){return Object.keys(dist).length?[...lojas()].sort((a,b)=>dist[a.id]-dist[b.id])[0]:null}
 
 function renderStores(){const nr=nearest(),c=curStore();
  let top='';
@@ -5225,7 +5758,7 @@ function renderStores(){const nr=nearest(),c=curStore();
  else if(nr)top=`<div class="rec"><small><svg class="ico ico-in" style="width:14px;height:14px" aria-hidden="true"><use href="#i-pin"/></svg> Mais perto de você · ${fmtKm(dist[nr.id])}</small><h4>${nr.n}</h4><p>${nr.addr} · ${nr.area}</p><button class="btn" onclick="pickStore('${nr.id}')">${nr.id===storeId?'Continuar em '+nr.n:'Comprar em '+nr.n}</button></div>`;
  $('#smTop').innerHTML=top;
  $('#smSub').textContent=nr?'Ou toque em outra cidade':'Toque na sua cidade';
- const L=nr?[...STORES].sort((a,b)=>dist[a.id]-dist[b.id]):STORES;
+ const L=nr?[...lojas()].sort((a,b)=>dist[a.id]-dist[b.id]):lojas();
  $('#smList').innerHTML=L.map(x=>`<button class="city-b ${x.id===storeId?'sel':''}" onclick="pickStore('${x.id}')"><b>${x.n}</b><span>${dist[x.id]!=null?fmtKm(dist[x.id]):(x.id===storeId?'Selecionada '+'<svg class="ico ico-in" style="width:16px;height:16px" aria-hidden="true"><use href="#i-check"/></svg>':'Loja Farid')}</span></button>`).join('');
  $('#smGeo').style.display=(geo==='ok'||geo==='busy')?'none':'';
  $('#smGeo').lastChild.textContent=geo==='fail'?' Tentar localização de novo':' Encontrar pela minha localização';
@@ -5239,17 +5772,23 @@ function pickStore(id){storeId=id;LS.set('farid_loja',id);renderStores();const c
 function km(a,b,c,d){const R=6371,r=Math.PI/180,x=Math.sin((c-a)*r/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin((d-b)*r/2)**2;return 2*R*Math.asin(Math.sqrt(x))*1.25} // ×1.25 ≈ distância por estrada
 function nearMe(){if(!navigator.geolocation){geo='fail';renderStores();return}
  geo='busy';renderStores();
- navigator.geolocation.getCurrentPosition(p=>{STORES.forEach(x=>dist[x.id]=km(p.coords.latitude,p.coords.longitude,x.lat,x.lng));geo='ok';renderStores()},
+ navigator.geolocation.getCurrentPosition(p=>{lojas().forEach(x=>dist[x.id]=km(p.coords.latitude,p.coords.longitude,x.lat,x.lng));geo='ok';renderStores()},
   ()=>{geo='fail';renderStores()},{timeout:10000,maximumAge:600000,enableHighAccuracy:false})}
 renderStores();
 /* A pergunta da idade vem ANTES da escolha de loja: sao dois
    dialogos e nao podem aparecer juntos. Quem ja respondeu pula
    direto para a loja, como antes. Se a tela de abertura estiver
    rodando, espera ela sair. */
+/* a gestao nao e a loja: quem entra em #/gestao nao recebe a pergunta da
+   idade nem o seletor de loja. Sao dialogos de quem vai comprar, e aqui
+   eles so cobriam o formulario de login. */
+function naGestao(){return /^#\/gestao/.test(location.hash||'')}
 (function(){
  var temSplash=!!document.getElementById('splash');
  var espera=temSplash?1800:300;
- if(idadeResp()===null){ setTimeout(abrirIdade,espera); }
+ if(naGestao()){ idadeAplicada=idadeResp();
+        document.body.classList.toggle('sem-alcool',menorDeIdade()); return }
+ if(idadeLigada()&&idadeResp()===null){ setTimeout(abrirIdade,espera); }
  else { idadeAplicada=idadeResp();
         document.body.classList.toggle('sem-alcool',menorDeIdade());
         if(!curStore())setTimeout(openStores,espera+200); }
@@ -5307,6 +5846,7 @@ function logout(){user=null;addr=null;slot=null;try{['farid_user','farid_addr','
 function checkout(){if(!user){closeCart();afterAuth=()=>openCart();openAuth('Entre ou cadastre-se para finalizar seu pedido.');return}
  const c=curStore();if(!c){closeCart();openStores();return}
  const tot=Object.keys(cart).reduce((a,i)=>a+cart[i]*P[i].p,0);
+ const MIN=pedidoMinimo();
  if(tot<MIN){toast(`O pedido mínimo é de <b>${brl(MIN)}</b>`);return}
  if(!slot){openSlots('Escolha o horário antes de finalizar.');return}
  const cbUso=cbAplicado(tot);
@@ -5325,7 +5865,7 @@ renderUser();
 addEventListener('scroll',()=>$('#toTop').classList.toggle('on',scrollY>600),{passive:true});
 
 /* ============ HORÁRIOS DE ENTREGA ============ */
-const SLOTS=[['10:00','14:00'],['15:00','18:00']];const MIN=50;
+/* as janelas e o pedido minimo vem da configuracao da loja */
 let mode=LS.get('farid_mode')||'casa',slot=null,addr=null,dayI=0;
 try{slot=JSON.parse(LS.get('farid_slot')||'null');addr=JSON.parse(LS.get('farid_addr')||'null')}catch(e){}
 const DN=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
@@ -5345,9 +5885,9 @@ function renderSlots(){
  const D=days();
  $('#slDays').innerHTML=D.map((x,k)=>`<button class="${k===dayI?'on':''}" onclick="dayI=${k};renderSlots()"><small>${k===0?'Amanhã':DN[x.getDay()].slice(0,3)}</small><b>${String(x.getDate()).padStart(2,'0')}/${String(x.getMonth()+1).padStart(2,'0')}</b></button>`).join('');
  const d=D[dayI],dk=dKey(d),sun=d.getDay()===0;
- const list=sun?[SLOTS[0]]:SLOTS;
+ const SLOTS=slotsCfg();const list=sun?[SLOTS[0]]:SLOTS;
  $('#slSlots').innerHTML=`<div style="font-weight:700;font-size:1.05rem;margin:2px 2px 2px">${dLbl(d,dayI)}</div>`+list.map(([a,b])=>{const on=slot&&slot.d===dk&&slot.a===a&&slot.m===mode;
-  return `<button class="slot ${on?'on':''}" onclick="pickSlot('${dk}','${a}','${b}')"><span class="rd"></span><span class="tm"><small>${mode==='casa'?'Horário estimado para entrega':'Horário para retirada'}</small><b>${a} às ${b}</b></span><span class="tg"><em>Grátis</em><svg class="ico ico-in" style="width:13px;height:13px" aria-hidden="true"><use href="#i-lock"/></svg> Mínimo ${brl(MIN)}</span></button>`}).join('');
+  return `<button class="slot ${on?'on':''}" onclick="pickSlot('${dk}','${a}','${b}')"><span class="rd"></span><span class="tm"><small>${mode==='casa'?'Horário estimado para entrega':'Horário para retirada'}</small><b>${a} às ${b}</b></span><span class="tg"><em>Grátis</em><svg class="ico ico-in" style="width:13px;height:13px" aria-hidden="true"><use href="#i-lock"/></svg> Mínimo ${brl(pedidoMinimo())}</span></button>`}).join('');
 }
 function slotsLogin(){closeSlots();afterAuth=()=>openSlots('Agora escolha o melhor horário.');openAuth('Entre ou crie sua conta para cadastrar o endereço de entrega.')}
 function setMode(m){mode=m;LS.set('farid_mode',m);$('#addrForm').hidden=true;renderSlots()}
@@ -5491,7 +6031,7 @@ function renderSpot(){const q=$('#spotQ').value.trim();
   $('#spotRes').innerHTML='<div class="s-empty"><b>Não encontramos “'+esc(q)+'”</b>'+
    'Confira a escrita ou tente outra palavra.</div>'+chipsPop(5)+
    '<div class="s-empty" style="padding-top:0">Não achou o que precisa?<br>'+
-   '<a href="https://wa.me/5531999505658?text='+
+   '<a href="'+waLink()+'?text='+
    encodeURIComponent('Olá! Procuro o produto: '+q)+
    '" target="_blank" rel="noopener">Pedir pelo WhatsApp</a></div>';
   return}
@@ -5551,7 +6091,7 @@ function showDep(k){const v=$('#depView'),l=$('#depList');
  if(k===undefined||!CATS[k]){v.hidden=true;l.hidden=false;return}
  const c=CATS[k],L=inDep(c.n);v.hidden=false;l.hidden=true;
  $('#depHead').innerHTML=`<span><img src="${c.img}" alt=""></span><div><h1>${c.n}</h1><p style="color:var(--t2)">${L.length} ${L.length===1?'produto':'produtos'}</p></div><a href="#/departamentos" class="btn btn-g glass" style="margin-left:auto;height:48px">Todos os departamentos</a>`;
- $('#depGrid').innerHTML=L.length?L.map(card).join(''):`<div class="glass dep-empty"><b>Produtos de ${c.n} em breve aqui</b>Enquanto isso, peça pelo WhatsApp que a gente separa pra você.<br><a href="https://wa.me/5531999505658?text=${encodeURIComponent('Olá! Quero produtos de '+c.n)}" target="_blank" rel="noopener">💬 Pedir pelo WhatsApp</a></div>`;
+ $('#depGrid').innerHTML=L.length?L.map(card).join(''):`<div class="glass dep-empty"><b>Produtos de ${c.n} em breve aqui</b>Enquanto isso, peça pelo WhatsApp que a gente separa pra você.<br><a href="${waLink('Olá! Quero produtos de '+c.n)}" target="_blank" rel="noopener">💬 Pedir pelo WhatsApp</a></div>`;
  bindTilt()}
 new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('vis',e.isIntersecting)),{threshold:.2}).observe($('#state'));
 
@@ -5786,7 +6326,7 @@ function statusPedido(o){
 /* ---- pagina de Lojas ---- */
 function renderLojas(){
  var box=$('#lojasBox'); if(!box)return;
- box.innerHTML=STORES.map(function(x){
+ box.innerHTML=lojas().map(function(x){
   var atual=x.id===storeId;
   return '<article class="loja glass'+(atual?' atual':'')+'">'+
    '<div class="loja-hd"><b>'+esc(x.n)+'</b>'+
@@ -5801,7 +6341,6 @@ function renderLojas(){
    '</div></article>'}).join('')}
 
 /* ====================== LISTAS, RECORRENCIA E AFINS ====================== */
-var WA_NUM='5531999505658';
 
 /* ---- 1) LISTAS DE COMPRAS ---- */
 function listas(){try{return JSON.parse(LS.get('farid_listas')||'[]')}catch(e){return[]}}
@@ -5913,7 +6452,7 @@ function sugestoes(){
  if(hist.length>=3)return hist.slice(0,6).map(function(i){
   return{id:i,razao:'Você costuma levar junto'}});
  var cats={};noCar.forEach(function(i){if(P[i])cats[P[i].cat]=1});
- return P.filter(function(x){return cats[x.cat]&&noCar.indexOf(x.id)<0})
+ return P.filter(function(x){return cats[x.cat]&&!x.off&&noCar.indexOf(x.id)<0})
   .sort(function(a,b){return (b.o-b.p)/b.o-(a.o-a.p)/a.o}).slice(0,6)
   .map(function(x){return{id:x.id,razao:'Combina com o seu carrinho'}});}
 function sugestoesHTML(){
@@ -5937,7 +6476,7 @@ function waPedido(k){
   entregue:'foi concluído'}[o.status||'novo'];
  var t='Olá! Sobre o pedido #'+String(o.id).slice(-6)+' na loja '+o.store+
   ' ('+(o.mode==='casa'?'entrega':'retirada')+'), que '+et+'.';
- window.open('https://wa.me/'+WA_NUM+'?text='+encodeURIComponent(t),
+ window.open(waLink(t),
   '_blank','noopener');}
 
 /* ---- pagina de Listas ---- */
@@ -5999,11 +6538,11 @@ function gxAddProduto(ev){ev.preventDefault();
    criado:Date.now()};
  var a=gxProdutosExtra(); a.unshift(novo); gxSalvarExtra(a);
  /* entra no catalogo desta sessao com um id proprio */
- P.push({id:P.length,n:novo.n,img:'',sm:'',o:novo.o,p:novo.p,u:novo.u,cat:novo.cat,desc:novo.desc});
- ev.target.reset(); toast('Produto cadastrado'); gxRender(); return false}
-
-function gxRemoverProduto(i){var a=gxProdutosExtra();a.splice(i,1);
- gxSalvarExtra(a);toast('Produto removido do cadastro');gxRender()}
+ P.push({id:P.length,n:novo.n,img:'',sm:'',o:novo.o,p:novo.p,u:novo.u,cat:novo.cat,
+   desc:novo.desc,extra:true,criado:novo.criado});
+ montarFamilias(); marcarAlcool(); desenharVitrines();
+ ev.target.reset(); admNovoToggle(false);
+ toast('Produto cadastrado'); gxRender(); return false}
 
 function gxMover(id,d){var o=orders.find(function(x){return x.id===id});if(!o)return;
  var i=GX_ST.findIndex(function(e){return e[0]===(o.status||'novo')});
@@ -6025,7 +6564,7 @@ function gxSeed(){
   add.push({id:base-k*7777,date:base-dias*864e5-Math.floor(Math.random()*864e5),
    store:'Itabirito',mode:Math.random()<.6?'casa':'loja',slot:'Janela de exemplo',
    items:itens,bruto:Math.round(tot*100)/100,
-   cbUsado:0,cbGanho:Math.round(tot*CB_TAXA*100)/100,
+   cbUsado:0,cbGanho:Math.round(tot*cbTaxa()*100)/100,
    total:Math.round(tot*100)/100,
    status:GX_ST[Math.floor(Math.random()*GX_ST.length)][0],
    cliente:nomes[Math.floor(Math.random()*nomes.length)],demo:true})}
@@ -6035,31 +6574,27 @@ function gxSeed(){
 function gxLimparDemo(){orders=orders.filter(function(o){return !o.demo});
  saveOrders(); gxRender(); toast('Exemplos removidos')}
 
-function gxRender(){
- if(!$('#p-gestao'))return;
- var os=orders.slice();
- var fat=os.reduce(function(a,o){return a+(+o.total||0)},0);
- var itens=os.reduce(function(a,o){return a+o.items.reduce(function(b,x){return b+x[1]},0)},0);
- var ticket=os.length?fat/os.length:0;
- var porPedido=os.length?itens/os.length:0;
-
- /* ---- KPIs: numero de manchete, nao grafico de uma barra ---- */
- $('#gxKpis').innerHTML=[
-  ['Faturamento',brl(fat),os.length+' pedidos no histórico'],
-  ['Ticket médio',brl(ticket),'por pedido'],
-  ['Itens por pedido',(porPedido||0).toFixed(1).replace('.',','),'média'],
-  ['Produtos no catálogo',String(P.length),gxProdutosExtra().length+' cadastrados aqui'],
-  ['Cashback concedido',brl(os.reduce(function(a,o){return a+(+o.cbGanho||0)},0)),
-   'devolvido aos clientes'],
-  ['Cashback usado',brl(os.reduce(function(a,o){return a+(+o.cbUsado||0)},0)),
-   'abatido em pedidos']
- ].map(function(k){return '<div class="gx-kpi glass"><small>'+esc(k[0])+
-   '</small><b>'+esc(k[1])+'</b><span>'+esc(k[2])+'</span></div>'}).join('');
-
- /* ---- KANBAN ---- */
- $('#gxKbCount').textContent=os.length?os.length+' no total':'nenhum pedido ainda';
- $('#gxKanban').innerHTML=GX_ST.map(function(st,si){
-  var lista=os.filter(function(o){return (o.status||'novo')===st[0]});
+/* o quadro de pedidos: quatro colunas, uma por etapa, e os pedidos
+   andam de uma para a outra com as setas */
+function gxKanban(){
+ var box=document.getElementById('gxKanban'); if(!box)return;
+ var q=norm((document.getElementById('admPedQ')||{}).value||'');
+ var d=+((document.getElementById('admPedQuando')||{}).value||0);
+ var lim=d?(d===1?new Date().setHours(0,0,0,0):Date.now()-d*864e5):0;
+ var os=orders.filter(function(o){
+  if(lim&&(+o.date||0)<lim)return false;
+  if(!q)return true;
+  /* indexOf('') e 0, entao sem este guarda uma busca por letras casava
+     com o numero de TODO pedido e o filtro nao filtrava nada */
+  var dig=q.replace(/\D/g,'');
+  return norm(o.cliente||'').indexOf(q)>=0 || (!!dig && String(o.id).indexOf(dig)>=0)});
+ var c=document.getElementById('gxKbCount');
+ if(c)c.textContent = orders.length
+  ? (os.length===orders.length ? os.length+' no total' : os.length+' de '+orders.length)
+  : 'nenhum pedido ainda';
+ box.innerHTML=GX_ST.map(function(st,si){
+  var lista=os.filter(function(o){return (o.status||'novo')===st[0]})
+    .sort(function(a,b){return b.date-a.date});
   return '<div class="gx-col"><div class="gx-colhd">'+
    '<span class="gx-dot" style="background:'+st[2]+'" aria-hidden="true"></span>'+
    '<b>'+esc(st[1])+'</b><i>'+lista.length+'</i></div>'+
@@ -6075,62 +6610,17 @@ function gxRender(){
        (si<GX_ST.length-1?'<button onclick="gxMover('+o.id+',1)" aria-label="Avançar etapa">→</button>':'<span></span>')+
       '</div></article>'}).join('')
     :'<p class="gx-vazio">vazio</p>')+'</div>'}).join('');
-
- /* ---- DIAS DA SEMANA: barras de hue unico, valores impressos ---- */
- var porDia=[0,0,0,0,0,0,0], valDia=[0,0,0,0,0,0,0];
- os.forEach(function(o){var d=new Date(o.date).getDay();
-  porDia[d]++; valDia[d]+=(+o.total||0)});
- var max=Math.max.apply(null,porDia)||1;
- var melhor=porDia.indexOf(max);
- $('#gxDiasCap').textContent=os.length
-  ? 'Pedidos por dia da semana — o pico é '+GX_DIAS[melhor]+', com '+max+' pedido'+(max===1?'':'s')
-  : 'Pedidos por dia da semana';
- $('#gxDias').innerHTML=porDia.map(function(v,i){
-  var h=Math.round(v/max*100);
-  return '<div class="gx-bwrap"><span class="gx-bval">'+v+'</span>'+
-   '<div class="gx-btrack"><div class="gx-bar'+(i===melhor?' gx-pico':'')+
-   '" style="height:'+(v?Math.max(h,3):0)+'%" title="'+GX_DIAS[i]+': '+v+
-   ' pedido'+(v===1?'':'s')+' · '+brl(valDia[i])+'"></div></div>'+
-   '<span class="gx-blab">'+GX_DIAS[i]+'</span></div>'}).join('');
- $('#gxDiasTab').innerHTML='<table class="gx-table"><thead><tr><th>Dia</th>'+
-  '<th>Pedidos</th><th>Faturamento</th></tr></thead><tbody>'+
-  porDia.map(function(v,i){return '<tr><td>'+GX_DIAS[i]+'</td><td>'+v+
-   '</td><td>'+brl(valDia[i])+'</td></tr>'}).join('')+'</tbody></table>';
-
- /* ---- RANKING: barras horizontais ordenadas, um hue ---- */
- var porCli={};
- os.forEach(function(o){var c=o.cliente||'Cliente';
-  if(!porCli[c])porCli[c]={n:0,v:0}; porCli[c].n++; porCli[c].v+=(+o.total||0)});
- var rank=Object.keys(porCli).map(function(c){return{c:c,n:porCli[c].n,v:porCli[c].v}})
-   .sort(function(a,b){return b.v-a.v}).slice(0,8);
- var maxV=rank.length?rank[0].v:1;
- $('#gxCliCap').textContent=rank.length
-  ? rank.length+' cliente'+(rank.length===1?'':'s')+' no histórico, por valor gasto'
-  : 'Sem pedidos para ranquear ainda';
- $('#gxClientes').innerHTML=rank.length?rank.map(function(r,i){
-  return '<div class="gx-rrow"><span class="gx-rpos">'+(i+1)+'</span>'+
-   '<div class="gx-rmid"><div class="gx-rtop"><b>'+esc(r.c)+'</b>'+
-   '<span>'+brl(r.v)+'</span></div>'+
-   '<div class="gx-rtrack"><div class="gx-rbar" style="width:'+
-   Math.max(Math.round(r.v/maxV*100),2)+'%"></div></div>'+
-   '<small>'+r.n+' pedido'+(r.n===1?'':'s')+'</small></div></div>'}).join('')
-  :'<p class="gx-vazio">Finalize um pedido ou carregue os dados de exemplo.</p>';
-
- /* ---- PRODUTOS CADASTRADOS ---- */
- var ex=gxProdutosExtra();
- $('#gxProdCount').textContent=ex.length?ex.length+' cadastrado'+(ex.length===1?'':'s')+' aqui':'';
- $('#gxProdList').innerHTML=ex.length?ex.map(function(x,i){
-  return '<div class="gx-prow"><div><b>'+esc(x.n)+'</b><small>'+esc(x.u)+
-   ' · '+esc(x.cat)+'</small></div><span>'+brl(x.p)+'</span>'+
-   '<button onclick="gxRemoverProduto('+i+')" aria-label="Remover '+esc(x.n)+
-   '">✕</button></div>'}).join('')
-  :'<p class="gx-vazio">Nenhum produto cadastrado por aqui ainda.</p>'}
+}
+/* quem mexe nos pedidos ou no catalogo chama gxRender; quem desenha e a
+   secao aberta, e so ela — nenhuma secao escondida gasta trabalho */
+function gxRender(){try{admRender()}catch(e){}}
 
 /* produtos cadastrados entram no catalogo ao abrir o site */
 (function(){gxProdutosExtra().forEach(function(x){
- P.push({id:P.length,n:x.n,img:'',sm:'',o:x.o,p:x.p,u:x.u,cat:x.cat,desc:x.desc||''})})})();
+ P.push({id:P.length,n:x.n,img:'',sm:'',o:x.o,p:x.p,u:x.u,cat:x.cat,desc:x.desc||'',
+  extra:true,criado:x.criado||0})})})();
 /* depois dos cadastrados a mao, para que eles tambem agrupem */
-montarFamilias(); marcarAlcool();
+aplicarEdicoes(); montarFamilias(); marcarAlcool();
 
 /* ---- o trilho de departamentos do topo desliza sozinho ----
    Vai ate o fim devagar, espera, volta ao inicio e recomeca. Qualquer toque,
@@ -6212,7 +6702,10 @@ montarFamilias(); marcarAlcool();
 function idadeResp(){var v=null;try{v=localStorage.getItem('farid_18')}catch(e){}
  return (v==='sim'||v==='nao')?v:null}
 function menorDeIdade(){return idadeResp()==='nao'}
-function semAlc(l){return menorDeIdade()?l.filter(function(x){return x&&!x.alc}):l}
+/* o unico funil por onde passam as prateleiras: tira o que a gestao
+   desativou, para todo mundo, e as bebidas, para quem disse ser menor */
+function semAlc(l){var m=menorDeIdade();
+ return l.filter(function(x){return x && !x.off && !(m&&x.alc)})}
 
 /* as quatro ofertas do cartao da home sao escolhidas a dedo; se alguma
    for bebida, entra no lugar a de maior desconto entre as permitidas */
@@ -6255,7 +6748,7 @@ function setIdade(v){
     o jeito seguro de nao sobrar nenhuma bebida numa prateleira */
  if(idadeAplicada!==null&&idadeAplicada!==v){try{location.reload();return}catch(e){}}
  idadeAplicada=v;
- if(!curStore())setTimeout(openStores,420);
+ if(!curStore()&&!naGestao())setTimeout(openStores,420);
 }
 var idadeAplicada=null;
 
@@ -6288,9 +6781,9 @@ function renderIdade(){
    O credito e sobre o valor REALMENTE PAGO, nao sobre o bruto: senao o
    saldo usado geraria saldo novo e o programa se pagaria sozinho.
    ========================================================================== */
-var CB_TAXA=0.02;     /* 2% de volta */
-var CB_MIN_USO=5;     /* so da para usar a partir de R$ 5 acumulados */
-var CB_MAX_PCT=0.5;   /* e no maximo metade de cada pedido */
+/* a taxa, o minimo para usar e o teto por pedido ficam na configuracao
+   da loja, em `cfgPadrao()` la em cima: sao decisao de quem toca a loja,
+   nao do codigo. Aqui so ficam as contas. */
 
 /* Le e grava direto no armazenamento, sem passar pelo LS: `renderCart()`
    roda no carregamento ANTES de `const LS` ser inicializada, e tocar nela
@@ -6299,6 +6792,24 @@ var CB_MAX_PCT=0.5;   /* e no maximo metade de cada pedido */
    declarada mais abaixo. */
 function _guard(k){try{return localStorage.getItem(k)}catch(e){return null}}
 function _grav(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+/* ---- a configuracao escrita na pagina ----
+   Tres links de WhatsApp e o valor do frete gratis estao no HTML, que e
+   estatico. Em vez de duplicar o numero em cada um, eles ganham
+   `data-wa` e sao reescritos aqui no carregamento e sempre que a gestao
+   salvar. Assim mudar o numero no painel muda a pagina inteira. */
+function waBonito(){
+ var n=waNum().replace(/^55/,'');
+ return n.length>=10 ? '('+n.slice(0,2)+') '+n.slice(2,-4)+'-'+n.slice(-4) : waNum()}
+function aplicarConfigNaPagina(){
+ var txt='Ol\u00e1! Vim pelo site '+nLoja()+'.';
+ document.querySelectorAll('[data-wa]').forEach(function(a){a.href=waLink(txt)});
+ document.querySelectorAll('[data-wa-num]').forEach(function(e){e.textContent=waBonito()});
+ var fv=document.getElementById('freteVal');
+ if(fv)fv.innerHTML=freteGratis()?brl(freteGratis()).replace(/\s/g,'&nbsp;'):'qualquer valor';
+ document.body.classList.toggle('sem-cashback',!cbLigado());
+ try{renderCart()}catch(e){}
+}
+
 function cbLer(){
  try{var o=JSON.parse(_guard('farid_cashback')||'{}');
   return {saldo:Math.max(0,+o.saldo||0),
@@ -6313,10 +6824,10 @@ function setCbUsar(v){_grav('farid_cb_usar',v?'1':'0');renderCart()}
 /* quanto do saldo cabe neste pedido */
 function cbDisponivel(tot){
  var s=cbSaldo();
- if(s<CB_MIN_USO||tot<=0)return 0;
- return Math.min(s, Math.floor(tot*CB_MAX_PCT*100)/100)}
+ if(!cbLigado()||s<cbMinUso()||tot<=0)return 0;
+ return Math.min(s, Math.floor(tot*cbMaxPct()*100)/100)}
 function cbAplicado(tot){return cbUsarAtivo()?cbDisponivel(tot):0}
-function cbGanho(pago){return Math.round(pago*CB_TAXA*100)/100}
+function cbGanho(pago){return Math.round(pago*cbTaxa()*100)/100}
 function cbLancar(tipo,valor,pedido){
  if(!(valor>0))return;
  var o=cbLer();
@@ -6325,6 +6836,7 @@ function cbLancar(tipo,valor,pedido){
  cbGravar(o)}
 
 function cbLinhasCarrinho(tot){
+ if(!cbLigado())return '';
  var disp=cbDisponivel(tot), usa=cbAplicado(tot), saldo=cbSaldo();
  var out='';
  if(saldo>0){
@@ -6334,7 +6846,7 @@ function cbLinhasCarrinho(tot){
     '<i>Você tem '+brl(saldo)+' acumulados</i></span></label>';
   }else{
    out+='<div class="cb-nota">Você tem <b>'+brl(saldo)+'</b> de cashback. '+
-    'A partir de '+brl(CB_MIN_USO)+' dá para usar na compra.</div>';
+    'A partir de '+brl(cbMinUso())+' dá para usar na compra.</div>';
   }
  }
  if(usa>0) out+='<div class="line cb-linha"><span>Cashback usado</span><span>−'+brl(usa)+'</span></div>';
@@ -6344,7 +6856,7 @@ function cbLinhasCarrinho(tot){
 function renderCashback(){
  var box=document.getElementById('cbCard'); if(!box)return;
  var o=cbLer();
- if(!user){box.hidden=true;return}
+ if(!user||!cbLigado()){box.hidden=true;return}
  box.hidden=false;
  var ext=o.extrato.slice(0,6).map(function(x){
   var sinal = x.t==='ganho' ? '+' : '−';
@@ -6353,9 +6865,9 @@ function renderCashback(){
    '</span><b>'+sinal+brl(x.v)+'</b></div>'}).join('');
  box.innerHTML=
   '<div class="cb-val"><small>Seu cashback</small><b>'+brl(o.saldo)+'</b>'+
-  '<i>'+(o.saldo>=CB_MIN_USO
+  '<i>'+(o.saldo>=cbMinUso()
      ? 'Dá para usar já na próxima compra, até metade do pedido.'
-     : 'A partir de '+brl(CB_MIN_USO)+' você pode usar na compra.')+'</i></div>'+
+     : 'A partir de '+brl(cbMinUso())+' você pode usar na compra.')+'</i></div>'+
   (ext?'<div class="cb-ext" style="flex-basis:100%">'+ext+'</div>':'');
 }
 
@@ -6484,12 +6996,20 @@ function admSair(){
  try{sessionStorage.removeItem('farid_adm_on')}catch(e){}
  admPorta(); toast('Você saiu da gestão')}
 
-/* ---- navegacao entre as secoes ---- */
+/* ==========================================================================
+   NAVEGACAO DA GESTAO
+   Sete secoes em tres grupos: acompanhar (visao geral, dashboard,
+   pedidos), vender (produtos e as duas vitrines) e loja (configuracoes).
+   Cada secao desenha a si mesma quando entra — nada roda escondido.
+   ========================================================================== */
 var ADM_SEC={
- painel:['Painel','Os números da loja, em um lugar só.'],
- produtos:['Produtos','Cadastre e organize o que a loja vende.'],
+ painel:['Visão geral','Como a loja está agora, em um lugar só.'],
+ dashboard:['Dashboard','Os números ao longo do tempo.'],
+ pedidos:['Pedidos','Da chegada até a entrega, etapa por etapa.'],
+ produtos:['Produtos','Tudo o que a loja vende: preço, nome e situação.'],
  hoje:['Ofertas de hoje','O que aparece em destaque na página inicial.'],
- relampago:['Ofertas relâmpago','O trilho com prazo, e até quando ele vale.']
+ relampago:['Ofertas relâmpago','O trilho com prazo, e até quando ele vale.'],
+ config:['Configurações','As regras da loja: entrega, cashback, acesso.']
 };
 function admSecAtual(){
  try{var v=sessionStorage.getItem('farid_adm_sec');
@@ -6504,25 +7024,600 @@ function admIr(sec){
   b.setAttribute('aria-current',on?'page':'false')});
  document.getElementById('admH').textContent=ADM_SEC[sec][0];
  document.getElementById('admHp').textContent=ADM_SEC[sec][1];
- var ac=document.getElementById('admAcoes');
- ac.innerHTML = sec==='painel'
-  ? '<button type="button" class="btn btn-g" onclick="gxSeed()">Carregar exemplos</button>'+
-    '<button type="button" class="btn btn-g" onclick="gxLimparDemo()">Limpar exemplos</button>'
-  : (sec==='hoje'
-    ? '<button type="button" class="btn btn-g" onclick="admRestaurarHoje()">Restaurar padrão</button>'
-    : (sec==='relampago'
-      ? '<button type="button" class="btn btn-g" onclick="admRestaurarRel()">Restaurar padrão</button>'
-      : ''));
+ document.getElementById('admAcoes').innerHTML=ADM_ACOES[sec]||'';
  admRender();
  var c=document.querySelector('.adm-corpo'); if(c)c.scrollTop=0;
+ window.scrollTo(0,0);
 }
+var ADM_ACOES={
+ painel:'<button type="button" class="btn btn-g" onclick="gxSeed()">Carregar exemplos</button>'+
+        '<button type="button" class="btn btn-g" onclick="gxLimparDemo()">Limpar exemplos</button>',
+ dashboard:'<button type="button" class="btn btn-g" onclick="admCsv()">Baixar CSV</button>',
+ pedidos:'<button type="button" class="btn btn-g" onclick="gxSeed()">Carregar exemplos</button>'+
+         '<button type="button" class="btn btn-g" onclick="gxLimparDemo()">Limpar exemplos</button>',
+ produtos:'<button type="button" class="btn btn-w" onclick="admNovoToggle(true)">Novo produto</button>',
+ hoje:'<button type="button" class="btn btn-g" onclick="admRestaurarHoje()">Restaurar padrão</button>',
+ relampago:'<button type="button" class="btn btn-g" onclick="admRestaurarRel()">Restaurar padrão</button>',
+ config:''
+};
 function admRender(){
  if(!admLogado())return;
  var sec=admSecAtual();
- if(sec==='painel'||sec==='produtos'){try{gxRender()}catch(e){}}
- if(sec==='hoje'){admSelHoje();admListaHoje()}
- if(sec==='relampago'){admPrazoRender();admSelRel();admListaRel()}
+ try{admBadges()}catch(e){}
+ if(sec==='painel')      {gxKpisRender(orders.slice(),'#gxKpis'); admAlertas(); admAtalhos(); admUltimos()}
+ if(sec==='dashboard')   dashRender();
+ if(sec==='pedidos')     gxKanban();
+ if(sec==='produtos')    admProdLista();
+ if(sec==='hoje')        {admSelHoje();admListaHoje()}
+ if(sec==='relampago')   {admPrazoRender();admSelRel();admListaRel()}
+ if(sec==='config')      {admCfgRender(); admLojasRender(); admJsonRender()}
 }
+function admBadges(){
+ var nv=orders.filter(function(o){return (o.status||'novo')==='novo'}).length;
+ var bp=document.getElementById('admBadPed');
+ if(bp){bp.textContent=nv||''; bp.hidden=!nv}
+ var des=P.filter(function(x){return x.off}).length;
+ var bd=document.getElementById('admBadProd');
+ if(bd){bd.textContent=des||''; bd.hidden=!des; bd.title=des+' produto(s) desativado(s)'}
+}
+
+/* ---- VISAO GERAL: o que precisa de atencao, e o atalho para resolver ---- */
+function admAlertas(){
+ var box=document.getElementById('admAlertas'); if(!box)return;
+ var av=[];
+ var novos=orders.filter(function(o){return (o.status||'novo')==='novo'}).length;
+ if(novos)av.push(['abre','<b>'+novos+' pedido'+(novos===1?'':'s')+' esperando separação</b>',
+   'Mover no quadro','pedidos']);
+ var sep=orders.filter(function(o){return o.status==='separando'}).length;
+ if(sep)av.push(['','<b>'+sep+' em separação agora</b>','Ver o quadro','pedidos']);
+ var off=P.filter(function(x){return x.off}).length;
+ if(off)av.push(['','<b>'+off+' produto'+(off===1?'':'s')+' desativado'+(off===1?'':'s')+'</b>',
+   'Ver no catálogo','produtos']);
+ var r=ofRel();
+ if(r&&r.fim&&r.fim<Date.now())
+  av.push(['alerta','<b>O prazo da relâmpago venceu</b>','Marcar outro','relampago']);
+ if(!ofHoje())av.push(['','<b>As ofertas de hoje ainda são as do sistema</b>','Escolher','hoje']);
+ if(!cbLigado())av.push(['','<b>O cashback está desligado</b>','Ligar','config']);
+ var semP=P.filter(function(x){return !x.off&&!(x.desc||'').trim()}).length;
+ if(semP>P.length/2)av.push(['','<b>'+semP+' produtos sem descrição</b>','Escrever','produtos']);
+ box.innerHTML = av.length
+  ? av.map(function(x){return '<div class="adm-al '+(x[0]==='alerta'?'quente':'')+'">'+
+     '<span>'+x[1]+'</span><button type="button" onclick="admIr(\''+x[3]+'\')">'+x[2]+'</button></div>'}).join('')
+  : '<p class="gx-vazio">Nada pendente. A loja está em dia.</p>';
+}
+function admAtalhos(){
+ var box=document.getElementById('admAtalhos'); if(!box)return;
+ box.innerHTML=[['dashboard','i-chart','Dashboard','Como foi o mês'],
+   ['produtos','i-box','Mudar um preço','Catálogo inteiro'],
+   ['hoje','i-tag','Ofertas de hoje','Vitrine da home'],
+   ['relampago','i-clock','Relâmpago','Trilho com prazo'],
+   ['config','i-gear','Configurações','Entrega e cashback']]
+  .map(function(x){return '<button type="button" class="adm-at" onclick="admIr(\''+x[0]+'\')">'+
+   '<svg class="ico" aria-hidden="true"><use href="#'+x[1]+'"/></svg>'+
+   '<span><b>'+x[2]+'</b><i>'+x[3]+'</i></span></button>'}).join('');
+}
+function admUltimos(){
+ var box=document.getElementById('admUltimos'); if(!box)return;
+ var os=orders.slice().sort(function(a,b){return b.date-a.date}).slice(0,8);
+ document.getElementById('admUltN').textContent=orders.length?orders.length+' no histórico':'';
+ if(!os.length){box.innerHTML='<p class="gx-vazio">Nenhum pedido ainda. Finalize uma compra na loja ou carregue os exemplos.</p>';return}
+ box.innerHTML='<table class="gx-table adm-tab"><thead><tr><th>Pedido</th><th>Cliente</th>'+
+  '<th>Quando</th><th>Itens</th><th>Total</th><th>Etapa</th></tr></thead><tbody>'+
+  os.map(function(o){
+   var n=o.items.reduce(function(a,x){return a+x[1]},0);
+   var st=GX_ST.find(function(e){return e[0]===(o.status||'novo')})||GX_ST[0];
+   return '<tr><td><b>#'+String(o.id).slice(-6)+'</b></td><td>'+esc(o.cliente||'Cliente')+
+    '</td><td>'+fmtDate(o.date)+'</td><td>'+n+'</td><td>'+brl(+o.total||0)+
+    '</td><td><span class="adm-etq" style="--c:'+st[2]+'">'+esc(st[1])+'</span></td></tr>'
+  }).join('')+'</tbody></table>';
+}
+
+/* ==========================================================================
+   DASHBOARD
+   A visao geral responde "como esta agora". O dashboard responde "como
+   tem sido" — e por isso tem periodo. Sem recorte, faturamento acumulado
+   so cresce e nunca diz nada; com recorte, da para comparar semana com
+   semana. Todo grafico aqui tem o numero escrito ao lado: barra sem
+   valor obriga a medir com o olho, e olho mede mal.
+   ========================================================================== */
+var DASH_PER=[[7,'7 dias'],[30,'30 dias'],[90,'90 dias'],[0,'Tudo']];
+function dashPeriodo(){
+ try{var t=sessionStorage.getItem('farid_adm_per');
+  if(t===null||t==='')return 30;
+  var v=+t;
+  return DASH_PER.some(function(x){return x[0]===v})?v:30}catch(e){return 30}}
+function setDashPeriodo(v){
+ try{sessionStorage.setItem('farid_adm_per',v)}catch(e){}
+ dashRender()}
+function dashPedidos(){
+ var d=dashPeriodo();
+ if(!d)return orders.slice();
+ var lim=Date.now()-d*864e5;
+ return orders.filter(function(o){return (+o.date||0)>=lim})}
+
+function gxKpisRender(os,alvo){
+ var box=document.querySelector(alvo); if(!box)return;
+ var fat=os.reduce(function(a,o){return a+(+o.total||0)},0);
+ var itens=os.reduce(function(a,o){return a+o.items.reduce(function(b,x){return b+x[1]},0)},0);
+ var cli={}; os.forEach(function(o){cli[o.cliente||'Cliente']=1});
+ var linhas=[
+  ['Faturamento',brl(fat),os.length+' pedido'+(os.length===1?'':'s')],
+  ['Ticket médio',brl(os.length?fat/os.length:0),'por pedido'],
+  ['Itens por pedido',(os.length?itens/os.length:0).toFixed(1).replace('.',','),'média'],
+  ['Clientes',String(Object.keys(cli).length),'distintos no período'],
+  ['Cashback dado',brl(os.reduce(function(a,o){return a+(+o.cbGanho||0)},0)),
+   cbLigado()?'devolvido aos clientes':'programa desligado'],
+  ['Cashback usado',brl(os.reduce(function(a,o){return a+(+o.cbUsado||0)},0)),'abatido em pedidos']
+ ];
+ if(alvo==='#gxKpis')linhas[3]=['Catálogo',String(P.filter(function(x){return !x.off}).length)+' ativos',
+   P.filter(function(x){return x.off}).length+' desativados'];
+ box.innerHTML=linhas.map(function(k){return '<div class="gx-kpi glass"><small>'+esc(k[0])+
+   '</small><b>'+esc(k[1])+'</b><span>'+esc(k[2])+'</span></div>'}).join('');
+}
+
+function dashRender(){
+ if(!document.getElementById('dashKpis'))return;
+ var os=dashPedidos(), per=dashPeriodo();
+ document.getElementById('admPeriodo').innerHTML=DASH_PER.map(function(x){
+  return '<button type="button" class="adm-per'+(x[0]===per?' on':'')+'"'+
+   (x[0]===per?' aria-current="true"':'')+' onclick="setDashPeriodo('+x[0]+')">'+x[1]+'</button>'
+ }).join('')+'<span class="adm-per-n">'+os.length+' pedido'+(os.length===1?'':'s')+' no recorte</span>';
+
+ gxKpisRender(os,'#dashKpis');
+ dashLinha(os,per);
+ dashSemana(os);
+ dashEtapas(os);
+ dashProdutos(os);
+ dashClientes(os);
+ dashCats(os);
+}
+
+/* ---- faturamento dia a dia (ou semana a semana, quando sao 90 dias) ---- */
+function dashLinha(os,per){
+ var dias;
+ if(per)dias=per;
+ else{
+  /* "Tudo" precisa caber o pedido mais antigo, senao a soma do grafico
+     fica menor que a do KPI logo acima e os dois se contradizem */
+  var mais=os.length?Math.min.apply(null,os.map(function(o){return +o.date})):Date.now();
+  dias=Math.max(7,Math.min(180,Math.ceil((Date.now()-mais)/864e5)+1));
+ }
+ var passo = dias>45?7:1, n=Math.ceil(dias/passo);
+ var bal=[], rot=[];
+ var hoje=new Date(); hoje.setHours(23,59,59,999);
+ for(var i=n-1;i>=0;i--){
+  var fim=hoje.getTime()-i*passo*864e5;
+  var ini=fim-passo*864e5;
+  var v=os.filter(function(o){return +o.date>ini&&+o.date<=fim})
+          .reduce(function(a,o){return a+(+o.total||0)},0);
+  bal.push(Math.round(v*100)/100);
+  var d=new Date(fim);
+  rot.push(passo>1 ? ('até '+String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0'))
+                   : (String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')));
+ }
+ var max=Math.max.apply(null,bal)||1, tot=bal.reduce(function(a,b){return a+b},0);
+ var pico=bal.indexOf(max);
+ document.getElementById('dashLinhaCap').textContent = tot
+  ? (passo>1?'Faturamento por semana':'Faturamento por dia')+' — '+brl(tot)+
+    ' no período, melhor '+(passo>1?'semana':'dia')+' em '+rot[pico]+' com '+brl(max)
+  : 'Sem faturamento no período escolhido';
+ document.getElementById('dashLinha').innerHTML=bal.map(function(v,i){
+  var h=Math.round(v/max*100);
+  return '<div class="gx-bwrap"><span class="gx-bval">'+(v?brl(v).replace(/^R\$\s?/,''):'')+'</span>'+
+   '<div class="gx-btrack"><div class="gx-bar'+(i===pico&&v?' gx-pico':'')+
+   '" style="height:'+(v?Math.max(h,3):0)+'%" title="'+rot[i]+': '+brl(v)+'"></div></div>'+
+   '<span class="gx-blab">'+rot[i]+'</span></div>'}).join('');
+ document.getElementById('dashLinhaTab').innerHTML=
+  '<table class="gx-table"><thead><tr><th>'+(passo>1?'Semana':'Dia')+'</th><th>Faturamento</th></tr></thead><tbody>'+
+  bal.map(function(v,i){return '<tr><td>'+rot[i]+'</td><td>'+brl(v)+'</td></tr>'}).join('')+
+  '</tbody></table>';
+}
+
+function dashSemana(os){
+ var porDia=[0,0,0,0,0,0,0], valDia=[0,0,0,0,0,0,0];
+ os.forEach(function(o){var d=new Date(o.date).getDay();
+  porDia[d]++; valDia[d]+=(+o.total||0)});
+ var max=Math.max.apply(null,porDia)||1, melhor=porDia.indexOf(max);
+ document.getElementById('gxDiasCap').textContent=os.length
+  ? 'O pico é '+GX_DIAS[melhor]+', com '+max+' pedido'+(max===1?'':'s')
+  : 'Pedidos por dia da semana';
+ document.getElementById('gxDias').innerHTML=porDia.map(function(v,i){
+  var h=Math.round(v/max*100);
+  return '<div class="gx-bwrap"><span class="gx-bval">'+v+'</span>'+
+   '<div class="gx-btrack"><div class="gx-bar'+(i===melhor&&v?' gx-pico':'')+
+   '" style="height:'+(v?Math.max(h,3):0)+'%" title="'+GX_DIAS[i]+': '+v+
+   ' pedido'+(v===1?'':'s')+' · '+brl(valDia[i])+'"></div></div>'+
+   '<span class="gx-blab">'+GX_DIAS[i]+'</span></div>'}).join('');
+ document.getElementById('gxDiasTab').innerHTML='<table class="gx-table"><thead><tr><th>Dia</th>'+
+  '<th>Pedidos</th><th>Faturamento</th></tr></thead><tbody>'+
+  porDia.map(function(v,i){return '<tr><td>'+GX_DIAS[i]+'</td><td>'+v+
+   '</td><td>'+brl(valDia[i])+'</td></tr>'}).join('')+'</tbody></table>';
+}
+
+/* uma barra horizontal por linha: mesmo desenho para etapas, produtos,
+   clientes e departamentos, porque sao a mesma pergunta — quanto cada
+   um pesa na soma. */
+function barrasH(alvo,legenda,linhas,texto){
+ var box=document.getElementById(alvo); if(!box)return;
+ var cap=document.getElementById(legenda);
+ if(cap)cap.textContent=texto||'';
+ var max=linhas.length?Math.max.apply(null,linhas.map(function(l){return l.v})):1;
+ box.innerHTML=linhas.length?linhas.map(function(l,i){
+  return '<div class="gx-rrow"><span class="gx-rpos"'+
+   (l.cor?' style="background:'+l.cor+';color:#fff"':'')+'>'+(l.pos||(i+1))+'</span>'+
+   '<div class="gx-rmid"><div class="gx-rtop"><b>'+esc(l.n)+'</b><span>'+esc(l.val)+'</span></div>'+
+   '<div class="gx-rtrack"><div class="gx-rbar" style="width:'+
+   Math.max(Math.round(l.v/(max||1)*100),2)+'%'+(l.cor?';background:'+l.cor:'')+'"></div></div>'+
+   '<small>'+esc(l.sub||'')+'</small></div></div>'}).join('')
+  :'<p class="gx-vazio">Sem dados no período escolhido.</p>';
+}
+
+function dashEtapas(os){
+ var linhas=GX_ST.map(function(st,i){
+  var l=os.filter(function(o){return (o.status||'novo')===st[0]});
+  var v=l.reduce(function(a,o){return a+(+o.total||0)},0);
+  return {n:st[1],v:l.length,cor:st[2],pos:l.length,
+    val:l.length+' pedido'+(l.length===1?'':'s'),sub:brl(v)}
+ }).filter(function(l){return l.v>0});
+ barrasH('dashEtapas','dashEtapaCap',linhas,
+  os.length? 'Os '+os.length+' pedidos do período, por etapa' : 'Nenhum pedido no período');
+}
+
+function dashProdutos(os){
+ var q={};
+ os.forEach(function(o){o.items.forEach(function(it){
+  var id=it[0], n=it[1]||0; if(!P[id])return;
+  if(!q[id])q[id]={n:0,v:0}; q[id].n+=n; q[id].v+=n*(+P[id].p||0)})});
+ var l=Object.keys(q).map(function(id){return {id:+id,n:q[id].n,v:q[id].v}})
+   .sort(function(a,b){return b.n-a.n}).slice(0,8)
+   .map(function(r){return {n:P[r.id].n,v:r.n,
+     val:r.n+' un',sub:brl(r.v)+' · '+catNomeAdm(P[r.id].cat)}});
+ barrasH('dashProdutos','dashProdCap',l,
+  l.length? 'Os mais pedidos no período, por quantidade' : 'Nenhum item vendido no período');
+}
+
+function dashClientes(os){
+ var porCli={};
+ os.forEach(function(o){var c=o.cliente||'Cliente';
+  if(!porCli[c])porCli[c]={n:0,v:0}; porCli[c].n++; porCli[c].v+=(+o.total||0)});
+ var l=Object.keys(porCli).map(function(c){return {n:c,v:porCli[c].v,
+    val:brl(porCli[c].v),sub:porCli[c].n+' pedido'+(porCli[c].n===1?'':'s')}})
+   .sort(function(a,b){return b.v-a.v}).slice(0,8);
+ barrasH('gxClientes','gxCliCap',l,
+  l.length? l.length+' cliente'+(l.length===1?'':'s')+' no período, por valor gasto'
+          : 'Sem pedidos para ranquear ainda');
+}
+
+function dashCats(os){
+ var c={};
+ os.forEach(function(o){o.items.forEach(function(it){
+  var p=P[it[0]]; if(!p)return;
+  c[p.cat]=(c[p.cat]||0)+(it[1]||0)*(+p.p||0)})});
+ var tot=Object.keys(c).reduce(function(a,k){return a+c[k]},0)||1;
+ var l=Object.keys(c).map(function(k){return {n:catNomeAdm(k),v:c[k],
+   val:brl(c[k]),sub:Math.round(c[k]/tot*100)+'% do período'}})
+  .sort(function(a,b){return b.v-a.v});
+ barrasH('dashCats','dashCatCap',l,
+  l.length? 'Quanto cada departamento rendeu' : 'Nenhuma venda no período');
+}
+
+/* ---- o recorte da tela, em CSV, para abrir na planilha ---- */
+function admCsv(){
+ var os=dashPedidos().slice().sort(function(a,b){return a.date-b.date});
+ var li=[['pedido','data','cliente','loja','modo','itens','bruto','cashback_usado','cashback_ganho','total','etapa']];
+ os.forEach(function(o){
+  li.push([String(o.id).slice(-6),new Date(o.date).toISOString().slice(0,10),
+   o.cliente||'Cliente',o.store||'',o.mode==='casa'?'entrega':'retirada',
+   o.items.reduce(function(a,x){return a+x[1]},0),
+   (+o.bruto||+o.total||0).toFixed(2),(+o.cbUsado||0).toFixed(2),
+   (+o.cbGanho||0).toFixed(2),(+o.total||0).toFixed(2),o.status||'novo'])});
+ var csv=li.map(function(r){return r.map(function(c){
+  var t=String(c); return /[;"\n]/.test(t)?'"'+t.replace(/"/g,'""')+'"':t}).join(';')}).join('\r\n');
+ baixar('pedidos-'+(dashPeriodo()||'tudo')+'.csv','text/csv;charset=utf-8','\ufeff'+csv);
+}
+function baixar(nome,tipo,texto){
+ try{
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([texto],{type:tipo}));
+  a.download=nome; document.body.appendChild(a); a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500);
+  toast('Arquivo gerado');
+ }catch(e){toast('Este navegador não deixou baixar. Use "Ver a cópia em texto".')}
+}
+
+/* ==========================================================================
+   PRODUTOS
+   Antes daqui a gestao so sabia acrescentar e apagar produtos proprios —
+   os 25 do catalogo base eram intocaveis. Trocar um preco, que e o que
+   uma loja faz todo dia, exigia publicar o site de novo. Agora qualquer
+   produto se abre numa ficha: nome, departamento, unidade, os dois
+   precos, descricao, e ligado ou desligado.
+   ========================================================================== */
+var ADM_CATS=[['mercearia','Mercearia'],['acougue','Açougue'],['drinks','Bebidas e adega'],
+  ['limpeza','Limpeza'],['higiene','Higiene'],['pet','Pet shop']];
+function catNomeAdm(c){
+ for(var i=0;i<ADM_CATS.length;i++)if(ADM_CATS[i][0]===c)return ADM_CATS[i][1];
+ return c||'Sem departamento'}
+function admNovoToggle(abrir){
+ var b=document.getElementById('admNovoBloco'); if(!b)return;
+ b.hidden=!abrir;
+ if(abrir){var n=document.getElementById('gxpNome'); if(n)n.focus();
+  b.scrollIntoView({block:'nearest'})}}
+
+function admProdLista(){
+ var box=document.getElementById('admProdLista'); if(!box)return;
+ var q=norm((document.getElementById('admProdQ')||{}).value||'');
+ var cat=(document.getElementById('admProdCat')||{}).value||'';
+ var sit=(document.getElementById('admProdSit')||{}).value||'';
+ var ed=prodEdit();
+ var l=P.filter(function(x){
+  if(q&&norm(x.n).indexOf(q)<0)return false;
+  if(cat&&x.cat!==cat)return false;
+  if(sit==='on'&&x.off)return false;
+  if(sit==='off'&&!x.off)return false;
+  if(sit==='ed'&&!ed[String(x.id)])return false;
+  if(sit==='of'&&!(x.o>x.p))return false;
+  return true});
+ document.getElementById('gxProdCount').textContent=
+  l.length+' de '+P.length+' produto'+(P.length===1?'':'s');
+ if(!l.length){box.innerHTML='<p class="gx-vazio">Nenhum produto com esse filtro.</p>';return}
+ box.innerHTML='<table class="gx-table adm-tab adm-tab-p"><thead><tr>'+
+  '<th>Produto</th><th>Departamento</th><th class="num">Antes</th><th class="num">Preço</th>'+
+  '<th class="num">Desconto</th><th>Situação</th><th></th></tr></thead><tbody>'+
+  l.slice(0,120).map(function(x){
+   var alt=!!ed[String(x.id)];
+   var dsc=x.o>x.p?Math.round((1-x.p/x.o)*100):0;
+   return '<tr'+(x.off?' class="adm-tr-off"':'')+'>'+
+    '<td class="adm-td-p"><span class="adm-mini">'+
+      (x.sm?'<img loading="lazy" src="'+x.sm+'" alt="" onerror="this.remove()">':'')+'</span>'+
+      '<span><b>'+esc(x.n)+'</b><small>'+esc(x.u||'unidade')+
+      (alt?' · <em>alterado</em>':'')+'</small></span></td>'+
+    '<td>'+esc(catNomeAdm(x.cat))+'</td>'+
+    '<td class="num">'+(x.o>x.p?'<s>'+brl(x.o)+'</s>':'—')+'</td>'+
+    '<td class="num"><b>'+brl(x.p)+'</b>'+
+     (dsc?'<small class="adm-so-m"><s>'+brl(x.o)+'</s> · −'+dsc+'%</small>':'')+'</td>'+
+    '<td class="num">'+(dsc?'−'+dsc+'%':'—')+'</td>'+
+    '<td>'+(x.off?'<span class="adm-etq" style="--c:#8a8a8f">Desativado</span>'
+                 :'<span class="adm-etq" style="--c:#1baf7a">Ativo</span>')+'</td>'+
+    '<td class="num"><button type="button" class="btn btn-g btn-s" onclick="admProdAbrir('+x.id+')">Editar</button></td>'+
+    '</tr>'}).join('')+'</tbody></table>'+
+  (l.length>120?'<p class="adm-dica">Mostrando os 120 primeiros. Use a busca para chegar nos outros.</p>':'');
+}
+
+function admProdAbrir(id){
+ var x=P[id]; if(!x)return;
+ var m=document.getElementById('admEd'); if(!m)return;
+ document.getElementById('admEdId').value=id;
+ document.getElementById('admEdTit').textContent=x.n;
+ document.getElementById('admEdSub').textContent=
+  (x.extra?'Cadastrado no painel':'Do catálogo da loja')+' · código '+id;
+ document.getElementById('admEdNome').value=x.n||'';
+ document.getElementById('admEdCat').value=x.cat||'mercearia';
+ document.getElementById('admEdUn').value=x.u||'';
+ document.getElementById('admEdP').value=(+x.p||0).toFixed(2);
+ document.getElementById('admEdO').value=(+x.o||0).toFixed(2);
+ document.getElementById('admEdDesc').value=x.desc||'';
+ document.getElementById('admEdOff').checked=!!x.off;
+ document.getElementById('admEdRev').hidden=!prodEdit()[String(id)];
+ document.getElementById('admEdDel').hidden=!x.extra;
+ admEdMargem();
+ m.hidden=false; document.body.classList.add('lock');
+ setTimeout(function(){document.getElementById('admEdNome').focus()},60);
+}
+function admProdFechar(){
+ var m=document.getElementById('admEd'); if(!m)return;
+ m.hidden=true; document.body.classList.remove('lock')}
+function admEdMargem(){
+ var p=parseFloat(document.getElementById('admEdP').value)||0;
+ var o=parseFloat(document.getElementById('admEdO').value)||0;
+ var el=document.getElementById('admEdMargem'); if(!el)return;
+ el.textContent = o>p
+  ? 'Na loja aparece como '+brl(p)+', de '+brl(o)+', com −'+Math.round((1-p/o)*100)+'%.'
+  : 'Sem preço anterior maior, o produto aparece sem selo de desconto.';
+}
+function admProdSalvar(ev){
+ ev.preventDefault();
+ var id=+document.getElementById('admEdId').value;
+ var x=P[id]; if(!x)return false;
+ var p=Math.round((parseFloat(document.getElementById('admEdP').value)||0)*100)/100;
+ if(!(p>0)){toast('O preço de venda precisa ser maior que zero');return false}
+ var o=Math.round((parseFloat(document.getElementById('admEdO').value)||0)*100)/100;
+ if(!(o>=p))o=p;
+ prodEditSet(id,{
+  n:document.getElementById('admEdNome').value.trim()||x.n,
+  cat:document.getElementById('admEdCat').value,
+  u:document.getElementById('admEdUn').value.trim(),
+  desc:document.getElementById('admEdDesc').value.trim(),
+  p:p,o:o,off:document.getElementById('admEdOff').checked?1:0});
+ /* um produto cadastrado aqui guarda a propria ficha, nao so a diferenca */
+ if(x.extra)admExtraSync(x);
+ montarFamilias(); marcarAlcool(); desenharVitrines();
+ admProdFechar(); admProdLista(); admBadges();
+ toast('Produto salvo');
+ return false}
+function admExtraSync(x){
+ var a=gxProdutosExtra(), i=a.findIndex(function(e){return e.criado===x.criado});
+ if(i<0)return;
+ a[i].n=x.n; a[i].cat=x.cat; a[i].u=x.u; a[i].desc=x.desc; a[i].p=x.p; a[i].o=x.o;
+ gxSalvarExtra(a)}
+function admProdReverter(){
+ var id=+document.getElementById('admEdId').value;
+ prodEditLimpar(id); montarFamilias(); marcarAlcool(); desenharVitrines();
+ admProdFechar(); admProdLista(); admBadges(); toast('Alterações desfeitas')}
+function admProdRemover(){
+ var id=+document.getElementById('admEdId').value, x=P[id];
+ if(!x||!x.extra)return;
+ if(!confirm('Excluir "'+x.n+'" do cadastro? Os pedidos antigos continuam guardados.'))return;
+ var a=gxProdutosExtra().filter(function(e){return e.criado!==x.criado});
+ gxSalvarExtra(a); prodEditLimpar(id);
+ toast('Produto excluído. Recarregando o catálogo…');
+ setTimeout(function(){location.reload()},700)}
+
+/* ==========================================================================
+   CONFIGURACOES
+   ========================================================================== */
+function admCfgRender(){
+ var c=cfg();
+ var v=function(id,val){var e=document.getElementById(id); if(e)e.value=val};
+ v('cfNome',c.nome); v('cfWa',waNum());
+ v('cfMin',(+c.min||0).toFixed(2)); v('cfFrete',(+c.frete||0).toFixed(2));
+ v('cfCbTaxa',+c.cbTaxa||0); v('cfCbMin',(+c.cbMin||0).toFixed(2)); v('cfCbMax',+c.cbMax||0);
+ document.getElementById('cfCbOn').checked=cbLigado();
+ document.getElementById('cfIdade').checked=idadeLigada();
+ var u=admCred(); if(u)v('cfU',u.u);
+ admSlotsRender(); admCfgCbEstado(); admCfgDicas();
+}
+function admCfgDicasPrevia(){
+ var v=(document.getElementById('cfWa').value||'').replace(/\D/g,'').replace(/^55/,'');
+ var d=document.getElementById('cfWaDica');
+ if(d)d.textContent = v.length>=10
+  ? 'Depois de salvar, os botões de WhatsApp vão para ('+v.slice(0,2)+') '+v.slice(2,-4)+'-'+v.slice(-4)+'.'
+  : 'Precisa de DDI, DDD e número — 13 dígitos, como 5531999505658.'}
+function admCfgDicas(){
+ var d=document.getElementById('cfWaDica');
+ if(d)d.textContent='Os botões de WhatsApp do site apontam para '+waBonito()+'.';
+ var e=document.getElementById('cfCbEx');
+ if(e){
+  var t=(parseFloat((document.getElementById('cfCbTaxa')||{}).value)||0)/100;
+  var mx=(parseFloat((document.getElementById('cfCbMax')||{}).value)||0)/100;
+  e.textContent='Numa compra de '+brl(100)+' o cliente recebe '+brl(100*t)+
+   ' de volta, e pode abater no máximo '+brl(100*mx)+' em um pedido do mesmo tamanho.'}
+}
+function admCfgCbEstado(){
+ var on=document.getElementById('cfCbOn').checked;
+ ['cfCbTaxa','cfCbMin','cfCbMax'].forEach(function(id){
+  var e=document.getElementById(id); if(e)e.disabled=!on});
+ admCfgDicas()}
+function admSlotsRender(){
+ var box=document.getElementById('cfSlots'); if(!box)return;
+ var s=slotsCfg();
+ box.innerHTML=s.map(function(j,i){
+  return '<div class="adm-slot"><input class="inp" type="time" value="'+j[0]+
+   '" onchange="admSlotSet('+i+',0,this.value)" aria-label="Início da janela '+(i+1)+'">'+
+   '<span>às</span><input class="inp" type="time" value="'+j[1]+
+   '" onchange="admSlotSet('+i+',1,this.value)" aria-label="Fim da janela '+(i+1)+'">'+
+   '<button type="button" class="adm-x" onclick="admSlotDel('+i+')" aria-label="Remover janela">✕</button></div>'
+ }).join('')||'<p class="adm-dica">Sem janela nenhuma a loja volta ao padrão de fábrica.</p>';
+}
+function admSlotSet(i,k,v){
+ var s=slotsCfg().map(function(x){return x.slice()});
+ if(!s[i])return; s[i][k]=v; cfgSalvar({slots:s}); admSlotsRender()}
+function admSlotAdd(){
+ var s=slotsCfg().map(function(x){return x.slice()});
+ s.push(['18:00','21:00']); cfgSalvar({slots:s}); admSlotsRender(); toast('Janela adicionada')}
+function admSlotDel(i){
+ var s=slotsCfg().map(function(x){return x.slice()});
+ s.splice(i,1); cfgSalvar({slots:s.length?s:cfgPadrao().slots}); admSlotsRender()}
+
+function admCfgSalvar(ev){
+ ev.preventDefault();
+ var num=function(id){return parseFloat(document.getElementById(id).value)||0};
+ var wa=document.getElementById('cfWa').value.replace(/\D/g,'');
+ if(wa.length<10){toast('O WhatsApp precisa de DDI, DDD e número');return false}
+ cfgSalvar({
+  nome:document.getElementById('cfNome').value.trim()||cfgPadrao().nome,
+  wa:wa, min:num('cfMin'), frete:num('cfFrete'),
+  cbOn:document.getElementById('cfCbOn').checked?1:0,
+  cbTaxa:num('cfCbTaxa'), cbMin:num('cfCbMin'),
+  cbMax:Math.max(1,Math.min(100,num('cfCbMax'))),
+  idadeOn:document.getElementById('cfIdade').checked?1:0});
+ aplicarConfigNaPagina(); admCfgRender(); admJsonRender();
+ toast('Configurações salvas');
+ return false}
+function admCfgRestaurar(){
+ if(!confirm('Voltar todas as configurações ao padrão de fábrica?'))return;
+ cfgRestaurar(); aplicarConfigNaPagina(); admCfgRender(); admJsonRender();
+ toast('Configurações no padrão')}
+
+/* ---- unidades ---- */
+function admLojasRender(){
+ var box=document.getElementById('cfLojas'); if(!box)return;
+ var abertas=lojas().length;
+ document.getElementById('cfLojasN').textContent=
+  abertas+' aberta'+(abertas===1?'':'s')+' de '+STORES.length;
+ box.innerHTML=STORES.map(function(x){
+  return '<div class="gx-card glass adm-loja'+(x.off?' off':'')+'">'+
+   '<div class="adm-loja-hd"><b>'+esc(x._o.n)+'</b>'+
+    '<label class="adm-sw"><input type="checkbox"'+(x.off?'':' checked')+
+    ' onchange="admLojaToggle(\''+x.id+'\',this.checked)">'+
+    '<span>'+(x.off?'Fechada':'Aberta')+'</span></label></div>'+
+   '<div class="gx-form">'+
+    '<label class="gx-full">Nome<input class="inp" value="'+esc(x.n)+
+     '" maxlength="40" onchange="admLojaSet(\''+x.id+'\',\'n\',this.value)"></label>'+
+    '<label class="gx-full">Endereço<input class="inp" value="'+esc(x.addr)+
+     '" maxlength="80" onchange="admLojaSet(\''+x.id+'\',\'addr\',this.value)"></label>'+
+    '<label class="gx-full">Bairro e cidade<input class="inp" value="'+esc(x.area)+
+     '" maxlength="80" onchange="admLojaSet(\''+x.id+'\',\'area\',this.value)"></label>'+
+   '</div></div>'}).join('');
+}
+function admLojaSet(id,campo,valor){
+ var o={}; o[campo]=valor.trim(); lojaEditSet(id,o);
+ try{renderStores();renderLojas()}catch(e){}
+ admLojasRender(); admJsonRender(); toast('Unidade atualizada')}
+function admLojaToggle(id,aberta){
+ lojaEditSet(id,{off:aberta?0:1});
+ try{renderStores();renderLojas()}catch(e){}
+ admLojasRender(); admJsonRender();
+ toast(aberta?'Unidade aberta':'Unidade fechada')}
+
+/* ---- acesso ---- */
+async function admTrocarSenha(ev){
+ ev.preventDefault();
+ var er=document.getElementById('cfSenhaErro');
+ var msg=function(t){er.textContent=t||''; er.hidden=!t};
+ var cred=admCred(); if(!cred){msg('Nenhum acesso definido.');return false}
+ var u=document.getElementById('cfU').value.trim();
+ var s0=document.getElementById('cfS0').value;
+ var s1=document.getElementById('cfS1').value;
+ var s2=document.getElementById('cfS2').value;
+ if(s1!==s2){msg('As duas senhas novas não são iguais.');return false}
+ if(s1.length<6){msg('A nova senha precisa de ao menos 6 caracteres.');return false}
+ try{
+  var h=await admHash(cred.u,s0,cred.s);
+  if(h!==cred.h){msg('A senha atual não confere.');return false}
+  var sal=Array.from(crypto.getRandomValues(new Uint8Array(16)))
+    .map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+  _grav('farid_adm',JSON.stringify({u:u||cred.u,s:sal,h:await admHash(u||cred.u,s1,sal)}));
+ }catch(e){msg('Não foi possível trocar agora.');return false}
+ msg(''); document.getElementById('admSenhaForm').reset();
+ admCfgRender(); toast('Acesso atualizado');
+ return false}
+
+/* ---- dados ---- */
+var ADM_CHAVES=['farid_config','farid_prod_edit','farid_lojas_edit','farid_produtos_extra',
+ 'farid_of_hoje','farid_of_rel','farid_pedidos'];
+function admPacote(){
+ var o={versao:1,quando:new Date().toISOString(),dados:{}};
+ ADM_CHAVES.forEach(function(k){var v=_guard(k); if(v!=null)o.dados[k]=v});
+ return o}
+function admJsonRender(){
+ var t=document.getElementById('admJson'); if(!t)return;
+ t.value=JSON.stringify(admPacote(),null,1)}
+function admExportar(){
+ baixar('farid-gestao-'+new Date().toISOString().slice(0,10)+'.json',
+  'application/json', JSON.stringify(admPacote(),null,1))}
+function admImportar(inp){
+ var f=inp.files&&inp.files[0]; if(!f)return;
+ var r=new FileReader();
+ r.onload=function(){
+  try{
+   var o=JSON.parse(r.result);
+   if(!o||!o.dados)throw 0;
+   if(!confirm('Substituir as configurações, produtos e pedidos atuais pelos do arquivo?'))return;
+   ADM_CHAVES.forEach(function(k){
+    if(o.dados[k]!=null)_grav(k,o.dados[k]);
+    else {try{localStorage.removeItem(k)}catch(e){}}});
+   toast('Cópia restaurada. Recarregando…');
+   setTimeout(function(){location.reload()},700);
+  }catch(e){toast('Este arquivo não é uma cópia da gestão.')}
+ };
+ r.readAsText(f); inp.value=''}
+function admZerar(){
+ if(!confirm('Apagar configurações, produtos cadastrados, alterações de preço, vitrines e pedidos deste navegador?'))return;
+ if(!confirm('Não dá para desfazer. Apagar mesmo?'))return;
+ ADM_CHAVES.forEach(function(k){try{localStorage.removeItem(k)}catch(e){}});
+ toast('Gestão zerada. Recarregando…');
+ setTimeout(function(){location.reload()},700)}
 
 /* ---- montagem das duas vitrines, no painel ---- */
 var ADM_HOJE_MAX=8;
@@ -6636,6 +7731,9 @@ aplicarIdioma(); renderIdiomas(); renderIdade();
 
 setTimeout(checarRecorrentes,1200);
 loadCart();Object.keys(cart).forEach(i=>refreshCards(+i));renderCart();
+/* o numero do WhatsApp e o valor do frete estao escritos no HTML: a
+   configuracao da loja passa por cima deles agora, no carregamento */
+aplicarConfigNaPagina();
 route();
 </script>
 </body>
