@@ -4167,6 +4167,8 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
 .adm-filtros{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);
   gap:9px;margin-bottom:14px}
 .adm-filtros-2{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+/* com a ordem, sao quatro controles: a busca continua mandando na largura */
+.adm-filtros-4{grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr))}
 .adm-filtros .adm-busca{margin-bottom:0}
 .adm-filtros .inp{height:52px}
 .adm-form-pe{display:flex;gap:9px;flex-wrap:wrap}
@@ -4191,6 +4193,79 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
 .adm-modal-pe .btn{height:46px;padding:0 18px;font-size:.9rem}
 .adm-perigo{color:#a3131f!important}
 .adm-perigo:hover{background:rgba(163,19,31,.1)!important}
+
+/* ==========================================================================
+   A GESTAO PASSA A DIZER "E HOJE?"
+   A visao geral somava o historico inteiro: "faturamento R$ 2.062" sem
+   dizer de quando. Numero sem recorte e sem comparacao nao faz ninguem
+   decidir nada — da para olhar todo dia e nunca perceber que caiu pela
+   metade. Agora cada indicador leva o periodo anterior do lado, com a
+   seta: hoje contra ontem, o mes contra o mesmo pedaco do mes passado.
+
+   Os avisos seguiram o mesmo caminho. Eram uma frase e um botao, todos
+   com o mesmo peso; viraram tres tons — urgente, atencao e dica —
+   ordenados pelo que custa venda primeiro, e cada um diz POR QUE aquilo
+   importa, nao so que existe.
+
+   Nenhuma cor nova entra aqui: o vermelho e o #a3131f que ja era do
+   "apagar tudo", o ambar e o do aviso antigo da pagina e o verde e o
+   --ok-txt do resto do app.
+   ========================================================================== */
+.gx-kpi .gx-var{
+  display:block;font-style:normal;font-size:.74rem;font-weight:650;
+  margin-top:3px;line-height:1.3;
+}
+.gx-var.sobe{color:var(--ok-txt)!important}
+.gx-var.cai{color:#a3131f!important}
+.gx-var.igual{color:var(--t3)!important;font-weight:600}
+
+/* ---- o quadro de pedidos resumido, logo abaixo dos indicadores ---- */
+.adm-fila{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:14px}
+.adm-fila>b{font-size:.72rem;font-weight:800;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rotulo)!important}
+.adm-fila button{height:33px;padding:0 13px;border-radius:99px;font-size:.81rem;
+  font-weight:650;color:var(--t2)!important;background:var(--sup-1)!important;
+  border:1px solid var(--line)!important;display:flex;align-items:center;gap:7px}
+.adm-fila button:hover{border-color:var(--wine)!important;color:var(--ink)!important}
+.adm-fila button i{font-style:normal;font-weight:800;color:var(--ink)!important;
+  font-variant-numeric:tabular-nums}
+.adm-fila button.quente{border-color:rgba(163,19,31,.3)!important}
+.adm-fila button.quente i{color:#a3131f!important}
+
+/* ---- avisos: tom, motivo e acao ---- */
+.adm-al{align-items:flex-start!important}
+.adm-al-ic{width:18px;height:18px;flex-shrink:0;margin-top:2px;color:var(--t3)!important}
+.adm-al-tx{display:flex;flex-direction:column;gap:2px}
+.adm-al-tx i{font-style:normal;font-size:.78rem;color:var(--t3)!important;line-height:1.4}
+.adm-al.cuidado{background:rgba(163,19,31,.06);border-color:rgba(163,19,31,.24)}
+.adm-al.cuidado .adm-al-ic{color:#a3131f!important}
+.adm-al.cuidado .adm-al-tx b{color:#8c1019!important}
+.adm-al.atencao{background:rgba(201,133,0,.09);border-color:rgba(201,133,0,.3)}
+.adm-al.atencao .adm-al-ic{color:#8a6300!important}
+.adm-al.atencao .adm-al-tx b{color:#5c4405!important}
+.adm-al.bom{background:rgba(10,122,82,.06);border-color:rgba(10,122,82,.22)}
+.adm-al.bom .adm-al-ic{color:var(--ok-txt)!important}
+.adm-al.bom .adm-al-tx b{color:var(--ok-txt)!important}
+.adm-mais{margin-top:10px;height:34px;padding:0 13px;border-radius:10px;font-size:.82rem;
+  font-weight:650;color:var(--wine-txt)!important;background:var(--soft)!important;
+  border:1px solid var(--line)!important}
+.adm-mais:hover{border-color:var(--wine)!important}
+
+/* ---- quanto tempo o pedido esta esperando ---- */
+.gx-ord.atrasado{border-color:rgba(163,19,31,.28)!important;
+  box-shadow:inset 3px 0 0 #a3131f,var(--e1)!important}
+.gx-espera{color:#a3131f!important;font-weight:700}
+.adm-tab .espera-ok{color:var(--t3)!important}
+.adm-tab .espera-tarde{color:#a3131f!important;font-weight:700}
+
+@media (max-width:900px){
+  /* o botao ao lado espremia o texto do aviso numa coluna de 100px:
+     na tela estreita ele desce, e a frase usa a largura inteira */
+  .adm-al{flex-wrap:wrap}
+  .adm-al-tx{flex:1 1 60%!important}
+  .adm-al button{flex:1 1 100%;margin-left:30px;max-width:calc(100% - 30px)}
+  .adm-fila{gap:7px}
+}
 
 /* ---- configuracoes ---- */
 .adm-cfg{display:block}
@@ -4245,7 +4320,7 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
   .adm-sel,.adm-lista{grid-template-columns:1fr}
   .adm-lista{max-height:360px}
   .adm-atalhos,.adm-lojas{grid-template-columns:1fr}
-  .adm-filtros,.adm-filtros-2{grid-template-columns:1fr}
+  .adm-filtros,.adm-filtros-2,.adm-filtros-4{grid-template-columns:1fr}
   .adm-periodo .adm-per-n{margin-left:0;flex-basis:100%}
   .adm-gr{display:none}
   .adm-modal{padding:0;place-items:end stretch}
@@ -4281,7 +4356,9 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
   /* ultimos pedidos: sem "quando" e "itens", que cabem na secao Pedidos */
   .adm-tab{min-width:0}
   .adm-tab:not(.adm-tab-p) th:nth-child(3),.adm-tab:not(.adm-tab-p) td:nth-child(3),
-  .adm-tab:not(.adm-tab-p) th:nth-child(4),.adm-tab:not(.adm-tab-p) td:nth-child(4){display:none}
+  .adm-tab:not(.adm-tab-p) th:nth-child(4),.adm-tab:not(.adm-tab-p) td:nth-child(4),
+  /* a espera nao cabe como coluna em 390px: ela desce para baixo da etapa */
+  .adm-tab:not(.adm-tab-p) th:nth-child(7),.adm-tab:not(.adm-tab-p) td:nth-child(7){display:none}
 }
 </style>
 </head>
@@ -4546,6 +4623,7 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
     <!-- ---- VISAO GERAL ---- -->
     <section class="adm-sec on" id="adm-painel">
       <div class="gx-kpis" id="gxKpis"></div>
+      <div class="adm-fila" id="admFila"></div>
       <div class="gx-cols">
         <div class="adm-bloco">
           <div class="gx-hd"><h2>Precisa de atenção</h2></div>
@@ -4669,7 +4747,7 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
 
       <div class="adm-bloco">
         <div class="gx-hd"><h2>Catálogo</h2><span id="gxProdCount"></span></div>
-        <div class="adm-filtros">
+        <div class="adm-filtros adm-filtros-4">
           <input class="inp adm-busca" id="admProdQ" placeholder="Procurar por nome" oninput="admProdLista()">
           <select class="inp" id="admProdCat" onchange="admProdLista()">
             <option value="">Todos os departamentos</option><option value="mercearia">Mercearia</option><option value="acougue">Açougue</option><option value="drinks">Bebidas e adega</option><option value="limpeza">Limpeza</option><option value="higiene">Higiene</option><option value="pet">Pet shop</option></select>
@@ -4679,6 +4757,14 @@ body.na-gestao #p-gestao>.wrap{width:100%;max-width:none}
             <option value="off">Só os desativados</option>
             <option value="ed">Só os que eu alterei</option>
             <option value="of">Só os em oferta</option>
+          </select>
+          <select class="inp" id="admProdOrd" onchange="admProdLista()">
+            <option value="">Ordem do catálogo</option>
+            <option value="nome">Nome (A–Z)</option>
+            <option value="caro">Maior preço</option>
+            <option value="barato">Menor preço</option>
+            <option value="desc">Maior desconto</option>
+            <option value="alt">Alterados primeiro</option>
           </select>
         </div>
         <div class="adm-tabw"><div class="adm-prods" id="admProdLista"></div></div>
@@ -6549,25 +6635,42 @@ function gxMover(id,d){var o=orders.find(function(x){return x.id===id});if(!o)re
  var n=Math.max(0,Math.min(GX_ST.length-1,i+d));
  o.status=GX_ST[n][0]; saveOrders(); gxRender()}
 
+/* Os pedidos de exemplo precisam ser CRIVEIS, e nao so numerosos: a
+   etapa tem que combinar com a idade do pedido. Antes a etapa era
+   sorteada solta, e o quadro abria com pedido de 26 dias ainda em
+   "Novo" — o que fazia a gestao avisar, com razao, que tudo estava
+   atrasado. Agora pedido velho ja foi entregue, pedido de hoje ainda
+   esta andando, e so um ou outro fica preso de proposito, para quem
+   olha ver como o aviso de atraso aparece. */
 function gxSeed(){
  var nomes=['Lorena','Marcos','Ana Paula','Rafael','Juliana','Carlos',
             'Beatriz','Diego','Camila','Fernando'];
  var base=Date.now(), add=[];
+ var sorteio=function(a){return a[Math.floor(Math.random()*a.length)]};
  for(var k=0;k<26;k++){
-  var dias=Math.floor(Math.random()*28);
-  /* fim de semana pesa mais, como costuma ser em supermercado */
+  /* o expoente puxa a amostra para os dias recentes: loja movimentada
+     tem mais pedido desta semana do que do mes passado */
+  var horas=Math.floor(Math.pow(Math.random(),1.7)*28*24);
   var qtd=1+Math.floor(Math.random()*5), itens=[], tot=0;
   for(var j=0;j<qtd;j++){var pid=Math.floor(Math.random()*Math.min(P.length,40));
    var q=1+Math.floor(Math.random()*3);
    if(P[pid]){itens.push([pid,q]);tot+=P[pid].p*q}}
   if(!itens.length)continue;
-  add.push({id:base-k*7777,date:base-dias*864e5-Math.floor(Math.random()*864e5),
+  var st;
+  if(horas<2)       st=sorteio(['novo','novo','separando']);
+  else if(horas<8)  st=sorteio(['novo','separando','separando','pronto']);
+  else if(horas<30) st=sorteio(['separando','pronto','pronto','entregue']);
+  else if(horas<72) st=sorteio(['pronto','entregue','entregue']);
+  else              st='entregue';
+  /* um pedido preso de proposito, para o aviso de atraso ter o que mostrar */
+  if(k===7)st='novo';
+  add.push({id:base-k*7777,date:base-horas*36e5-Math.floor(Math.random()*36e5),
    store:'Itabirito',mode:Math.random()<.6?'casa':'loja',slot:'Janela de exemplo',
    items:itens,bruto:Math.round(tot*100)/100,
    cbUsado:0,cbGanho:Math.round(tot*cbTaxa()*100)/100,
    total:Math.round(tot*100)/100,
-   status:GX_ST[Math.floor(Math.random()*GX_ST.length)][0],
-   cliente:nomes[Math.floor(Math.random()*nomes.length)],demo:true})}
+   status:st,
+   cliente:sorteio(nomes),demo:true})}
  orders=add.concat(orders); saveOrders(); gxRender();
  toast('26 pedidos de exemplo carregados')}
 
@@ -6589,9 +6692,10 @@ function gxKanban(){
   var dig=q.replace(/\D/g,'');
   return norm(o.cliente||'').indexOf(q)>=0 || (!!dig && String(o.id).indexOf(dig)>=0)});
  var c=document.getElementById('gxKbCount');
- if(c)c.textContent = orders.length
+ var parados=admParados().length;
+ if(c)c.textContent = (orders.length
   ? (os.length===orders.length ? os.length+' no total' : os.length+' de '+orders.length)
-  : 'nenhum pedido ainda';
+  : 'nenhum pedido ainda')+(parados?' · '+parados+' esperando há mais de 2 h':'');
  box.innerHTML=GX_ST.map(function(st,si){
   var lista=os.filter(function(o){return (o.status||'novo')===st[0]})
     .sort(function(a,b){return b.date-a.date});
@@ -6600,10 +6704,15 @@ function gxKanban(){
    '<b>'+esc(st[1])+'</b><i>'+lista.length+'</i></div>'+
    (lista.length?lista.map(function(o){
      var n=o.items.reduce(function(a,x){return a+x[1]},0);
-     return '<article class="gx-ord"><div class="gx-ordhd"><b>#'+
+     /* o tempo de espera e a informacao que falta para decidir qual
+        pedido pegar primeiro: a data sozinha nao diz se e de agora */
+     var aberto=st[0]!=='entregue';
+     var tarde=admTarde(o);
+     return '<article class="gx-ord'+(tarde?' atrasado':'')+'"><div class="gx-ordhd"><b>#'+
       String(o.id).slice(-6)+'</b><span>'+brl(+o.total||0)+'</span></div>'+
       '<p>'+esc(o.cliente||'Cliente')+' · '+n+' iten'+(n===1?'':'s')+'</p>'+
-      '<small>'+fmtDate(o.date)+' · '+(o.mode==='casa'?'Entrega':'Retirada')+
+      '<small>'+(aberto?'<b class="'+(tarde?'gx-espera':'')+'">'+admTempo(o.date)+'</b> · ':'')+
+      fmtDate(o.date)+' · '+(o.mode==='casa'?'Entrega':'Retirada')+
       (o.demo?' · exemplo':'')+'</small>'+
       '<div class="gx-move">'+
        (si>0?'<button onclick="gxMover('+o.id+',-1)" aria-label="Voltar etapa">←</button>':'<span></span>')+
@@ -7044,7 +7153,7 @@ function admRender(){
  if(!admLogado())return;
  var sec=admSecAtual();
  try{admBadges()}catch(e){}
- if(sec==='painel')      {gxKpisRender(orders.slice(),'#gxKpis'); admAlertas(); admAtalhos(); admUltimos()}
+ if(sec==='painel')      {admKpisHoje(); admFila(); admAlertas(); admAtalhos(); admUltimos()}
  if(sec==='dashboard')   dashRender();
  if(sec==='pedidos')     gxKanban();
  if(sec==='produtos')    admProdLista();
@@ -7061,30 +7170,224 @@ function admBadges(){
  if(bd){bd.textContent=des||''; bd.hidden=!des; bd.title=des+' produto(s) desativado(s)'}
 }
 
-/* ---- VISAO GERAL: o que precisa de atencao, e o atalho para resolver ---- */
+/* ==========================================================================
+   O RELOGIO DA GESTAO
+   Todo numero da visao geral precisa de um recorte e do recorte anterior
+   ao lado — e dai estas quatro funcoes. Elas leem `orders`, que e a mesma
+   lista do quadro de pedidos: nada aqui e estimado.
+   ========================================================================== */
+function admIniDoDia(t){var d=new Date(t||Date.now());d.setHours(0,0,0,0);return d.getTime()}
+function admEntre(ini,fim){
+ return orders.filter(function(o){var t=+o.date||0;return t>=ini&&(!fim||t<fim)})}
+function admSoma(os){
+ var fat=os.reduce(function(a,o){return a+(+o.total||0)},0);
+ var itens=os.reduce(function(a,o){return a+o.items.reduce(function(b,x){return b+x[1]},0)},0);
+ return {n:os.length,fat:fat,itens:itens,ticket:os.length?fat/os.length:0}}
+/* "há 40 min", "há 3 h", "há 2 dias": tempo que o olho le sem fazer conta */
+function admTempo(t){
+ var m=Math.max(0,Math.round((Date.now()-(+t||0))/6e4));
+ if(m<60)return 'há '+m+' min';
+ if(m<1440)return 'há '+Math.floor(m/60)+' h';
+ var d=Math.floor(m/1440); return 'há '+d+(d===1?' dia':' dias')}
+/* a seta do lado do numero. Loja sem periodo anterior ouve isso escrito,
+   em vez de uma variacao de 100% que nao quer dizer nada. */
+function admVar(agora,antes,ref,dinheiro){
+ if(antes===null||antes===undefined)return '<i class="gx-var igual">sem período anterior</i>';
+ var d=Math.round((agora-antes)*100)/100;
+ /* "igual que ontem" nao se diz: a comparacao traz as duas formas, a de
+    quem subiu ("que ontem") e a de quem ficou igual ("a ontem") */
+ if(!d)return '<i class="gx-var igual">igual '+esc(ref.i)+'</i>';
+ var pct=antes>0?Math.round(((agora-antes)/antes)*100):null, sobe=d>0;
+ return '<i class="gx-var '+(sobe?'sobe':'cai')+'">'+(sobe?'↑':'↓')+' '+(sobe?'+':'−')+
+  (dinheiro?brl(Math.abs(d)):numero(Math.abs(d)))+
+  (pct===null?'':' · '+(sobe?'+':'')+pct+'%')+' '+esc(ref.q)+'</i>'}
+/* as tres comparacoes que a gestao faz */
+var ADM_ONTEM={q:'que ontem',i:'a ontem'};
+var ADM_MES={q:'que no mês passado',i:'ao mês passado'};
+var ADM_ANTES={q:'que no período anterior',i:'ao período anterior'};
+
+/* ---- pedidos por etapa, e os que estao esperando demais ---- */
+var ADM_ATRASO=2*36e5;            /* 2 horas parado na etapa Novo */
+var ADM_SEPARANDO_DEMAIS=4*36e5;  /* 4 horas em separacao */
+var ADM_PRONTO_DEMAIS=24*36e5;    /* 1 dia separado e sem sair */
+/* Cada etapa tem o seu tempo: duas horas sem ninguem pegar o pedido e
+   urgente; quatro horas separando e demais; um dia pronto e sem sair
+   quer dizer que ninguem avisou o cliente. Entregue nunca atrasa. */
+function admLimiteDaEtapa(s){
+ return s==='pronto'?ADM_PRONTO_DEMAIS:(s==='separando'?ADM_SEPARANDO_DEMAIS:ADM_ATRASO)}
+function admTarde(o){
+ var s=o.status||'novo';
+ if(s==='entregue')return false;
+ return (Date.now()-(+o.date||Date.now()))>admLimiteDaEtapa(s)}
+function admPorEtapa(s){return orders.filter(function(o){return (o.status||'novo')===s})}
+function admParados(){var lim=Date.now()-ADM_ATRASO;
+ return admPorEtapa('novo').filter(function(o){return (+o.date||Date.now())<lim})}
+function admMaisAntigo(os){
+ return os.length?os.reduce(function(a,o){return Math.min(a,+o.date||Date.now())},Date.now()):0}
+
+/* ==========================================================================
+   VISAO GERAL: COMO A LOJA ESTA HOJE
+   Seis indicadores, sempre os mesmos seis, na ordem do que se olha
+   primeiro: o dinheiro de hoje, quantos pedidos, quem esta esperando, o
+   mes, o catalogo e o cashback.
+   ========================================================================== */
+function admKpisHoje(){
+ var box=document.getElementById('gxKpis'); if(!box)return;
+ var agora=Date.now(), hoje0=admIniDoDia(agora), ontem0=hoje0-864e5;
+ var m=new Date(); m.setDate(1); m.setHours(0,0,0,0);
+ var mes0=m.getTime();
+ var a=new Date(mes0); a.setMonth(a.getMonth()-1);
+ var mesP0=a.getTime();
+ /* o mesmo pedaco do mes passado: o tanto de mes que ja correu. Comparar
+    com o mes passado INTEIRO no dia 3 so diria que o mes caiu. */
+ var mesPfim=mesP0+(agora-mes0);
+ var dHoje=admSoma(admEntre(hoje0,0)),  dOntem=admSoma(admEntre(ontem0,hoje0));
+ var dMes =admSoma(admEntre(mes0,0)),   dMesP =admSoma(admEntre(mesP0,mesPfim));
+ var temOntem=orders.some(function(o){return (+o.date||0)<hoje0});
+ var temMesP =orders.some(function(o){return (+o.date||0)<mes0});
+ var fila=admPorEtapa('novo'), velho=admMaisAntigo(fila);
+ var tarde=fila.length&&(agora-velho)>ADM_ATRASO;
+ var ativos=P.filter(function(x){return !x.off}).length, off=P.length-ativos;
+ var oferta=P.filter(function(x){return !x.off&&x.o>x.p}).length;
+ var cbDado =orders.reduce(function(s,o){return s+(+o.cbGanho||0)},0);
+ var cbUsado=orders.reduce(function(s,o){return s+(+o.cbUsado||0)},0);
+
+ var k=[
+  ['Faturamento hoje',brl(dHoje.fat),
+   admVar(dHoje.fat,temOntem?dOntem.fat:null,ADM_ONTEM,true),
+   dHoje.n?dHoje.n+' pedido'+(dHoje.n===1?'':'s')+' · ticket '+brl(dHoje.ticket)
+          :'nenhum pedido ainda hoje'],
+  ['Pedidos hoje',numero(dHoje.n),
+   admVar(dHoje.n,temOntem?dOntem.n:null,ADM_ONTEM,false),
+   dHoje.itens+' iten'+(dHoje.itens===1?'':'s')+' somados'],
+  ['Esperando separação',numero(fila.length),
+   fila.length?'<i class="gx-var '+(tarde?'cai':'igual')+'">o mais antigo '+admTempo(velho)+'</i>'
+              :'<i class="gx-var sobe">nada parado na fila</i>',
+   admPorEtapa('separando').length+' em separação · '+
+   admPorEtapa('pronto').length+' pronto'+(admPorEtapa('pronto').length===1?'':'s')+' para sair'],
+  ['No mês',brl(dMes.fat),
+   admVar(dMes.fat,temMesP?dMesP.fat:null,ADM_MES,true),
+   dMes.n+' pedido'+(dMes.n===1?'':'s')+(dMes.n?' · ticket '+brl(dMes.ticket):'')],
+  ['Catálogo',numero(ativos)+' ativos',
+   '<i class="gx-var igual">'+oferta+' em oferta</i>',
+   off?off+' desativado'+(off===1?'':'s'):'nenhum desativado'],
+  ['Cashback dado',brl(cbDado),
+   '<i class="gx-var igual">'+brl(cbUsado)+' usado pelos clientes</i>',
+   cbLigado()?'devolvido aos clientes':'programa desligado']
+ ];
+ box.innerHTML=k.map(function(x){
+  return '<div class="gx-kpi glass"><small>'+esc(x[0])+'</small><b>'+esc(x[1])+'</b>'+
+   x[2]+'<span>'+esc(x[3])+'</span></div>'}).join('');
+}
+
+/* ---- o quadro inteiro em uma linha, e cada etapa abre o quadro ---- */
+function admFila(){
+ var box=document.getElementById('admFila'); if(!box)return;
+ if(!orders.length){box.innerHTML='';return}
+ var parados=admParados().length;
+ box.innerHTML='<b>Quadro agora</b>'+GX_ST.map(function(st){
+  var n=admPorEtapa(st[0]).length;
+  var quente=(st[0]==='novo'&&parados>0);
+  return '<button type="button" class="'+(quente?'quente':'')+'" onclick="admIr(\'pedidos\')">'+
+   '<span class="gx-dot" style="background:'+st[2]+'" aria-hidden="true"></span>'+
+   esc(st[1])+' <i>'+n+'</i></button>'}).join('')+
+  (parados?'<button type="button" class="quente" onclick="admIr(\'pedidos\')">'+
+    '<i>'+parados+'</i> esperando há mais de 2 h</button>':'');
+}
+
+/* ==========================================================================
+   PRECISA DE ATENCAO
+   Cada aviso tem tom, motivo e um botao que leva ao lugar de resolver.
+   A ordem nao e a ordem do codigo: e a do prejuizo — primeiro o que
+   segura pedido, depois o que atrapalha a venda, por ultimo o ajuste.
+   ========================================================================== */
+var ADM_TOM={cuidado:0,atencao:1,dica:2};
+var admAlertasTodos=false;
+var ADM_AVISOS_VISIVEIS=4;
+function admAlertasVer(){admAlertasTodos=!admAlertasTodos;admAlertas()}
+
+function admAvisos(){
+ var av=[], agora=Date.now();
+ var p=function(n,uma,varias){return n+' '+(n===1?uma:varias)};
+
+ var parados=admParados();
+ if(parados.length){
+  av.push(['cuidado','i-clock',p(parados.length,'pedido parado','pedidos parados')+' há mais de 2 horas',
+   (parados.length===1?'Chegou ':'O mais antigo chegou ')+admTempo(admMaisAntigo(parados))+
+   ' e ninguém pegou. Pedido que demora vira ligação do cliente — e, depois, pedido cancelado.',
+   'Abrir o quadro','pedidos']);
+ }else{
+  var novos=admPorEtapa('novo');
+  if(novos.length)av.push(['atencao','i-truck',p(novos.length,'pedido esperando','pedidos esperando')+' separação',
+   (novos.length===1?'Chegou ':'O mais antigo chegou ')+admTempo(admMaisAntigo(novos))+
+   ' e ainda está na primeira coluna do quadro.','Abrir o quadro','pedidos']);
+ }
+
+ var prontos=admPorEtapa('pronto').filter(function(o){return agora-(+o.date||agora)>ADM_PRONTO_DEMAIS});
+ if(prontos.length)av.push(['atencao','i-box',p(prontos.length,'pedido pronto','pedidos prontos')+' há mais de um dia',
+  (prontos.length===1?'Já foi separado e não saiu. Confirme a entrega ou avise o cliente'
+                     :'Já foram separados e não saíram. Confirme as entregas ou avise os clientes')+
+  ' de que está pronto para retirada.','Ver o quadro','pedidos']);
+
+ var r=ofRel();
+ if(r&&r.fim&&r.fim<agora)av.push(['cuidado','i-clock','O prazo da oferta relâmpago venceu',
+  'O trilho continua na home com o contador zerado: o cliente vê uma promoção que acabou.',
+  'Marcar outro prazo','relampago']);
+ else if(r&&r.ids&&!r.ids.length)av.push(['atencao','i-clock','A oferta relâmpago está sem produtos',
+  'O trilho da home fica vazio enquanto nenhum produto estiver escolhido.','Escolher produtos','relampago']);
+
+ if(!slotsCfg().length)av.push(['cuidado','i-cal','Nenhuma janela de entrega cadastrada',
+  'Sem janela, ninguém consegue fechar pedido para entrega.','Cadastrar janelas','config']);
+
+ var errados=P.filter(function(x){return !x.off&&x.o>0&&x.o<x.p});
+ if(errados.length)av.push(['atencao','i-tag',p(errados.length,'produto com preço','produtos com preços')+' trocados',
+  'O "preço antes" está abaixo do preço de venda — na prateleira isso vira um desconto negativo.',
+  'Conferir no catálogo','produtos']);
+
+ if(freteGratis()>0&&freteGratis()<pedidoMinimo())av.push(['atencao','i-gear','A entrega grátis começa abaixo do pedido mínimo',
+  'Entrega grátis a partir de '+brl(freteGratis())+', mas o pedido mínimo é '+brl(pedidoMinimo())+': a faixa de graça nunca acontece.',
+  'Ajustar','config']);
+
+ var off=P.filter(function(x){return x.off});
+ if(off.length)av.push(['dica','i-box',p(off.length,'produto desativado','produtos desativados'),
+  'Eles somem das prateleiras, da busca e das ofertas. Se já voltaram ao estoque, é hora de ativar.',
+  'Ver no catálogo','produtos']);
+
+ if(!ofHoje())av.push(['dica','i-tag','As ofertas de hoje ainda são as do sistema',
+  'A home mostra a escolha automática. Escolhendo à mão, a vitrine passa a ser a da loja.',
+  'Escolher','hoje']);
+
+ if(!cbLigado())av.push(['dica','i-gift','O cashback está desligado',
+  'Com ele ligado, parte do que o cliente gasta volta como saldo e traz a próxima compra.',
+  'Ligar','config']);
+
+ var semD=P.filter(function(x){return !x.off&&!(x.desc||'').trim()}).length;
+ if(semD>P.length/2)av.push(['dica','i-list',p(semD,'produto sem descrição','produtos sem descrição'),
+  'A descrição aparece na ficha do produto e ajuda quem está decidindo entre dois parecidos.',
+  'Escrever','produtos']);
+
+ return av.sort(function(a,b){return ADM_TOM[a[0]]-ADM_TOM[b[0]]});
+}
+
 function admAlertas(){
  var box=document.getElementById('admAlertas'); if(!box)return;
- var av=[];
- var novos=orders.filter(function(o){return (o.status||'novo')==='novo'}).length;
- if(novos)av.push(['abre','<b>'+novos+' pedido'+(novos===1?'':'s')+' esperando separação</b>',
-   'Mover no quadro','pedidos']);
- var sep=orders.filter(function(o){return o.status==='separando'}).length;
- if(sep)av.push(['','<b>'+sep+' em separação agora</b>','Ver o quadro','pedidos']);
- var off=P.filter(function(x){return x.off}).length;
- if(off)av.push(['','<b>'+off+' produto'+(off===1?'':'s')+' desativado'+(off===1?'':'s')+'</b>',
-   'Ver no catálogo','produtos']);
- var r=ofRel();
- if(r&&r.fim&&r.fim<Date.now())
-  av.push(['alerta','<b>O prazo da relâmpago venceu</b>','Marcar outro','relampago']);
- if(!ofHoje())av.push(['','<b>As ofertas de hoje ainda são as do sistema</b>','Escolher','hoje']);
- if(!cbLigado())av.push(['','<b>O cashback está desligado</b>','Ligar','config']);
- var semP=P.filter(function(x){return !x.off&&!(x.desc||'').trim()}).length;
- if(semP>P.length/2)av.push(['','<b>'+semP+' produtos sem descrição</b>','Escrever','produtos']);
- box.innerHTML = av.length
-  ? av.map(function(x){return '<div class="adm-al '+(x[0]==='alerta'?'quente':'')+'">'+
-     '<span>'+x[1]+'</span><button type="button" onclick="admIr(\''+x[3]+'\')">'+x[2]+'</button></div>'}).join('')
-  : '<p class="gx-vazio">Nada pendente. A loja está em dia.</p>';
+ var av=admAvisos();
+ if(!av.length){
+  box.innerHTML='<div class="adm-al bom"><svg class="ico adm-al-ic" aria-hidden="true"><use href="#i-check"/></svg>'+
+   '<span class="adm-al-tx"><b>Tudo em dia.</b><i>Nenhum pedido parado, nenhuma promoção vencida e o catálogo sem pendência.</i></span></div>';
+  return}
+ var mostra=admAlertasTodos?av:av.slice(0,ADM_AVISOS_VISIVEIS);
+ box.innerHTML=mostra.map(function(x){
+  return '<div class="adm-al '+x[0]+'">'+
+   '<svg class="ico adm-al-ic" aria-hidden="true"><use href="#'+x[1]+'"/></svg>'+
+   '<span class="adm-al-tx"><b>'+esc(x[2])+'</b><i>'+esc(x[3])+'</i></span>'+
+   '<button type="button" onclick="admIr(\''+x[5]+'\')">'+esc(x[4])+'</button></div>'}).join('')+
+  (av.length>ADM_AVISOS_VISIVEIS
+   ? '<button type="button" class="adm-mais" onclick="admAlertasVer()">'+
+     (admAlertasTodos?'Ver menos':'Ver os outros '+(av.length-ADM_AVISOS_VISIVEIS))+'</button>'
+   : '');
 }
+
 function admAtalhos(){
  var box=document.getElementById('admAtalhos'); if(!box)return;
  box.innerHTML=[['dashboard','i-chart','Dashboard','Como foi o mês'],
@@ -7096,19 +7399,25 @@ function admAtalhos(){
    '<svg class="ico" aria-hidden="true"><use href="#'+x[1]+'"/></svg>'+
    '<span><b>'+x[2]+'</b><i>'+x[3]+'</i></span></button>'}).join('');
 }
+
+/* ---- ultimos pedidos: com a espera de quem ainda nao foi entregue ---- */
 function admUltimos(){
  var box=document.getElementById('admUltimos'); if(!box)return;
  var os=orders.slice().sort(function(a,b){return b.date-a.date}).slice(0,8);
  document.getElementById('admUltN').textContent=orders.length?orders.length+' no histórico':'';
  if(!os.length){box.innerHTML='<p class="gx-vazio">Nenhum pedido ainda. Finalize uma compra na loja ou carregue os exemplos.</p>';return}
  box.innerHTML='<table class="gx-table adm-tab"><thead><tr><th>Pedido</th><th>Cliente</th>'+
-  '<th>Quando</th><th>Itens</th><th>Total</th><th>Etapa</th></tr></thead><tbody>'+
+  '<th>Quando</th><th class="num">Itens</th><th class="num">Total</th><th>Etapa</th><th>Espera</th></tr></thead><tbody>'+
   os.map(function(o){
    var n=o.items.reduce(function(a,x){return a+x[1]},0);
    var st=GX_ST.find(function(e){return e[0]===(o.status||'novo')})||GX_ST[0];
+   var aberto=(o.status||'novo')!=='entregue';
+   var tarde=admTarde(o);
    return '<tr><td><b>#'+String(o.id).slice(-6)+'</b></td><td>'+esc(o.cliente||'Cliente')+
-    '</td><td>'+fmtDate(o.date)+'</td><td>'+n+'</td><td>'+brl(+o.total||0)+
-    '</td><td><span class="adm-etq" style="--c:'+st[2]+'">'+esc(st[1])+'</span></td></tr>'
+    '</td><td>'+fmtDate(o.date)+'</td><td class="num">'+n+'</td><td class="num">'+brl(+o.total||0)+
+    '</td><td><span class="adm-etq" style="--c:'+st[2]+'">'+esc(st[1])+'</span>'+
+     (aberto?'<small class="adm-so-m '+(tarde?'espera-tarde':'espera-ok')+'">'+admTempo(o.date)+'</small>':'')+'</td>'+
+    '<td class="'+(tarde?'espera-tarde':'espera-ok')+'">'+(aberto?admTempo(o.date):'entregue')+'</td></tr>'
   }).join('')+'</tbody></table>';
 }
 
@@ -7135,35 +7444,46 @@ function dashPedidos(){
  var lim=Date.now()-d*864e5;
  return orders.filter(function(o){return (+o.date||0)>=lim})}
 
-function gxKpisRender(os,alvo){
+/* Os mesmos indicadores do dashboard, agora com o recorte anterior do
+   lado: 7 dias contra os 7 dias de antes, 30 contra 30. Sem isso, trocar
+   o periodo so mudava o tamanho do numero, nunca o que ele significa. */
+function gxKpisRender(os,alvo,ant){
  var box=document.querySelector(alvo); if(!box)return;
- var fat=os.reduce(function(a,o){return a+(+o.total||0)},0);
- var itens=os.reduce(function(a,o){return a+o.items.reduce(function(b,x){return b+x[1]},0)},0);
+ var d=admSoma(os), a=ant?admSoma(ant):null;
  var cli={}; os.forEach(function(o){cli[o.cliente||'Cliente']=1});
+ var cliA={}; if(ant)ant.forEach(function(o){cliA[o.cliente||'Cliente']=1});
+ var nCli=Object.keys(cli).length, nCliA=ant?Object.keys(cliA).length:null;
+ var cbD=os.reduce(function(s,o){return s+(+o.cbGanho||0)},0);
+ var cbU=os.reduce(function(s,o){return s+(+o.cbUsado||0)},0);
+ var R=ADM_ANTES;
  var linhas=[
-  ['Faturamento',brl(fat),os.length+' pedido'+(os.length===1?'':'s')],
-  ['Ticket médio',brl(os.length?fat/os.length:0),'por pedido'],
-  ['Itens por pedido',(os.length?itens/os.length:0).toFixed(1).replace('.',','),'média'],
-  ['Clientes',String(Object.keys(cli).length),'distintos no período'],
-  ['Cashback dado',brl(os.reduce(function(a,o){return a+(+o.cbGanho||0)},0)),
-   cbLigado()?'devolvido aos clientes':'programa desligado'],
-  ['Cashback usado',brl(os.reduce(function(a,o){return a+(+o.cbUsado||0)},0)),'abatido em pedidos']
+  ['Faturamento',brl(d.fat),d.n+' pedido'+(d.n===1?'':'s'),
+    admVar(d.fat,a?a.fat:null,R,true)],
+  ['Ticket médio',brl(d.ticket),'por pedido',
+    admVar(Math.round(d.ticket*100)/100,a?Math.round(a.ticket*100)/100:null,R,true)],
+  ['Itens por pedido',(d.n?d.itens/d.n:0).toFixed(1).replace('.',','),'média',
+    admVar(d.itens,a?a.itens:null,{q:'itens no total',i:'ao período anterior'},false)],
+  ['Clientes',String(nCli),'distintos no período',
+    admVar(nCli,nCliA,R,false)],
+  ['Cashback dado',brl(cbD),cbLigado()?'devolvido aos clientes':'programa desligado',''],
+  ['Cashback usado',brl(cbU),'abatido em pedidos','']
  ];
- if(alvo==='#gxKpis')linhas[3]=['Catálogo',String(P.filter(function(x){return !x.off}).length)+' ativos',
-   P.filter(function(x){return x.off}).length+' desativados'];
  box.innerHTML=linhas.map(function(k){return '<div class="gx-kpi glass"><small>'+esc(k[0])+
-   '</small><b>'+esc(k[1])+'</b><span>'+esc(k[2])+'</span></div>'}).join('');
+   '</small><b>'+esc(k[1])+'</b>'+(k[3]||'')+'<span>'+esc(k[2])+'</span></div>'}).join('');
 }
 
 function dashRender(){
  if(!document.getElementById('dashKpis'))return;
  var os=dashPedidos(), per=dashPeriodo();
+ /* o recorte anterior do mesmo tamanho; em "Tudo" nao ha anterior */
+ var ant=per?admEntre(Date.now()-2*per*864e5,Date.now()-per*864e5):null;
+ if(ant&&!ant.length&&!orders.some(function(o){return (+o.date||0)<Date.now()-per*864e5}))ant=null;
  document.getElementById('admPeriodo').innerHTML=DASH_PER.map(function(x){
   return '<button type="button" class="adm-per'+(x[0]===per?' on':'')+'"'+
    (x[0]===per?' aria-current="true"':'')+' onclick="setDashPeriodo('+x[0]+')">'+x[1]+'</button>'
  }).join('')+'<span class="adm-per-n">'+os.length+' pedido'+(os.length===1?'':'s')+' no recorte</span>';
 
- gxKpisRender(os,'#dashKpis');
+ gxKpisRender(os,'#dashKpis',ant);
  dashLinha(os,per);
  dashSemana(os);
  dashEtapas(os);
@@ -7358,8 +7678,18 @@ function admProdLista(){
   if(sit==='ed'&&!ed[String(x.id)])return false;
   if(sit==='of'&&!(x.o>x.p))return false;
   return true});
+ /* a ordem e escolha de quem olha: quem vai mexer em preco quer o mais
+    caro na frente; quem conferiu ontem quer os alterados */
+ var ord=(document.getElementById('admProdOrd')||{}).value||'';
+ var desc=function(x){return x.o>x.p?1-x.p/x.o:0};
+ if(ord==='nome')  l.sort(function(a,b){return String(a.n).localeCompare(String(b.n),'pt-BR')});
+ if(ord==='caro')  l.sort(function(a,b){return b.p-a.p});
+ if(ord==='barato')l.sort(function(a,b){return a.p-b.p});
+ if(ord==='desc')  l.sort(function(a,b){return desc(b)-desc(a)});
+ if(ord==='alt')   l.sort(function(a,b){return (ed[String(b.id)]?1:0)-(ed[String(a.id)]?1:0)});
  document.getElementById('gxProdCount').textContent=
-  l.length+' de '+P.length+' produto'+(P.length===1?'':'s');
+  l.length+' de '+P.length+' produto'+(P.length===1?'':'s')+
+  (l.filter(function(x){return x.o>x.p}).length?' · '+l.filter(function(x){return x.o>x.p}).length+' em oferta':'');
  if(!l.length){box.innerHTML='<p class="gx-vazio">Nenhum produto com esse filtro.</p>';return}
  box.innerHTML='<table class="gx-table adm-tab adm-tab-p"><thead><tr>'+
   '<th>Produto</th><th>Departamento</th><th class="num">Antes</th><th class="num">Preço</th>'+
@@ -7378,7 +7708,8 @@ function admProdLista(){
      (dsc?'<small class="adm-so-m"><s>'+brl(x.o)+'</s> · −'+dsc+'%</small>':'')+'</td>'+
     '<td class="num">'+(dsc?'−'+dsc+'%':'—')+'</td>'+
     '<td>'+(x.off?'<span class="adm-etq" style="--c:#8a8a8f">Desativado</span>'
-                 :'<span class="adm-etq" style="--c:#1baf7a">Ativo</span>')+'</td>'+
+                 :'<span class="adm-etq" style="--c:#1baf7a">Ativo</span>')+
+     (!x.off&&x.o>0&&x.o<x.p?' <span class="adm-etq" style="--c:#a3131f">Preço trocado</span>':'')+'</td>'+
     '<td class="num"><button type="button" class="btn btn-g btn-s" onclick="admProdAbrir('+x.id+')">Editar</button></td>'+
     '</tr>'}).join('')+'</tbody></table>'+
   (l.length>120?'<p class="adm-dica">Mostrando os 120 primeiros. Use a busca para chegar nos outros.</p>':'');
