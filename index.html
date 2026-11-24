@@ -4250,6 +4250,46 @@ body.gx-dragging,body.gx-dragging *{cursor:grabbing!important}
  .adm-kanban .gx-col{flex:0 0 82%;scroll-snap-align:start}.adm-kanban .gx-cards{max-height:60vh}.adm-as span{display:none}}
 .adm-nav a[hidden],.adm-side-ft [hidden]{display:none!important}
 @media(max-width:600px){.adm-top{flex-direction:column;align-items:stretch!important;gap:10px}.adm-topr{order:-1}.adm-as{flex:1;justify-content:space-between}.adm-as select{max-width:none}.adm-perms{grid-template-columns:1fr}.adm-dlgft{flex-direction:column-reverse}.adm-dlgft button{width:100%}}
+
+/* menos movimento: anima só ao entrar numa tela */
+.adm-main *,.adm-main *:before,.adm-main *:after{animation:none!important}
+.adm-view.anim>*{animation:admFade .22s ease both!important}
+@keyframes admFade{from{opacity:0}to{opacity:1}}
+.adm-live s:after{display:none}
+
+/* detalhe do pedido */
+.adm-ped{--a-wine:#881344;--a-line:#e7e8ec;--a-sub:#6b6f76;--a-ink:#16161a;--a-bg:#f5f6f8;--a-ok:#1f8a5b;position:fixed;inset:0;z-index:9990;background:rgba(22,22,26,0);transition:background .2s}
+.adm-ped[hidden]{display:none!important}.adm-ped.on{background:rgba(22,22,26,.4)}
+.adm-pedbox{position:absolute;right:0;top:0;bottom:0;width:min(460px,100%);background:#fff;color:var(--a-ink);display:flex;flex-direction:column;box-shadow:-20px 0 50px -20px rgba(0,0,0,.35);transform:translateX(30px);opacity:0;transition:.2s}
+.adm-ped.on .adm-pedbox{transform:none;opacity:1}
+.adm-pedbox header{display:flex;justify-content:space-between;align-items:flex-start;padding:20px 20px 14px;border-bottom:1px solid var(--a-line)}
+.adm-pedbox header h3{margin:0 0 6px;font-size:1.2rem}
+.adm-pedbox .x{width:36px;height:36px;border-radius:10px;background:var(--a-bg);color:var(--a-ink);font-size:1rem}
+.adm-pedsc{flex:1;overflow:auto;padding:16px 20px 20px}
+.adm-pedinfo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 18px}
+.adm-pedinfo div{background:var(--a-bg);border-radius:12px;padding:10px 12px}
+.adm-pedinfo dt{font-size:.72rem;color:var(--a-sub);font-weight:600}.adm-pedinfo dd{margin:2px 0 0;font-weight:600;font-size:.9rem}
+.adm-pedhd{display:flex;justify-content:space-between;align-items:baseline;margin:6px 0 8px}.adm-pedhd h4{margin:0;font-size:.95rem}.adm-pedhd span{font-size:.78rem;color:var(--a-sub)}
+.adm-pedprog{display:flex;align-items:center;gap:10px;margin-bottom:6px}.adm-pedprog div{flex:1;height:6px;background:var(--a-bg);border-radius:4px;overflow:hidden}
+.adm-pedprog i{display:block;height:100%;background:var(--a-ok);transition:width .3s}.adm-pedprog small{font-size:.76rem;color:var(--a-sub);font-weight:600;white-space:nowrap}
+.adm-pedits{list-style:none;margin:0;padding:0}
+.adm-pedits li{border-bottom:1px solid var(--a-line)}
+.adm-pedits label{display:flex;align-items:center;gap:10px;padding:10px 0;cursor:pointer}
+.adm-pedits input{width:20px;height:20px;accent-color:var(--a-ok);flex:none}
+.adm-pedits .im{width:44px;height:44px;border-radius:10px;background:var(--a-bg);flex:none;overflow:hidden}.adm-pedits .im img{width:100%;height:100%;object-fit:contain}
+.adm-pedits .nm{flex:1;min-width:0}.adm-pedits .nm b{display:block;font-size:.88rem;font-weight:600;line-height:1.25}.adm-pedits .nm small{font-size:.74rem;color:var(--a-sub)}
+.adm-pedits .q{font-weight:700;font-size:.9rem;min-width:30px;text-align:right}.adm-pedits .v{font-size:.86rem;min-width:74px;text-align:right}
+.adm-pedits li.ok .nm b{text-decoration:line-through;color:var(--a-sub)}.adm-pedits li.ok .im{opacity:.5}
+.adm-pedtot{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0 18px;font-weight:600}.adm-pedtot b{font-size:1.25rem;color:var(--a-wine)}
+.adm-pedhist{list-style:none;margin:0;padding:0}.adm-pedhist li{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:.86rem}
+.adm-pedhist s{width:8px;height:8px;border-radius:50%;flex:none}.adm-pedhist small{margin-left:auto;color:var(--a-sub);font-size:.76rem}
+.adm-pedbox footer{display:flex;gap:10px;justify-content:space-between;padding:14px 20px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--a-line)}
+.adm-pedbox footer .adm-btn{flex:1;padding:0 16px;background:var(--a-wine);color:#fff;border-radius:12px;height:46px;font-weight:700}
+.adm-pedbox footer .adm-btn2{height:46px;padding:0 14px;border-radius:12px;background:#fff;border:1px solid var(--a-line);color:var(--a-sub);font-weight:600}
+.adm-done{flex:1;text-align:center;color:var(--a-ok);font-weight:700;align-self:center}
+.gx-sep{color:var(--a-ok);font-weight:700}
+.adm-trc{cursor:pointer}.adm-trc:hover td{background:#faf7f8}
+@media(max-width:600px){.adm-pedbox{top:auto;max-height:92vh;width:100%;border-radius:20px 20px 0 0;transform:translateY(30px)}}
 @media(prefers-reduced-motion:reduce){.adm-view.anim>*,.adm-pane.on,.adm-draw,.adm-hb i,.adm-cols i,.adm-line .adm-b,.adm-live s:after{animation:none!important;stroke-dashoffset:0}}
 
 /* ==========================================================================
@@ -4502,6 +4542,7 @@ body.gx-dragging,body.gx-dragging *{cursor:grabbing!important}
 
 <!-- ======================= GESTAO ======================= -->
 <div class="page" id="p-gestao">
+  <div class="adm-ped" id="admPed" hidden role="dialog" aria-modal="true" aria-labelledby="admPedT"><aside class="adm-pedbox" id="admPedBox"></aside></div>
   <div class="adm-dlg" id="admDlg" hidden role="dialog" aria-modal="true" aria-labelledby="admDlgT"><div class="adm-dlgbox"><div class="adm-dlgic" id="admDlgIc"></div><h3 id="admDlgT"></h3><p id="admDlgP"></p><div class="adm-dlgft"><button class="adm-btn2" id="admDlgNo">Cancelar</button><button class="adm-btn" id="admDlgOk">Confirmar</button></div></div></div>
 <div class="adm">
   <aside class="adm-side" aria-label="Menu da gestão">
@@ -5776,7 +5817,7 @@ let orders=[];try{orders=JSON.parse(LS.get('farid_pedidos')||'[]').filter(o=>Arr
 let demoOrders=[];try{demoOrders=JSON.parse(LS.get('farid_pedidos_demo')||'[]').filter(o=>Array.isArray(o.items))}catch(e){demoOrders=[]}
 orders=orders.filter(o=>!o.demo);
 function GXO(){return demoOrders.length?orders.concat(demoOrders):orders}
-const saveOrders=()=>{LS.set('farid_pedidos',JSON.stringify(orders.filter(o=>!o.demo).slice(0,200)));LS.set('farid_pedidos_demo',JSON.stringify(demoOrders.map(function(o){return {id:o.id,date:o.date,store:o.store,mode:o.mode,items:o.items,total:o.total,status:o.status,cliente:o.cliente,demo:true,hist:o.hist}})))};
+const saveOrders=()=>{LS.set('farid_pedidos',JSON.stringify(orders.filter(o=>!o.demo).slice(0,200)));LS.set('farid_pedidos_demo',JSON.stringify(demoOrders.map(function(o){return {id:o.id,date:o.date,store:o.store,mode:o.mode,items:o.items,total:o.total,status:o.status,cliente:o.cliente,demo:true,hist:o.hist,sep:o.sep}})))};
 const fmtDate=t=>dataLonga(t);
 function renderAgain(){const sec=$('#againSec');const cnt={};orders.forEach(o=>o.items.forEach(([id,q])=>{if(P[id])cnt[id]=(cnt[id]||0)+q}));
  const ids=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]).map(Number);
@@ -5839,7 +5880,7 @@ function route(){const h=location.hash;
  if(name==='conta')renderOrders();
  if(name==='favoritos')renderFavs();
  document.body.classList.toggle('is-adm',name==='gestao');
- if(name==='gestao'){var temDemo=demoOrders.length>0;if(LS.get('farid_demo_v')!=='3'||(!temDemo&&!orders.length))gxSeed();else gxRender()}
+ if(name==='gestao'){var temDemo=demoOrders.length>0;if(LS.get('farid_demo_v')!=='4'||(!temDemo&&!orders.length))gxSeed();else gxRender()}
  if(name==='lojas')renderLojas();
  if(name==='listas')renderListas();
  $$('.idx a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===h));$$('.tabbar a').forEach(a=>a.classList.toggle('on',a.dataset.tb==='/'+name||(name==='home'&&a.dataset.tb==='/')));/* o trilho de atalhos de departamento e para quem compra; no painel
@@ -6228,7 +6269,7 @@ function gxMover(id,d){var o=GXO().find(function(x){return x.id===id});if(!o)ret
 function admMoverPara(id,para){var o=GXO().find(function(x){return x.id===id});if(!o||!admCan('ped_mover'))return;
  var de=o.status||'novo';if(de===para)return;var A=GX_ST.find(function(e){return e[0]===de}),B=GX_ST.find(function(e){return e[0]===para});
  admConfirm({t:'Mover pedido #'+String(o.id).slice(-6)+'?',p:'De <b>'+esc(A[1])+'</b> para <b>'+esc(B[1])+'</b> · '+esc(o.cliente||'Cliente')+' · '+brl(+o.total||0)+(para==='entregue'?'<br><small>O cliente será avisado de que o pedido foi entregue.</small>':''),ok:'Mover para '+B[1],cor:B[2]},
-  function(){o.status=para;(o.hist=o.hist||[]).push({de:de,para:para,por:admUser().nome,em:Date.now()});saveOrders();gxRender();toast('Pedido movido para '+esc(B[1]))})}
+  function(){o.status=para;(o.hist=o.hist||[]).push({de:de,para:para,por:admUser().nome,em:Date.now()});saveOrders();gxRender();if(pedAberto===o.id)admPedRender();toast('Pedido movido para '+esc(B[1]))})}
 function admConfirm(c,ok){var d=$('#admDlg');$('#admDlgT').textContent=c.t;$('#admDlgP').innerHTML=c.p;$('#admDlgOk').textContent=c.ok||'Confirmar';
  $('#admDlgIc').style.background=c.cor||'#881344';d.hidden=false;requestAnimationFrame(function(){d.classList.add('on')});var prev=document.activeElement;
  var fecha=function(){d.classList.remove('on');setTimeout(function(){d.hidden=true},180);document.removeEventListener('keydown',kd);if(prev&&prev.focus)prev.focus()};
@@ -6244,7 +6285,7 @@ function admConfirm(c,ok){var d=$('#admDlg');$('#admDlgT').textContent=c.t;$('#a
   var kb=$('#gxKanban'),r=kb.getBoundingClientRect();if(x<r.left+40)kb.scrollLeft-=12;else if(x>r.right-40)kb.scrollLeft+=12;
   if(y<70)scrollBy(0,-12);else if(y>innerHeight-70)scrollBy(0,12)}
  function end(x,y){clearTimeout(timer);timer=null;if(!drag)return;var c=col(x,y),d=drag;drag=null;d.g.remove();d.card.classList.remove('gx-src');document.body.classList.remove('gx-dragging');
-  $$('#gxKanban .gx-col').forEach(function(k){k.classList.remove('gx-over')});if(c&&c!==d.from)admMoverPara(+d.card.dataset.id,c.dataset.st)}
+  $$('#gxKanban .gx-col').forEach(function(k){k.classList.remove('gx-over')});window._gxJust=1;setTimeout(function(){window._gxJust=0},50);if(c&&c!==d.from)admMoverPara(+d.card.dataset.id,c.dataset.st)}
  document.addEventListener('pointerdown',function(e){var card=e.target.closest&&e.target.closest('#gxKanban .gx-ord');if(!card||e.target.closest('button')||!admCan('ped_mover')||e.button>0)return;
   sx=e.clientX;sy=e.clientY;if(e.pointerType==='mouse'){timer='m';e.preventDefault()}else timer=setTimeout(function(){timer=null;start(card,sx,sy)},280);
   var mv=function(ev){if(drag){move(ev.clientX,ev.clientY);return}var dd=Math.abs(ev.clientX-sx)+Math.abs(ev.clientY-sy);
@@ -6268,13 +6309,13 @@ function gxSeed(){
   var qtd=7+Math.floor(Math.random()*14), itens=[], tot=0;
   for(var j=0;j<qtd;j++){var pid=Math.floor(Math.random()*Math.min(P.length,80));
    var q=1+Math.floor(Math.random()*3);
-   if(P[pid]&&P[pid].p){itens.push([pid,q]);tot+=P[pid].p*q}}
+   if(P[pid]&&P[pid].p&&!itens.some(function(x){return x[0]===pid})){itens.push([pid,q]);tot+=P[pid].p*q}}
   if(!itens.length)continue;
   var st=dias>1?'entregue':GX_ST[Math.floor(Math.random()*GX_ST.length)][0];
   add.push({id:base-k*7777,date:dt.getTime(),store:STORES[si].n,mode:Math.random()<.62?'casa':'loja',slot:'Janela de exemplo',
    items:itens,bruto:Math.round(tot*100)/100,cbUsado:0,cbGanho:Math.round(tot*(typeof CB_TAXA==='number'?CB_TAXA:0)*100)/100,
    total:Math.round(tot*100)/100,status:st,cliente:nomes[Math.floor(Math.random()*nomes.length)],demo:true})}
- demoOrders=add; LS.set('farid_demo_v','3'); saveOrders(); gxRender();
+ demoOrders=add; LS.set('farid_demo_v','4'); saveOrders(); gxRender();
  toast(add.length+' pedidos de exemplo em '+STORES.length+' unidades')}
 
 function gxLimparDemo(){demoOrders=[];
@@ -6316,6 +6357,7 @@ function gxRender(){
  $$('#admNav a').forEach(function(a){a.classList.toggle('on',a.dataset.v===v)});
  $$('.adm-side-ft .adm-ghost').forEach(function(b){if(b.tagName==='BUTTON')b.hidden=!admCan('demo')});
  var as=$('#admAs'),eqs=admEq().filter(function(p){return p.ativo!==false});as.innerHTML='<option value="admin">Administrador</option>'+eqs.map(function(p){return '<option value="'+esc(p.email)+'">'+esc(p.nome)+' · '+esc(admPerfilDe(p.perms))+'</option>'}).join('');as.value=u.email;
+ var calma=gxRender._v===v;gxRender._v=v;$('.adm-main').classList.toggle('adm-calm',calma);
  $('.adm-main').dataset.v=v; $$('.adm-view').forEach(function(x){var on=x.dataset.view===v;if(on&&!x.classList.contains('on')){x.classList.remove('anim');void x.offsetWidth;x.classList.add('anim')}x.classList.toggle('on',on)});
  $('#admTitle').textContent=GX_VIEWS[v][0];
  $('#admSub').textContent=GX_VIEWS[v][1]+' · '+(GX_F.un||'todas as unidades');
@@ -6373,7 +6415,7 @@ function gxRender(){
   return '<div class="gx-col" data-st="'+st[0]+'"><div class="gx-colhd"><span class="gx-dot" style="background:'+st[2]+'"></span><b>'+esc(st[1])+'</b><i>'+lista.length+'</i></div><div class="gx-cards">'+
    (lista.length?lista.slice(0,30).map(function(o){var n=gxItens(o),d=new Date(o.date);
     return '<article class="gx-ord" data-id="'+o.id+'" tabindex="0" aria-label="Pedido '+String(o.id).slice(-6)+', '+esc(st[1])+'"><div class="gx-ordhd"><b>#'+String(o.id).slice(-6)+'</b><span>'+brl(+o.total||0)+'</span></div>'+
-     '<p>'+esc(o.cliente||'Cliente')+' · '+n+' iten'+(n===1?'':'s')+'</p><small>'+esc(o.store||'')+' · '+(o.mode==='casa'?'Entrega':'Retirada')+' · '+d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+'</small>'+
+     '<p>'+esc(o.cliente||'Cliente')+' · '+n+' iten'+(n===1?'':'s')+(o.sep&&o.sep.length?' · <b class="gx-sep">'+o.sep.length+'/'+o.items.length+' separados</b>':'')+'</p><small>'+esc(o.store||'')+' · '+(o.mode==='casa'?'Entrega':'Retirada')+' · '+d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+'</small>'+
      (podeMover?'<div class="gx-move">'+(si>0?'<button onclick="gxMover('+o.id+',-1)" aria-label="Voltar etapa">←</button>':'<span></span>')+
      (si<GX_ST.length-1?'<button onclick="gxMover('+o.id+',1)" aria-label="Avançar etapa">→</button>':'<span></span>')+'</div>':'')+'</article>'}).join('')+
      (lista.length>30?'<p class="gx-more">+ '+(lista.length-30)+' na lista abaixo</p>':'')
@@ -6381,7 +6423,7 @@ function gxRender(){
  var stMap={};GX_ST.forEach(function(x){stMap[x[0]]=x});
  $('#admOrdTab').innerHTML=os.length?'<thead><tr><th>Pedido</th><th>Data</th><th>Cliente</th><th>Unidade</th><th>Modalidade</th><th>Status</th><th class="num">Itens</th><th class="num">Total</th></tr></thead><tbody>'+
   os.slice().sort(function(a,b){return b.date-a.date}).slice(0,60).map(function(o){var st=stMap[o.status||'novo']||GX_ST[0],d=new Date(o.date);
-   return '<tr><td><b>#'+String(o.id).slice(-6)+'</b></td><td>'+d.toLocaleDateString('pt-BR')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+'</td><td>'+esc(o.cliente||'Cliente')+'</td><td>'+esc(o.store||'')+'</td><td>'+(o.mode==='casa'?'Entrega':'Retirada')+'</td><td><span class="adm-pill"><s style="background:'+st[2]+'"></s>'+esc(st[1])+'</span></td><td class="num">'+gxItens(o)+'</td><td class="num"><b>'+brl(+o.total||0)+'</b></td></tr>'}).join('')+'</tbody>':'<tbody><tr><td>'+vazio+'</td></tr></tbody>';
+   return '<tr class="adm-trc" tabindex="0" onclick="admPedido('+o.id+')" onkeydown="if(event.key===\'Enter\')admPedido('+o.id+')"><td><b>#'+String(o.id).slice(-6)+'</b></td><td>'+d.toLocaleDateString('pt-BR')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+'</td><td>'+esc(o.cliente||'Cliente')+'</td><td>'+esc(o.store||'')+'</td><td>'+(o.mode==='casa'?'Entrega':'Retirada')+'</td><td><span class="adm-pill"><s style="background:'+st[2]+'"></s>'+esc(st[1])+'</span></td><td class="num">'+gxItens(o)+'</td><td class="num"><b>'+brl(+o.total||0)+'</b></td></tr>'}).join('')+'</tbody>':'<tbody><tr><td>'+vazio+'</td></tr></tbody>';
 
  /* ---------- UNIDADES ---------- */
  var antT=gxFiltra(1,true),sel=GX_F.un;
@@ -6426,7 +6468,7 @@ function gxRender(){
 
 /* ===================== GESTÃO: dinâmica e cadastros ===================== */
 function admFmt(v,f){return f==='brl'?brl(v):String(Math.round(v))}
-function admCount(sel){var box=$(sel);if(!box)return;var red=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function admCount(sel){var box=$(sel);if(!box)return;var red=true;
  box.querySelectorAll('[data-num]').forEach(function(el){var to=+el.dataset.num,f=el.dataset.fmt,t0=performance.now(),dur=900;
   if(red){el.textContent=admFmt(to,f);return}
   (function step(t){var k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3);el.textContent=admFmt(to*e,f);if(k<1)requestAnimationFrame(step)})(t0)})}
@@ -6496,6 +6538,35 @@ function admLojaSave(id,el){var c=admGet('farid_lojas_cfg',{}),card=el.closest('
  c[id]={aberta:card.querySelector('[data-k=aberta]').checked,ab:card.querySelector('[data-k=ab]').value,fe:card.querySelector('[data-k=fe]').value,
   min:+card.querySelector('[data-k=min]').value||0,taxa:+card.querySelector('[data-k=taxa]').value||0,raio:+card.querySelector('[data-k=raio]').value||0};
  LS.set('farid_lojas_cfg',JSON.stringify(c));toast('Loja '+(STORES.find(function(x){return x.id===id})||{}).n+' salva');admCadRender()}
+
+/* ---- detalhe do pedido (abre ao tocar no cartão ou na linha) ---- */
+var pedAberto=null;
+function admPedido(id){var o=GXO().find(function(x){return x.id===id});if(!o)return;pedAberto=id;admPedRender();var w=$('#admPed');
+ if(w.hidden){w.hidden=false;requestAnimationFrame(function(){w.classList.add('on')});document.body.style.overflow='hidden';setTimeout(function(){var x=$('#admPedBox .x');if(x)x.focus()},60)}}
+function admPedFecha(){var w=$('#admPed');w.classList.remove('on');document.body.style.overflow='';setTimeout(function(){w.hidden=true},200);pedAberto=null}
+function admPedRender(){var o=GXO().find(function(x){return x.id===pedAberto});if(!o)return;
+ var si=GX_ST.findIndex(function(e){return e[0]===(o.status||'novo')}),st=GX_ST[si],d=new Date(o.date),pode=admCan('ped_mover'),sep=o.sep||[];
+ var its=o.items.map(function(x,k){var p=P[x[0]]||{n:'Produto indisponível',p:0},ok=sep.indexOf(k)>=0;
+  return '<li class="'+(ok?'ok':'')+'"><label>'+(pode?'<input type="checkbox" '+(ok?'checked':'')+' onchange="admPedSep('+k+',this.checked)" aria-label="Separado: '+esc(p.n)+'">':'')+
+   '<span class="im">'+(p.sm||p.img?'<img src="'+esc(p.sm||p.img)+'" alt="" loading="lazy">':'')+'</span><span class="nm"><b>'+esc(p.n)+'</b><small>'+esc([p.u,brl(p.p)+' cada'].filter(Boolean).join(' · '))+'</small></span>'+
+   '<span class="q">'+x[1]+'×</span><span class="v">'+brl(p.p*x[1])+'</span></label></li>'}).join('');
+ var n=gxItens(o),pr=Math.round(sep.length/o.items.length*100);
+ var hist=(o.hist||[]).slice().reverse().map(function(h){var a=GX_ST.find(function(e){return e[0]===h.para})||[0,h.para];var t=new Date(h.em);
+  return '<li><s style="background:'+(a[2]||'#999')+'"></s><b>'+esc(a[1])+'</b><small>'+esc(h.por)+' · '+t.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' '+String(t.getHours()).padStart(2,'0')+':'+String(t.getMinutes()).padStart(2,'0')+'</small></li>'}).join('');
+ $('#admPedBox').innerHTML='<header><div><h3 id="admPedT">Pedido #'+String(o.id).slice(-6)+'</h3><span class="adm-pill"><s style="background:'+st[2]+'"></s>'+esc(st[1])+'</span></div><button class="x" onclick="admPedFecha()" aria-label="Fechar">✕</button></header>'+
+  '<div class="adm-pedsc"><dl class="adm-pedinfo"><div><dt>Cliente</dt><dd>'+esc(o.cliente||'Cliente')+'</dd></div><div><dt>Feito em</dt><dd>'+d.toLocaleDateString('pt-BR')+' às '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+'</dd></div>'+
+  '<div><dt>Unidade</dt><dd>'+esc(o.store||'')+'</dd></div><div><dt>'+(o.mode==='casa'?'Entrega':'Retirada na loja')+'</dt><dd>'+esc(o.slot&&o.slot!=='Janela de exemplo'?o.slot:'Janela escolhida pelo cliente')+'</dd></div></dl>'+
+  '<div class="adm-pedhd"><h4>Compras do pedido</h4><span>'+o.items.length+' produtos · '+n+' unidades</span></div>'+
+  (pode?'<div class="adm-pedprog"><div><i style="width:'+pr+'%"></i></div><small>'+sep.length+' de '+o.items.length+' separados'+(pr===100?' ✓':'')+'</small></div>':'')+
+  '<ul class="adm-pedits">'+its+'</ul><div class="adm-pedtot"><span>Total</span><b>'+brl(+o.total||0)+'</b></div>'+
+  (hist?'<div class="adm-pedhd"><h4>Histórico</h4></div><ul class="adm-pedhist">'+hist+'</ul>':'')+'</div>'+
+  (pode?'<footer>'+(si>0?'<button class="adm-btn2" onclick="admMoverPara('+o.id+',\''+GX_ST[si-1][0]+'\')">← '+esc(GX_ST[si-1][1])+'</button>':'<span></span>')+(si<GX_ST.length-1?'<button class="adm-btn" onclick="admMoverPara('+o.id+',\''+GX_ST[si+1][0]+'\')">Mover para '+esc(GX_ST[si+1][1])+' →</button>':'<span class="adm-done">Pedido concluído</span>')+'</footer>':'')}
+function admPedSep(k,on){var o=GXO().find(function(x){return x.id===pedAberto});if(!o||!admCan('ped_mover'))return;o.sep=o.sep||[];var i=o.sep.indexOf(k);
+ if(on&&i<0)o.sep.push(k);if(!on&&i>=0)o.sep.splice(i,1);saveOrders();admPedRender();gxRender()}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&pedAberto&&$('#admDlg').hidden)admPedFecha()});
+document.addEventListener('click',function(e){var w=$('#admPed');if(w&&e.target===w)admPedFecha();
+ var c=e.target.closest&&e.target.closest('#gxKanban .gx-ord');if(c&&!e.target.closest('button')&&!document.body.classList.contains('gx-dragging')&&!window._gxJust)admPedido(+c.dataset.id)});
+document.addEventListener('keydown',function(e){var c=e.target.closest&&e.target.closest('#gxKanban .gx-ord');if(c&&e.key==='Enter')admPedido(+c.dataset.id)});
 /* ---- Colaboradores e permissões ---- */
 var ADM_PERMS=[
  ['Pedidos',[['ped_ver','Ver pedidos'],['ped_mover','Mover pedidos entre as etapas']]],
@@ -6568,7 +6639,7 @@ setInterval(function(){if(!document.body.classList.contains('is-adm')||document.
  if(!its.length)return;var nm=['Ana','Bruno','Carla','Davi','Elisa','Fábio','Gabi','Hugo'][Math.floor(Math.random()*8)];
  demoOrders.unshift({id:Date.now(),date:Date.now(),store:st.n,mode:Math.random()<.6?'casa':'loja',slot:'Janela de exemplo',items:its,bruto:tot,cbUsado:0,cbGanho:0,total:Math.round(tot*100)/100,status:'novo',cliente:nm,demo:true});
  saveOrders();var lv=$('#admLive');if(lv){lv.classList.remove('ping');void lv.offsetWidth;lv.classList.add('ping')}
- toast('Novo pedido de '+esc(nm)+' em '+esc(st.n)+' · '+brl(tot));gxRender()},25000);
+ gxRender()},60000);
 
 /* produtos cadastrados entram no catalogo ao abrir o site */
 (function(){gxProdutosExtra().forEach(function(x){
