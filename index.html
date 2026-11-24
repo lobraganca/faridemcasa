@@ -4299,10 +4299,9 @@ body.gx-dragging,body.gx-dragging *{cursor:grabbing!important}
    bloco e volte qtdVend / ofertasHome.
    ========================================================================== */
 .grade3,#ofertas-hoje #heroDeals{grid-template-columns:repeat(3,1fr)!important}
-@media (min-width:901px){
-  .grade3,#ofertas-hoje #heroDeals{gap:20px!important}
-  .grade3 .pimg{aspect-ratio:1.25!important}
-}
+/* web: 5 por linha no computador, 4 no tablet; o celular continua com 3 */
+@media (min-width:601px){.grade3,#ofertas-hoje #heroDeals{grid-template-columns:repeat(4,1fr)!important;gap:14px!important}}
+@media (min-width:1024px){.grade3,#ofertas-hoje #heroDeals{grid-template-columns:repeat(5,1fr)!important;gap:16px!important}}
 @media (max-width:600px){
   .grade3,#ofertas-hoje #heroDeals{gap:7px!important}
   .grade3 .prod{padding:6px!important;border-radius:14px!important}
@@ -4565,6 +4564,36 @@ body.gx-dragging,body.gx-dragging *{cursor:grabbing!important}
 }
 @media (max-width:420px){.gx-modo button{padding:0 9px;font-size:.8rem}.gx-search input{font-size:.88rem}}
 #p-gestao .gx-board[hidden],#p-gestao .gx-listcard[hidden],#p-gestao .gx-hint[hidden]{display:none!important}
+
+/* ---- visão geral: cards e seções extras ---- */
+#p-gestao .gx-kpi2{margin-top:-2px}
+#p-gestao .gx-k2{padding:14px 18px!important}
+#p-gestao .gx-k2[role=button]{cursor:pointer}
+#p-gestao .gx-k2[role=button]:hover{transform:translateY(-2px)}
+#p-gestao .gx-k2 b{font-size:1.45rem!important}
+#p-gestao .gx-k2 em{font-style:normal;font-size:.8rem;color:var(--a-sub);display:block;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#p-gestao .gx-k2 em u{text-decoration:none;color:#b4231f;font-weight:700;background:rgba(214,48,40,.1);padding:2px 8px;border-radius:99px}
+#p-gestao .gx-sem{height:190px}
+.gx-cli>div{display:flex;align-items:center;gap:11px;padding:8px 0;border-bottom:1px solid var(--a-line)}
+.gx-cli>div:last-child{border-bottom:0}
+.gx-av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:.9rem;flex:none;background:rgba(120,90,105,.1);color:#5d585c}
+.gx-av.gx-av1{background:var(--a-wine);color:#fff}
+.gx-cli p{flex:1;min-width:0;margin:0}
+.gx-cli p b{display:block;font-size:.9rem;color:var(--a-ink)}
+.gx-cli p small{font-size:.74rem;color:var(--a-sub)}
+.gx-cli em{font-style:normal;font-weight:800;font-size:.9rem;font-variant-numeric:tabular-nums;color:var(--a-ink)}
+.gx-link{font-size:.82rem;font-weight:700;color:var(--a-wine)}
+.gx-ult{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.gx-ult button{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"n e" "c c" "s s";gap:4px 10px;text-align:left;padding:12px 14px;border-radius:14px;
+  background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.95);color:var(--a-ink);transition:transform .15s,box-shadow .15s}
+.gx-ult button:hover{transform:translateY(-1px);box-shadow:0 10px 22px -16px rgba(40,10,25,.4)}
+.gx-ult b{grid-area:n;font-size:.8rem;color:var(--a-sub)}
+.gx-ult em{grid-area:e;font-style:normal;font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+.gx-uc{grid-area:c;font-weight:700;font-size:.94rem}
+.gx-uc small{display:block;font-weight:500;font-size:.74rem;color:var(--a-sub);margin-top:1px}
+.gx-ult .adm-pill{grid-area:s;justify-self:start;margin-top:4px;background:rgba(120,90,105,.07)}
+@media (max-width:1100px){.gx-ult{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.gx-ult{grid-template-columns:1fr}#p-gestao .gx-k2 b{font-size:1.2rem!important}#p-gestao .gx-k2{padding:12px 14px!important}}
 </style>
 </head>
 <body>
@@ -4814,6 +4843,7 @@ body.gx-dragging,body.gx-dragging *{cursor:grabbing!important}
     <!-- VISÃO GERAL -->
     <section class="adm-view" data-view="visao">
       <div class="adm-kpis" id="admKpis"></div>
+      <div class="adm-kpis gx-kpi2" id="admKpis2"></div>
       <div class="adm-row r2">
         <div class="adm-card"><div class="adm-ch"><h3>Faturamento no período</h3><span id="admLineCap"></span></div><div id="admLine" class="adm-line"></div></div>
         <div class="adm-card"><div class="adm-ch"><h3>Por unidade de venda</h3><span>faturamento</span></div><div id="admUnBars"></div></div>
@@ -4823,6 +4853,12 @@ body.gx-dragging,body.gx-dragging *{cursor:grabbing!important}
         <div class="adm-card"><div class="adm-ch"><h3>Entrega × retirada</h3></div><div id="admMix"></div></div>
         <div class="adm-card"><div class="adm-ch"><h3>Mais vendidos</h3><span>em unidades</span></div><div id="admTop"></div></div>
       </div>
+      <div class="adm-row r3">
+        <div class="adm-card"><div class="adm-ch"><h3>Vendas por dia da semana</h3><span id="admSemCap"></span></div><div id="admSemana" class="adm-cols gx-sem"></div></div>
+        <div class="adm-card"><div class="adm-ch"><h3>Por departamento</h3><span>faturamento</span></div><div id="admDeps"></div></div>
+        <div class="adm-card"><div class="adm-ch"><h3>Melhores clientes</h3><span>no período</span></div><div id="admCli" class="gx-cli"></div></div>
+      </div>
+      <div class="adm-card"><div class="adm-ch"><h3>Últimos pedidos</h3><a href="#/gestao/pedidos" class="gx-link">Ver todos →</a></div><div id="admUlt" class="gx-ult"></div></div>
     </section>
 
     <!-- PEDIDOS -->
@@ -5554,7 +5590,8 @@ const pick=v=>semAlc(P).filter(x=>v==='all'||x.cat===v);
 
 /* ============ RENDER ============ */
 const pill=c=>`<a class="pill glass" href="#/departamentos"><span><img loading="lazy" src="${c.img}" alt=""></span>${c.n}</a>`;
-$('#heroDeals').innerHTML=ofertasHome().map(x=>{const q=cart[x.id]||0;return `<div class="hc-item${q?' incart':''}" data-id="${x.id}"><div class="im"><span>-${Math.round((1-x.p/x.o)*100)}%</span><img src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"><span class="incart-tag" data-incart ${q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${q}</b><i class="sr-only">no carrinho</i></span></div><p>${x.n}</p><div class="hc-row"><b>${brl(x.p)}</b><button onclick="chg(${x.id},1)" aria-label="Adicionar ${x.n}"><svg class="ico" style="width:16px"><use href="#i-plus"/></svg></button></div></div>`}).join('');
+function renderHeroDeals(){$('#heroDeals').innerHTML=ofertasHome().map(x=>{const q=cart[x.id]||0;return `<div class="hc-item${q?' incart':''}" data-id="${x.id}"><div class="im"><span>-${Math.round((1-x.p/x.o)*100)}%</span><img src="${x.img}" onerror="this.onerror=null;this.src='${x.sm}'" alt="${x.n}"><span class="incart-tag" data-incart ${q?'':'hidden'}><svg class="ico" style="width:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><b data-incart-q>${q}</b><i class="sr-only">no carrinho</i></span></div><p>${x.n}</p><div class="hc-row"><b>${brl(x.p)}</b><button onclick="chg(${x.id},1)" aria-label="Adicionar ${x.n}"><svg class="ico" style="width:16px"><use href="#i-plus"/></svg></button></div></div>`}).join('');}
+renderHeroDeals();
 $('#idx').innerHTML=`<a class="all" href="#/departamentos/todos">Todos</a><a href="#/ofertas"><svg class="ico ico-in" style="width:15px;height:15px" aria-hidden="true"><use href="#i-bolt"/></svg> Ofertas</a>`+CATS.map((c,k)=>(menorDeIdade()&&depAlcool(c.n))?'':`<a href="#/departamentos/${k}" data-dep="${k}"><span><img src="${c.img}" alt=""></span>${c.n}</a>`).join('');
 (()=>{const one=CATS.map((c,k)=>(menorDeIdade()&&depAlcool(c.n))?'':`<a class="dc" href="#/departamentos/${k}" title="${c.n}" aria-label="${c.n}"><span><img src="${c.img}" alt=""></span><b>${c.n}</b></a>`).join('')+`<a class="dc more" href="#/departamentos/todos" title="Todos os produtos" aria-label="Todos os produtos"><span>+</span><b>Todos os produtos</b></a>`;
  const tr=$('#dgrid'),box=$('#dslide');tr.innerHTML=one+one;tr.removeAttribute('aria-busy');
@@ -5577,30 +5614,40 @@ const F=[['all','Todos'],['drinks','Bebidas'],['mercearia','Mercearia'],['acougu
 /* 10 cards numa grade de duas colunas davam 2104px: 41% da home
    inteira num bloco so, no meio do caminho. No celular passam a ser
    6, com o 'Ver todas' que ja existia no cabecalho fazendo o resto. */
-/* teste grade de 3: 12 mais vendidos = 4 linhas de 3, em qualquer tela */
-var qtdVend=function(){return 12};
+/* colunas da grade da home: 3 no celular, 4 no tablet, 5 no computador */
+function homeCols(){return innerWidth>=1024?5:innerWidth>600?4:3}
+/* mais vendidos: 4 linhas de 3 no celular, 3 linhas no tablet e no computador */
+var qtdVend=function(){var c=homeCols();return c===3?12:c*3};
 tabs($('#tabsHome'),F,v=>{$('#gridHome').innerHTML=pick(v).slice(0,qtdVend()).map(card).join('');bindTilt()});
-/* Secoes de produtos na home, uma por departamento, sempre em linhas
-   completas de 3 (6 produtos quando o departamento tem, senao 3).
-   Departamento com menos de 3 produtos nao aparece, para nao ficar buraco.
-   [categoria do produto, titulo, indice em CATS para o "Ver todos"] */
+/* Secoes de produtos na home. Cada uma mostra ate duas linhas cheias da
+   grade (6 no celular, 8 no tablet, 10 no computador); se tiver menos que
+   uma linha, mostra o que tem, desde que sejam pelo menos 3 produtos.
+   {id, titulo, subtitulo, link, icone (indice em CATS), lista()} */
+const descPct=x=>(x.o-x.p)/x.o;
 const SECOES_HOME=[
- ['mercearia','Mercearia',4],
- ['acougue','Açougue',1],
- ['limpeza','Limpeza',9],
- ['higiene','Higiene e cuidados',10],
- ['drinks','Bebidas',7],
- ['pet','Pet Shop',13]
+ {id:'mercearia',t:'Mercearia',k:4,l:()=>pick('mercearia')},
+ {id:'churrasco',t:'Para o churrasco',d:'Carnes, linguiças e bebidas geladas',k:1,href:'#/departamentos/1',l:()=>pick('acougue').concat(pick('drinks')).sort((a,b)=>descPct(b)-descPct(a))},
+ {id:'acougue',t:'Açougue',k:1,l:()=>pick('acougue')},
+ {id:'ate10',t:'Até R$ 10',d:'Itens do dia a dia que cabem no bolso',k:4,href:'#/ofertas',l:()=>semAlc(P).filter(x=>x.p<=10).sort((a,b)=>a.p-b.p)},
+ {id:'limpeza',t:'Limpeza',k:9,l:()=>pick('limpeza')},
+ {id:'higiene',t:'Higiene e cuidados',k:10,l:()=>pick('higiene')},
+ {id:'descontos',t:'Maiores descontos',d:'Os preços que mais caíram nesta semana',k:5,href:'#/ofertas',l:()=>semAlc(P).filter(x=>x.o>x.p).sort((a,b)=>descPct(b)-descPct(a))},
+ {id:'drinks',t:'Bebidas',k:7,l:()=>pick('drinks')},
+ {id:'pet',t:'Pet Shop',k:13,l:()=>pick('pet')}
 ];
-function renderSecoesHome(){const box=$('#homeSecoes');if(!box)return;
- box.innerHTML=SECOES_HOME.map(([cat,titulo,k],i)=>{const l=pick(cat);
-  const n=l.length>=6?6:(l.length>=3?3:0);if(!n)return '';const c=CATS[k]||{};
-  return `<section class="sec sec-dep niv-2" id="sec-${cat}"><div class="wrap">
-   <div class="sh" data-r><div><h2>${c.img?`<img src="${c.img}" alt="" loading="lazy">`:''}${esc(titulo)}</h2>${c.d?`<p>${esc(c.d)}</p>`:''}</div>
-   <a href="#/departamentos/${k}" class="more">Ver todos <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div>
+function renderSecoesHome(){const box=$('#homeSecoes');if(!box)return;const cols=homeCols();
+ box.innerHTML=SECOES_HOME.map(sc=>{const l=sc.l();
+  const n=l.length>=cols?Math.floor(Math.min(l.length,cols*2)/cols)*cols:(l.length>=3?l.length:0);if(!n)return '';
+  const c=CATS[sc.k]||{},sub=sc.d||c.d,href=sc.href||'#/departamentos/'+sc.k;
+  return `<section class="sec sec-dep niv-2" id="sec-${sc.id}"><div class="wrap">
+   <div class="sh" data-r><div><h2>${c.img?`<img src="${c.img}" alt="" loading="lazy">`:''}${esc(sc.t)}</h2>${sub?`<p>${esc(sub)}</p>`:''}</div>
+   <a href="${href}" class="more">Ver todos <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div>
    <div class="grid grade3">${l.slice(0,n).map(card).join('')}</div></div></section>`}).join('');
  bindTilt()}
 renderSecoesHome();
+/* ao mudar de tamanho de tela, refaz as grades se o numero de colunas mudou */
+(function(){let c=homeCols(),t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>{const n=homeCols();if(n===c)return;c=n;
+ renderHeroDeals();renderSecoesHome();const on=$('#tabsHome .tab.on');if(on)on.click();$$('#homeSecoes [data-r]').forEach(el=>el.classList.add('in'))},200)})})();
 tabs($('#tabsOff'),F,v=>{$('#gridOff').innerHTML=pick(v).map(card).join('');bindTilt()});
 tabs($('#tabsPair'),[['all','Todos'],['carnes','Carnes'],['massas','Massas'],['peixes','Peixes'],['petiscos','Petiscos'],['doces','Doces']],
  v=>$('#pairs').innerHTML=PAIRS.filter(x=>v==='all'||x[0]===v).map(([,a,b,h,p,g])=>`<div class="glass pair"><div class="d2">${a}<i>+</i>${b}</div><h3>${h}</h3><p>${p}</p><div class="tg">${g.map(t=>`<span class="badge">${t}</span>`).join('')}</div></div>`).join(''));
@@ -6644,6 +6691,8 @@ function gxRender(){
  $('#admTop').innerHTML=tops.length?'<div class="adm-top5">'+tops.slice(0,5).map(function(id,k){var x=P[id];
   return '<div><em>'+(k+1)+'</em><p><span>'+esc(x.n)+'</span><i><u style="width:'+(pq[id]/tq*100)+'%"></u></i></p><b>'+pq[id]+'</b></div>'}).join('')+'</div>':vazio;
 
+ gxVisaoMais(os,ant,vazio);
+
  /* ---------- PEDIDOS ---------- */
  GX_OS=os; gxPedRender();
 
@@ -6832,6 +6881,43 @@ function gxVerLista(st){GX_MODO='lista';GX_LST=st;GX_PG=0;gxPedRender();gxTopoLi
 function gxModo(m){GX_MODO=m;if(m==='lista'){GX_PG=0}gxPedRender()}
 addEventListener('resize',function(){clearTimeout(gxModo._t);gxModo._t=setTimeout(function(){if(gxView&&gxView()==='pedidos')gxPedRender()},150)});
 
+
+/* ---------- VISÃO GERAL: cards e seções extras ---------- */
+function gxVisaoMais(os,ant,vazio){if(!$('#admKpis2'))return;
+ var un=function(o){return !GX_F.un||o.store===GX_F.un};
+ var abertos=GXO().filter(function(o){return (o.status||'novo')!=='entregue'&&un(o)});
+ var atras=abertos.filter(function(o){return gxNivel(o)==='late'}).length;
+ var cli={},cliA={};os.forEach(function(o){var c=o.cliente||'Cliente';(cli[c]=cli[c]||{n:0,v:0,u:0}).n++;cli[c].v+=+o.total||0;if(o.date>cli[c].u)cli[c].u=o.date});
+ ant.forEach(function(o){cliA[o.cliente||'Cliente']=1});
+ var nCli=Object.keys(cli).length,nCliA=Object.keys(cliA).length;
+ var maior=os.reduce(function(m,o){return (+o.total||0)>(m?+m.total||0:-1)?o:m},null);
+ var ent=os.filter(function(o){return (o.status||'novo')==='entregue'}).length;
+ $('#admKpis2').innerHTML=[
+  ['Em aberto agora',abertos.length,'<em>'+(atras?'<u>'+atras+' atrasado'+(atras>1?'s':'')+'</u>':'tudo em dia')+'</em>','#/gestao/pedidos'],
+  ['Clientes atendidos',nCli,'<em>'+nCliA+' no período anterior</em>',''],
+  ['Pedidos concluídos',os.length?Math.round(ent/os.length*100)+'%':'—','<em>'+ent+' de '+os.length+' entregues</em>',''],
+  ['Maior pedido',maior?brl(+maior.total||0):'—',maior?'<em>#'+gxNum(maior)+' · '+esc(maior.cliente||'Cliente')+'</em>':'<em>sem pedidos</em>',maior?'pedido:'+maior.id:'']
+ ].map(function(k){var at=k[3].indexOf('pedido:')===0?' onclick="admPedido('+k[3].slice(7)+')" role="button" tabindex="0"':k[3]?' onclick="location.hash=\''+k[3]+'\'" role="button" tabindex="0"':'';
+  return '<div class="adm-kpi gx-k2"'+at+'><small>'+k[0]+'</small><b>'+k[1]+'</b>'+k[2]+'</div>'}).join('');
+ /* dia da semana */
+ var sem=[0,0,0,0,0,0,0];os.forEach(function(o){sem[new Date(o.date).getDay()]+=+o.total||0});
+ var ord=[1,2,3,4,5,6,0],ms=Math.max.apply(null,sem)||1,top=sem.indexOf(Math.max.apply(null,sem));
+ $('#admSemana').innerHTML=os.length?ord.map(function(d){return '<div tabindex="0" aria-label="'+GX_DIAS[d]+': '+brl(sem[d])+'"><em>'+admK(sem[d]).replace('R$ ','')+'</em><i class="'+(d===top?'adm-pk':'')+'" style="height:'+Math.max(sem[d]/ms*100,1.5)+'%"></i><small>'+GX_DIAS[d]+'</small></div>'}).join(''):vazio;
+ $('#admSemCap').textContent=os.length?'melhor dia: '+['domingo','segunda','terça','quarta','quinta','sexta','sábado'][top]:'';
+ /* departamentos */
+ var dv={};os.forEach(function(o){o.items.forEach(function(x){var pr=P[x[0]];if(!pr)return;dv[pr.cat]=(dv[pr.cat]||0)+x[1]*pr.p})});
+ var nomes={};F.forEach(function(f){nomes[f[0]]=f[1]});
+ var ks=Object.keys(dv).sort(function(a,b){return dv[b]-dv[a]}),md=ks.length?dv[ks[0]]:1;
+ $('#admDeps').innerHTML=ks.length?ks.map(function(c){return '<div class="adm-hb"><span>'+esc(nomes[c]||c)+'</span><div><i style="width:'+Math.max(dv[c]/md*100,1)+'%"></i></div><b>'+admK(dv[c])+'</b></div>'}).join(''):vazio;
+ /* melhores clientes */
+ var tc=Object.keys(cli).sort(function(a,b){return cli[b].v-cli[a].v}).slice(0,5);
+ $('#admCli').innerHTML=tc.length?tc.map(function(c,i){var x=cli[c];return '<div><span class="gx-av'+(i?'':' gx-av1')+'">'+esc(c.charAt(0))+'</span><p><b>'+esc(c)+'</b><small>'+x.n+' pedido'+(x.n>1?'s':'')+'</small></p><em>'+brl(x.v)+'</em></div>'}).join(''):vazio;
+ /* últimos pedidos */
+ var stMap={};GX_ST.forEach(function(x){stMap[x[0]]=x});
+ var ul=os.slice().sort(function(a,b){return b.date-a.date}).slice(0,6);
+ $('#admUlt').innerHTML=ul.length?ul.map(function(o){var st=stMap[o.status||'novo']||GX_ST[0];
+  return '<button onclick="admPedido('+o.id+')"><b>#'+gxNum(o)+'</b><span class="gx-uc">'+esc(o.cliente||'Cliente')+'<small>'+esc(o.store||'')+' · '+(o.mode==='casa'?'Entrega':'Retirada')+' · '+gxHora(o.date)+'</small></span><span class="adm-pill"><s style="background:'+st[2]+'"></s>'+esc(st[1])+'</span><em>'+brl(+o.total||0)+'</em></button>'}).join(''):vazio;
+}
 /* ---- detalhe do pedido (abre ao tocar no cartão ou na linha) ---- */
 var pedAberto=null;
 function admPedido(id){var o=GXO().find(function(x){return x.id===id});if(!o)return;pedAberto=id;admPedRender();var w=$('#admPed');
@@ -7025,10 +7111,10 @@ function ofertasHome(){
    .sort(function(a,b){return (b.o-b.p)/b.o-(a.o-a.p)/a.o});
   base=base.concat(extra).slice(0,4);
  }
- /* teste grade de 3: completa ate 6 (duas linhas de 3) com os maiores descontos */
+ /* completa duas linhas cheias da grade (6 no celular, 8 no tablet, 10 no computador) com os maiores descontos */
  var mais=semAlc(P).filter(function(x){return base.indexOf(x)<0})
   .sort(function(a,b){return (b.o-b.p)/b.o-(a.o-a.p)/a.o});
- return base.concat(mais).slice(0,6);
+ return base.concat(mais).slice(0,homeCols()*2);
 }
 /* A categoria "drinks" carrega as palavras vinho, gin e vodka na lista
    de sinonimos, para a busca por elas achar o departamento. Para um
