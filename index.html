@@ -4251,6 +4251,50 @@ body.gx-dragging,body.gx-dragging *{cursor:grabbing!important}
 .adm-nav a[hidden],.adm-side-ft [hidden]{display:none!important}
 @media(max-width:600px){.adm-top{flex-direction:column;align-items:stretch!important;gap:10px}.adm-topr{order:-1}.adm-as{flex:1;justify-content:space-between}.adm-as select{max-width:none}.adm-perms{grid-template-columns:1fr}.adm-dlgft{flex-direction:column-reverse}.adm-dlgft button{width:100%}}
 @media(prefers-reduced-motion:reduce){.adm-view.anim>*,.adm-pane.on,.adm-draw,.adm-hb i,.adm-cols i,.adm-line .adm-b,.adm-live s:after{animation:none!important;stroke-dashoffset:0}}
+
+/* ==========================================================================
+   TESTE — grade de 3 na home (Ofertas de hoje, Mais vendidos e secoes por departamento)
+   Tres produtos por linha no computador, no tablet e no celular, com mais
+   itens: 6 ofertas de hoje e 12 mais vendidos. Para desfazer, apague este
+   bloco e volte qtdVend / ofertasHome.
+   ========================================================================== */
+.grade3,#ofertas-hoje #heroDeals{grid-template-columns:repeat(3,1fr)!important}
+@media (min-width:901px){
+  .grade3,#ofertas-hoje #heroDeals{gap:20px!important}
+  .grade3 .pimg{aspect-ratio:1.25!important}
+}
+@media (max-width:600px){
+  .grade3,#ofertas-hoje #heroDeals{gap:7px!important}
+  .grade3 .prod{padding:6px!important;border-radius:14px!important}
+  .grade3 .pimg{border-radius:10px!important}
+  .grade3 .pimg .off{font-size:.6rem!important;padding:2px 5px!important;top:5px!important;left:5px!important;border-radius:6px!important}
+  .grade3 .fav{width:26px!important;height:26px!important;top:4px!important;right:4px!important}
+  .grade3 .fav svg{width:13px!important}
+  .grade3 .pname{font-size:.72rem!important;margin:6px 1px 2px!important;min-height:2.6em!important;-webkit-line-clamp:2!important}
+  .grade3 .pprice{margin:4px 1px 6px!important;gap:0 5px!important}
+  .grade3 .pprice b{font-size:.92rem!important}
+  .grade3 .pprice s{font-size:.64rem!important}
+  .grade3 .punit{display:none!important}
+  .grade3 .addbox,.grade3 .add,.grade3 .stepper{height:34px!important}
+  .grade3 .add{border-radius:10px!important;font-size:.74rem!important;gap:4px!important}
+  .grade3 .add .add-t{display:none}
+  .grade3 .add svg{width:16px!important}
+  .grade3 .stepper button{height:34px!important;width:30px!important}
+  .grade3 .stepper span{font-size:.82rem!important}
+  #ofertas-hoje .hc-item{padding:6px!important;border-radius:14px!important;gap:5px!important}
+  #ofertas-hoje .hc-item .im{aspect-ratio:1!important;border-radius:10px!important}
+  #ofertas-hoje .hc-item .im>span:not(.incart-tag){font-size:.6rem!important;padding:2px 5px!important;top:5px!important;left:5px!important}
+  #ofertas-hoje .hc-item p{font-size:.72rem!important;-webkit-line-clamp:2!important;min-height:2.5em}
+  #ofertas-hoje .hc-row b{font-size:.9rem!important}
+  #ofertas-hoje .hc-row button{width:28px!important;height:28px!important;border-radius:8px!important}
+}
+.sec-dep .sh{align-items:flex-end}
+.sec-dep .sh p{margin:4px 0 0;color:var(--t2);font-size:.92rem}
+.sec-dep .sh h2{display:flex;align-items:center;gap:10px}
+.sec-dep .sh h2 img{width:36px;height:36px;border-radius:10px;object-fit:cover;background:var(--sup-1)}
+@media (max-width:600px){.sec-dep .sh h2 img{width:28px;height:28px;border-radius:8px}
+  .sec-dep .sh p{display:none}
+}
 </style>
 </head>
 <body>
@@ -4422,9 +4466,12 @@ body.gx-dragging,body.gx-dragging *{cursor:grabbing!important}
     <div class="wrap">
       <div class="sh" data-r><h2 data-i18n="home.vendidos">Mais vendidos</h2><a href="#/ofertas" class="more">Ver todas <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div>
       <div class="tabs" id="tabsHome" data-r></div>
-      <div class="grid" id="gridHome"></div>
+      <div class="grid grade3" id="gridHome"></div>
     </div>
   </section>
+
+  <!-- secoes de produtos por departamento, montadas por renderSecoesHome() -->
+  <div id="homeSecoes"></div>
 
   <section class="sec niv-3" id="secParaVoce">
     <div class="wrap">
@@ -5199,7 +5246,7 @@ const cart={},favs=new Set((()=>{try{return JSON.parse(localStorage.getItem('far
 const touch=matchMedia('(hover:none)').matches;
 function toast(m,img){const t=$('#toast');t.innerHTML=(img?`<img src="${img}" alt="">`:'')+`<span>${m}</span>`;t.classList.add('on');clearTimeout(t._);t._=setTimeout(()=>t.classList.remove('on'),2400)}
 function addbox(id){const q=cart[id]||0;return q?`<div class="stepper"><button onclick="chg(${id},-1)" aria-label="Remover um">−</button><span>${q}</span><button onclick="chg(${id},1)" aria-label="Adicionar um">+</button></div>`
- :`<button class="add" onclick="chg(${id},1)"><svg class="ico" style="width:18px"><use href="#i-plus"/></svg>Adicionar</button>`}
+ :`<button class="add" onclick="chg(${id},1)"><svg class="ico" style="width:18px"><use href="#i-plus"/></svg><span class="add-t">Adicionar</span></button>`}
 function card(x){const pct=Math.round((1-x.p/x.o)*100);
  const _q=cart[x.id]||0;
  return `<div class="prod glass${_q?' incart':''}" data-id="${x.id}" data-tilt>
@@ -5250,8 +5297,30 @@ const F=[['all','Todos'],['drinks','Bebidas'],['mercearia','Mercearia'],['acougu
 /* 10 cards numa grade de duas colunas davam 2104px: 41% da home
    inteira num bloco so, no meio do caminho. No celular passam a ser
    6, com o 'Ver todas' que ja existia no cabecalho fazendo o resto. */
-var qtdVend=function(){return matchMedia('(max-width:900px)').matches?6:10};
+/* teste grade de 3: 12 mais vendidos = 4 linhas de 3, em qualquer tela */
+var qtdVend=function(){return 12};
 tabs($('#tabsHome'),F,v=>{$('#gridHome').innerHTML=pick(v).slice(0,qtdVend()).map(card).join('');bindTilt()});
+/* Secoes de produtos na home, uma por departamento, sempre em linhas
+   completas de 3 (6 produtos quando o departamento tem, senao 3).
+   Departamento com menos de 3 produtos nao aparece, para nao ficar buraco.
+   [categoria do produto, titulo, indice em CATS para o "Ver todos"] */
+const SECOES_HOME=[
+ ['mercearia','Mercearia',4],
+ ['acougue','Açougue',1],
+ ['limpeza','Limpeza',9],
+ ['higiene','Higiene e cuidados',10],
+ ['drinks','Bebidas',7],
+ ['pet','Pet Shop',13]
+];
+function renderSecoesHome(){const box=$('#homeSecoes');if(!box)return;
+ box.innerHTML=SECOES_HOME.map(([cat,titulo,k],i)=>{const l=pick(cat);
+  const n=l.length>=6?6:(l.length>=3?3:0);if(!n)return '';const c=CATS[k]||{};
+  return `<section class="sec sec-dep niv-2" id="sec-${cat}"><div class="wrap">
+   <div class="sh" data-r><div><h2>${c.img?`<img src="${c.img}" alt="" loading="lazy">`:''}${esc(titulo)}</h2>${c.d?`<p>${esc(c.d)}</p>`:''}</div>
+   <a href="#/departamentos/${k}" class="more">Ver todos <svg class="ico" style="width:16px"><use href="#i-arrow"/></svg></a></div>
+   <div class="grid grade3">${l.slice(0,n).map(card).join('')}</div></div></section>`}).join('');
+ bindTilt()}
+renderSecoesHome();
 tabs($('#tabsOff'),F,v=>{$('#gridOff').innerHTML=pick(v).map(card).join('');bindTilt()});
 tabs($('#tabsPair'),[['all','Todos'],['carnes','Carnes'],['massas','Massas'],['peixes','Peixes'],['petiscos','Petiscos'],['doces','Doces']],
  v=>$('#pairs').innerHTML=PAIRS.filter(x=>v==='all'||x[0]===v).map(([,a,b,h,p,g])=>`<div class="glass pair"><div class="d2">${a}<i>+</i>${b}</div><h3>${h}</h3><p>${p}</p><div class="tg">${g.map(t=>`<span class="badge">${t}</span>`).join('')}</div></div>`).join(''));
@@ -6598,7 +6667,10 @@ function ofertasHome(){
    .sort(function(a,b){return (b.o-b.p)/b.o-(a.o-a.p)/a.o});
   base=base.concat(extra).slice(0,4);
  }
- return base.slice(0,4);
+ /* teste grade de 3: completa ate 6 (duas linhas de 3) com os maiores descontos */
+ var mais=semAlc(P).filter(function(x){return base.indexOf(x)<0})
+  .sort(function(a,b){return (b.o-b.p)/b.o-(a.o-a.p)/a.o});
+ return base.concat(mais).slice(0,6);
 }
 /* A categoria "drinks" carrega as palavras vinho, gin e vodka na lista
    de sinonimos, para a busca por elas achar o departamento. Para um
