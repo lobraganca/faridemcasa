@@ -4568,7 +4568,7 @@ body.gx-dragging,body.gx-dragging *{cursor:grabbing!important}
   <main class="adm-main">
     <header class="adm-top">
       <div><h1 id="admTitle">Visão geral</h1><p id="admSub">Desempenho de todas as unidades de venda</p></div>
-      <div class="adm-topr"><label class="adm-as" title="Simula o acesso de cada colaborador"><span>Acessando como</span><select id="admAs" onchange="admSetAs(this.value)"></select></label><span class="adm-live" id="admLive"><s></s>Ao vivo</span><span class="adm-demo" title="Os dados ficam só neste navegador. Sem servidor, sem login.">Demonstração</span></div>
+      <div class="adm-topr"><label class="adm-as" title="Simula o acesso de cada colaborador"><span>Acessando como</span><select id="admAs" onchange="admSetAs(this.value)"></select></label><span class="adm-demo" title="Os dados ficam só neste navegador. Sem servidor, sem login.">Demonstração</span></div>
     </header>
 
     <div class="adm-filters" role="group" aria-label="Filtros">
@@ -6633,13 +6633,7 @@ function admCadRender(){if(!$('#promoList'))return;
   return '<div class="adm-li'+(p.ativo===false?' off':'')+(i===eqEdit?' ed':'')+'"><span class="adm-av">'+esc((p.nome||'?').trim().charAt(0).toUpperCase())+'</span><div><b>'+esc(p.nome)+'</b><small>'+esc(p.cargo?p.cargo+' · ':'')+(p.unis.length===STORES.length?'todas as unidades':esc(p.unis.join(', ')))+'</small><small>'+p.perms.length+' de '+ADM_ALL.length+' permissões'+(p.ativo===false?' · <b class="adm-inat">inativo</b>':'')+'</small></div><span class="adm-pill">'+esc(pf)+'</span>'+
    '<button onclick="admEqEdit('+i+')" aria-label="Editar '+esc(p.nome)+'"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 17.2V21h3.8l11-11-3.8-3.8zM20.7 7a1 1 0 0 0 0-1.4l-2.3-2.3a1 1 0 0 0-1.4 0l-1.8 1.8 3.8 3.8z"/></svg></button><button onclick="admEqDel('+i+')" aria-label="Remover '+esc(p.nome)+'">✕</button></div>'}).join(''):'<p class="adm-empty">Ninguém cadastrado ainda.</p>'}
 
-/* ---- ao vivo: chega um pedido de exemplo de tempos em tempos ---- */
-setInterval(function(){if(!document.body.classList.contains('is-adm')||document.hidden||!demoOrders.length||!P.length)return;
- var st=STORES[Math.floor(Math.random()*STORES.length)],its=[],tot=0;for(var k=0;k<7+Math.floor(Math.random()*12);k++){var pid=Math.floor(Math.random()*Math.min(P.length,80));if(P[pid]&&P[pid].p){var q=1+Math.floor(Math.random()*2);its.push([pid,q]);tot+=P[pid].p*q}}
- if(!its.length)return;var nm=['Ana','Bruno','Carla','Davi','Elisa','Fábio','Gabi','Hugo'][Math.floor(Math.random()*8)];
- demoOrders.unshift({id:Date.now(),date:Date.now(),store:st.n,mode:Math.random()<.6?'casa':'loja',slot:'Janela de exemplo',items:its,bruto:tot,cbUsado:0,cbGanho:0,total:Math.round(tot*100)/100,status:'novo',cliente:nm,demo:true});
- saveOrders();var lv=$('#admLive');if(lv){lv.classList.remove('ping');void lv.offsetWidth;lv.classList.add('ping')}
- gxRender()},60000);
+
 
 /* produtos cadastrados entram no catalogo ao abrir o site */
 (function(){gxProdutosExtra().forEach(function(x){
