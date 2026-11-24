@@ -4202,12 +4202,55 @@ body.is-adm #idadeM,body.is-adm .stores-m,body.is-adm .scrim,body.is-adm .drawer
 .adm-top5 p{flex:1;min-width:0;margin:0}.adm-top5 p span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .adm-top5 p i{display:block;height:6px;background:var(--a-bg);border-radius:4px;margin-top:5px}.adm-top5 p u{display:block;height:100%;background:var(--a-wine);border-radius:4px;transform-origin:left;animation:admGrow .8s cubic-bezier(.2,.8,.2,1) both}
 
-.adm-line .bar{fill:#881344;opacity:.85;transform-box:fill-box;transform-origin:bottom;animation:admGrowY .6s cubic-bezier(.2,.8,.2,1) both;transition:opacity .15s}
-.adm-line.hov .bar{opacity:.35}.adm-line g.on .bar{opacity:1}
+.adm-line .adm-b{fill:#881344;opacity:.85;transform-box:fill-box;transform-origin:bottom;animation:admGrowY .6s cubic-bezier(.2,.8,.2,1) both;transition:opacity .15s}
+.adm-line.hov .adm-b{opacity:.35}.adm-line g.on .adm-b{opacity:1}
 .adm-lleg{flex-wrap:wrap;row-gap:4px}.adm-lleg .r{margin-left:auto}.adm-lleg b{color:var(--a-ink)}
 @media(min-width:861px){.adm-hb{grid-template-columns:140px 1fr auto}}
 @media(max-width:600px){.adm-kpi b{font-size:clamp(1.05rem,5.4vw,1.4rem)}.adm-kpi{padding:14px}}
-@media(prefers-reduced-motion:reduce){.adm-view.anim>*,.adm-pane.on,.adm-draw,.adm-hb i,.adm-cols i,.adm-line .bar,.adm-live s:after{animation:none!important;stroke-dashoffset:0}}
+
+/* kanban arrastável + confirmação + colaboradores */
+.adm-hint{font-size:.82rem;color:var(--a-sub);margin:-4px 0 10px}
+.adm-kanban .gx-col{display:flex;flex-direction:column;transition:background .15s,border-color .15s,box-shadow .15s}
+.adm-kanban .gx-cards{flex:1;max-height:520px;overflow:auto;margin:0 -4px;padding:0 4px;min-height:60px}
+.adm-kanban .gx-ord{cursor:grab;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;transition:box-shadow .15s,transform .15s,opacity .15s;border:1px solid transparent}
+.adm-kanban .gx-ord:hover{box-shadow:0 6px 16px -10px rgba(0,0,0,.35);border-color:var(--a-line)}
+.adm-kanban.ro .gx-ord{cursor:default}
+.adm-kanban .gx-ord.gx-src{opacity:.35}
+.adm-kanban .gx-col.gx-over{background:#fbf3f6;border-color:var(--a-wine);box-shadow:0 0 0 3px rgba(136,19,68,.12)}
+.adm-kanban .gx-vazio{border:1.5px dashed var(--a-line);border-radius:12px}
+.gx-ghost{position:fixed;left:0;top:0;z-index:9999;pointer-events:none;background:#fff!important;border-radius:12px;padding:10px;box-shadow:0 18px 40px -12px rgba(0,0,0,.4);color:#16161a;font-size:.9rem}
+.gx-ghost .gx-ordhd{display:flex;justify-content:space-between;font-size:.85rem}.gx-ghost p{font-size:.8rem;color:#6b6f76;margin:4px 0 2px}.gx-ghost small{font-size:.72rem;color:#6b6f76}.gx-ghost .gx-move{display:none}
+body.gx-dragging,body.gx-dragging *{cursor:grabbing!important}
+.adm-dlg[hidden]{display:none!important}
+.adm-dlg{--a-wine:#881344;--a-line:#e7e8ec;--a-sub:#6b6f76;--a-ink:#16161a;--a-bg:#f5f6f8;--a-bad:#c2410c;position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:20px;background:rgba(22,22,26,0);transition:background .18s}
+.adm-dlg.on{background:rgba(22,22,26,.45)}
+.adm-dlgbox{width:min(420px,100%);background:#fff;border-radius:20px;padding:24px;box-shadow:0 30px 60px -20px rgba(0,0,0,.45);transform:translateY(10px) scale(.97);opacity:0;transition:.18s;color:#16161a}
+.adm-dlg.on .adm-dlgbox{transform:none;opacity:1}
+.adm-dlgic{width:12px;height:12px;border-radius:50%;margin-bottom:14px;box-shadow:0 0 0 6px rgba(0,0,0,.05)}
+.adm-dlgbox h3{margin:0 0 6px;font-size:1.15rem}.adm-dlgbox p{margin:0;color:#6b6f76;font-size:.92rem;line-height:1.45}.adm-dlgbox p b{color:#16161a}
+.adm-dlgft{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}.adm-dlgft .adm-btn{padding:0 18px}
+.adm-as{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 4px 0 12px;border:1px solid var(--a-line);border-radius:99px;background:#fff;font-size:.78rem;color:var(--a-sub)}
+.adm-as select{border:0;background:none;font:inherit;font-weight:700;color:var(--a-ink);max-width:180px;height:30px;cursor:pointer}
+.adm-editing{display:flex;align-items:center;gap:10px;background:#fbf3f6;border:1px solid rgba(136,19,68,.25);color:var(--a-wine);border-radius:12px;padding:10px 14px;font-size:.88rem}
+.adm-editing[hidden]{display:none}.adm-editing button{margin-left:auto;font-weight:700;color:var(--a-wine);background:none;font-size:.84rem}
+.adm-tog2{align-self:end;height:42px}
+.adm-presets{clear:both;display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px;font-size:.82rem;color:var(--a-sub)}
+.adm-presets button{height:32px;padding:0 14px;border-radius:99px;border:1px solid var(--a-line);background:#fff;font-weight:600;font-size:.82rem;color:var(--a-ink)}
+.adm-presets button.on{background:var(--a-wine);border-color:var(--a-wine);color:#fff}
+.adm-perms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.adm-pg{background:var(--a-bg);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.adm-pg h4{margin:0;font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--a-sub);display:flex;justify-content:space-between}
+.adm-pg h4 em{font-style:normal;font-weight:700;color:var(--a-wine)}
+.adm-pg .adm-tog{white-space:normal;font-size:.86rem!important;line-height:1.3}
+#eqUnis{clear:both}
+.adm-li.off{opacity:.55}.adm-li.ed{background:#fbf3f6;margin:0 -10px;padding-left:10px;padding-right:10px;border-radius:10px}
+.adm-inat{display:inline!important;color:var(--a-bad)}
+.adm-li>button svg{display:block;margin:auto}
+@media(max-width:860px){.adm-kanban{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin:0 -14px 14px;padding:0 14px 4px}
+ .adm-kanban .gx-col{flex:0 0 82%;scroll-snap-align:start}.adm-kanban .gx-cards{max-height:60vh}.adm-as span{display:none}}
+.adm-nav a[hidden],.adm-side-ft [hidden]{display:none!important}
+@media(max-width:600px){.adm-top{flex-direction:column;align-items:stretch!important;gap:10px}.adm-topr{order:-1}.adm-as{flex:1;justify-content:space-between}.adm-as select{max-width:none}.adm-perms{grid-template-columns:1fr}.adm-dlgft{flex-direction:column-reverse}.adm-dlgft button{width:100%}}
+@media(prefers-reduced-motion:reduce){.adm-view.anim>*,.adm-pane.on,.adm-draw,.adm-hb i,.adm-cols i,.adm-line .adm-b,.adm-live s:after{animation:none!important;stroke-dashoffset:0}}
 </style>
 </head>
 <body>
@@ -4412,6 +4455,7 @@ body.is-adm #idadeM,body.is-adm .stores-m,body.is-adm .scrim,body.is-adm .drawer
 
 <!-- ======================= GESTAO ======================= -->
 <div class="page" id="p-gestao">
+  <div class="adm-dlg" id="admDlg" hidden role="dialog" aria-modal="true" aria-labelledby="admDlgT"><div class="adm-dlgbox"><div class="adm-dlgic" id="admDlgIc"></div><h3 id="admDlgT"></h3><p id="admDlgP"></p><div class="adm-dlgft"><button class="adm-btn2" id="admDlgNo">Cancelar</button><button class="adm-btn" id="admDlgOk">Confirmar</button></div></div></div>
 <div class="adm">
   <aside class="adm-side" aria-label="Menu da gestão">
     <div class="adm-brand"><span class="adm-logo">F</span><div><b>Farid em Casa</b><small>Gestão</small></div></div>
@@ -4424,7 +4468,7 @@ body.is-adm #idadeM,body.is-adm .stores-m,body.is-adm .scrim,body.is-adm .drawer
       <a href="#/gestao/produtos" data-v="produtos"><svg viewBox="0 0 24 24"><path d="M12 2l9 5v10l-9 5-9-5V7zm0 2.3L5.5 8 12 11.6 18.5 8zM5 9.7v6.1l6 3.4v-6.1zm14 0l-6 3.4v6.1l6-3.4z"/></svg><span>Produtos</span><i id="admNP"></i></a>
       <a href="#/gestao/promocoes" data-v="promocoes"><svg viewBox="0 0 24 24"><path d="M21.4 11.6 12.4 2.6A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .6 1.4l9 9a2 2 0 0 0 2.8 0l7-7a2 2 0 0 0 0-2.8zM6.5 8A1.5 1.5 0 1 1 8 6.5 1.5 1.5 0 0 1 6.5 8z"/></svg><span>Promoções</span></a>
       <a href="#/gestao/lojas" data-v="lojas"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 14.5 9 2.5 2.5 0 0 1 12 11.5z"/></svg><span>Lojas</span></a>
-      <a href="#/gestao/equipe" data-v="equipe"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4 0-8 2-8 5v2h16v-2c0-3-4-5-8-5z"/></svg><span>Equipe</span></a>
+      <a href="#/gestao/equipe" data-v="equipe"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4 0-8 2-8 5v2h16v-2c0-3-4-5-8-5z"/></svg><span>Colaboradores</span></a>
     </nav>
     <div class="adm-side-ft">
       <button class="adm-ghost" onclick="gxSeed()">Gerar dados de exemplo</button>
@@ -4436,7 +4480,7 @@ body.is-adm #idadeM,body.is-adm .stores-m,body.is-adm .scrim,body.is-adm .drawer
   <main class="adm-main">
     <header class="adm-top">
       <div><h1 id="admTitle">Visão geral</h1><p id="admSub">Desempenho de todas as unidades de venda</p></div>
-      <div class="adm-topr"><span class="adm-live" id="admLive"><s></s>Ao vivo</span><span class="adm-demo" title="Os dados ficam só neste navegador. Sem servidor, sem login.">Demonstração</span></div>
+      <div class="adm-topr"><label class="adm-as" title="Simula o acesso de cada colaborador"><span>Acessando como</span><select id="admAs" onchange="admSetAs(this.value)"></select></label><span class="adm-live" id="admLive"><s></s>Ao vivo</span><span class="adm-demo" title="Os dados ficam só neste navegador. Sem servidor, sem login.">Demonstração</span></div>
     </header>
 
     <div class="adm-filters" role="group" aria-label="Filtros">
@@ -4465,6 +4509,7 @@ body.is-adm #idadeM,body.is-adm .stores-m,body.is-adm .scrim,body.is-adm .drawer
 
     <!-- PEDIDOS -->
     <section class="adm-view" data-view="pedidos">
+      <p class="adm-hint" id="gxKbHint"></p>
       <div class="adm-kanban" id="gxKanban"></div>
       <div class="adm-card"><div class="adm-ch"><h3>Lista de pedidos</h3><span id="gxKbCount"></span></div>
         <div class="adm-tablewrap"><table class="adm-table" id="admOrdTab"></table></div></div>
@@ -4537,20 +4582,24 @@ body.is-adm #idadeM,body.is-adm .stores-m,body.is-adm .scrim,body.is-adm .drawer
     <!-- LOJAS -->
     <section class="adm-view" data-view="lojas"><div class="adm-lojas" id="admLojas"></div></section>
 
-    <!-- EQUIPE -->
+    <!-- COLABORADORES -->
     <section class="adm-view" data-view="equipe">
-      <div class="adm-cad"><form class="adm-steps" id="eqForm" onsubmit="return admEqAdd(event)">
-        <fieldset class="adm-step"><legend><b>1</b>Dados da pessoa</legend><div class="adm-grid2">
-          <label class="adm-full">Nome<input name="nome" required maxlength="60"></label>
-          <label>E-mail<input name="email" type="email" required></label>
-          <label>Celular<input name="tel" inputmode="tel" maxlength="15"></label></div></fieldset>
-        <fieldset class="adm-step"><legend><b>2</b>Acesso</legend><div class="adm-grid2">
-          <label>Perfil<select name="perfil"><option>Operador</option><option>Gerente</option><option>Administrador</option></select></label>
-          <label>Unidade<select name="un" id="eqUn"></select></label>
-          <div class="adm-full adm-perm"><b>O que o perfil permite</b><span id="eqPerm"></span></div></div></fieldset>
-        <div class="adm-formft"><button class="adm-btn" type="submit">Adicionar à equipe</button></div>
+      <div class="adm-cad"><form class="adm-steps" id="eqForm" onsubmit="return admEqAdd(event)" novalidate>
+        <div class="adm-editing" id="eqEditing" hidden>Editando <b id="eqEdNome"></b><button type="button" onclick="admEqCancel()">Cancelar edição</button></div>
+        <fieldset class="adm-step"><legend><b>1</b>Dados do colaborador</legend><div class="adm-grid2">
+          <label class="adm-full">Nome completo<input name="nome" required maxlength="60" placeholder="Marina Souza"></label>
+          <label>E-mail de acesso<input name="email" type="email" required maxlength="80" placeholder="marina@farid.com.br"></label>
+          <label>Celular<input name="tel" inputmode="tel" maxlength="15" placeholder="(31) 9 9999-9999"></label>
+          <label>Cargo<input name="cargo" maxlength="40" placeholder="Separador, caixa, gerente…"></label>
+          <label class="adm-tog adm-tog2"><input type="checkbox" name="ativo" checked><span></span>Acesso ativo</label></div></fieldset>
+        <fieldset class="adm-step"><legend><b>2</b>Unidades em que trabalha</legend>
+          <div class="adm-chips" id="eqUnis"></div></fieldset>
+        <fieldset class="adm-step"><legend><b>3</b>O que pode fazer no sistema</legend>
+          <div class="adm-presets" id="eqPresets"><span>Começar de um modelo:</span><button type="button" data-p="Operador">Operador</button><button type="button" data-p="Gerente">Gerente</button><button type="button" data-p="Administrador">Administrador</button></div>
+          <div class="adm-perms" id="eqPerms"></div></fieldset>
+        <div class="adm-formft"><button type="button" class="adm-btn2" onclick="admEqCancel()">Limpar</button><button class="adm-btn" type="submit" id="eqSubmit">Cadastrar colaborador</button></div>
       </form>
-      <aside class="adm-card adm-plist"><div class="adm-ch"><h3>Equipe</h3><span id="eqCnt"></span></div><div id="eqList"></div></aside></div>
+      <aside class="adm-card adm-plist"><div class="adm-ch"><h3>Colaboradores</h3><span id="eqCnt"></span></div><div id="eqList"></div></aside></div>
     </section>
 
     <!-- CLIENTES -->
@@ -5654,7 +5703,11 @@ new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('vis',e.isI
 
 /* ============ PEDIDOS ANTERIORES (demonstração: salvos no navegador; em produção vêm da API) ============ */
 let orders=[];try{orders=JSON.parse(LS.get('farid_pedidos')||'[]').filter(o=>Array.isArray(o.items))}catch(e){orders=[]}
-const saveOrders=()=>LS.set('farid_pedidos',JSON.stringify(orders.slice(0,200)));
+/* pedidos de exemplo da gestão ficam separados: não aparecem em "Meus pedidos" do cliente */
+let demoOrders=[];try{demoOrders=JSON.parse(LS.get('farid_pedidos_demo')||'[]').filter(o=>Array.isArray(o.items))}catch(e){demoOrders=[]}
+orders=orders.filter(o=>!o.demo);
+function GXO(){return demoOrders.length?orders.concat(demoOrders):orders}
+const saveOrders=()=>{LS.set('farid_pedidos',JSON.stringify(orders.filter(o=>!o.demo).slice(0,200)));LS.set('farid_pedidos_demo',JSON.stringify(demoOrders.map(function(o){return {id:o.id,date:o.date,store:o.store,mode:o.mode,items:o.items,total:o.total,status:o.status,cliente:o.cliente,demo:true,hist:o.hist}})))};
 const fmtDate=t=>dataLonga(t);
 function renderAgain(){const sec=$('#againSec');const cnt={};orders.forEach(o=>o.items.forEach(([id,q])=>{if(P[id])cnt[id]=(cnt[id]||0)+q}));
  const ids=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]).map(Number);
@@ -5717,7 +5770,7 @@ function route(){const h=location.hash;
  if(name==='conta')renderOrders();
  if(name==='favoritos')renderFavs();
  document.body.classList.toggle('is-adm',name==='gestao');
- if(name==='gestao'){if(!orders.some(function(o){return o.demo})&&!orders.length)gxSeed();else gxRender()}
+ if(name==='gestao'){var temDemo=demoOrders.length>0;if(LS.get('farid_demo_v')!=='3'||(!temDemo&&!orders.length))gxSeed();else gxRender()}
  if(name==='lojas')renderLojas();
  if(name==='listas')renderListas();
  $$('.idx a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===h));$$('.tabbar a').forEach(a=>a.classList.toggle('on',a.dataset.tb==='/'+name||(name==='home'&&a.dataset.tb==='/')));/* o trilho de atalhos de departamento e para quem compra; no painel
@@ -6100,23 +6153,51 @@ function gxAddProduto(ev){ev.preventDefault();
 function gxRemoverProduto(i){var a=gxProdutosExtra();a.splice(i,1);
  gxSalvarExtra(a);toast('Produto removido do cadastro');gxRender()}
 
-function gxMover(id,d){var o=orders.find(function(x){return x.id===id});if(!o)return;
- var i=GX_ST.findIndex(function(e){return e[0]===(o.status||'novo')});
- var n=Math.max(0,Math.min(GX_ST.length-1,i+d));
- o.status=GX_ST[n][0]; saveOrders(); gxRender()}
+function gxMover(id,d){var o=GXO().find(function(x){return x.id===id});if(!o)return;
+ var i=GX_ST.findIndex(function(e){return e[0]===(o.status||'novo')});var n=Math.max(0,Math.min(GX_ST.length-1,i+d));
+ if(n!==i)admMoverPara(id,GX_ST[n][0])}
+function admMoverPara(id,para){var o=GXO().find(function(x){return x.id===id});if(!o||!admCan('ped_mover'))return;
+ var de=o.status||'novo';if(de===para)return;var A=GX_ST.find(function(e){return e[0]===de}),B=GX_ST.find(function(e){return e[0]===para});
+ admConfirm({t:'Mover pedido #'+String(o.id).slice(-6)+'?',p:'De <b>'+esc(A[1])+'</b> para <b>'+esc(B[1])+'</b> · '+esc(o.cliente||'Cliente')+' · '+brl(+o.total||0)+(para==='entregue'?'<br><small>O cliente será avisado de que o pedido foi entregue.</small>':''),ok:'Mover para '+B[1],cor:B[2]},
+  function(){o.status=para;(o.hist=o.hist||[]).push({de:de,para:para,por:admUser().nome,em:Date.now()});saveOrders();gxRender();toast('Pedido movido para '+esc(B[1]))})}
+function admConfirm(c,ok){var d=$('#admDlg');$('#admDlgT').textContent=c.t;$('#admDlgP').innerHTML=c.p;$('#admDlgOk').textContent=c.ok||'Confirmar';
+ $('#admDlgIc').style.background=c.cor||'#881344';d.hidden=false;requestAnimationFrame(function(){d.classList.add('on')});var prev=document.activeElement;
+ var fecha=function(){d.classList.remove('on');setTimeout(function(){d.hidden=true},180);document.removeEventListener('keydown',kd);if(prev&&prev.focus)prev.focus()};
+ var kd=function(e){if(e.key==='Escape')fecha()};document.addEventListener('keydown',kd);
+ $('#admDlgOk').onclick=function(){fecha();ok()};$('#admDlgNo').onclick=fecha;d.onclick=function(e){if(e.target===d)fecha()};setTimeout(function(){$('#admDlgOk').focus()},50)}
+/* arrastar e soltar (mouse e toque) */
+(function(){var drag=null,timer=null,sx=0,sy=0;
+ function col(x,y){var el=document.elementFromPoint(x,y);return el&&el.closest?el.closest('#gxKanban .gx-col'):null}
+ function start(card,x,y){var r=card.getBoundingClientRect(),g=card.cloneNode(true);g.className='gx-ord gx-ghost';g.style.width=r.width+'px';document.body.appendChild(g);
+  drag={card:card,g:g,ox:x-r.left,oy:y-r.top,from:card.closest('.gx-col')};card.classList.add('gx-src');document.body.classList.add('gx-dragging');if(navigator.vibrate)navigator.vibrate(12);move(x,y)}
+ function move(x,y){if(!drag)return;drag.g.style.transform='translate('+(x-drag.ox)+'px,'+(y-drag.oy)+'px) rotate(2deg)';
+  var c=col(x,y);$$('#gxKanban .gx-col').forEach(function(k){k.classList.toggle('gx-over',k===c&&k!==drag.from)});
+  var kb=$('#gxKanban'),r=kb.getBoundingClientRect();if(x<r.left+40)kb.scrollLeft-=12;else if(x>r.right-40)kb.scrollLeft+=12;
+  if(y<70)scrollBy(0,-12);else if(y>innerHeight-70)scrollBy(0,12)}
+ function end(x,y){clearTimeout(timer);timer=null;if(!drag)return;var c=col(x,y),d=drag;drag=null;d.g.remove();d.card.classList.remove('gx-src');document.body.classList.remove('gx-dragging');
+  $$('#gxKanban .gx-col').forEach(function(k){k.classList.remove('gx-over')});if(c&&c!==d.from)admMoverPara(+d.card.dataset.id,c.dataset.st)}
+ document.addEventListener('pointerdown',function(e){var card=e.target.closest&&e.target.closest('#gxKanban .gx-ord');if(!card||e.target.closest('button')||!admCan('ped_mover')||e.button>0)return;
+  sx=e.clientX;sy=e.clientY;if(e.pointerType==='mouse'){timer='m';e.preventDefault()}else timer=setTimeout(function(){timer=null;start(card,sx,sy)},280);
+  var mv=function(ev){if(drag){move(ev.clientX,ev.clientY);return}var dd=Math.abs(ev.clientX-sx)+Math.abs(ev.clientY-sy);
+    if(timer==='m'&&dd>5){timer=null;start(card,ev.clientX,ev.clientY)}else if(timer&&timer!=='m'&&dd>10){clearTimeout(timer);timer=null}};
+  var up=function(ev){document.removeEventListener('pointermove',mv);document.removeEventListener('pointerup',up);document.removeEventListener('pointercancel',up);if(timer==='m')timer=null;end(ev.clientX,ev.clientY)};
+  document.addEventListener('pointermove',mv);document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up)});
+ document.addEventListener('touchmove',function(e){if(drag)e.preventDefault()},{passive:false});
+ document.addEventListener('contextmenu',function(e){if(drag||(e.target.closest&&e.target.closest('#gxKanban .gx-ord')))e.preventDefault()});
+})();
 
 function gxSeed(){
  var nomes=['Lorena','Marcos','Ana Paula','Rafael','Juliana','Carlos','Beatriz','Diego','Camila','Fernando','Patrícia','Gustavo','Renata','Thiago','Larissa','Eduardo','Sônia','Paulo'];
  var peso=[1.6,1.3,1.0,.8,.7,.6]; /* matriz vende mais */
  var horas=[8,9,9,10,10,11,11,12,14,15,16,17,17,18,18,19,19,20];
  var base=Date.now(), add=[], soma=peso.reduce(function(x,y){return x+y},0);
- for(var k=0;k<1100;k++){
+ for(var k=0;k<4200;k++){
   var r=Math.random()*soma,si=0;while(r>peso[si]){r-=peso[si];si++}
   var dias=Math.floor(Math.pow(Math.random(),1.15)*90);
   var dt=new Date(base-dias*864e5);dt.setHours(horas[Math.floor(Math.random()*horas.length)],Math.floor(Math.random()*60),0,0);
   if(dt.getTime()>base)dt=new Date(base-Math.random()*36e5*3);
-  var qtd=2+Math.floor(Math.random()*7), itens=[], tot=0;
-  for(var j=0;j<qtd;j++){var pid=Math.floor(Math.random()*Math.min(P.length,40));
+  var qtd=7+Math.floor(Math.random()*14), itens=[], tot=0;
+  for(var j=0;j<qtd;j++){var pid=Math.floor(Math.random()*Math.min(P.length,80));
    var q=1+Math.floor(Math.random()*3);
    if(P[pid]&&P[pid].p){itens.push([pid,q]);tot+=P[pid].p*q}}
   if(!itens.length)continue;
@@ -6124,22 +6205,22 @@ function gxSeed(){
   add.push({id:base-k*7777,date:dt.getTime(),store:STORES[si].n,mode:Math.random()<.62?'casa':'loja',slot:'Janela de exemplo',
    items:itens,bruto:Math.round(tot*100)/100,cbUsado:0,cbGanho:Math.round(tot*(typeof CB_TAXA==='number'?CB_TAXA:0)*100)/100,
    total:Math.round(tot*100)/100,status:st,cliente:nomes[Math.floor(Math.random()*nomes.length)],demo:true})}
- orders=add.concat(orders); saveOrders(); gxRender();
+ demoOrders=add; LS.set('farid_demo_v','3'); saveOrders(); gxRender();
  toast(add.length+' pedidos de exemplo em '+STORES.length+' unidades')}
 
-function gxLimparDemo(){orders=orders.filter(function(o){return !o.demo});
+function gxLimparDemo(){demoOrders=[];
  saveOrders(); gxRender(); toast('Exemplos removidos')}
 
 var GX_F={un:'',dias:30,mod:'',st:''};
 var GX_VIEWS={visao:['Visão geral','Desempenho das unidades de venda'],pedidos:['Pedidos','Acompanhe e mova os pedidos entre as etapas'],
- unidades:['Unidades de venda','Compare as lojas lado a lado'],produtos:['Produtos','Cadastro em etapas, catálogo e desempenho'],clientes:['Clientes','Quem mais compra no período'],promocoes:['Promoções','Crie campanhas por departamento e unidade'],lojas:['Lojas','Horário, entrega e pedido mínimo de cada unidade'],equipe:['Equipe','Quem acessa a gestão e com qual perfil']};
+ unidades:['Unidades de venda','Compare as lojas lado a lado'],produtos:['Produtos','Cadastro em etapas, catálogo e desempenho'],clientes:['Clientes','Quem mais compra no período'],promocoes:['Promoções','Crie campanhas por departamento e unidade'],lojas:['Lojas','Horário, entrega e pedido mínimo de cada unidade'],equipe:['Colaboradores','Cadastre quem usa o sistema e defina o que cada um pode fazer']};
 function gxLimparFiltros(){GX_F={un:'',dias:30,mod:'',st:''};gxSyncFiltros();gxRender()}
 function gxSyncFiltros(){var u=$('#fxUn'),m=$('#fxMod'),t=$('#fxSt');if(!u)return;
- if(u.options.length<2)u.innerHTML='<option value="">Todas as unidades</option>'+STORES.map(function(x){return '<option value="'+esc(x.n)+'">'+esc(x.n)+'</option>'}).join('');
+ var mu=admUser().unis;if(mu.length===1)GX_F.un=mu[0];u.disabled=mu.length===1;if(u.options.length<2)u.innerHTML=(mu.length===STORES.length?'<option value="">Todas as unidades</option>':mu.length>1?'<option value="">Minhas unidades</option>':'')+STORES.filter(function(x){return admUnOk(x.n)}).map(function(x){return '<option value="'+esc(x.n)+'">'+esc(x.n)+'</option>'}).join('');
  if(t.options.length<2)t.innerHTML='<option value="">Todos</option>'+GX_ST.map(function(x){return '<option value="'+x[0]+'">'+esc(x[1])+'</option>'}).join('');
  u.value=GX_F.un;m.value=GX_F.mod;t.value=GX_F.st;
  $$('#fxPer button').forEach(function(b){b.classList.toggle('on',+b.dataset.d===GX_F.dias)});
- $('#fxClear').hidden=!(GX_F.un||GX_F.mod||GX_F.st||GX_F.dias!==30)}
+ $('#fxClear').hidden=!((GX_F.un&&mu.length>1)||GX_F.mod||GX_F.st||GX_F.dias!==30)}
 (function(){var bind=function(){if(!$('#fxUn'))return;
  $('#fxUn').onchange=function(){GX_F.un=this.value;gxRender()};
  $('#fxMod').onchange=function(){GX_F.mod=this.value;gxRender()};
@@ -6150,7 +6231,7 @@ function gxJanela(off){var fim=Date.now()-off*GX_F.dias*864e5,ini;
  if(GX_F.dias===1){var d=new Date();d.setHours(0,0,0,0);ini=d.getTime()-off*864e5;fim=ini+864e5}else ini=fim-GX_F.dias*864e5;
  return [ini,fim]}
 function gxFiltra(off,ignUn){var j=gxJanela(off||0);
- return orders.filter(function(o){return o.date>=j[0]&&o.date<j[1]&&(ignUn||!GX_F.un||o.store===GX_F.un)&&(!GX_F.mod||o.mode===GX_F.mod)&&(!GX_F.st||(o.status||'novo')===GX_F.st)})}
+ return GXO().filter(function(o){return o.date>=j[0]&&o.date<j[1]&&admUnOk(o.store)&&(ignUn||!GX_F.un||o.store===GX_F.un)&&(!GX_F.mod||o.mode===GX_F.mod)&&(!GX_F.st||(o.status||'novo')===GX_F.st)})}
 function gxSoma(os){return os.reduce(function(a,o){return a+(+o.total||0)},0)}
 function gxItens(o){return o.items.reduce(function(b,x){return b+x[1]},0)}
 function gxDelta(a,b){if(!b)return a?'<span class="up">novo</span> <em>sem base anterior</em>':'<span class="eq">—</span>';
@@ -6160,8 +6241,12 @@ function gxView(){var p=location.hash.split('/');var v=p[2];return GX_VIEWS[v]?v
 function gxRender(){
  if(!$('#p-gestao'))return;
  gxSyncFiltros();
- var v=gxView();
+ var v=gxView(),u=admUser();
+ $$('#admNav a').forEach(function(a){a.hidden=!admCan(ADM_VIEWP[a.dataset.v])});
+ if(!admCan(ADM_VIEWP[v])){var ok=Object.keys(ADM_VIEWP).find(function(k){return admCan(ADM_VIEWP[k])});if(ok&&ok!==v){location.hash='#/gestao/'+ok;return}}
  $$('#admNav a').forEach(function(a){a.classList.toggle('on',a.dataset.v===v)});
+ $$('.adm-side-ft .adm-ghost').forEach(function(b){if(b.tagName==='BUTTON')b.hidden=!admCan('demo')});
+ var as=$('#admAs'),eqs=admEq().filter(function(p){return p.ativo!==false});as.innerHTML='<option value="admin">Administrador</option>'+eqs.map(function(p){return '<option value="'+esc(p.email)+'">'+esc(p.nome)+' · '+esc(admPerfilDe(p.perms))+'</option>'}).join('');as.value=u.email;
  $('.adm-main').dataset.v=v; $$('.adm-view').forEach(function(x){var on=x.dataset.view===v;if(on&&!x.classList.contains('on')){x.classList.remove('anim');void x.offsetWidth;x.classList.add('anim')}x.classList.toggle('on',on)});
  $('#admTitle').textContent=GX_VIEWS[v][0];
  $('#admSub').textContent=GX_VIEWS[v][1]+' · '+(GX_F.un||'todas as unidades');
@@ -6169,7 +6254,7 @@ function gxRender(){
  var fat=gxSoma(os),fatA=gxSoma(ant);
  var tk=os.length?fat/os.length:0,tkA=ant.length?fatA/ant.length:0;
  var it=os.reduce(function(a,o){return a+gxItens(o)},0);
- var abertos=orders.filter(function(o){return (o.status||'novo')!=='entregue'&&(!GX_F.un||o.store===GX_F.un)}).length;
+ var abertos=GXO().filter(function(o){return (o.status||'novo')!=='entregue'&&(!GX_F.un||o.store===GX_F.un)}).length;
  $('#admBadge').textContent=abertos||'';
  var vazio='<p class="adm-empty">Sem pedidos neste filtro. Use <b>Gerar dados de exemplo</b> no menu ou mude o período.</p>';
 
@@ -6211,16 +6296,19 @@ function gxRender(){
 
  /* ---------- PEDIDOS ---------- */
  $('#gxKbCount').textContent=os.length+' pedido'+(os.length===1?'':'s')+' no filtro';
+ $('#gxKbHint').textContent=admCan('ped_mover')?'Arraste os cartões entre as etapas. No celular, segure o cartão por um instante e arraste.':'Seu acesso permite só visualizar os pedidos.';
+ var podeMover=admCan('ped_mover');
+ $('#gxKanban').classList.toggle('ro',!podeMover);
  $('#gxKanban').innerHTML=GX_ST.map(function(st,si){
   var lista=os.filter(function(o){return (o.status||'novo')===st[0]}).sort(function(a,b){return b.date-a.date});
-  return '<div class="gx-col"><div class="gx-colhd"><span class="gx-dot" style="background:'+st[2]+'"></span><b>'+esc(st[1])+'</b><i>'+lista.length+'</i></div>'+
-   (lista.length?lista.slice(0,4).map(function(o){var n=gxItens(o);
-    return '<article class="gx-ord"><div class="gx-ordhd"><b>#'+String(o.id).slice(-6)+'</b><span>'+brl(+o.total||0)+'</span></div>'+
-     '<p>'+esc(o.cliente||'Cliente')+' · '+n+' iten'+(n===1?'':'s')+'</p><small>'+esc(o.store||'')+' · '+(o.mode==='casa'?'Entrega':'Retirada')+'</small>'+
-     '<div class="gx-move">'+(si>0?'<button onclick="gxMover('+o.id+',-1)" aria-label="Voltar etapa">←</button>':'<span></span>')+
-     (si<GX_ST.length-1?'<button onclick="gxMover('+o.id+',1)" aria-label="Avançar etapa">→</button>':'<span></span>')+'</div></article>'}).join('')+
-     (lista.length>4?'<p class="gx-more">+ '+(lista.length-4)+' na lista abaixo</p>':'')
-   :'<p class="gx-vazio">vazio</p>')+'</div>'}).join('');
+  return '<div class="gx-col" data-st="'+st[0]+'"><div class="gx-colhd"><span class="gx-dot" style="background:'+st[2]+'"></span><b>'+esc(st[1])+'</b><i>'+lista.length+'</i></div><div class="gx-cards">'+
+   (lista.length?lista.slice(0,30).map(function(o){var n=gxItens(o),d=new Date(o.date);
+    return '<article class="gx-ord" data-id="'+o.id+'" tabindex="0" aria-label="Pedido '+String(o.id).slice(-6)+', '+esc(st[1])+'"><div class="gx-ordhd"><b>#'+String(o.id).slice(-6)+'</b><span>'+brl(+o.total||0)+'</span></div>'+
+     '<p>'+esc(o.cliente||'Cliente')+' · '+n+' iten'+(n===1?'':'s')+'</p><small>'+esc(o.store||'')+' · '+(o.mode==='casa'?'Entrega':'Retirada')+' · '+d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+'</small>'+
+     (podeMover?'<div class="gx-move">'+(si>0?'<button onclick="gxMover('+o.id+',-1)" aria-label="Voltar etapa">←</button>':'<span></span>')+
+     (si<GX_ST.length-1?'<button onclick="gxMover('+o.id+',1)" aria-label="Avançar etapa">→</button>':'<span></span>')+'</div>':'')+'</article>'}).join('')+
+     (lista.length>30?'<p class="gx-more">+ '+(lista.length-30)+' na lista abaixo</p>':'')
+   :'<p class="gx-vazio">Solte um pedido aqui</p>')+'</div></div>'}).join('');
  var stMap={};GX_ST.forEach(function(x){stMap[x[0]]=x});
  $('#admOrdTab').innerHTML=os.length?'<thead><tr><th>Pedido</th><th>Data</th><th>Cliente</th><th>Unidade</th><th>Modalidade</th><th>Status</th><th class="num">Itens</th><th class="num">Total</th></tr></thead><tbody>'+
   os.slice().sort(function(a,b){return b.date-a.date}).slice(0,60).map(function(o){var st=stMap[o.status||'novo']||GX_ST[0],d=new Date(o.date);
@@ -6296,7 +6384,7 @@ function admLineDraw(tr){var box=$('#admLine'),L=GX_LINE;if(!box||!L)return;if(!
   return curto?d.getDate()+'/'+(d.getMonth()+1):d.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'})};
  var cada=Math.ceil(n/(W<500?5:8));
  var bars=L.s.map(function(v,i){var h=Math.max(v>0?2:0,y0-Y(v)),x=X(i)-bw/2,r=Math.min(4,bw/2,h);
-  return '<g class="b" data-i="'+i+'"><rect class="hit" x="'+(pl+slot*i)+'" y="'+pt+'" width="'+slot+'" height="'+(y0-pt)+'" fill="transparent"/>'+(h?'<path class="bar" style="animation-delay:'+(i*12)+'ms" d="M'+x+' '+y0+'V'+(y0-h+r)+'Q'+x+' '+(y0-h)+' '+(x+r)+' '+(y0-h)+'H'+(x+bw-r)+'Q'+(x+bw)+' '+(y0-h)+' '+(x+bw)+' '+(y0-h+r)+'V'+y0+'Z"/>':'')+'</g>'}).join('');
+  return '<g class="b" data-i="'+i+'"><rect class="hit" x="'+(pl+slot*i)+'" y="'+pt+'" width="'+slot+'" height="'+(y0-pt)+'" fill="transparent"/>'+(h?'<path class="adm-b" style="animation-delay:'+(i*12)+'ms" d="M'+x+' '+y0+'V'+(y0-h+r)+'Q'+x+' '+(y0-h)+' '+(x+r)+' '+(y0-h)+'H'+(x+bw-r)+'Q'+(x+bw)+' '+(y0-h)+' '+(x+bw)+' '+(y0-h+r)+'V'+y0+'Z"/>':'')+'</g>'}).join('');
  var yA=Y(L.medA);
  var tk=[];for(var t=0;t<=nt;t++)tk.push(t);
  box.innerHTML='<div class="adm-lleg"><span><s style="background:#881344;height:10px;width:10px;border-radius:3px"></s>Faturamento</span>'+(L.medA?'<span><s style="background:#6b6f76;height:2px"></s>Média do período anterior</span>':'')+'<span class="r">média atual <b>'+brl(L.med)+'</b>/'+(L.passo<864e5?'hora':L.passo>864e5?'semana':'dia')+'</span></div>'+
@@ -6339,12 +6427,52 @@ function admLojaSave(id,el){var c=admGet('farid_lojas_cfg',{}),card=el.closest('
  c[id]={aberta:card.querySelector('[data-k=aberta]').checked,ab:card.querySelector('[data-k=ab]').value,fe:card.querySelector('[data-k=fe]').value,
   min:+card.querySelector('[data-k=min]').value||0,taxa:+card.querySelector('[data-k=taxa]').value||0,raio:+card.querySelector('[data-k=raio]').value||0};
  LS.set('farid_lojas_cfg',JSON.stringify(c));toast('Loja '+(STORES.find(function(x){return x.id===id})||{}).n+' salva');admCadRender()}
-/* ---- Equipe ---- */
-var EQ_PERM={Operador:'Ver e mover pedidos da sua unidade.',Gerente:'Pedidos, produtos, promoções e números da sua unidade.',Administrador:'Tudo, em todas as unidades, inclusive equipe e lojas.'};
-function admEqAdd(ev){ev.preventDefault();var f=ev.target,l=admGet('farid_equipe',[]);
- l.unshift({nome:f.nome.value.trim(),email:f.email.value.trim(),tel:f.tel.value.trim(),perfil:f.perfil.value,un:f.un.value});
- LS.set('farid_equipe',JSON.stringify(l));f.reset();admCadRender();toast('Pessoa adicionada à equipe');return false}
-function admEqDel(i){var l=admGet('farid_equipe',[]);l.splice(i,1);LS.set('farid_equipe',JSON.stringify(l));admCadRender()}
+/* ---- Colaboradores e permissões ---- */
+var ADM_PERMS=[
+ ['Pedidos',[['ped_ver','Ver pedidos'],['ped_mover','Mover pedidos entre as etapas']]],
+ ['Números',[['ind_ver','Ver faturamento e indicadores'],['cli_ver','Ver dados dos clientes']]],
+ ['Cadastros',[['prod_edit','Cadastrar e editar produtos'],['promo_edit','Criar e encerrar promoções'],['loja_edit','Alterar horário, taxa e pedido mínimo das lojas']]],
+ ['Administração',[['eq_edit','Cadastrar colaboradores e definir permissões'],['demo','Gerar e limpar dados de exemplo']]]];
+var ADM_PRESET={Operador:['ped_ver','ped_mover'],Gerente:['ped_ver','ped_mover','ind_ver','cli_ver','prod_edit','promo_edit','loja_edit'],Administrador:['ped_ver','ped_mover','ind_ver','cli_ver','prod_edit','promo_edit','loja_edit','eq_edit','demo']};
+var ADM_ALL=ADM_PRESET.Administrador,ADM_VIEWP={visao:'ind_ver',pedidos:'ped_ver',unidades:'ind_ver',clientes:'cli_ver',produtos:'prod_edit',promocoes:'promo_edit',lojas:'loja_edit',equipe:'eq_edit'};
+var eqEdit=-1;
+function admEq(){var l=admGet('farid_equipe',[]);return l.map(function(p){if(!p.perms){p.perms=(ADM_PRESET[p.perfil]||ADM_PRESET.Operador).slice();p.unis=p.un&&p.un!=='Todas as unidades'?[p.un]:STORES.map(function(x){return x.n});p.ativo=true}return p})}
+function admUser(){var k=LS.get('farid_adm_as'),l=admEq();if(k&&k!=='admin'){var p=l.find(function(x){return x.email===k});if(p&&p.ativo!==false)return p}
+ return {nome:'Administrador',email:'admin',perms:ADM_ALL,unis:STORES.map(function(x){return x.n})}}
+function admCan(p){return admUser().perms.indexOf(p)>=0}
+function admUnOk(n){var u=admUser().unis;return !u||u.indexOf(n)>=0}
+function admSetAs(v){LS.set('farid_adm_as',v);var u=admUser();if(GX_F.un&&!admUnOk(GX_F.un))GX_F.un='';if(u.unis.length===1)GX_F.un=u.unis[0];$('#fxUn').innerHTML='';toast('Acessando como '+esc(u.nome));gxRender()}
+function admPerfilDe(perms){for(var k in ADM_PRESET){var a=ADM_PRESET[k];if(a.length===perms.length&&a.every(function(x){return perms.indexOf(x)>=0}))return k}return 'Personalizado'}
+function admEqFill(p){var f=$('#eqForm');p=p||{};f.nome.value=p.nome||'';f.email.value=p.email||'';f.tel.value=p.tel||'';f.cargo.value=p.cargo||'';f.ativo.checked=p.ativo!==false;
+ var un=p.unis||STORES.map(function(x){return x.n});$$('#eqUnis input').forEach(function(i){i.checked=i.value==='*'?un.length===STORES.length:un.indexOf(i.value)>=0});
+ var pr=p.perms||ADM_PRESET.Operador;$$('#eqPerms input').forEach(function(i){i.checked=pr.indexOf(i.value)>=0});admEqSync()}
+function admEqSync(){var pr=$$('#eqPerms input:checked').map(function(i){return i.value}),pf=admPerfilDe(pr);
+ $$('#eqPresets button').forEach(function(b){b.classList.toggle('on',b.dataset.p===pf)});
+ $$('#eqPerms .adm-pg').forEach(function(g){var c=g.querySelectorAll('input:checked').length;g.querySelector('em').textContent=c+'/'+g.querySelectorAll('input').length});
+ var vm=$('#eqPerms [value=ped_ver]'),mv=$('#eqPerms [value=ped_mover]');if(mv.checked&&!vm.checked)vm.checked=true}
+function admEqAdd(ev){ev.preventDefault();var f=ev.target,l=admEq(),em=f.email.value.trim().toLowerCase();
+ if(!f.nome.value.trim()){toast('Informe o nome');f.nome.focus();return false}
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){toast('Informe um e-mail válido');f.email.focus();return false}
+ if(l.some(function(p,i){return p.email===em&&i!==eqEdit})){toast('Já existe um colaborador com esse e-mail');return false}
+ var unis=$$('#eqUnis input:checked').map(function(i){return i.value}).filter(function(v){return v!=='*'});if(!unis.length){toast('Escolha pelo menos uma unidade');return false}
+ var perms=$$('#eqPerms input:checked').map(function(i){return i.value});if(!perms.length){toast('Marque pelo menos uma permissão');return false}
+ var p={nome:f.nome.value.trim(),email:em,tel:f.tel.value.trim(),cargo:f.cargo.value.trim(),ativo:f.ativo.checked,unis:unis,perms:perms,perfil:admPerfilDe(perms)};
+ var salvar=function(){if(eqEdit>=0){p.criado=l[eqEdit].criado;l[eqEdit]=p}else{p.criado=Date.now();l.unshift(p)}LS.set('farid_equipe',JSON.stringify(l));
+  toast(eqEdit>=0?'Alterações salvas':'Colaborador cadastrado');eqEdit=-1;admEqFill();admEqMode();admCadRender();gxRender()};
+ if(eqEdit>=0&&perms.indexOf('eq_edit')<0&&l[eqEdit].email===LS.get('farid_adm_as'))admConfirm({t:'Tirar seu próprio acesso à equipe?',p:'Você está acessando como <b>'+esc(p.nome)+'</b>. Sem essa permissão, não poderá voltar a esta tela.',ok:'Salvar mesmo assim',cor:'#c2410c'},salvar);
+ else salvar();return false}
+function admEqEdit(i){var p=admEq()[i];if(!p)return;eqEdit=i;admEqFill(p);admEqMode();$('#eqForm').scrollIntoView({behavior:'smooth',block:'start'})}
+function admEqCancel(){eqEdit=-1;admEqFill();admEqMode()}
+function admEqMode(){var on=eqEdit>=0;$('#eqEditing').hidden=!on;$('#eqSubmit').textContent=on?'Salvar alterações':'Cadastrar colaborador';if(on)$('#eqEdNome').textContent=admEq()[eqEdit].nome}
+function admEqDel(i){var l=admEq(),p=l[i];admConfirm({t:'Remover '+p.nome+'?',p:'A pessoa perde o acesso ao sistema na hora. Para só pausar, edite e desligue <b>Acesso ativo</b>.',ok:'Remover',cor:'#c2410c'},
+ function(){l.splice(i,1);LS.set('farid_equipe',JSON.stringify(l));if(LS.get('farid_adm_as')===p.email)LS.set('farid_adm_as','admin');if(eqEdit===i)admEqCancel();admCadRender();gxRender();toast('Colaborador removido')})}
+function admEqInit(){if($('#eqPerms').children.length)return;
+ $('#eqUnis').innerHTML='<label><input type="checkbox" value="*" checked><span>Todas</span></label>'+STORES.map(function(x){return '<label><input type="checkbox" value="'+esc(x.n)+'" checked><span>'+esc(x.n)+'</span></label>'}).join('');
+ $('#eqUnis').onchange=function(e){var all=e.target.value==='*';if(all)$$('#eqUnis input').forEach(function(i){i.checked=e.target.checked});else $('#eqUnis [value="*"]').checked=$$('#eqUnis input:not([value="*"])').every(function(i){return i.checked})};
+ $('#eqPerms').innerHTML=ADM_PERMS.map(function(g){return '<div class="adm-pg"><h4>'+g[0]+'<em></em></h4>'+g[1].map(function(p){return '<label class="adm-tog"><input type="checkbox" value="'+p[0]+'"><span></span>'+p[1]+'</label>'}).join('')+'</div>'}).join('');
+ $('#eqPerms').onchange=admEqSync;
+ $('#eqPresets').onclick=function(e){var b=e.target.closest('button');if(!b)return;var pr=ADM_PRESET[b.dataset.p];$$('#eqPerms input').forEach(function(i){i.checked=pr.indexOf(i.value)>=0});admEqSync()};
+ admEqFill()}
 function admCadRender(){if(!$('#promoList'))return;
  var hoje=new Date().toISOString().slice(0,10);
  if(!$('#promoUn').children.length){$('#promoUn').innerHTML='<b>Unidades</b>'+STORES.map(function(x){return '<label><input type="checkbox" value="'+esc(x.n)+'" checked><span>'+esc(x.n)+'</span></label>'}).join('');
@@ -6360,16 +6488,16 @@ function admCadRender(){if(!$('#promoList'))return;
    '<div class="adm-lgrid"><label>Abre<input type="time" data-k="ab" value="'+c.ab+'"></label><label>Fecha<input type="time" data-k="fe" value="'+c.fe+'"></label>'+
    '<label>Pedido mínimo (R$)<input type="number" min="0" step="1" data-k="min" value="'+c.min+'"></label><label>Taxa de entrega (R$)<input type="number" min="0" step="0.5" data-k="taxa" value="'+c.taxa+'"></label>'+
    '<label>Raio de entrega (km)<input type="number" min="0" step="1" data-k="raio" value="'+c.raio+'"></label><button class="adm-btn" onclick="admLojaSave(\''+x.id+'\',this)">Salvar</button></div></div>'}).join('');
- var eu=$('#eqUn');if(!eu.options.length)eu.innerHTML='<option>Todas as unidades</option>'+STORES.map(function(x){return '<option>'+esc(x.n)+'</option>'}).join('');
- var ef=$('#eqForm');$('#eqPerm').textContent=EQ_PERM[ef.perfil.value];ef.perfil.onchange=function(){$('#eqPerm').textContent=EQ_PERM[this.value]};
- var el=admGet('farid_equipe',[]);$('#eqCnt').textContent=el.length?el.length+' pessoa'+(el.length>1?'s':''):'';
- $('#eqList').innerHTML=el.length?el.map(function(p,i){return '<div class="adm-li"><span class="adm-av">'+esc((p.nome||'?').trim().charAt(0).toUpperCase())+'</span><div><b>'+esc(p.nome)+'</b><small>'+esc(p.email)+' · '+esc(p.un)+'</small></div><span class="adm-pill">'+esc(p.perfil)+'</span><button onclick="admEqDel('+i+')" aria-label="Remover">✕</button></div>'}).join(''):'<p class="adm-empty">Ninguém cadastrado ainda.</p>'}
+ admEqInit();var el=admEq();$('#eqCnt').textContent=el.length?el.length+' pessoa'+(el.length>1?'s':''):'';
+ $('#eqList').innerHTML=el.length?el.map(function(p,i){var pf=admPerfilDe(p.perms);
+  return '<div class="adm-li'+(p.ativo===false?' off':'')+(i===eqEdit?' ed':'')+'"><span class="adm-av">'+esc((p.nome||'?').trim().charAt(0).toUpperCase())+'</span><div><b>'+esc(p.nome)+'</b><small>'+esc(p.cargo?p.cargo+' · ':'')+(p.unis.length===STORES.length?'todas as unidades':esc(p.unis.join(', ')))+'</small><small>'+p.perms.length+' de '+ADM_ALL.length+' permissões'+(p.ativo===false?' · <b class="adm-inat">inativo</b>':'')+'</small></div><span class="adm-pill">'+esc(pf)+'</span>'+
+   '<button onclick="admEqEdit('+i+')" aria-label="Editar '+esc(p.nome)+'"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 17.2V21h3.8l11-11-3.8-3.8zM20.7 7a1 1 0 0 0 0-1.4l-2.3-2.3a1 1 0 0 0-1.4 0l-1.8 1.8 3.8 3.8z"/></svg></button><button onclick="admEqDel('+i+')" aria-label="Remover '+esc(p.nome)+'">✕</button></div>'}).join(''):'<p class="adm-empty">Ninguém cadastrado ainda.</p>'}
 
 /* ---- ao vivo: chega um pedido de exemplo de tempos em tempos ---- */
-setInterval(function(){if(!document.body.classList.contains('is-adm')||document.hidden||!orders.some(function(o){return o.demo})||!P.length)return;
- var st=STORES[Math.floor(Math.random()*STORES.length)],its=[],tot=0;for(var k=0;k<2+Math.floor(Math.random()*5);k++){var pid=Math.floor(Math.random()*Math.min(P.length,40));if(P[pid]&&P[pid].p){var q=1+Math.floor(Math.random()*2);its.push([pid,q]);tot+=P[pid].p*q}}
+setInterval(function(){if(!document.body.classList.contains('is-adm')||document.hidden||!demoOrders.length||!P.length)return;
+ var st=STORES[Math.floor(Math.random()*STORES.length)],its=[],tot=0;for(var k=0;k<7+Math.floor(Math.random()*12);k++){var pid=Math.floor(Math.random()*Math.min(P.length,80));if(P[pid]&&P[pid].p){var q=1+Math.floor(Math.random()*2);its.push([pid,q]);tot+=P[pid].p*q}}
  if(!its.length)return;var nm=['Ana','Bruno','Carla','Davi','Elisa','Fábio','Gabi','Hugo'][Math.floor(Math.random()*8)];
- orders.unshift({id:Date.now(),date:Date.now(),store:st.n,mode:Math.random()<.6?'casa':'loja',slot:'Janela de exemplo',items:its,bruto:tot,cbUsado:0,cbGanho:0,total:Math.round(tot*100)/100,status:'novo',cliente:nm,demo:true});
+ demoOrders.unshift({id:Date.now(),date:Date.now(),store:st.n,mode:Math.random()<.6?'casa':'loja',slot:'Janela de exemplo',items:its,bruto:tot,cbUsado:0,cbGanho:0,total:Math.round(tot*100)/100,status:'novo',cliente:nm,demo:true});
  saveOrders();var lv=$('#admLive');if(lv){lv.classList.remove('ping');void lv.offsetWidth;lv.classList.add('ping')}
  toast('Novo pedido de '+esc(nm)+' em '+esc(st.n)+' · '+brl(tot));gxRender()},25000);
 
