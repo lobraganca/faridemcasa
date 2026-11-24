@@ -4335,6 +4335,236 @@ body.gx-dragging,body.gx-dragging *{cursor:grabbing!important}
 @media (max-width:600px){.sec-dep .sh h2 img{width:28px;height:28px;border-radius:8px}
   .sec-dep .sh p{display:none}
 }
+
+/* ==========================================================================
+   GESTÃO — estilo glass
+   Fundo claro com manchas suaves da marca; painéis de vidro fosco (branco
+   translúcido + desfoque); barra lateral na cor da marca; gráficos em cinza
+   claro com destaque em vinho só no que importa (pico, selecionado, hover).
+   ========================================================================== */
+#p-gestao .adm{
+  --a-bg:rgba(120,90,105,.07);--a-line:rgba(110,60,85,.11);--a-sub:#6d6870;--a-ink:#1b1619;
+  --g-bg:rgba(255,255,255,.56);--g-bd:rgba(255,255,255,.78);--g-bl:blur(22px) saturate(170%);
+  --g-sh:0 1px 0 rgba(255,255,255,.9) inset,0 12px 32px -20px rgba(70,15,40,.32);
+  --g-gray:#d6d2d5;--g-gray2:#b9b3b7;
+  background:
+    radial-gradient(900px 600px at 105% -10%,rgba(162,29,74,.16),transparent 60%),
+    radial-gradient(700px 520px at 15% 110%,rgba(0,84,156,.08),transparent 60%),
+    radial-gradient(600px 400px at 55% 40%,rgba(255,255,255,.7),transparent 70%),
+    linear-gradient(160deg,#f6f1f3 0%,#efeaee 55%,#f3f1f5 100%);
+  background-attachment:fixed;
+}
+/* painéis de vidro */
+#p-gestao .adm-filters,#p-gestao .adm-kpi,#p-gestao .adm-card,#p-gestao .adm-unit,
+#p-gestao .gx-stage,#p-gestao .adm-kanban .gx-col,#p-gestao .gx-listcard,#p-gestao .gx-search,#p-gestao .gx-modo,
+#p-gestao .adm-as,#p-gestao .adm-tabs{
+  background:var(--g-bg)!important;border:1px solid var(--g-bd)!important;
+  -webkit-backdrop-filter:var(--g-bl);backdrop-filter:var(--g-bl);box-shadow:var(--g-sh)!important;
+}
+#p-gestao .adm-card,#p-gestao .adm-kpi,#p-gestao .adm-unit{border-radius:20px!important}
+#p-gestao .adm-filters{border-radius:18px!important;background:rgba(255,255,255,.62)!important}
+#p-gestao .adm-seg{background:rgba(255,255,255,.5)!important;border:1px solid rgba(255,255,255,.7)}
+#p-gestao .adm-seg button.on{background:#fff!important;color:var(--a-wine)!important;box-shadow:0 2px 8px -3px rgba(70,15,40,.25)}
+#p-gestao .adm-f select,#p-gestao .adm-as select{background-color:rgba(255,255,255,.7)!important;border-color:rgba(255,255,255,.85)!important}
+#p-gestao .adm-top h1{letter-spacing:-.02em}
+
+/* ---- barra lateral na cor da marca ---- */
+#p-gestao .adm-side{
+  background:linear-gradient(175deg,rgba(150,24,76,.93) 0%,rgba(118,15,58,.95) 55%,rgba(92,11,46,.97) 100%)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+  border-right:1px solid rgba(255,255,255,.12)!important;box-shadow:inset -1px 0 0 rgba(255,255,255,.06),8px 0 40px -24px rgba(90,10,45,.6);
+  color:#fff;
+}
+#p-gestao .adm-side::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(420px 260px at 0% 0%,rgba(255,255,255,.16),transparent 70%)}
+#p-gestao .adm-logo{background:rgba(255,255,255,.16)!important;border:1px solid rgba(255,255,255,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
+#p-gestao .adm-brand b{color:#fff!important}
+#p-gestao .adm-brand small,#p-gestao .adm-grp{color:rgba(255,255,255,.58)!important}
+#p-gestao .adm-nav a{color:rgba(255,255,255,.74)!important;position:relative}
+#p-gestao .adm-nav a svg{fill:currentColor;opacity:.9}
+#p-gestao .adm-nav a:hover{background:rgba(255,255,255,.09)!important;color:#fff!important}
+#p-gestao .adm-nav a.on{background:rgba(255,255,255,.17)!important;color:#fff!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 6px 18px -10px rgba(0,0,0,.45)}
+#p-gestao .adm-nav a i{background:#fff!important;color:var(--a-wine)!important}
+#p-gestao .adm-ghost{color:rgba(255,255,255,.66)!important}
+#p-gestao .adm-ghost:hover{background:rgba(255,255,255,.09)!important;color:#fff!important}
+#p-gestao .adm-side-ft{border-top-color:rgba(255,255,255,.14)!important}
+
+/* ---- gráficos em cinza claro, destaque na cor da marca ---- */
+#p-gestao .adm-line .adm-b{fill:var(--g-gray)!important;opacity:1!important}
+#p-gestao .adm-line g.on .adm-b,#p-gestao .adm-line g.b:hover .adm-b{fill:var(--a-wine)!important}
+#p-gestao .adm-line.hov .adm-b{opacity:.7!important}
+#p-gestao .adm-cols i{background:var(--g-gray)!important}
+#p-gestao .adm-cols i.adm-pk{background:var(--a-wine)!important}
+#p-gestao .adm-cols div:hover i{background:var(--g-gray2)!important}
+#p-gestao .adm-hb div{background:rgba(120,90,105,.07)!important}
+#p-gestao .adm-hb div i{background:var(--g-gray)!important}
+#p-gestao .adm-hb:first-child div i,#p-gestao .adm-hb.sel div i{background:var(--a-wine)!important}
+#p-gestao .adm-top5 p u{background:var(--g-gray)!important}
+#p-gestao .adm-top5 div:first-child p u{background:var(--a-wine)!important}
+#p-gestao .adm-seg2 i:first-child{background:var(--a-wine)!important}
+#p-gestao .adm-seg2 i:last-child:not(:first-child){background:var(--g-gray)!important;color:#5b5559!important}
+#p-gestao .adm-leg div:first-child s{background:var(--a-wine)!important}
+#p-gestao .adm-leg div:last-child s{background:var(--g-gray)!important}
+#p-gestao .adm-spk path:first-child{fill:rgba(120,110,116,.08)!important}
+#p-gestao .adm-spk path:last-child{stroke:var(--g-gray2)!important}
+#p-gestao .adm-unit .spark path{stroke:var(--g-gray2)!important}
+#p-gestao .adm-unit.sel .spark path{stroke:var(--a-wine)!important}
+
+/* ==========================================================================
+   PEDIDOS
+   ========================================================================== */
+.gx-stages{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.gx-stage{position:relative;text-align:left;padding:14px 16px 13px;border-radius:18px;color:var(--a-ink);cursor:pointer;overflow:hidden;
+  transition:transform .2s,box-shadow .2s}
+.gx-stage::after{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:0 3px 3px 0;background:var(--c)}
+.gx-stage:hover{transform:translateY(-2px)}
+.gx-sh{display:flex;align-items:center;gap:7px;font-size:.8rem;font-weight:700;color:var(--a-sub)}
+.gx-sh i{width:7px;height:7px;border-radius:50%;background:var(--c)}
+.gx-stage b{display:block;font-size:1.9rem;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.gx-stage em{font-style:normal;font-size:.78rem;color:var(--a-sub)}
+.gx-stage em u{text-decoration:none;color:#b4231f;font-weight:700;background:rgba(214,48,40,.1);padding:2px 8px;border-radius:99px}
+#p-gestao .gx-stage.on{background:rgba(255,255,255,.88)!important;box-shadow:0 0 0 2px var(--c),var(--g-sh)!important}
+
+.gx-tools{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.gx-search{flex:1;display:flex;align-items:center;gap:10px;height:46px;padding:0 14px;border-radius:14px}
+.gx-search svg{width:18px;height:18px;fill:none;stroke:var(--a-sub);stroke-width:2;stroke-linecap:round;flex:none}
+.gx-search input{flex:1;min-width:0;border:0;background:none;outline:0;font:inherit;font-size:.94rem;color:var(--a-ink)}
+.gx-search:focus-within{box-shadow:0 0 0 2px rgba(136,19,68,.35),var(--g-sh)!important}
+.gx-modo{display:flex;padding:4px;border-radius:14px;height:46px}
+.gx-modo button{display:flex;align-items:center;gap:7px;padding:0 14px;border-radius:10px;font-weight:700;font-size:.86rem;color:var(--a-sub);background:none}
+.gx-modo button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.gx-modo button.on{background:var(--a-wine);color:#fff;box-shadow:0 6px 14px -8px rgba(136,19,68,.8)}
+.gx-hint{font-size:.8rem;color:var(--a-sub);margin:0 2px 12px}
+
+/* quadro */
+#p-gestao .gx-board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,.82fr);gap:12px;align-items:start;margin-bottom:14px}
+#p-gestao .gx-board .gx-col{border-radius:20px!important;padding:12px 10px 10px!important;min-height:0!important;transition:box-shadow .3s}
+#p-gestao .gx-board .gx-col.gx-flash{animation:gxFlash 1s ease}
+@keyframes gxFlash{0%,100%{box-shadow:var(--g-sh)}30%{box-shadow:0 0 0 3px var(--c),var(--g-sh)}}
+#p-gestao .gx-board .gx-col.gx-over{box-shadow:0 0 0 2px var(--c),var(--g-sh)!important;background:rgba(255,255,255,.78)!important}
+#p-gestao .gx-board .gx-colhd{padding:2px 6px 10px;margin:0 0 8px;border-bottom:1px solid var(--a-line);gap:8px}
+#p-gestao .gx-board .gx-colhd b{font-size:.92rem}
+#p-gestao .gx-board .gx-colhd small{font-size:.72rem;color:var(--a-sub);font-weight:500}
+#p-gestao .gx-board .gx-colhd i{background:rgba(255,255,255,.8)!important;color:var(--a-ink)!important;font-weight:700}
+#p-gestao .gx-board .gx-dot{background:var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 18%,transparent)}
+#p-gestao .gx-board .gx-cards{max-height:calc(100vh - 330px);min-height:80px;overflow-y:auto;padding:2px 2px 4px;scrollbar-width:thin}
+#p-gestao .gx-board .gx-ord{position:relative;background:rgba(255,255,255,.86)!important;border:1px solid rgba(255,255,255,.95)!important;border-radius:16px;
+  padding:12px 12px 12px 14px;margin-bottom:9px;color:var(--a-ink);box-shadow:0 1px 2px rgba(40,10,25,.05),0 8px 20px -16px rgba(40,10,25,.35)!important;
+  cursor:pointer;transition:transform .15s,box-shadow .15s}
+#p-gestao .gx-board .gx-ord::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:3px;border-radius:0 3px 3px 0;background:var(--c);opacity:.85}
+#p-gestao .gx-board .gx-ord:hover{transform:translateY(-1px);box-shadow:0 2px 4px rgba(40,10,25,.06),0 14px 26px -16px rgba(40,10,25,.4)!important}
+#p-gestao .gx-board .gx-ord:focus-visible{outline:2px solid var(--a-wine);outline-offset:2px}
+.gx-ordhd{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.8rem}
+.gx-ordhd b{color:var(--a-sub);font-weight:700;letter-spacing:.02em}
+.gx-ordhd small{font-size:.74rem;color:var(--a-sub)}
+.gx-wait{display:inline-flex;align-items:center;gap:4px;font-size:.72rem;font-weight:700;color:#5d585c;background:rgba(120,90,105,.08);padding:3px 8px 3px 6px;border-radius:99px;white-space:nowrap}
+.gx-wait svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.gx-warn .gx-wait,.gx-wait.gx-warn{color:#9a5a00;background:rgba(240,160,30,.16)}
+.gx-late .gx-wait,.gx-wait.gx-late{color:#b4231f;background:rgba(214,48,40,.12)}
+#p-gestao .gx-ord h5{margin:6px 0 6px;font-size:1rem;font-weight:700;color:var(--a-ink);letter-spacing:-.01em}
+.gx-meta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.76rem;color:var(--a-sub)}
+.gx-meta span,.gx-mod{display:inline-flex;align-items:center;gap:5px}
+.gx-meta svg,.gx-mod svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.gx-prog{height:5px;border-radius:9px;background:rgba(120,90,105,.1);margin:10px 0 0;overflow:hidden}
+.gx-prog i{display:block;height:100%;background:var(--c);border-radius:9px;transition:width .3s}
+.gx-ordft{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-top:10px;font-size:.78rem;color:var(--a-sub)}
+.gx-ordft b{font-size:1rem;color:var(--a-ink);font-variant-numeric:tabular-nums}
+.gx-go{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:38px;margin-top:11px;border-radius:11px;
+  background:var(--a-wine);color:#fff;font-weight:700;font-size:.84rem;box-shadow:0 8px 16px -10px rgba(136,19,68,.9),inset 0 1px 0 rgba(255,255,255,.2);transition:filter .15s,transform .15s}
+.gx-go:hover{filter:brightness(1.1)}.gx-go:active{transform:scale(.98)}
+.gx-go span{transition:transform .2s}.gx-go:hover span{transform:translateX(3px)}
+#p-gestao .gx-done{padding:10px 12px 10px 14px!important;opacity:.92}
+#p-gestao .gx-done h5{font-size:.9rem;margin:4px 0}
+#p-gestao .gx-done .gx-ordft{margin-top:6px}
+#p-gestao .gx-board .gx-vazio{color:var(--a-sub);font-size:.8rem;text-align:center;padding:22px 8px;border:1.5px dashed rgba(120,90,105,.18);border-radius:14px;margin:0}
+#p-gestao .gx-board .gx-more{display:block;width:100%;padding:10px;border-radius:12px;background:rgba(255,255,255,.6);color:var(--a-wine);font-weight:700;font-size:.8rem;text-align:center}
+#p-gestao .gx-board .gx-more:hover{background:#fff}
+.gx-ghost{position:fixed;left:0;top:0;z-index:99999;pointer-events:none;background:#fff;border-radius:16px;padding:12px;box-shadow:0 24px 40px -12px rgba(40,10,25,.45);opacity:.95}
+.gx-ghost .gx-go{display:none}
+
+/* lista */
+.gx-listcard{border-radius:20px;padding:14px 16px 10px;margin-bottom:14px}
+.gx-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.gx-chips button{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 13px;border-radius:99px;font-size:.82rem;font-weight:700;color:var(--a-sub);
+  background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.8)}
+.gx-chips button s{width:7px;height:7px;border-radius:50%}
+.gx-chips button i{font-style:normal;font-weight:600;font-size:.74rem;opacity:.75}
+.gx-chips button.on{background:var(--a-ink);color:#fff;border-color:var(--a-ink)}
+#p-gestao .gx-table th{background:transparent;border-bottom-color:var(--a-line)}
+#p-gestao .gx-table td{border-bottom-color:rgba(110,60,85,.07);vertical-align:middle}
+#p-gestao .gx-table tbody tr{transition:background .15s;cursor:pointer}
+#p-gestao .gx-table tbody tr:hover{background:rgba(255,255,255,.7)}
+.gx-table .gx-ts{white-space:nowrap}.gx-table .gx-ts .gx-wait{margin-left:6px}
+.gx-table .adm-pill{background:rgba(255,255,255,.75)}
+.gx-none{text-align:center!important;color:var(--a-sub);padding:30px 10px!important;white-space:normal!important}
+.gx-pager{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 2px 4px;font-size:.82rem;color:var(--a-sub)}
+.gx-pager div{display:flex;gap:6px}
+.gx-pager button{height:36px;padding:0 14px;border-radius:11px;background:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.9);font-weight:700;color:var(--a-ink);font-size:.82rem}
+.gx-pager button:disabled{opacity:.4}
+
+/* detalhe e confirmação em vidro */
+#p-gestao .adm-ped.on{background:rgba(40,12,26,.28)!important;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+#p-gestao .adm-pedbox{background:rgba(255,255,255,.94)!important;-webkit-backdrop-filter:blur(28px) saturate(170%);backdrop-filter:blur(28px) saturate(170%);border-left:1px solid rgba(255,255,255,.9)}
+#p-gestao .adm-pedinfo div,#p-gestao .adm-pedbox .x{background:rgba(120,90,105,.07)!important}
+#p-gestao .adm-dlg.on{background:rgba(40,12,26,.3)!important;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+#p-gestao .adm-dlgbox{background:rgba(255,255,255,.95)!important;-webkit-backdrop-filter:blur(26px);backdrop-filter:blur(26px);border:1px solid rgba(255,255,255,.95)}
+
+@media (max-width:1100px){
+  #p-gestao .gx-board{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:860px){
+  #p-gestao .adm-side{border-right:0!important;border-bottom:1px solid rgba(255,255,255,.12)!important}
+  .gx-stages{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+  .gx-stage{padding:10px 8px 9px;border-radius:15px;text-align:center}
+  .gx-stage::after{left:14px;right:14px;top:auto;bottom:0;width:auto;height:3px;border-radius:3px 3px 0 0}
+  .gx-sh{justify-content:center;font-size:.68rem;gap:4px;white-space:nowrap;overflow:hidden}
+  .gx-sh i{display:none}
+  .gx-stage b{font-size:1.45rem;margin:2px 0 0}
+  .gx-stage em{display:block;font-size:.64rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .gx-stage em u{padding:1px 5px}
+  .gx-modo button{padding:0 11px}
+  .gx-modo button svg{display:none}
+  #p-gestao .gx-board{display:block!important;margin:0 0 14px!important;padding:0!important;overflow:visible!important}
+  #p-gestao .gx-board .gx-col{display:none}
+  #p-gestao .gx-board .gx-col.on{display:block}
+  #p-gestao .gx-board .gx-cards{max-height:none!important}
+  .gx-listcard{padding:10px 10px 6px;border-radius:18px}
+  .gx-chips{flex-wrap:nowrap;overflow-x:auto;margin:0 -10px 6px;padding:0 10px 4px;scrollbar-width:none}
+  .gx-chips::-webkit-scrollbar{display:none}
+  .gx-chips button{flex:none}
+  /* tabela vira lista de cartões */
+  .gx-table thead{display:none}
+  .gx-table,.gx-table tbody{display:block}
+  #p-gestao .gx-table tbody tr{display:grid;grid-template-columns:1fr auto;grid-template-areas:"n t" "c c" "s s" "m d";gap:3px 10px;
+    padding:12px 12px;margin-bottom:8px;border-radius:14px;background:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.9)}
+  .gx-table td{display:block;padding:0!important;border:0!important;white-space:normal}
+  .gx-table .gx-tn{grid-area:n;font-size:.8rem;color:var(--a-sub)}
+  .gx-table .gx-tt{grid-area:t;font-size:.98rem}
+  .gx-table .gx-tc{grid-area:c;font-weight:700;font-size:.96rem}
+  .gx-table .gx-ts{grid-area:s;margin:3px 0}
+  .gx-table .gx-tm{grid-area:m;font-size:.76rem;color:var(--a-sub)}
+  .gx-table .gx-td{grid-area:d;font-size:.76rem;color:var(--a-sub);text-align:right}
+  .gx-table .gx-tu,.gx-table .gx-ti{display:none}
+  .gx-table .gx-none{display:block}
+}
+@media (max-width:600px){
+  .gx-tools{gap:8px}
+  .gx-search{height:44px;padding:0 12px}
+  .gx-modo{height:44px}
+}
+@media (prefers-reduced-motion:reduce){.gx-stage,.gx-ord,.gx-go,.gx-go span{transition:none!important}#p-gestao .gx-board .gx-col.gx-flash{animation:none}}
+
+.gx-sm{display:none}
+@media (max-width:860px){
+  .gx-lg{display:none}.gx-sm{display:inline}
+  .gx-stage em u{background:none;padding:0}
+  .gx-tools{min-width:0}
+  .gx-search{min-width:0}
+  .gx-modo{flex:none}
+}
+@media (max-width:420px){.gx-modo button{padding:0 9px;font-size:.8rem}.gx-search input{font-size:.88rem}}
+#p-gestao .gx-board[hidden],#p-gestao .gx-listcard[hidden],#p-gestao .gx-hint[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -4596,11 +4826,20 @@ body.gx-dragging,body.gx-dragging *{cursor:grabbing!important}
     </section>
 
     <!-- PEDIDOS -->
-    <section class="adm-view" data-view="pedidos">
-      <p class="adm-hint" id="gxKbHint"></p>
-      <div class="adm-kanban" id="gxKanban"></div>
-      <div class="adm-card"><div class="adm-ch"><h3>Lista de pedidos</h3><span id="gxKbCount"></span></div>
-        <div class="adm-tablewrap"><table class="adm-table" id="admOrdTab"></table></div></div>
+    <section class="adm-view gx-ped" data-view="pedidos">
+      <div class="gx-stages" id="gxStages" role="tablist" aria-label="Etapas do pedido"></div>
+      <div class="gx-tools">
+        <label class="gx-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+          <input id="gxBusca" type="search" autocomplete="off" placeholder="Buscar nº do pedido ou cliente" aria-label="Buscar pedido" oninput="GX_Q=this.value;GX_PG=0;gxPedRender()"></label>
+        <div class="gx-modo" id="gxModo" role="group" aria-label="Forma de ver"><button data-m="quadro" onclick="gxModo('quadro')"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="5" height="16" rx="1.5"/><rect x="9.5" y="4" width="5" height="11" rx="1.5"/><rect x="15.5" y="4" width="5" height="7" rx="1.5"/></svg>Quadro</button><button data-m="lista" onclick="gxModo('lista')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>Lista</button></div>
+      </div>
+      <p class="adm-hint gx-hint" id="gxKbHint"></p>
+      <div class="adm-kanban gx-board" id="gxKanban"></div>
+      <div class="gx-listcard" id="gxLista" hidden>
+        <div class="gx-chips" id="gxChips"></div>
+        <div class="adm-tablewrap"><table class="adm-table gx-table" id="admOrdTab"></table></div>
+        <div class="gx-pager" id="gxPager"></div>
+      </div>
     </section>
 
     <!-- UNIDADES -->
@@ -6406,24 +6645,7 @@ function gxRender(){
   return '<div><em>'+(k+1)+'</em><p><span>'+esc(x.n)+'</span><i><u style="width:'+(pq[id]/tq*100)+'%"></u></i></p><b>'+pq[id]+'</b></div>'}).join('')+'</div>':vazio;
 
  /* ---------- PEDIDOS ---------- */
- $('#gxKbCount').textContent=os.length+' pedido'+(os.length===1?'':'s')+' no filtro';
- $('#gxKbHint').textContent=admCan('ped_mover')?'Arraste os cartões entre as etapas. No celular, segure o cartão por um instante e arraste.':'Seu acesso permite só visualizar os pedidos.';
- var podeMover=admCan('ped_mover');
- $('#gxKanban').classList.toggle('ro',!podeMover);
- $('#gxKanban').innerHTML=GX_ST.map(function(st,si){
-  var lista=os.filter(function(o){return (o.status||'novo')===st[0]}).sort(function(a,b){return b.date-a.date});
-  return '<div class="gx-col" data-st="'+st[0]+'"><div class="gx-colhd"><span class="gx-dot" style="background:'+st[2]+'"></span><b>'+esc(st[1])+'</b><i>'+lista.length+'</i></div><div class="gx-cards">'+
-   (lista.length?lista.slice(0,30).map(function(o){var n=gxItens(o),d=new Date(o.date);
-    return '<article class="gx-ord" data-id="'+o.id+'" tabindex="0" aria-label="Pedido '+String(o.id).slice(-6)+', '+esc(st[1])+'"><div class="gx-ordhd"><b>#'+String(o.id).slice(-6)+'</b><span>'+brl(+o.total||0)+'</span></div>'+
-     '<p>'+esc(o.cliente||'Cliente')+' · '+n+' iten'+(n===1?'':'s')+(o.sep&&o.sep.length?' · <b class="gx-sep">'+o.sep.length+'/'+o.items.length+' separados</b>':'')+'</p><small>'+esc(o.store||'')+' · '+(o.mode==='casa'?'Entrega':'Retirada')+' · '+d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+'</small>'+
-     (podeMover?'<div class="gx-move">'+(si>0?'<button onclick="gxMover('+o.id+',-1)" aria-label="Voltar etapa">←</button>':'<span></span>')+
-     (si<GX_ST.length-1?'<button onclick="gxMover('+o.id+',1)" aria-label="Avançar etapa">→</button>':'<span></span>')+'</div>':'')+'</article>'}).join('')+
-     (lista.length>30?'<p class="gx-more">+ '+(lista.length-30)+' na lista abaixo</p>':'')
-   :'<p class="gx-vazio">Solte um pedido aqui</p>')+'</div></div>'}).join('');
- var stMap={};GX_ST.forEach(function(x){stMap[x[0]]=x});
- $('#admOrdTab').innerHTML=os.length?'<thead><tr><th>Pedido</th><th>Data</th><th>Cliente</th><th>Unidade</th><th>Modalidade</th><th>Status</th><th class="num">Itens</th><th class="num">Total</th></tr></thead><tbody>'+
-  os.slice().sort(function(a,b){return b.date-a.date}).slice(0,60).map(function(o){var st=stMap[o.status||'novo']||GX_ST[0],d=new Date(o.date);
-   return '<tr class="adm-trc" tabindex="0" onclick="admPedido('+o.id+')" onkeydown="if(event.key===\'Enter\')admPedido('+o.id+')"><td><b>#'+String(o.id).slice(-6)+'</b></td><td>'+d.toLocaleDateString('pt-BR')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+'</td><td>'+esc(o.cliente||'Cliente')+'</td><td>'+esc(o.store||'')+'</td><td>'+(o.mode==='casa'?'Entrega':'Retirada')+'</td><td><span class="adm-pill"><s style="background:'+st[2]+'"></s>'+esc(st[1])+'</span></td><td class="num">'+gxItens(o)+'</td><td class="num"><b>'+brl(+o.total||0)+'</b></td></tr>'}).join('')+'</tbody>':'<tbody><tr><td>'+vazio+'</td></tr></tbody>';
+ GX_OS=os; gxPedRender();
 
  /* ---------- UNIDADES ---------- */
  var antT=gxFiltra(1,true),sel=GX_F.un;
@@ -6539,6 +6761,77 @@ function admLojaSave(id,el){var c=admGet('farid_lojas_cfg',{}),card=el.closest('
   min:+card.querySelector('[data-k=min]').value||0,taxa:+card.querySelector('[data-k=taxa]').value||0,raio:+card.querySelector('[data-k=raio]').value||0};
  LS.set('farid_lojas_cfg',JSON.stringify(c));toast('Loja '+(STORES.find(function(x){return x.id===id})||{}).n+' salva');admCadRender()}
 
+
+/* ---------- PEDIDOS: resumo por etapa, quadro e lista ----------
+   O quadro mostra o que esta em andamento (do mais antigo para o mais novo,
+   porque o mais antigo e o mais urgente) e cada cartao tem um botao com o
+   proximo passo escrito por extenso. Os entregues ficam numa coluna curta;
+   o historico inteiro mora na Lista, paginada e com busca. */
+var GX_OS=[],GX_Q='',GX_MODO='quadro',GX_TAB='novo',GX_LST='',GX_PG=0;
+var GX_LIM={novo:[15,30],separando:[30,60],pronto:[30,90]};
+var GX_IC={casa:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5h11v9H3zM14 9.5h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>',
+ loja:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7zM9 8a3 3 0 0 1 6 0"/></svg>',
+ relo:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>',
+ pin:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>'};
+function gxNum(o){return String(o.id).slice(-6)}
+function gxHora(t){var d=new Date(t);return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
+function gxDesde(o){var h=o.hist&&o.hist.length?o.hist[o.hist.length-1].em:o.date;return Math.max(0,(Date.now()-h)/6e4)}
+function gxTempo(m){if(m<1)return 'agora';if(m<60)return Math.round(m)+' min';
+ if(m<1440){var h=Math.floor(m/60),r=Math.round(m%60);return h+'h'+(r?String(r).padStart(2,'0'):'')}var d=Math.floor(m/1440);return d+(d===1?' dia':' dias')}
+function gxNivel(o){var l=GX_LIM[o.status||'novo'];if(!l)return '';var m=gxDesde(o);return m>=l[1]?'late':m>=l[0]?'warn':''}
+function gxProx(o){var i=GX_ST.findIndex(function(e){return e[0]===(o.status||'novo')});return i>=0&&i<GX_ST.length-1?GX_ST[i+1]:null}
+function gxAcao(o){var st=o.status||'novo';return st==='novo'?'Iniciar separação':st==='separando'?'Marcar como pronto':st==='pronto'?(o.mode==='casa'?'Confirmar entrega':'Confirmar retirada'):''}
+function gxBuscaOk(o){var q=norm(GX_Q||'').replace(/^#/,'');if(!q)return true;return String(o.id).indexOf(q)>=0||norm(o.cliente||'').indexOf(q)>=0}
+function gxCard(o,pode){var st=o.status||'novo',n=gxItens(o),nv=gxNivel(o),px=gxProx(o),sep=o.sep||[],ent=st==='entregue';
+ return '<article class="gx-ord'+(nv?' gx-'+nv:'')+(ent?' gx-done':'')+'" data-id="'+o.id+'" tabindex="0" aria-label="Pedido '+gxNum(o)+' de '+esc(o.cliente||'Cliente')+'">'+
+  '<div class="gx-ordhd"><b>#'+gxNum(o)+'</b>'+(ent?'<small>'+new Date(o.date).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' · '+gxHora(o.date)+'</small>':'<span class="gx-wait" title="Tempo nesta etapa">'+GX_IC.relo+gxTempo(gxDesde(o))+'</span>')+'</div>'+
+  '<h5>'+esc(o.cliente||'Cliente')+'</h5>'+
+  '<div class="gx-meta"><span>'+(o.mode==='casa'?GX_IC.casa+'Entrega':GX_IC.loja+'Retirada')+'</span><span>'+GX_IC.pin+esc(o.store||'')+'</span></div>'+
+  (st==='separando'&&o.items.length?'<div class="gx-prog" aria-label="'+sep.length+' de '+o.items.length+' separados"><i style="width:'+Math.round(sep.length/o.items.length*100)+'%"></i></div>':'')+
+  '<div class="gx-ordft"><span>'+n+' iten'+(n===1?'':'s')+(st==='separando'?' · '+sep.length+'/'+o.items.length+' separados':'')+'</span><b>'+brl(+o.total||0)+'</b></div>'+
+  (pode&&px?'<button class="gx-go" onclick="admMoverPara('+o.id+',\''+px[0]+'\')">'+esc(gxAcao(o))+'<span aria-hidden="true">→</span></button>':'')+
+ '</article>'}
+function gxPedRender(){if(!$('#gxStages'))return;
+ var os=GX_OS.filter(gxBuscaOk),pode=admCan('ped_mover'),mob=matchMedia('(max-width:860px)').matches,por={};
+ GX_ST.forEach(function(s){por[s[0]]=os.filter(function(o){return (o.status||'novo')===s[0]}).sort(function(a,b){return a.date-b.date})});
+ por.entregue.reverse();
+ var sel=GX_MODO==='lista'?GX_LST:(mob?GX_TAB:'');
+ $('#gxStages').innerHTML=GX_ST.map(function(s){var l=por[s[0]],ent=s[0]==='entregue',at=ent?0:l.filter(function(o){return gxNivel(o)==='late'}).length;
+  return '<button class="gx-stage'+(sel===s[0]?' on':'')+'" role="tab" aria-selected="'+(sel===s[0])+'" style="--c:'+s[2]+'" onclick="gxTab(\''+s[0]+'\')">'+
+   '<span class="gx-sh"><i></i><span class="gx-lg">'+esc(ent?'Entregues':s[1])+'</span><span class="gx-sm">'+esc(ent?'Entregues':s[0]==='separando'?'Separação':s[1])+'</span></span><b>'+l.length+'</b>'+
+   '<em>'+(ent?'<span class="gx-lg">'+brl(gxSoma(l))+' no período</span><span class="gx-sm">no período</span>':at?'<u><span class="gx-lg">'+at+' atrasado'+(at>1?'s':'')+'</span><span class="gx-sm">'+at+' atrasad'+(at>1?'os':'o')+'</span></u>':l.length?'tudo em dia':'nenhum agora')+'</em></button>'}).join('');
+ $$('#gxModo button').forEach(function(b){b.classList.toggle('on',b.dataset.m===GX_MODO);b.setAttribute('aria-pressed',b.dataset.m===GX_MODO)});
+ var q=GX_MODO==='quadro';$('#gxKanban').hidden=!q;$('#gxLista').hidden=q;$('#gxKbHint').hidden=!q;
+ $('#gxKbHint').textContent=pode?'Use o botão de cada cartão para avançar o pedido ou arraste entre as colunas. Toque no cartão para ver os itens.':'Seu acesso permite só visualizar os pedidos.';
+ if(q){
+  $('#gxKanban').classList.toggle('ro',!pode);
+  $('#gxKanban').innerHTML=GX_ST.map(function(s){var l=por[s[0]],ent=s[0]==='entregue',mx=ent?6:40;
+   return '<div class="gx-col'+(GX_TAB===s[0]?' on':'')+'" data-st="'+s[0]+'" style="--c:'+s[2]+'"><div class="gx-colhd"><span class="gx-dot"></span><b>'+esc(ent?'Entregues':s[1])+'</b>'+'<i'+(ent?' title="Mostrando os mais recentes"':'')+'>'+l.length+'</i></div><div class="gx-cards">'+
+    (l.length?l.slice(0,mx).map(function(o){return gxCard(o,pode)}).join(''):'<p class="gx-vazio">'+(GX_Q?'Nada encontrado aqui':ent?'Nenhum pedido entregue':'Nenhum pedido nesta etapa')+'</p>')+
+    (l.length>mx?'<button class="gx-more" onclick="gxVerLista(\''+s[0]+'\')">Ver '+(ent?'todos os '+l.length:'mais '+(l.length-mx))+' na lista →</button>':'')+'</div></div>'}).join('');
+  return}
+ var lf=os.filter(function(o){return !GX_LST||(o.status||'novo')===GX_LST}).sort(function(a,b){return b.date-a.date});
+ var PP=25,np=Math.max(1,Math.ceil(lf.length/PP));if(GX_PG>=np)GX_PG=np-1;if(GX_PG<0)GX_PG=0;
+ $('#gxChips').innerHTML=[['','Todos',os.length,'']].concat(GX_ST.map(function(s){return [s[0],s[0]==='entregue'?'Entregues':s[1],por[s[0]].length,s[2]]})).map(function(c){
+  return '<button class="'+(GX_LST===c[0]?'on':'')+'" onclick="GX_LST=\''+c[0]+'\';GX_PG=0;gxPedRender()">'+(c[3]?'<s style="background:'+c[3]+'"></s>':'')+esc(c[1])+'<i>'+c[2]+'</i></button>'}).join('');
+ var stMap={};GX_ST.forEach(function(x){stMap[x[0]]=x});
+ $('#admOrdTab').innerHTML='<thead><tr><th>Pedido</th><th>Cliente</th><th>Unidade</th><th>Modalidade</th><th>Status</th><th>Data</th><th class="num">Itens</th><th class="num">Total</th></tr></thead><tbody>'+
+  (lf.length?lf.slice(GX_PG*PP,GX_PG*PP+PP).map(function(o){var st=stMap[o.status||'novo']||GX_ST[0],nv=gxNivel(o),ent=(o.status||'novo')==='entregue';
+   return '<tr class="adm-trc" tabindex="0" onclick="admPedido('+o.id+')" onkeydown="if(event.key===\'Enter\')admPedido('+o.id+')">'+
+    '<td class="gx-tn"><b>#'+gxNum(o)+'</b></td><td class="gx-tc">'+esc(o.cliente||'Cliente')+'</td><td class="gx-tu">'+esc(o.store||'')+'</td>'+
+    '<td class="gx-tm"><span class="gx-mod">'+(o.mode==='casa'?GX_IC.casa+'Entrega':GX_IC.loja+'Retirada')+'</span></td>'+
+    '<td class="gx-ts"><span class="adm-pill"><s style="background:'+st[2]+'"></s>'+esc(st[1])+'</span>'+(ent?'':'<span class="gx-wait'+(nv?' gx-'+nv:'')+'">'+gxTempo(gxDesde(o))+'</span>')+'</td>'+
+    '<td class="gx-td">'+new Date(o.date).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' · '+gxHora(o.date)+'</td>'+
+    '<td class="num gx-ti">'+gxItens(o)+' itens</td><td class="num gx-tt"><b>'+brl(+o.total||0)+'</b></td></tr>'}).join('')
+  :'<tr><td colspan="8" class="gx-none">Nenhum pedido encontrado'+(GX_Q?' para “'+esc(GX_Q)+'”':'')+'.</td></tr>')+'</tbody>';
+ $('#gxPager').innerHTML=lf.length>PP?'<span>'+(GX_PG*PP+1)+'–'+Math.min(lf.length,GX_PG*PP+PP)+' de '+lf.length+'</span><div><button '+(GX_PG?'':'disabled')+' onclick="GX_PG--;gxPedRender();gxTopoLista()">← Anterior</button><button '+(GX_PG<np-1?'':'disabled')+' onclick="GX_PG++;gxPedRender();gxTopoLista()">Próxima →</button></div>':'<span>'+lf.length+' pedido'+(lf.length===1?'':'s')+'</span>'}
+function gxTopoLista(){var l=$('#gxLista');if(l&&l.getBoundingClientRect().top<0)l.scrollIntoView({behavior:'smooth',block:'start'})}
+function gxTab(st){GX_TAB=st;if(GX_MODO==='lista'){GX_LST=GX_LST===st?'':st;GX_PG=0}else if(st==='entregue'&&!matchMedia('(max-width:860px)').matches){gxVerLista('entregue');return}
+ gxPedRender();if(GX_MODO==='quadro'){var c=$('#gxKanban .gx-col[data-st="'+st+'"]');if(c){c.classList.remove('gx-flash');void c.offsetWidth;c.classList.add('gx-flash')}}}
+function gxVerLista(st){GX_MODO='lista';GX_LST=st;GX_PG=0;gxPedRender();gxTopoLista()}
+function gxModo(m){GX_MODO=m;if(m==='lista'){GX_PG=0}gxPedRender()}
+addEventListener('resize',function(){clearTimeout(gxModo._t);gxModo._t=setTimeout(function(){if(gxView&&gxView()==='pedidos')gxPedRender()},150)});
+
 /* ---- detalhe do pedido (abre ao tocar no cartão ou na linha) ---- */
 var pedAberto=null;
 function admPedido(id){var o=GXO().find(function(x){return x.id===id});if(!o)return;pedAberto=id;admPedRender();var w=$('#admPed');
@@ -6560,7 +6853,7 @@ function admPedRender(){var o=GXO().find(function(x){return x.id===pedAberto});i
   (pode?'<div class="adm-pedprog"><div><i style="width:'+pr+'%"></i></div><small>'+sep.length+' de '+o.items.length+' separados'+(pr===100?' ✓':'')+'</small></div>':'')+
   '<ul class="adm-pedits">'+its+'</ul><div class="adm-pedtot"><span>Total</span><b>'+brl(+o.total||0)+'</b></div>'+
   (hist?'<div class="adm-pedhd"><h4>Histórico</h4></div><ul class="adm-pedhist">'+hist+'</ul>':'')+'</div>'+
-  (pode?'<footer>'+(si>0?'<button class="adm-btn2" onclick="admMoverPara('+o.id+',\''+GX_ST[si-1][0]+'\')">← '+esc(GX_ST[si-1][1])+'</button>':'<span></span>')+(si<GX_ST.length-1?'<button class="adm-btn" onclick="admMoverPara('+o.id+',\''+GX_ST[si+1][0]+'\')">Mover para '+esc(GX_ST[si+1][1])+' →</button>':'<span class="adm-done">Pedido concluído</span>')+'</footer>':'')}
+  (pode?'<footer>'+(si>0?'<button class="adm-btn2" onclick="admMoverPara('+o.id+',\''+GX_ST[si-1][0]+'\')">← '+esc(GX_ST[si-1][1])+'</button>':'<span></span>')+(si<GX_ST.length-1?'<button class="adm-btn" onclick="admMoverPara('+o.id+',\''+GX_ST[si+1][0]+'\')">'+esc(gxAcao(o))+' →</button>':'<span class="adm-done">Pedido concluído</span>')+'</footer>':'')}
 function admPedSep(k,on){var o=GXO().find(function(x){return x.id===pedAberto});if(!o||!admCan('ped_mover'))return;o.sep=o.sep||[];var i=o.sep.indexOf(k);
  if(on&&i<0)o.sep.push(k);if(!on&&i>=0)o.sep.splice(i,1);saveOrders();admPedRender();gxRender()}
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&pedAberto&&$('#admDlg').hidden)admPedFecha()});
