@@ -3931,7 +3931,7 @@ main{min-height:calc(100svh - 190px)}
 /* =================== ÁREA ADM: barra lateral, filtros por unidade, clean =================== */
 body.is-adm .top,body.is-adm .tabbar,body.is-adm .foot,body.is-adm .wa,body.is-adm .totop,body.is-adm #idx,body.is-adm .promo-bar,body.is-adm .ann{display:none!important}
 body.is-adm{padding-bottom:0!important;overflow:auto!important}
-body.is-adm #idadeM,body.is-adm .stores-m,body.is-adm .scrim{display:none!important}
+body.is-adm #idadeM,body.is-adm .stores-m,body.is-adm .scrim,body.is-adm .drawer{display:none!important}
 .adm{--a-bg:#f5f6f8;--a-card:#fff;--a-ink:#16161a;--a-sub:#6b6f76;--a-line:#e7e8ec;--a-wine:#881344;--a-wine2:#a21d4a;--a-blue:#00549C;--a-ok:#1f8a5b;--a-bad:#c2410c;
  display:grid;grid-template-columns:248px 1fr;min-height:100vh;background:var(--a-bg);color:var(--a-ink);font-size:.95rem}
 .adm *{text-shadow:none!important}
@@ -4070,6 +4070,113 @@ body.is-adm #idadeM,body.is-adm .stores-m,body.is-adm .scrim{display:none!import
  .adm-hb{grid-template-columns:90px 1fr auto}
 }
 @media (max-width:860px){.adm-mfoot{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}}
+
+/* ---- gestão: dinâmica + cadastros em etapas ---- */
+.adm-grp{display:block;margin:16px 12px 6px;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--a-sub)}
+.adm-topr{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.adm-live{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 12px;border-radius:99px;background:#e9f6ef;color:var(--a-ok);font-size:.78rem;font-weight:700}
+.adm-live s{width:8px;height:8px;border-radius:50%;background:var(--a-ok);position:relative}
+.adm-live s:after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--a-ok);opacity:0;animation:admPulse 2s ease-out infinite}
+.adm-live.ping{animation:admPing .9s ease}
+@keyframes admPulse{0%{transform:scale(.5);opacity:.8}100%{transform:scale(1.6);opacity:0}}
+@keyframes admPing{30%{transform:scale(1.12);background:#c9eed9}}
+.adm-main[data-v=promocoes] .adm-filters,.adm-main[data-v=lojas] .adm-filters,.adm-main[data-v=equipe] .adm-filters{display:none}
+.adm-view.anim>*{animation:admIn .45s cubic-bezier(.2,.8,.2,1) both}
+.adm-view.anim>*:nth-child(2){animation-delay:.06s}.adm-view.anim>*:nth-child(3){animation-delay:.12s}.adm-view.anim>*:nth-child(4){animation-delay:.18s}
+@keyframes admIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.adm-kpi{position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.adm-kpi:hover{transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(136,19,68,.35)}
+.adm-kpi b{font-variant-numeric:tabular-nums}
+.adm-kpi svg.adm-spk{display:block;width:100%!important;height:30px!important;margin-top:10px}
+.adm-draw{stroke-dasharray:1;stroke-dashoffset:1;animation:admDraw 1.1s ease-out forwards}
+@keyframes admDraw{to{stroke-dashoffset:0}}
+.adm-line{position:relative}
+.adm-tip{position:absolute;top:4px;transform:translateX(-50%);background:#1d1d1f;color:#fff;border-radius:10px;padding:6px 10px;font-size:.78rem;pointer-events:none;opacity:0;transition:opacity .15s;white-space:nowrap;z-index:2}
+.adm-tip small{display:block;opacity:.7;font-size:.7rem}
+.adm-cross{position:absolute;top:0;bottom:0;width:1px;background:rgba(136,19,68,.35);pointer-events:none;opacity:0}
+.adm-line.hov .adm-tip,.adm-line.hov .adm-cross{opacity:1}
+.adm-hb i,.adm-cols i{transform-origin:left;animation:admGrow .8s cubic-bezier(.2,.8,.2,1) both}
+.adm-cols i{transform-origin:bottom;animation-name:admGrowY}
+@keyframes admGrow{from{transform:scaleX(0)}}@keyframes admGrowY{from{transform:scaleY(0)}}
+.adm-tabs{display:inline-flex;gap:4px;background:#fff;border:1px solid var(--a-line);border-radius:12px;padding:4px;margin-bottom:16px;max-width:100%;overflow-x:auto}
+.adm-tabs button{height:36px;padding:0 16px;border-radius:9px;font-size:.88rem;font-weight:600;color:var(--a-sub);background:none;white-space:nowrap;transition:background .2s,color .2s}
+.adm-tabs button.on{background:var(--a-wine);color:#fff}
+.adm-tabs i{font-style:normal;font-size:.72rem;background:rgba(0,0,0,.08);border-radius:99px;padding:1px 7px;margin-left:4px}
+.adm-tabs i:empty{display:none}.adm-tabs button.on i{background:rgba(255,255,255,.25)}
+.adm-pane{display:none}.adm-pane.on{display:block;animation:admIn .35s ease both}
+.adm-cad{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
+.adm-steps{display:flex;flex-direction:column;gap:14px;min-width:0}
+.adm-step{border:1px solid var(--a-line);background:#fff;border-radius:16px;padding:18px;margin:0;min-width:0}
+.adm-step legend{float:left;width:100%;display:flex;align-items:center;gap:10px;font-weight:700;font-size:.98rem;margin-bottom:14px;padding:0}
+.adm-step legend b{width:26px;height:26px;border-radius:50%;background:rgba(136,19,68,.1);color:var(--a-wine);display:grid;place-items:center;font-size:.8rem}
+.adm-step:focus-within{border-color:rgba(136,19,68,.45);box-shadow:0 0 0 4px rgba(136,19,68,.07)}
+.adm-step:focus-within legend b{background:var(--a-wine);color:#fff}
+.adm-grid2{clear:both;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.adm-grid2 input{min-width:0}
+.adm-grid2 .adm-tog{white-space:normal}
+.adm-grid2 label,.adm-lgrid label,.adm-stock label{display:flex;flex-direction:column;gap:5px;font-size:.8rem;font-weight:600;color:var(--a-sub)}
+.adm-grid2 small{font-weight:500;opacity:.8}
+.adm-full{grid-column:1/-1}
+.adm-grid2 input,.adm-grid2 select,.adm-grid2 textarea,.adm-lgrid input,.adm-stock input,.adm-search{height:42px;border:1px solid var(--a-line);border-radius:10px;padding:0 12px;font:inherit;font-size:.92rem;color:var(--a-ink,#1d1d1f);background:#fff;width:100%;box-sizing:border-box}
+.adm-grid2 textarea{height:auto;padding:10px 12px;resize:vertical}
+.adm-grid2 :is(input,select,textarea):focus,.adm-lgrid input:focus,.adm-stock input:focus,.adm-search:focus{outline:none;border-color:var(--a-wine);box-shadow:0 0 0 3px rgba(136,19,68,.12)}
+.adm-calc{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.adm-calc>div{background:var(--a-bg);border-radius:10px;padding:10px 12px}
+.adm-calc small{display:block;font-size:.72rem;color:var(--a-sub);font-weight:600}
+.adm-calc b{font-size:1.05rem}.adm-calc b.up{color:var(--a-ok)}.adm-calc b.down{color:var(--a-bad)}
+.adm-stock{clear:both;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.adm-tog{flex-direction:row!important;align-items:center;gap:10px!important;cursor:pointer;color:var(--a-ink,#1d1d1f)!important;font-size:.88rem!important}
+.adm-tog{display:inline-flex;position:relative;flex:none;white-space:nowrap}
+.adm-tog input{position:absolute;opacity:0;width:1px;height:1px}
+.adm-tog span{display:block}
+.adm-tog span{flex:none;width:40px;height:24px;border-radius:99px;background:#d7d9de;position:relative;transition:background .2s}
+.adm-tog span:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
+.adm-tog input:checked+span{background:var(--a-ok)}.adm-tog input:checked+span:after{transform:translateX(16px)}
+.adm-tog input:focus-visible+span{outline:2px solid var(--a-wine);outline-offset:2px}
+.adm-formft{display:flex;justify-content:flex-end;gap:10px;position:sticky;bottom:0;padding:12px 0;background:linear-gradient(transparent,var(--a-bg) 35%)}
+.adm-btn2{height:42px;padding:0 18px;border-radius:11px;font-weight:600;font-size:.9rem;background:#fff;border:1px solid var(--a-line);color:var(--a-sub)}
+.adm-prev{position:sticky;top:90px;background:#fff;border:1px solid var(--a-line);border-radius:16px;padding:16px}
+.adm-prev>small{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--a-sub)}
+.adm-pcard{margin:10px 0 14px;border-radius:14px;padding:14px;background:linear-gradient(160deg,#fff,#f7f1f4);box-shadow:0 12px 28px -16px rgba(136,19,68,.45);border:1px solid rgba(136,19,68,.1)}
+.adm-pcard .pi{height:120px;border-radius:10px;background:repeating-linear-gradient(45deg,#f4eef1 0 10px,#fbf8f9 10px 20px);position:relative;margin-bottom:10px}
+.adm-pcard .pi em{position:absolute;top:8px;left:8px;background:var(--a-wine);color:#fff;font-style:normal;font-weight:700;font-size:.74rem;border-radius:6px;padding:2px 7px}
+.adm-pcard .pi span{position:absolute;bottom:8px;left:8px;font-size:.7rem;color:var(--a-sub);font-weight:600}
+.adm-pcard>b{display:block;font-size:.95rem;line-height:1.25;word-break:break-word}
+.adm-pcard>small{color:var(--a-sub);font-size:.78rem}
+.adm-pcard .pp{display:flex;gap:8px;align-items:baseline;margin:8px 0 10px}
+.adm-pcard .pp strong{font-size:1.2rem;color:var(--a-wine)}.adm-pcard .pp s{color:var(--a-sub);font-size:.82rem}
+.adm-pcard button{width:100%;height:36px;border-radius:10px;background:var(--a-wine);color:#fff;font-weight:700;pointer-events:none}
+.adm-check>small{font-size:.8rem;font-weight:600}
+.adm-check .adm-pbar{height:6px;background:var(--a-bg);border-radius:9px;margin:6px 0 10px;overflow:hidden}
+.adm-check .adm-pbar i{display:block;height:100%;background:var(--a-ok);border-radius:9px;transition:width .4s}
+.adm-check>div:not(.adm-pbar){display:flex;align-items:center;gap:8px;font-size:.84rem;color:var(--a-sub);padding:3px 0}
+.adm-check s{width:16px;height:16px;border-radius:50%;border:2px solid #cfd2d8;flex:none}
+.adm-check .ok{color:var(--a-ink,#1d1d1f)}.adm-check .ok s{border-color:var(--a-ok);background:var(--a-ok) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8l3 3 5-6' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E") center/12px no-repeat}
+.adm-search{max-width:240px;height:36px}
+.adm-off{font-style:normal;font-size:.72rem;font-weight:700;color:#fff;background:var(--a-wine);border-radius:6px;padding:2px 6px;margin-right:6px}
+.adm-chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.adm-chips>b{width:100%;font-size:.8rem;color:var(--a-sub)}
+.adm-chips label{cursor:pointer}.adm-chips input{position:absolute;opacity:0}
+.adm-chips span{display:inline-block;padding:7px 13px;border-radius:99px;border:1px solid var(--a-line);font-size:.84rem;font-weight:600;color:var(--a-sub);transition:.15s}
+.adm-chips input:checked+span{background:rgba(136,19,68,.08);border-color:var(--a-wine);color:var(--a-wine)}
+.adm-chips input:focus-visible+span{outline:2px solid var(--a-wine)}
+.adm-plist{position:sticky;top:90px;max-height:calc(100vh - 120px);overflow:auto}
+.adm-li{display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid var(--a-line)}
+.adm-li>div{flex:1;min-width:0}.adm-li b{display:block;font-size:.9rem}.adm-li small{display:block;font-size:.76rem;color:var(--a-sub)}
+.adm-li>button{width:30px;height:30px;border-radius:8px;color:var(--a-sub);background:none;flex:none}.adm-li>button:hover{background:var(--a-bg);color:var(--a-bad)}
+.adm-av{width:34px;height:34px;border-radius:50%;background:rgba(0,84,156,.1);color:var(--a-blue);display:grid;place-items:center;font-weight:700;flex:none}
+.adm-perm{background:var(--a-bg);border-radius:10px;padding:12px;font-size:.84rem}.adm-perm b{display:block;font-size:.76rem;color:var(--a-sub);margin-bottom:3px}
+.adm-lojas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.adm-loja{transition:opacity .2s}.adm-loja.off{opacity:.62}
+.adm-lhd{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:14px}
+.adm-lhd h4{margin:0;font-size:1.02rem}.adm-lhd h4 em{font-style:normal;font-size:.68rem;background:rgba(136,19,68,.1);color:var(--a-wine);border-radius:6px;padding:2px 6px;vertical-align:middle}
+.adm-lhd small{font-size:.78rem;color:var(--a-sub)}
+.adm-lgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-items:end}
+.adm-lgrid .adm-btn{height:42px}
+.adm-formft .adm-btn,.adm-lgrid .adm-btn{padding:0 20px;white-space:nowrap}
+@media(max-width:1100px){.adm-cad{grid-template-columns:1fr}.adm-prev,.adm-plist{position:static;max-height:none}.adm-lojas{grid-template-columns:1fr}}
+@media(max-width:600px){.adm-grid2,.adm-lgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.adm-grid2 .adm-tog{grid-column:1/-1}.adm-stock{grid-template-columns:1fr 1fr}.adm-calc{grid-template-columns:1fr 1fr 1fr}.adm-search{max-width:none}.adm-step{padding:14px}}
+@media(prefers-reduced-motion:reduce){.adm-view.anim>*,.adm-pane.on,.adm-draw,.adm-hb i,.adm-cols i,.adm-live s:after{animation:none!important;stroke-dashoffset:0}}
 </style>
 </head>
 <body>
@@ -4281,8 +4388,12 @@ body.is-adm #idadeM,body.is-adm .stores-m,body.is-adm .scrim{display:none!import
       <a href="#/gestao/visao" data-v="visao"><svg viewBox="0 0 24 24"><path d="M4 13h6V4H4zm0 7h6v-5H4zm10 0h6v-9h-6zm0-16v5h6V4z"/></svg><span>Visão geral</span></a>
       <a href="#/gestao/pedidos" data-v="pedidos"><svg viewBox="0 0 24 24"><path d="M6 3h12l2 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7zm.2 4h11.6l-1-2H7.2zM9 11v2h6v-2z"/></svg><span>Pedidos</span><i id="admBadge"></i></a>
       <a href="#/gestao/unidades" data-v="unidades"><svg viewBox="0 0 24 24"><path d="M3 9l1.5-5h15L21 9v2a2 2 0 0 1-1 1.7V20H4v-7.3A2 2 0 0 1 3 11zm6 11h6v-5H9z"/></svg><span>Unidades de venda</span></a>
-      <a href="#/gestao/produtos" data-v="produtos"><svg viewBox="0 0 24 24"><path d="M12 2l9 5v10l-9 5-9-5V7zm0 2.3L5.5 8 12 11.6 18.5 8zM5 9.7v6.1l6 3.4v-6.1zm14 0l-6 3.4v6.1l6-3.4z"/></svg><span>Produtos</span></a>
       <a href="#/gestao/clientes" data-v="clientes"><svg viewBox="0 0 24 24"><path d="M9 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm-7 9a7 7 0 0 1 14 0zm15-9a3 3 0 1 0 0-6v6zm1 9h4a6 6 0 0 0-4.6-5.8A8.9 8.9 0 0 1 18 20z"/></svg><span>Clientes</span></a>
+      <small class="adm-grp">Cadastros</small>
+      <a href="#/gestao/produtos" data-v="produtos"><svg viewBox="0 0 24 24"><path d="M12 2l9 5v10l-9 5-9-5V7zm0 2.3L5.5 8 12 11.6 18.5 8zM5 9.7v6.1l6 3.4v-6.1zm14 0l-6 3.4v6.1l6-3.4z"/></svg><span>Produtos</span><i id="admNP"></i></a>
+      <a href="#/gestao/promocoes" data-v="promocoes"><svg viewBox="0 0 24 24"><path d="M21.4 11.6 12.4 2.6A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .6 1.4l9 9a2 2 0 0 0 2.8 0l7-7a2 2 0 0 0 0-2.8zM6.5 8A1.5 1.5 0 1 1 8 6.5 1.5 1.5 0 0 1 6.5 8z"/></svg><span>Promoções</span></a>
+      <a href="#/gestao/lojas" data-v="lojas"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 14.5 9 2.5 2.5 0 0 1 12 11.5z"/></svg><span>Lojas</span></a>
+      <a href="#/gestao/equipe" data-v="equipe"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4 0-8 2-8 5v2h16v-2c0-3-4-5-8-5z"/></svg><span>Equipe</span></a>
     </nav>
     <div class="adm-side-ft">
       <button class="adm-ghost" onclick="gxSeed()">Gerar dados de exemplo</button>
@@ -4294,7 +4405,7 @@ body.is-adm #idadeM,body.is-adm .stores-m,body.is-adm .scrim{display:none!import
   <main class="adm-main">
     <header class="adm-top">
       <div><h1 id="admTitle">Visão geral</h1><p id="admSub">Desempenho de todas as unidades de venda</p></div>
-      <span class="adm-demo" title="Os dados ficam só neste navegador. Sem servidor, sem login.">Demonstração</span>
+      <div class="adm-topr"><span class="adm-live" id="admLive"><s></s>Ao vivo</span><span class="adm-demo" title="Os dados ficam só neste navegador. Sem servidor, sem login.">Demonstração</span></div>
     </header>
 
     <div class="adm-filters" role="group" aria-label="Filtros">
@@ -4337,19 +4448,78 @@ body.is-adm #idadeM,body.is-adm .stores-m,body.is-adm .scrim{display:none!import
 
     <!-- PRODUTOS -->
     <section class="adm-view" data-view="produtos">
-      <div class="adm-card"><div class="adm-ch"><h3>Cadastrar produto</h3><span id="gxProdCount"></span></div>
-      <form class="adm-form" id="gxForm" onsubmit="return gxAddProduto(event)">
-        <label>Nome do produto<input id="gxpNome" required maxlength="80" placeholder="Arroz Tio João 5kg"></label>
-        <label>Categoria<select id="gxpCat"><option value="mercearia">Mercearia</option><option value="acougue">Açougue</option><option value="drinks">Bebidas e adega</option><option value="limpeza">Limpeza</option><option value="higiene">Higiene</option><option value="pet">Pet shop</option></select></label>
-        <label>Preço de venda (R$)<input id="gxpPreco" required type="number" min="0.01" step="0.01" placeholder="29,90"></label>
-        <label>Preço antes (R$)<input id="gxpDe" type="number" min="0" step="0.01" placeholder="opcional"></label>
-        <label>Unidade<input id="gxpUn" maxlength="30" placeholder="R$ 5,98/kg"></label>
-        <label class="adm-full">Descrição <small>(opcional)</small><textarea id="gxpDesc" maxlength="400" rows="2" placeholder="Ex.: vinho rosé seco, uvas da Serra Gaúcha."></textarea></label>
-        <button class="adm-btn" type="submit">Cadastrar produto</button>
+      <div class="adm-tabs" id="prodTabs"><button class="on" data-t="novo">Novo produto</button><button data-t="lista">Catálogo <i id="prodCnt"></i></button><button data-t="desemp">Desempenho</button></div>
+      <div class="adm-pane on" data-p="novo">
+       <div class="adm-cad">
+        <form class="adm-steps" id="gxForm" onsubmit="return gxAddProduto(event)" oninput="gxPrev()">
+          <fieldset class="adm-step"><legend><b>1</b>Informações básicas</legend>
+            <div class="adm-grid2">
+             <label class="adm-full">Nome do produto<input id="gxpNome" required maxlength="80" placeholder="Arroz Tio João 5kg"></label>
+             <label>Departamento<select id="gxpCat"><option value="mercearia">Mercearia</option><option value="acougue">Açougue</option><option value="drinks">Bebidas e adega</option><option value="limpeza">Limpeza</option><option value="higiene">Higiene</option><option value="pet">Pet shop</option></select></label>
+             <label>Marca<input id="gxpMarca" maxlength="40" placeholder="Tio João"></label>
+             <label>Código de barras (EAN)<input id="gxpEan" inputmode="numeric" maxlength="14" placeholder="7891234567890"></label>
+             <label>Unidade de medida<select id="gxpUm"><option>unidade</option><option>kg</option><option>g</option><option>litro</option><option>ml</option><option>pacote</option><option>caixa</option></select></label>
+            </div></fieldset>
+          <fieldset class="adm-step"><legend><b>2</b>Preço e promoção</legend>
+            <div class="adm-grid2">
+             <label>Preço de venda (R$)<input id="gxpPreco" required type="number" min="0.01" step="0.01" placeholder="29,90"></label>
+             <label>Preço antes / "de" (R$)<input id="gxpDe" type="number" min="0" step="0.01" placeholder="opcional"></label>
+             <label>Preço por unidade de medida<input id="gxpUn" maxlength="30" placeholder="R$ 5,98/kg"></label>
+             <label>Custo interno (R$)<input id="gxpCusto" type="number" min="0" step="0.01" placeholder="para calcular margem"></label>
+             <div class="adm-full adm-calc" id="gxpCalc"></div>
+            </div></fieldset>
+          <fieldset class="adm-step"><legend><b>3</b>Estoque por unidade de venda</legend>
+            <div class="adm-stock" id="gxpStock"></div></fieldset>
+          <fieldset class="adm-step"><legend><b>4</b>Exibição na loja</legend>
+            <div class="adm-grid2">
+             <label class="adm-full">Descrição (opcional)<textarea id="gxpDesc" maxlength="400" rows="3" placeholder="Ex.: vinho rosé seco, uvas da Serra Gaúcha."></textarea></label>
+             <label class="adm-tog"><input type="checkbox" id="gxpDest"><span></span>Destacar em "Ofertas de hoje"</label>
+             <label class="adm-tog"><input type="checkbox" id="gxpAlc"><span></span>Bebida alcoólica (+18)</label>
+            </div></fieldset>
+          <div class="adm-formft"><button type="reset" class="adm-btn2" onclick="setTimeout(gxPrev)">Limpar</button><button class="adm-btn" type="submit">Cadastrar produto</button></div>
+        </form>
+        <aside class="adm-prev"><small>Prévia na loja</small><div class="adm-pcard" id="gxpPrev"></div><div class="adm-check" id="gxpCheck"></div></aside>
+       </div>
+      </div>
+      <div class="adm-pane" data-p="lista"><div class="adm-card"><div class="adm-ch"><h3>Produtos cadastrados aqui</h3><input class="adm-search" id="gxpBusca" placeholder="Buscar no cadastro…" oninput="gxRender()"></div><div class="adm-prodlist" id="gxProdList"></div></div></div>
+      <div class="adm-pane" data-p="desemp"><div class="adm-card"><div class="adm-ch"><h3>Desempenho dos produtos</h3><span>no período e unidade filtrados</span></div>
+        <div class="adm-tablewrap"><table class="adm-table" id="admProdTab"></table></div></div></div>
+    </section>
+
+    <!-- PROMOÇÕES -->
+    <section class="adm-view" data-view="promocoes">
+      <div class="adm-cad"><form class="adm-steps" id="promoForm" onsubmit="return admPromoAdd(event)">
+        <fieldset class="adm-step"><legend><b>1</b>Promoção</legend><div class="adm-grid2">
+          <label class="adm-full">Nome<input name="nome" required maxlength="60" placeholder="Quarta do Hortifruti"></label>
+          <label>Tipo<select name="tipo"><option value="pct">Desconto em %</option><option value="rs">Desconto em R$</option><option value="leve">Leve 3 pague 2</option></select></label>
+          <label>Valor<input name="valor" type="number" min="0" step="0.01" placeholder="15"></label></div></fieldset>
+        <fieldset class="adm-step"><legend><b>2</b>Onde vale</legend><div class="adm-grid2">
+          <label class="adm-full">Departamento<select name="dep"><option value="">Todos</option><option>Hortifruti</option><option>Açougue</option><option>Padaria FARID</option><option>Mercearia</option><option>Adega</option><option>Limpeza</option></select></label>
+          <div class="adm-full adm-chips" id="promoUn"></div></div></fieldset>
+        <fieldset class="adm-step"><legend><b>3</b>Quando</legend><div class="adm-grid2">
+          <label>Início<input name="ini" type="date" required></label><label>Fim<input name="fim" type="date" required></label></div></fieldset>
+        <div class="adm-formft"><button class="adm-btn" type="submit">Criar promoção</button></div>
       </form>
-      <div class="adm-prodlist" id="gxProdList"></div></div>
-      <div class="adm-card"><div class="adm-ch"><h3>Desempenho dos produtos</h3><span>no período e unidade filtrados</span></div>
-        <div class="adm-tablewrap"><table class="adm-table" id="admProdTab"></table></div></div>
+      <aside class="adm-card adm-plist"><div class="adm-ch"><h3>Promoções</h3><span id="promoCnt"></span></div><div id="promoList"></div></aside></div>
+    </section>
+
+    <!-- LOJAS -->
+    <section class="adm-view" data-view="lojas"><div class="adm-lojas" id="admLojas"></div></section>
+
+    <!-- EQUIPE -->
+    <section class="adm-view" data-view="equipe">
+      <div class="adm-cad"><form class="adm-steps" id="eqForm" onsubmit="return admEqAdd(event)">
+        <fieldset class="adm-step"><legend><b>1</b>Dados da pessoa</legend><div class="adm-grid2">
+          <label class="adm-full">Nome<input name="nome" required maxlength="60"></label>
+          <label>E-mail<input name="email" type="email" required></label>
+          <label>Celular<input name="tel" inputmode="tel" maxlength="15"></label></div></fieldset>
+        <fieldset class="adm-step"><legend><b>2</b>Acesso</legend><div class="adm-grid2">
+          <label>Perfil<select name="perfil"><option>Operador</option><option>Gerente</option><option>Administrador</option></select></label>
+          <label>Unidade<select name="un" id="eqUn"></select></label>
+          <div class="adm-full adm-perm"><b>O que o perfil permite</b><span id="eqPerm"></span></div></div></fieldset>
+        <div class="adm-formft"><button class="adm-btn" type="submit">Adicionar à equipe</button></div>
+      </form>
+      <aside class="adm-card adm-plist"><div class="adm-ch"><h3>Equipe</h3><span id="eqCnt"></span></div><div id="eqList"></div></aside></div>
     </section>
 
     <!-- CLIENTES -->
@@ -5885,18 +6055,16 @@ function gxProdutosExtra(){try{
 function gxSalvarExtra(a){LS.set('farid_produtos_extra',JSON.stringify(a))}
 
 function gxAddProduto(ev){ev.preventDefault();
- var nome=$('#gxpNome').value.trim();
- var preco=parseFloat($('#gxpPreco').value);
+ var nome=$('#gxpNome').value.trim(),preco=parseFloat($('#gxpPreco').value);
  if(!nome||!(preco>0)){toast('Preencha nome e preço');return false}
  var de=parseFloat($('#gxpDe').value); if(!(de>preco))de=preco;
- var novo={n:nome,cat:$('#gxpCat').value,p:Math.round(preco*100)/100,
-   o:Math.round(de*100)/100,u:$('#gxpUn').value.trim()||'unidade',
-   desc:($('#gxpDesc')?$('#gxpDesc').value.trim():''),
-   criado:Date.now()};
+ var est={};$$('#gxpStock input').forEach(function(i){est[i.dataset.s]=+i.value||0});
+ var novo={n:nome,cat:$('#gxpCat').value,marca:$('#gxpMarca').value.trim(),ean:$('#gxpEan').value.trim(),um:$('#gxpUm').value,
+   p:Math.round(preco*100)/100,o:Math.round(de*100)/100,custo:parseFloat($('#gxpCusto').value)||0,
+   u:$('#gxpUn').value.trim()||$('#gxpUm').value,desc:$('#gxpDesc').value.trim(),est:est,dest:$('#gxpDest').checked,alc:$('#gxpAlc').checked,criado:Date.now()};
  var a=gxProdutosExtra(); a.unshift(novo); gxSalvarExtra(a);
- /* entra no catalogo desta sessao com um id proprio */
- P.push({id:P.length,n:novo.n,img:'',sm:'',o:novo.o,p:novo.p,u:novo.u,cat:novo.cat,desc:novo.desc});
- ev.target.reset(); toast('Produto cadastrado'); gxRender(); return false}
+ P.push({id:P.length,n:novo.n,img:'',sm:'',o:novo.o,p:novo.p,u:novo.u,cat:novo.cat,desc:novo.desc,alc:novo.alc});
+ ev.target.reset(); gxPrev(); toast('Produto cadastrado'); admTab('lista'); gxRender(); return false}
 
 function gxRemoverProduto(i){var a=gxProdutosExtra();a.splice(i,1);
  gxSalvarExtra(a);toast('Produto removido do cadastro');gxRender()}
@@ -5933,7 +6101,7 @@ function gxLimparDemo(){orders=orders.filter(function(o){return !o.demo});
 
 var GX_F={un:'',dias:30,mod:'',st:''};
 var GX_VIEWS={visao:['Visão geral','Desempenho das unidades de venda'],pedidos:['Pedidos','Acompanhe e mova os pedidos entre as etapas'],
- unidades:['Unidades de venda','Compare as lojas lado a lado'],produtos:['Produtos','Cadastro e desempenho do catálogo'],clientes:['Clientes','Quem mais compra no período']};
+ unidades:['Unidades de venda','Compare as lojas lado a lado'],produtos:['Produtos','Cadastro em etapas, catálogo e desempenho'],clientes:['Clientes','Quem mais compra no período'],promocoes:['Promoções','Crie campanhas por departamento e unidade'],lojas:['Lojas','Horário, entrega e pedido mínimo de cada unidade'],equipe:['Equipe','Quem acessa a gestão e com qual perfil']};
 function gxLimparFiltros(){GX_F={un:'',dias:30,mod:'',st:''};gxSyncFiltros();gxRender()}
 function gxSyncFiltros(){var u=$('#fxUn'),m=$('#fxMod'),t=$('#fxSt');if(!u)return;
  if(u.options.length<2)u.innerHTML='<option value="">Todas as unidades</option>'+STORES.map(function(x){return '<option value="'+esc(x.n)+'">'+esc(x.n)+'</option>'}).join('');
@@ -5963,7 +6131,7 @@ function gxRender(){
  gxSyncFiltros();
  var v=gxView();
  $$('#admNav a').forEach(function(a){a.classList.toggle('on',a.dataset.v===v)});
- $$('.adm-view').forEach(function(x){x.classList.toggle('on',x.dataset.view===v)});
+ $('.adm-main').dataset.v=v; $$('.adm-view').forEach(function(x){var on=x.dataset.view===v;if(on&&!x.classList.contains('on')){x.classList.remove('anim');void x.offsetWidth;x.classList.add('anim')}x.classList.toggle('on',on)});
  $('#admTitle').textContent=GX_VIEWS[v][0];
  $('#admSub').textContent=GX_VIEWS[v][1]+' · '+(GX_F.un||'todas as unidades');
  var os=gxFiltra(0),ant=gxFiltra(1);
@@ -5976,11 +6144,12 @@ function gxRender(){
 
  /* ---------- VISÃO GERAL ---------- */
  $('#admKpis').innerHTML=[
-  ['Faturamento',brl(fat),gxDelta(fat,fatA)],
-  ['Pedidos',String(os.length),gxDelta(os.length,ant.length)],
-  ['Ticket médio',brl(tk),gxDelta(tk,tkA)],
-  ['Itens vendidos',String(it),'<span class="eq">'+(os.length?(it/os.length).toFixed(1).replace('.',','):'0')+'</span> <em>por pedido</em>']
- ].map(function(k){return '<div class="adm-kpi"><small>'+k[0]+'</small><b>'+k[1]+'</b>'+k[2]+'</div>'}).join('');
+  ['Faturamento',fat,'brl',gxDelta(fat,fatA),'total'],
+  ['Pedidos',os.length,'int',gxDelta(os.length,ant.length),'n'],
+  ['Ticket médio',tk,'brl',gxDelta(tk,tkA),'tk'],
+  ['Itens vendidos',it,'int','<span class="eq">'+(os.length?(it/os.length).toFixed(1).replace('.',','):'0')+'</span> <em>por pedido</em>','it']
+ ].map(function(k){return '<div class="adm-kpi"><small>'+k[0]+'</small><b data-num="'+k[1]+'" data-fmt="'+k[2]+'">'+(k[2]==='brl'?brl(k[1]):k[1])+'</b>'+k[3]+admSpark(os,k[4])+'</div>'}).join('');
+ admCount('#admKpis');
  /* linha diária */
  var nd=GX_F.dias===1?24:GX_F.dias,serie=new Array(nd).fill(0),j=gxJanela(0),passo=GX_F.dias===1?36e5:864e5;
  os.forEach(function(o){var i=Math.floor((o.date-j[0])/passo);if(i>=0&&i<nd)serie[i]+=+o.total||0});
@@ -5993,9 +6162,10 @@ function gxRender(){
   '<defs><linearGradient id="gxg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#881344" stop-opacity=".22"/><stop offset="1" stop-color="#881344" stop-opacity="0"/></linearGradient></defs>'+
   [0,.5,1].map(function(f){var y=pad+f*(H-pad*2);return '<line x1="'+pad+'" x2="'+(W-pad)+'" y1="'+y+'" y2="'+y+'" stroke="#eceef2" stroke-width="1"/>'}).join('')+
   '<path d="'+dl+' L'+pts[pts.length-1][0]+' '+(H-pad)+' L'+pts[0][0]+' '+(H-pad)+' Z" fill="url(#gxg)"/>'+
-  '<path d="'+dl+'" fill="none" stroke="#881344" stroke-width="2.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>'+
+  '<path class="adm-draw" pathLength="1" d="'+dl+'" fill="none" stroke="#881344" stroke-width="2.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>'+
   ticks.map(function(i){return '<text x="'+pts[i][0]+'" y="'+(H-4)+'" font-size="11" fill="#6b6f76" text-anchor="'+(i===0?'start':i===nd-1?'end':'middle')+'">'+lbl(i)+'</text>'}).join('')+
-  '<text x="'+pad+'" y="14" font-size="11" fill="#6b6f76">máx. '+brl(mx)+'</text></svg>':vazio;
+  '<text x="'+pad+'" y="14" font-size="11" fill="#6b6f76">máx. '+brl(mx)+'</text></svg><div class="adm-tip" id="admTip"></div><i class="adm-cross" id="admCross"></i>':vazio;
+ admLineHover(serie,j[0],passo,W,pad);
  $('#admLineCap').textContent=GX_F.dias===1?'hoje, por hora':'últimos '+GX_F.dias+' dias';
  /* por unidade (ignora filtro de unidade p/ comparar, destaca a selecionada) */
  var todos=gxFiltra(0,true),porUn={};STORES.forEach(function(x){porUn[x.n]=0});
@@ -6055,10 +6225,11 @@ function gxRender(){
 
  /* ---------- PRODUTOS ---------- */
  var ex=gxProdutosExtra();
- $('#gxProdCount').textContent=ex.length?ex.length+' cadastrado'+(ex.length===1?'':'s')+' aqui':'';
- $('#gxProdList').innerHTML=ex.length?ex.map(function(x,i){
-  return '<div class="gx-prow"><div><b>'+esc(x.n)+'</b><small>'+esc(x.u)+' · '+esc(x.cat)+'</small></div><span>'+brl(x.p)+'</span>'+
-   '<button onclick="gxRemoverProduto('+i+')" aria-label="Remover '+esc(x.n)+'">✕</button></div>'}).join(''):'';
+ var qb=_semAcento(($('#gxpBusca')||{}).value||'');$('#prodCnt').textContent=ex.length||'';$('#admNP').textContent='';
+ $('#gxProdList').innerHTML=ex.length?ex.map(function(x,i){if(qb&&_semAcento(x.n).indexOf(qb)<0)return '';var est=x.est?Object.values(x.est).reduce(function(a,b){return a+(+b||0)},0):null;
+  return '<div class="gx-prow"><div><b>'+esc(x.n)+'</b><small>'+esc([x.marca,x.cat,x.u].filter(Boolean).join(' · '))+(est!=null?' · estoque '+est:'')+'</small></div>'+(x.o>x.p?'<em class="adm-off">-'+Math.round((1-x.p/x.o)*100)+'%</em>':'')+'<span>'+brl(x.p)+'</span>'+
+   '<button onclick="gxRemoverProduto('+i+')" aria-label="Remover '+esc(x.n)+'">✕</button></div>'}).join(''):'<p class="adm-empty">Nenhum produto cadastrado ainda. Use a aba <b>Novo produto</b>.</p>';
+ admCadRender();
  $('#admProdTab').innerHTML=tops.length?'<thead><tr><th>Produto</th><th class="num">Unidades</th><th class="num">Faturamento</th><th class="num">Preço</th></tr></thead><tbody>'+
   tops.slice(0,25).map(function(id){var x=P[id];return '<tr><td>'+esc(x.n)+'</td><td class="num">'+pq[id]+'</td><td class="num"><b>'+brl(pv[id])+'</b></td><td class="num">'+brl(x.p)+'</td></tr>'}).join('')+'</tbody>':'<tbody><tr><td>'+vazio+'</td></tr></tbody>';
 
@@ -6074,6 +6245,85 @@ function gxRender(){
   return '<div class="gx-rrow"><span class="gx-rpos">'+(i+1)+'</span><div class="gx-rmid"><div class="gx-rtop"><b>'+esc(r.c)+'</b><span>'+brl(r.v)+'</span></div>'+
    '<div class="gx-rtrack"><div class="gx-rbar" style="width:'+Math.max(Math.round(r.v/maxV*100),2)+'%"></div></div><small>'+r.n+' pedido'+(r.n===1?'':'s')+'</small></div></div>'}).join(''):vazio;
 }
+
+
+/* ===================== GESTÃO: dinâmica e cadastros ===================== */
+function admFmt(v,f){return f==='brl'?brl(v):String(Math.round(v))}
+function admCount(sel){var box=$(sel);if(!box)return;var red=matchMedia('(prefers-reduced-motion:reduce)').matches;
+ box.querySelectorAll('[data-num]').forEach(function(el){var to=+el.dataset.num,f=el.dataset.fmt,t0=performance.now(),dur=900;
+  if(red){el.textContent=admFmt(to,f);return}
+  (function step(t){var k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3);el.textContent=admFmt(to*e,f);if(k<1)requestAnimationFrame(step)})(t0)})}
+function admSpark(os,kind){var n=12,j=gxJanela(0),p=(j[1]-j[0])/n,v=new Array(n).fill(0),c=new Array(n).fill(0);
+ os.forEach(function(o){var i=Math.min(n-1,Math.floor((o.date-j[0])/p));if(i<0)return;c[i]++;
+  v[i]+=kind==='total'||kind==='tk'?(+o.total||0):kind==='it'?gxItens(o):1});
+ if(kind==='tk')v=v.map(function(x,i){return c[i]?x/c[i]:0});
+ var m=Math.max.apply(null,v)||1,d=v.map(function(y,i){return (i?'L':'M')+(i*100/(n-1)).toFixed(1)+' '+(26-y/m*22).toFixed(1)}).join(' ');
+ return '<svg class="adm-spk" viewBox="0 0 100 28" preserveAspectRatio="none"><path d="'+d+' L100 28 L0 28Z" fill="rgba(136,19,68,.08)"/><path class="adm-draw" pathLength="1" d="'+d+'" fill="none" stroke="#881344" stroke-width="1.8" vector-effect="non-scaling-stroke"/></svg>'}
+function admLineHover(serie,ini,passo,W,pad){var box=$('#admLine'),tip=$('#admTip'),cr=$('#admCross');if(!box||!tip)return;
+ var n=serie.length;box.onmousemove=box.ontouchmove=function(e){var r=box.getBoundingClientRect(),x=(e.touches?e.touches[0].clientX:e.clientX)-r.left;
+  var fx=x/r.width*W,i=Math.round((fx-pad)/((W-pad*2)/Math.max(n-1,1)));i=Math.max(0,Math.min(n-1,i));
+  var px=(pad+(n>1?i*(W-pad*2)/(n-1):W/2))/W*r.width,d=new Date(ini+i*passo);
+  tip.innerHTML='<small>'+(passo<864e5?i+'h':d.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'}))+'</small><b>'+brl(serie[i])+'</b>';
+  tip.style.left=Math.max(60,Math.min(r.width-60,px))+'px';cr.style.left=px+'px';box.classList.add('hov')};
+ box.onmouseleave=box.ontouchend=function(){box.classList.remove('hov')}}
+function admTab(t){$$('#prodTabs button').forEach(function(b){b.classList.toggle('on',b.dataset.t===t)});
+ $$('[data-view="produtos"] .adm-pane').forEach(function(p){p.classList.toggle('on',p.dataset.p===t)})}
+(function(){var go=function(){var pt=$('#prodTabs');if(pt)pt.onclick=function(e){var b=e.target.closest('button');if(b)admTab(b.dataset.t)};gxPrev()};
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go()})();
+function gxPrev(){var pv=$('#gxpPrev');if(!pv)return;
+ if(!$('#gxpStock').children.length)$('#gxpStock').innerHTML=STORES.map(function(x){return '<label><span>'+esc(x.n)+'</span><input type="number" min="0" step="1" value="0" data-s="'+esc(x.id)+'" inputmode="numeric"></label>'}).join('');
+ var n=$('#gxpNome').value.trim(),p=parseFloat($('#gxpPreco').value)||0,o=parseFloat($('#gxpDe').value)||0,c=parseFloat($('#gxpCusto').value)||0;
+ var off=o>p&&p>0?Math.round((1-p/o)*100):0,mg=p>0&&c>0?(p-c)/p*100:null,est=0;$$('#gxpStock input').forEach(function(i){est+=+i.value||0});
+ pv.innerHTML='<div class="pi">'+(off?'<em>-'+off+'%</em>':'')+'<span>'+esc(($('#gxpCat').selectedOptions[0]||{}).text||'')+'</span></div><b>'+(n?esc(n):'Nome do produto')+'</b><small>'+esc($('#gxpUn').value||$('#gxpUm').value)+'</small><div class="pp"><strong>'+brl(p)+'</strong>'+(off?'<s>'+brl(o)+'</s>':'')+'</div><button type="button" tabindex="-1">+ Adicionar</button>';
+ $('#gxpCalc').innerHTML='<div><small>Desconto</small><b>'+(off?off+'%':'—')+'</b></div><div><small>Margem</small><b class="'+(mg==null?'':mg<10?'down':'up')+'">'+(mg==null?'—':mg.toFixed(1).replace('.',',')+'%')+'</b></div><div><small>Estoque total</small><b>'+est+'</b></div>';
+ var ck=[[!!n,'Nome'],[p>0,'Preço'],[est>0,'Estoque em alguma unidade'],[!!$('#gxpDesc').value.trim(),'Descrição']];
+ $('#gxpCheck').innerHTML='<small>'+ck.filter(function(x){return x[0]}).length+' de '+ck.length+' completos</small><div class="adm-pbar"><i style="width:'+(ck.filter(function(x){return x[0]}).length/ck.length*100)+'%"></i></div>'+ck.map(function(x){return '<div class="'+(x[0]?'ok':'')+'"><s></s>'+x[1]+'</div>'}).join('')}
+
+/* ---- Promoções ---- */
+function admGet(k,d){try{return JSON.parse(LS.get(k)||'null')||d}catch(e){return d}}
+function admPromoAdd(ev){ev.preventDefault();var f=ev.target,un=$$('#promoUn input:checked').map(function(i){return i.value});
+ if(f.fim.value<f.ini.value){toast('O fim precisa ser depois do início');return false}
+ var l=admGet('farid_promos',[]);l.unshift({nome:f.nome.value.trim(),tipo:f.tipo.value,valor:+f.valor.value||0,dep:f.dep.value,un:un,ini:f.ini.value,fim:f.fim.value});
+ LS.set('farid_promos',JSON.stringify(l));var i0=f.ini.value,f0=f.fim.value;f.reset();f.ini.value=i0;f.fim.value=f0;admCadRender();toast('Promoção criada');return false}
+function admPromoDel(i){var l=admGet('farid_promos',[]);l.splice(i,1);LS.set('farid_promos',JSON.stringify(l));admCadRender()}
+/* ---- Lojas ---- */
+function admLojaSave(id,el){var c=admGet('farid_lojas_cfg',{}),card=el.closest('.adm-loja');
+ c[id]={aberta:card.querySelector('[data-k=aberta]').checked,ab:card.querySelector('[data-k=ab]').value,fe:card.querySelector('[data-k=fe]').value,
+  min:+card.querySelector('[data-k=min]').value||0,taxa:+card.querySelector('[data-k=taxa]').value||0,raio:+card.querySelector('[data-k=raio]').value||0};
+ LS.set('farid_lojas_cfg',JSON.stringify(c));toast('Loja '+(STORES.find(function(x){return x.id===id})||{}).n+' salva');admCadRender()}
+/* ---- Equipe ---- */
+var EQ_PERM={Operador:'Ver e mover pedidos da sua unidade.',Gerente:'Pedidos, produtos, promoções e números da sua unidade.',Administrador:'Tudo, em todas as unidades, inclusive equipe e lojas.'};
+function admEqAdd(ev){ev.preventDefault();var f=ev.target,l=admGet('farid_equipe',[]);
+ l.unshift({nome:f.nome.value.trim(),email:f.email.value.trim(),tel:f.tel.value.trim(),perfil:f.perfil.value,un:f.un.value});
+ LS.set('farid_equipe',JSON.stringify(l));f.reset();admCadRender();toast('Pessoa adicionada à equipe');return false}
+function admEqDel(i){var l=admGet('farid_equipe',[]);l.splice(i,1);LS.set('farid_equipe',JSON.stringify(l));admCadRender()}
+function admCadRender(){if(!$('#promoList'))return;
+ var hoje=new Date().toISOString().slice(0,10);
+ if(!$('#promoUn').children.length){$('#promoUn').innerHTML='<b>Unidades</b>'+STORES.map(function(x){return '<label><input type="checkbox" value="'+esc(x.n)+'" checked><span>'+esc(x.n)+'</span></label>'}).join('');
+  var f=$('#promoForm');f.ini.value=hoje;var d=new Date();d.setDate(d.getDate()+7);f.fim.value=d.toISOString().slice(0,10)}
+ var pl=admGet('farid_promos',[]);$('#promoCnt').textContent=pl.length?pl.length+' cadastrada'+(pl.length>1?'s':''):'';
+ $('#promoList').innerHTML=pl.length?pl.map(function(p,i){var st=hoje<p.ini?['Agendada','#2a78d6']:hoje>p.fim?['Encerrada','#6e6e73']:['Ativa','#1f8a5b'];
+  var val=p.tipo==='pct'?p.valor+'% off':p.tipo==='rs'?brl(p.valor)+' off':'Leve 3 pague 2';
+  return '<div class="adm-li"><div><b>'+esc(p.nome)+'</b><small>'+esc(val)+' · '+esc(p.dep||'Todos os departamentos')+' · '+(p.un.length===STORES.length?'todas as unidades':esc(p.un.join(', ')))+'</small><small>'+p.ini.split('-').reverse().join('/')+' a '+p.fim.split('-').reverse().join('/')+'</small></div><span class="adm-pill"><s style="background:'+st[1]+'"></s>'+st[0]+'</span><button onclick="admPromoDel('+i+')" aria-label="Excluir">✕</button></div>'}).join(''):'<p class="adm-empty">Nenhuma promoção ainda.</p>';
+ var cfg=admGet('farid_lojas_cfg',{});
+ $('#admLojas').innerHTML=STORES.map(function(x){var c=cfg[x.id]||{aberta:true,ab:'08:00',fe:'20:00',min:50,taxa:0,raio:8};
+  return '<div class="adm-card adm-loja'+(c.aberta?'':' off')+'"><div class="adm-lhd"><div><h4>'+esc(x.n)+(x.tag?' <em>'+esc(x.tag)+'</em>':'')+'</h4><small>'+esc(x.addr)+' · '+esc(x.area)+'</small></div>'+
+   '<label class="adm-tog"><input type="checkbox" data-k="aberta" '+(c.aberta?'checked':'')+' onchange="this.closest(\'.adm-loja\').classList.toggle(\'off\',!this.checked)"><span></span>'+(c.aberta?'Recebendo pedidos':'Pausada')+'</label></div>'+
+   '<div class="adm-lgrid"><label>Abre<input type="time" data-k="ab" value="'+c.ab+'"></label><label>Fecha<input type="time" data-k="fe" value="'+c.fe+'"></label>'+
+   '<label>Pedido mínimo (R$)<input type="number" min="0" step="1" data-k="min" value="'+c.min+'"></label><label>Taxa de entrega (R$)<input type="number" min="0" step="0.5" data-k="taxa" value="'+c.taxa+'"></label>'+
+   '<label>Raio de entrega (km)<input type="number" min="0" step="1" data-k="raio" value="'+c.raio+'"></label><button class="adm-btn" onclick="admLojaSave(\''+x.id+'\',this)">Salvar</button></div></div>'}).join('');
+ var eu=$('#eqUn');if(!eu.options.length)eu.innerHTML='<option>Todas as unidades</option>'+STORES.map(function(x){return '<option>'+esc(x.n)+'</option>'}).join('');
+ var ef=$('#eqForm');$('#eqPerm').textContent=EQ_PERM[ef.perfil.value];ef.perfil.onchange=function(){$('#eqPerm').textContent=EQ_PERM[this.value]};
+ var el=admGet('farid_equipe',[]);$('#eqCnt').textContent=el.length?el.length+' pessoa'+(el.length>1?'s':''):'';
+ $('#eqList').innerHTML=el.length?el.map(function(p,i){return '<div class="adm-li"><span class="adm-av">'+esc((p.nome||'?').trim().charAt(0).toUpperCase())+'</span><div><b>'+esc(p.nome)+'</b><small>'+esc(p.email)+' · '+esc(p.un)+'</small></div><span class="adm-pill">'+esc(p.perfil)+'</span><button onclick="admEqDel('+i+')" aria-label="Remover">✕</button></div>'}).join(''):'<p class="adm-empty">Ninguém cadastrado ainda.</p>'}
+
+/* ---- ao vivo: chega um pedido de exemplo de tempos em tempos ---- */
+setInterval(function(){if(!document.body.classList.contains('is-adm')||document.hidden||!orders.some(function(o){return o.demo})||!P.length)return;
+ var st=STORES[Math.floor(Math.random()*STORES.length)],its=[],tot=0;for(var k=0;k<2+Math.floor(Math.random()*5);k++){var pid=Math.floor(Math.random()*Math.min(P.length,40));if(P[pid]&&P[pid].p){var q=1+Math.floor(Math.random()*2);its.push([pid,q]);tot+=P[pid].p*q}}
+ if(!its.length)return;var nm=['Ana','Bruno','Carla','Davi','Elisa','Fábio','Gabi','Hugo'][Math.floor(Math.random()*8)];
+ orders.unshift({id:Date.now(),date:Date.now(),store:st.n,mode:Math.random()<.6?'casa':'loja',slot:'Janela de exemplo',items:its,bruto:tot,cbUsado:0,cbGanho:0,total:Math.round(tot*100)/100,status:'novo',cliente:nm,demo:true});
+ saveOrders();var lv=$('#admLive');if(lv){lv.classList.remove('ping');void lv.offsetWidth;lv.classList.add('ping')}
+ toast('Novo pedido de '+esc(nm)+' em '+esc(st.n)+' · '+brl(tot));gxRender()},25000);
 
 /* produtos cadastrados entram no catalogo ao abrir o site */
 (function(){gxProdutosExtra().forEach(function(x){
