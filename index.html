@@ -4594,6 +4594,21 @@ body.gx-dragging,body.gx-dragging *{cursor:grabbing!important}
 .gx-ult .adm-pill{grid-area:s;justify-self:start;margin-top:4px;background:rgba(120,90,105,.07)}
 @media (max-width:1100px){.gx-ult{grid-template-columns:1fr 1fr}}
 @media (max-width:600px){.gx-ult{grid-template-columns:1fr}#p-gestao .gx-k2 b{font-size:1.2rem!important}#p-gestao .gx-k2{padding:12px 14px!important}}
+
+/* lista de colaboradores: nome e detalhes ocupam a largura toda; o perfil
+   desce para baixo do nome; editar/remover ficam alinhados à direita */
+#p-gestao #eqList .adm-li{display:grid;grid-template-columns:34px minmax(0,1fr) 30px 30px;grid-template-areas:"av info ed rm" "av pf ed rm";
+  column-gap:10px;row-gap:6px;align-items:start}
+#p-gestao #eqList .adm-li>.adm-av{grid-area:av}
+#p-gestao #eqList .adm-li>div{grid-area:info}
+#p-gestao #eqList .adm-li>.adm-pill{grid-area:pf;justify-self:start;white-space:nowrap;background:rgba(120,90,105,.08)}
+#p-gestao #eqList .adm-li>button:nth-of-type(1){grid-area:ed}
+#p-gestao #eqList .adm-li>button:nth-of-type(2){grid-area:rm}
+#p-gestao #eqList .adm-li small{line-height:1.4;overflow-wrap:anywhere}
+#p-gestao #eqList .adm-li.ed{margin:0 -10px;padding:11px 10px}
+/* "Acessando como": o seletor fica transparente dentro da pílula de vidro */
+#p-gestao .adm-as select{background-color:transparent!important;border:0!important;box-shadow:none!important}
+#p-gestao .adm-av{background:rgba(136,19,68,.1)!important;color:var(--a-wine)!important}
 </style>
 </head>
 <body>
